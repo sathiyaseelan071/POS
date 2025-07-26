@@ -54,8 +54,6 @@ namespace VegetableBox
                 this.clsFrmProduct = new ClsFrmVendorMaster();
                 this.clsFrmProduct.GetMasterData();
 
-                FillControls.ComboBoxFill(this.CmbCategoryType, this.clsFrmProduct.CategoryMaster, "Code", "Name", false, "");
-                FillControls.ComboBoxFill(this.CmbQtyType, this.clsFrmProduct.QuantityMaster, "Code", "Name", false, "");
                 FillControls.ComboBoxFill(this.CmbActive, this.clsFrmProduct.YesNoMaster, "Code", "Name", false, "");
 
                 FillControls.ComboBoxFill(this.CmbFilterCategoryType, this.clsFrmProduct.CategoryMaster, "Code", "Name", true, "All");
@@ -75,8 +73,6 @@ namespace VegetableBox
                 this.TxtProductName.Tag = null;
                 this.TxtProductName.Text = string.Empty;
                 this.TxtProductAlternateName.Text = string.Empty;
-                this.CmbCategoryType.SelectedIndex = 0;
-                this.CmbQtyType.SelectedIndex = 0;
                 this.TxtBarcode.Text = string.Empty;
                 this.CmbActive.SelectedIndex = 0;
                 this.ErrorProvider.Clear();
@@ -323,8 +319,6 @@ namespace VegetableBox
                 clsFrmProduct.ProductCode = this.TxtProductName.Tag != null ? (int)this.TxtProductName.Tag : 0;
                 clsFrmProduct.ProductName = this.TxtProductName.Text.Trim();
                 clsFrmProduct.ProductAlternateName = this.TxtProductAlternateName.Text.Trim();
-                clsFrmProduct.CategoryTypeCode = Convert.ToInt32(this.CmbCategoryType.SelectedValue);
-                clsFrmProduct.QuantityTypeCode = Convert.ToInt32(this.CmbQtyType.SelectedValue);
                 clsFrmProduct.BarCode = this.TxtBarcode.Text.Trim();
                 clsFrmProduct.ActiveStatus = (string)this.CmbActive.SelectedValue;
 
@@ -365,18 +359,6 @@ namespace VegetableBox
                 if (string.IsNullOrEmpty(this.TxtProductAlternateName.Text.Trim()))
                 {
                     this.ErrorProvider.SetError(this.TxtProductAlternateName, "Please enter the product alternaive name...");
-                    IsValid = false;
-                }
-
-                if (this.CmbCategoryType.SelectedValue == null || this.CmbCategoryType.SelectedValue.ToString() == string.Empty)
-                {
-                    this.ErrorProvider.SetError(this.CmbCategoryType, "Please select the product category type...");
-                    IsValid = false;
-                }
-
-                if (this.CmbQtyType.SelectedValue == null || this.CmbQtyType.SelectedValue.ToString() == string.Empty)
-                {
-                    this.ErrorProvider.SetError(this.CmbQtyType, "Please select the product quantity type...");
                     IsValid = false;
                 }
 
@@ -467,8 +449,6 @@ namespace VegetableBox
                         this.TxtProductName.Tag = Convert.ToInt32(_DataRow[ProductTable.ColumnName.Code]);
                         this.TxtProductName.Text = _DataRow[ProductTable.ColumnName.Name].ToString();
                         this.TxtProductAlternateName.Text = _DataRow[ProductTable.ColumnName.AlternativeName].ToString();
-                        this.CmbCategoryType.SelectedValue = _DataRow[ProductTable.ColumnName.CatCode].ToString();
-                        this.CmbQtyType.SelectedValue = _DataRow[ProductTable.ColumnName.QtyTypeCode].ToString();
                         this.TxtBarcode.Text = _DataRow[ProductTable.ColumnName.BarCode].ToString();
                         this.CmbActive.SelectedValue = _DataRow[ProductTable.ColumnName.ActiveStatusCode].ToString();
 
