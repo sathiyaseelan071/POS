@@ -31,20 +31,20 @@ Go
 --------------
 
 CREATE TABLE Vendor(
-    SNo INT IDENTITY(1,1) ,           
-    Code INT PRIMARY KEY NOT NULL,               
+    [SNo] INT IDENTITY(1,1) ,           
+    [Code] INT PRIMARY KEY NOT NULL,               
     [Name] VARCHAR(100) NOT NULL,               
-    ShortName VARCHAR(100) NOT NULL,                      
-    MobileNo BIGINT,                             
+    [ShortName] VARCHAR(100) NOT NULL,                      
+    [MobileNo] BIGINT,                             
     [Address] VARCHAR(200),
 	
-    Active CHAR(1) DEFAULT 'Y',                  
-    CreatedBy INT NOT NULL,                      
-    CreatedDate DATETIME,      
-    LastUpdatedBy INT,                           
-    LastUpdatedDate DATETIME,                    
-    FOREIGN KEY (CreatedBy) REFERENCES [USER](Code),
-    FOREIGN KEY (LastUpdatedBy) REFERENCES [USER](Code)
+    [Active] CHAR(1) DEFAULT 'Y',                  
+    [CreatedBy] INT NOT NULL,                      
+    [CreatedDate] DATETIME,      
+    [LastUpdatedBy] INT,                           
+    [LastUpdatedDate] DATETIME,                    
+    FOREIGN KEY ([CreatedBy]) REFERENCES [USER]([Code]),
+    FOREIGN KEY ([LastUpdatedBy]) REFERENCES [USER]([Code])
 )
 
 --------------
