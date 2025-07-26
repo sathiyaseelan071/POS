@@ -1,4 +1,3 @@
 /.vs
-/Source/.vs/VegetableBox
-/Source/VegetableBox/obj
-/Source/VegetableBox/bin
+/obj
+/bin
