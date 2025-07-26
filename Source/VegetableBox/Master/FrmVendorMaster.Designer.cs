@@ -36,16 +36,12 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             LblProductName = new Label();
             LblProductAlternateName = new Label();
-            LblCategoryType = new Label();
-            LblQtyType = new Label();
             LblActive = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
             BtnSave = new Button();
             BtnCancel = new Button();
             TxtProductName = new TextBox();
             TxtProductAlternateName = new TextBox();
-            CmbCategoryType = new ComboBox();
-            CmbQtyType = new ComboBox();
             CmbActive = new ComboBox();
             label1 = new Label();
             TxtBarcode = new TextBox();
@@ -124,14 +120,10 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2.9896667F));
             tableLayoutPanel1.Controls.Add(LblProductName, 1, 1);
             tableLayoutPanel1.Controls.Add(LblProductAlternateName, 1, 3);
-            tableLayoutPanel1.Controls.Add(LblCategoryType, 1, 4);
-            tableLayoutPanel1.Controls.Add(LblQtyType, 1, 5);
             tableLayoutPanel1.Controls.Add(LblActive, 1, 8);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 2, 9);
             tableLayoutPanel1.Controls.Add(TxtProductName, 2, 1);
             tableLayoutPanel1.Controls.Add(TxtProductAlternateName, 2, 3);
-            tableLayoutPanel1.Controls.Add(CmbCategoryType, 2, 4);
-            tableLayoutPanel1.Controls.Add(CmbQtyType, 2, 5);
             tableLayoutPanel1.Controls.Add(CmbActive, 2, 8);
             tableLayoutPanel1.Controls.Add(label1, 1, 7);
             tableLayoutPanel1.Controls.Add(TxtBarcode, 2, 7);
@@ -175,28 +167,6 @@
             LblProductAlternateName.Size = new Size(172, 19);
             LblProductAlternateName.TabIndex = 4;
             LblProductAlternateName.Text = "Alternate Name";
-            // 
-            // LblCategoryType
-            // 
-            LblCategoryType.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblCategoryType.AutoSize = true;
-            LblCategoryType.ForeColor = Color.FromArgb(163, 0, 34);
-            LblCategoryType.Location = new Point(7, 130);
-            LblCategoryType.Name = "LblCategoryType";
-            LblCategoryType.Size = new Size(172, 19);
-            LblCategoryType.TabIndex = 6;
-            LblCategoryType.Text = "Category Type";
-            // 
-            // LblQtyType
-            // 
-            LblQtyType.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblQtyType.AutoSize = true;
-            LblQtyType.ForeColor = Color.FromArgb(163, 0, 34);
-            LblQtyType.Location = new Point(7, 170);
-            LblQtyType.Name = "LblQtyType";
-            LblQtyType.Size = new Size(172, 19);
-            LblQtyType.TabIndex = 8;
-            LblQtyType.Text = "QauntityType";
             // 
             // LblActive
             // 
@@ -281,36 +251,6 @@
             TxtProductAlternateName.Enter += TextBox_Enter;
             TxtProductAlternateName.Leave += TextBox_Leave;
             // 
-            // CmbCategoryType
-            // 
-            CmbCategoryType.Anchor = AnchorStyles.Left;
-            CmbCategoryType.BackColor = Color.White;
-            CmbCategoryType.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbCategoryType.FlatStyle = FlatStyle.Flat;
-            CmbCategoryType.ForeColor = Color.DarkGreen;
-            CmbCategoryType.FormattingEnabled = true;
-            CmbCategoryType.Location = new Point(185, 128);
-            CmbCategoryType.Name = "CmbCategoryType";
-            CmbCategoryType.Size = new Size(121, 27);
-            CmbCategoryType.TabIndex = 7;
-            CmbCategoryType.Enter += ComboBox_Enter;
-            CmbCategoryType.Leave += ComboBox_Leave;
-            // 
-            // CmbQtyType
-            // 
-            CmbQtyType.Anchor = AnchorStyles.Left;
-            CmbQtyType.BackColor = Color.White;
-            CmbQtyType.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbQtyType.FlatStyle = FlatStyle.Flat;
-            CmbQtyType.ForeColor = Color.DarkGreen;
-            CmbQtyType.FormattingEnabled = true;
-            CmbQtyType.Location = new Point(185, 168);
-            CmbQtyType.Name = "CmbQtyType";
-            CmbQtyType.Size = new Size(121, 27);
-            CmbQtyType.TabIndex = 9;
-            CmbQtyType.Enter += ComboBox_Enter;
-            CmbQtyType.Leave += ComboBox_Leave;
-            // 
             // CmbActive
             // 
             CmbActive.Anchor = AnchorStyles.Left;
@@ -319,7 +259,7 @@
             CmbActive.FlatStyle = FlatStyle.Flat;
             CmbActive.ForeColor = Color.DarkGreen;
             CmbActive.FormattingEnabled = true;
-            CmbActive.Location = new Point(185, 288);
+            CmbActive.Location = new Point(185, 286);
             CmbActive.Name = "CmbActive";
             CmbActive.Size = new Size(121, 27);
             CmbActive.TabIndex = 15;
@@ -554,7 +494,7 @@
             CmbFilterCategoryType.FlatStyle = FlatStyle.Flat;
             CmbFilterCategoryType.ForeColor = Color.DarkGreen;
             CmbFilterCategoryType.FormattingEnabled = true;
-            CmbFilterCategoryType.Location = new Point(176, 28);
+            CmbFilterCategoryType.Location = new Point(176, 30);
             CmbFilterCategoryType.Name = "CmbFilterCategoryType";
             CmbFilterCategoryType.Size = new Size(145, 27);
             CmbFilterCategoryType.TabIndex = 2;
@@ -570,7 +510,7 @@
             CmbFilterQtyType.FlatStyle = FlatStyle.Flat;
             CmbFilterQtyType.ForeColor = Color.DarkGreen;
             CmbFilterQtyType.FormattingEnabled = true;
-            CmbFilterQtyType.Location = new Point(500, 28);
+            CmbFilterQtyType.Location = new Point(500, 30);
             CmbFilterQtyType.Name = "CmbFilterQtyType";
             CmbFilterQtyType.Size = new Size(145, 27);
             CmbFilterQtyType.TabIndex = 4;
@@ -597,7 +537,7 @@
             CmbFilterActive.FlatStyle = FlatStyle.Flat;
             CmbFilterActive.ForeColor = Color.DarkGreen;
             CmbFilterActive.FormattingEnabled = true;
-            CmbFilterActive.Location = new Point(176, 71);
+            CmbFilterActive.Location = new Point(176, 73);
             CmbFilterActive.Name = "CmbFilterActive";
             CmbFilterActive.Size = new Size(145, 27);
             CmbFilterActive.TabIndex = 6;
@@ -689,16 +629,12 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Label LblProductName;
         private Label LblProductAlternateName;
-        private Label LblCategoryType;
-        private Label LblQtyType;
         private Label LblActive;
         private TableLayoutPanel tableLayoutPanel2;
         private Button BtnSave;
         private Button BtnCancel;
         private TextBox TxtProductName;
         private TextBox TxtProductAlternateName;
-        private ComboBox CmbCategoryType;
-        private ComboBox CmbQtyType;
         private ComboBox CmbActive;
         private DataGridView DGView;
         private Panel panel2;
