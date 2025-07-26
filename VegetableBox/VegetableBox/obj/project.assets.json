@@ -1887,11 +1887,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\VegetableBox.csproj",
+      "projectUniqueName": "C:\\Sathiyaseelan\\GitHub\\POS\\VegetableBox\\VegetableBox\\VegetableBox.csproj",
       "projectName": "VegetableBox",
-      "projectPath": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\VegetableBox.csproj",
+      "projectPath": "C:\\Sathiyaseelan\\GitHub\\POS\\VegetableBox\\VegetableBox\\VegetableBox.csproj",
       "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\obj\\",
+      "outputPath": "C:\\Sathiyaseelan\\GitHub\\POS\\VegetableBox\\VegetableBox\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -162,7 +162,7 @@ namespace VegetableBox
         {
             try
             {
-                FrmProduct frmProduct = new FrmProduct();
+                FrmVendorMaster frmProduct = new FrmVendorMaster();
                 this.ShowForm(frmProduct);
             }
             catch (Exception ex)

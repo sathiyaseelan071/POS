@@ -7,6 +7,9 @@
     <Compile Update="FrmExpenseEntry.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmPurchaseEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -22,10 +25,10 @@
     <Compile Update="FrmRateMaster.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmProduct.cs">
+    <Compile Update="FrmPos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmPos.cs">
+    <Compile Update="Master\FrmVendorMaster.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="MdiVegetableBox.cs">

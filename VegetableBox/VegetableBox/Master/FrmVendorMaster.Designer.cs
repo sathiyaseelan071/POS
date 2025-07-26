@@ -1,6 +1,6 @@
 ﻿namespace VegetableBox
 {
-    partial class FrmProduct
+    partial class FrmVendorMaster
     {
         /// <summary>
         /// Required designer variable.
@@ -35,7 +35,6 @@
             panel1 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             LblProductName = new Label();
-            LblProductTName = new Label();
             LblProductAlternateName = new Label();
             LblCategoryType = new Label();
             LblQtyType = new Label();
@@ -45,7 +44,6 @@
             BtnSave = new Button();
             BtnCancel = new Button();
             TxtProductName = new TextBox();
-            TxtProductTamilName = new TextBox();
             TxtProductAlternateName = new TextBox();
             CmbCategoryType = new ComboBox();
             CmbQtyType = new ComboBox();
@@ -127,7 +125,6 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55.8970032F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2.9896667F));
             tableLayoutPanel1.Controls.Add(LblProductName, 1, 1);
-            tableLayoutPanel1.Controls.Add(LblProductTName, 1, 2);
             tableLayoutPanel1.Controls.Add(LblProductAlternateName, 1, 3);
             tableLayoutPanel1.Controls.Add(LblCategoryType, 1, 4);
             tableLayoutPanel1.Controls.Add(LblQtyType, 1, 5);
@@ -135,7 +132,6 @@
             tableLayoutPanel1.Controls.Add(LblActive, 1, 8);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 2, 9);
             tableLayoutPanel1.Controls.Add(TxtProductName, 2, 1);
-            tableLayoutPanel1.Controls.Add(TxtProductTamilName, 2, 2);
             tableLayoutPanel1.Controls.Add(TxtProductAlternateName, 2, 3);
             tableLayoutPanel1.Controls.Add(CmbCategoryType, 2, 4);
             tableLayoutPanel1.Controls.Add(CmbQtyType, 2, 5);
@@ -172,17 +168,6 @@
             LblProductName.Size = new Size(172, 19);
             LblProductName.TabIndex = 0;
             LblProductName.Text = "Product Name";
-            // 
-            // LblProductTName
-            // 
-            LblProductTName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblProductTName.AutoSize = true;
-            LblProductTName.ForeColor = Color.FromArgb(163, 0, 34);
-            LblProductTName.Location = new Point(7, 50);
-            LblProductTName.Name = "LblProductTName";
-            LblProductTName.Size = new Size(172, 19);
-            LblProductTName.TabIndex = 2;
-            LblProductTName.Text = "Product Tamil Name";
             // 
             // LblProductAlternateName
             // 
@@ -297,21 +282,6 @@
             TxtProductName.TextChanged += TxtProductName_TextChanged;
             TxtProductName.Enter += TextBox_Enter;
             TxtProductName.Leave += TextBox_Leave;
-            // 
-            // TxtProductTamilName
-            // 
-            TxtProductTamilName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtProductTamilName.BackColor = Color.White;
-            TxtProductTamilName.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            TxtProductTamilName.ForeColor = Color.DarkGreen;
-            TxtProductTamilName.Location = new Point(185, 49);
-            TxtProductTamilName.MaxLength = 50;
-            TxtProductTamilName.Name = "TxtProductTamilName";
-            TxtProductTamilName.Size = new Size(242, 21);
-            TxtProductTamilName.TabIndex = 3;
-            TxtProductTamilName.Enter += TextBox_Enter;
-            TxtProductTamilName.Leave += TextBox_Leave;
-            TxtProductTamilName.Validating += TxtProductTamilName_Validating;
             // 
             // TxtProductAlternateName
             // 
@@ -709,7 +679,7 @@
             ErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
             ErrorProvider.ContainerControl = this;
             // 
-            // FrmProduct
+            // FrmVendorMaster
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -720,7 +690,7 @@
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
             Margin = new Padding(3, 4, 3, 4);
-            Name = "FrmProduct";
+            Name = "FrmVendorMaster";
             Text = "Product - Master";
             Activated += FrmProduct_Activated;
             Load += FrmProduct_Load;
@@ -748,7 +718,6 @@
         private Panel panel1;
         private TableLayoutPanel tableLayoutPanel1;
         private Label LblProductName;
-        private Label LblProductTName;
         private Label LblProductAlternateName;
         private Label LblCategoryType;
         private Label LblQtyType;
@@ -758,7 +727,6 @@
         private Button BtnSave;
         private Button BtnCancel;
         private TextBox TxtProductName;
-        private TextBox TxtProductTamilName;
         private TextBox TxtProductAlternateName;
         private ComboBox CmbCategoryType;
         private ComboBox CmbQtyType;

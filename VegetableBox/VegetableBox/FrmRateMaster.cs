@@ -67,7 +67,6 @@ namespace VegetableBox
 
                 FillControls.ComboBoxFill(this.CmbFilterCategoryType, this.clsFrmRateMaster.CategoryMaster, "Code", "Name", true, "All");
                 FillControls.ComboBoxFill(this.CmbFilterQtyType, this.clsFrmRateMaster.QuantityMaster, "Code", "Name", true, "All");
-                FillControls.ComboBoxFill(this.CmbBulkCatType, this.clsFrmRateMaster.CategoryMaster, "Code", "Name", true, "-- Select --");
             }
             catch
             {
@@ -82,7 +81,6 @@ namespace VegetableBox
                 this.CmbFilterCategoryType.SelectedIndex = 0;
                 this.CmbFilterQtyType.SelectedIndex = 0;
                 this.TxtFilterProduct.Text = string.Empty;
-                this.CmbBulkCatType.SelectedIndex = 0;
                 clsFrmRateMaster.View();
                 DGView.DataSource = clsFrmRateMaster.RateMaster.Copy();
                 this.SetGridStyle();
