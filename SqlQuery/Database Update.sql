@@ -4,8 +4,8 @@ BEGIN TRAN
 
 BEGIN TRY
 
-	Insert into RateMaster(ProductCode, BuyRate, SellMarginPercentage, SellRate, CreatedBy, CreatedDateTime)
-	Select ProductCode, BuyRate, SellMarginPercentage, SellRate, CreatedBy, GETDATE() From @UDT_RateMaster AS R1
+	INSERT INTO RateMaster(ProductCode, BuyRate, SellMarginPercentage, SellRate, CreatedBy, CreatedDateTime)
+	SELECT ProductCode, BuyRate, SellMarginPercentage, SellRate, CreatedBy, GETDATE() FROM @UDT_RateMaster AS R1
 	WHERE NOT EXISTS (SELECT ProductCode FROM RateMaster AS R2 WHERE R1.ProductCode = R2.ProductCode)
 
 	UPDATE R SET 
@@ -67,15 +67,93 @@ VALUES (@Code, @Name, @ShortName, @MobileNo, @Address,
 Go
 --------------
 
-CREATE PROC [dbo].[SpUpdateVendor](@Code int, @Name VARCHAR(100), @ShortName VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
-@Active VARCHAR(50), @LastUpdatedBy int)
+CREATE PROC [dbo].[SpUpdateVendor](@Code INT, @Name VARCHAR(100), @ShortName VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
+@Active VARCHAR(50), @LastUpdatedBy INT)
 As
-Update [Vendor] set [Name]=@Name, [ShortName]=@ShortName, [MobileNo]=@MobileNo, [Address]=@Address, 
-[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDate]=GetDate()
-Where [Code] = @Code
+UPDATE [Vendor] SET [Name]=@Name, [ShortName]=@ShortName, [MobileNo]=@MobileNo, [Address]=@Address, 
+[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDate]=GETDATE()
+WHERE [Code] = @Code
 
 --------------
 Go
 --------------
 
+CREATE TABLE [Customer](
+    [SNo] INT IDENTITY(1,1) ,           
+    [Code] INT PRIMARY KEY NOT NULL,               
+    [Name] VARCHAR(100) NOT NULL,                     
+    [MobileNo] BIGINT,
+    [Address] VARCHAR(200),
+	
+    [Active] CHAR(1) DEFAULT 'Y',                  
+    [CreatedBy] INT NOT NULL,                      
+    [CreatedDate] DATETIME,      
+    [LastUpdatedBy] INT,                           
+    [LastUpdatedDate] DATETIME,                    
+    FOREIGN KEY ([CreatedBy]) REFERENCES [USER]([Code]),
+    FOREIGN KEY ([LastUpdatedBy]) REFERENCES [USER]([Code])
+)
 
+--------------
+Go
+--------------
+
+CREATE PROC [dbo].[SpSaveCustomer](@Name VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
+@Active VARCHAR(50), @CreatedBy INT, @LastUpdatedBy INT)
+As
+
+DECLARE @Code INT
+SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [Customer])
+
+INSERT INTO [Customer]([Code],[Name],[MobileNo],[Address],
+[Active],[CreatedBy],[CreatedDate],[LastUpdatedBy],[LastUpdatedDate])
+VALUES (@Code, @Name, @MobileNo, @Address, 
+@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE())
+
+--------------
+Go
+--------------
+
+CREATE PROC [dbo].[SpUpdateCustomer](@Code INT, @Name VARCHAR(100), @ShortName VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
+@Active VARCHAR(50), @LastUpdatedBy INT)
+As
+UPDATE [Customer] SET [Name]=@Name, [MobileNo]=@MobileNo, [Address]=@Address, 
+[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDate]=GETDATE()
+WHERE [Code] = @Code
+
+--------------
+Go
+--------------
+
+ALTER TABLE [User] ADD [Password] VARCHAR(15)
+
+--------------
+Go
+--------------
+
+CREATE PROC [dbo].[SpSaveUser](@Name VARCHAR(100), @Password VARCHAR(15), 
+@Active VARCHAR(50), @CreatedBy INT, @LastUpdatedBy INT)
+As
+
+DECLARE @Code INT
+SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [User])
+
+INSERT INTO [User]([Code],[Name],[Password],
+[Active],[CreatedBy],[CreatedDateTime],[LastUpdatedBy],[LastUpdatedDateTime])
+VALUES (@Code, @Name, @Password,
+@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE())
+
+--------------
+Go
+--------------
+
+CREATE PROC [dbo].[SpUpdateUser](@Code INT, @Name VARCHAR(100), @Password VARCHAR(15), 
+@Active VARCHAR(50), @LastUpdatedBy INT)
+As
+UPDATE [User] SET [Name]=@Name, [Password]=@Password, 
+[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDateTime]=GETDATE()
+WHERE [Code] = @Code
+
+--------------
+Go
+--------------
