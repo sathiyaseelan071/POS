@@ -1,0 +1,9 @@
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net5.0-windows\VegetableBox.csproj.AssemblyReference.cache
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net5.0-windows\VegetableBox.FrmProduct.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net5.0-windows\VegetableBox.MdiVegetableBox.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net5.0-windows\VegetableBox.Properties.Resources.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net5.0-windows\VegetableBox.csproj.GenerateResource.cache
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net5.0-windows\VegetableBox.GeneratedMSBuildEditorConfig.editorconfig
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net5.0-windows\VegetableBox.AssemblyInfoInputs.cache
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net5.0-windows\VegetableBox.AssemblyInfo.cs
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net5.0-windows\VegetableBox.csproj.CoreCompileInputs.cache
