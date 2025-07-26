@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WoQ0kAYFtJo=",
+  "dgSpecHash": "3/Wq92xmYgQ=",
   "success": true,
-  "projectFilePath": "C:\\Sathiyaseelan\\GitHub\\POS\\VegetableBox\\VegetableBox.csproj",
+  "projectFilePath": "C:\\Sathiyaseelan\\GitHub\\POS\\Source\\VegetableBox\\VegetableBox.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\runtime.android-arm.runtime.native.system.io.ports\\9.0.7\\runtime.android-arm.runtime.native.system.io.ports.9.0.7.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\runtime.android-arm64.runtime.native.system.io.ports\\9.0.7\\runtime.android-arm64.runtime.native.system.io.ports.9.0.7.nupkg.sha512",

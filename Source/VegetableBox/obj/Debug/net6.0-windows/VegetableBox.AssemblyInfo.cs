@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VegetableBox")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ac4f626bd44191d5872a8e5f5e54ec765447120")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80f4a074305febd87014aa48c9ce46fcd9c28b19")]
 [assembly: System.Reflection.AssemblyProductAttribute("VegetableBox")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VegetableBox")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
