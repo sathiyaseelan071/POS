@@ -1,0 +1,274 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\global.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\global.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\frmpurchaseentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\frmpurchaseentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\clsprint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\clsprint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\clsfrmtagprint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\clsfrmtagprint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\sqlintract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\sqlintract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\frmratemaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\frmratemaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\clsfrmreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\clsfrmreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\clsfrmreprint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\clsfrmreprint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\clsfrmpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\clsfrmpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\frmtagprint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\frmtagprint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\frmproductratecorrection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\frmproductratecorrection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|c:\\users\\admin\\downloads\\vegetablebox\\vegetablebox\\vegetablebox\\frmpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\frmpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\vegetablebox\\frmpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{640B9907-5DF3-458A-A9A1-7940D8793E0D}|VegetableBox\\VegetableBox.csproj|solutionrelative:vegetablebox\\frmpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\Program.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\Program.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\Program.cs",
+              "RelativeToolTip": "VegetableBox\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:30:31.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SqlIntract.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\SqlIntract.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\SqlIntract.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\SqlIntract.cs",
+              "RelativeToolTip": "VegetableBox\\SqlIntract.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAgwBAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:29:32.999Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Master.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\Master.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\Master.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\Master.cs",
+              "RelativeToolTip": "VegetableBox\\Master.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:29:26.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FrmRateMaster.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmRateMaster.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\FrmRateMaster.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmRateMaster.cs",
+              "RelativeToolTip": "VegetableBox\\FrmRateMaster.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:29:18.314Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ClsFrmReport.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\ClsFrmReport.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\ClsFrmReport.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\ClsFrmReport.cs",
+              "RelativeToolTip": "VegetableBox\\ClsFrmReport.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:29:11.554Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ClsFrmRePrint.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\ClsFrmRePrint.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\ClsFrmRePrint.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\ClsFrmRePrint.cs",
+              "RelativeToolTip": "VegetableBox\\ClsFrmRePrint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:29:05.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FrmPurchaseEntry.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmPurchaseEntry.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\FrmPurchaseEntry.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmPurchaseEntry.cs",
+              "RelativeToolTip": "VegetableBox\\FrmPurchaseEntry.cs",
+              "ViewState": "AgIAAL8BAAAAAAAAAAAUwNMBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:28:40.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClsPrint.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\ClsPrint.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\ClsPrint.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\ClsPrint.cs",
+              "RelativeToolTip": "VegetableBox\\ClsPrint.cs",
+              "ViewState": "AgIAAOUBAAAAAAAAAAAAwPQBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:27:53.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ClsFrmTagPrint.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\ClsFrmTagPrint.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\ClsFrmTagPrint.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\ClsFrmTagPrint.cs",
+              "RelativeToolTip": "VegetableBox\\ClsFrmTagPrint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:27:53.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Global.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\Global.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\Global.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\Global.cs",
+              "RelativeToolTip": "VegetableBox\\Global.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:27:53.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "FrmTagPrint.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmTagPrint.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\FrmTagPrint.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmTagPrint.cs",
+              "RelativeToolTip": "VegetableBox\\FrmTagPrint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:28:47.838Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "FrmProductRateCorrection.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmProductRateCorrection.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\FrmProductRateCorrection.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmProductRateCorrection.cs",
+              "RelativeToolTip": "VegetableBox\\FrmProductRateCorrection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:28:32.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ClsFrmPos.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\ClsFrmPos.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\ClsFrmPos.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\ClsFrmPos.cs",
+              "RelativeToolTip": "VegetableBox\\ClsFrmPos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:27:53.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "FrmPos.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmPos.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\FrmPos.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmPos.cs",
+              "RelativeToolTip": "VegetableBox\\FrmPos.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAYwEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:27:53.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "FrmPos.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmPos.cs",
+              "RelativeDocumentMoniker": "VegetableBox\\FrmPos.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Downloads\\VegetableBox\\VegetableBox\\VegetableBox\\FrmPos.cs [Design]",
+              "RelativeToolTip": "VegetableBox\\FrmPos.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T17:27:54.218Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

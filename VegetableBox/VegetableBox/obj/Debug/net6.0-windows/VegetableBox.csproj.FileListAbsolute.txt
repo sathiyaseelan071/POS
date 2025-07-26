@@ -1,0 +1,379 @@
+E:\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.exe
+E:\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.deps.json
+E:\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.runtimeconfig.json
+E:\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.dll
+E:\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.pdb
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.AssemblyReference.cache
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProduct.resources
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.MdiVegetableBox.resources
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.Properties.Resources.resources
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.GenerateResource.cache
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.GeneratedMSBuildEditorConfig.editorconfig
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfoInputs.cache
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfo.cs
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.CoreCompileInputs.cache
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.dll
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\refint\VegetableBox.dll
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.pdb
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.genruntimeconfig.cache
+E:\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\ref\VegetableBox.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.exe
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.deps.json
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.runtimeconfig.json
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.pdb
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Azure.Core.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Azure.Identity.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Data.SqlClient.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Memory.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Identity.Client.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Abstractions.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Logging.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Tokens.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.SqlServer.Server.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.IdentityModel.Tokens.Jwt.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Memory.Data.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Runtime.Caching.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.AssemblyReference.cache
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmCreditDebitMaster.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmExpenseEntry.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmPos.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProduct.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProductRateCorrection.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmPurchaseEntry.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmRateMaster.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmReport.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmRePrint.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.MdiVegetableBox.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.Properties.Resources.resources
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.GenerateResource.cache
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.GeneratedMSBuildEditorConfig.editorconfig
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfoInputs.cache
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfo.cs
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.CoreCompileInputs.cache
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.CopyComplete
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.dll
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\refint\VegetableBox.dll
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.pdb
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.genruntimeconfig.cache
+E:\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\ref\VegetableBox.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.exe
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.deps.json
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.runtimeconfig.json
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.pdb
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Azure.Core.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Azure.Identity.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Identity.Client.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Logging.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Tokens.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.SqlServer.Server.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.IO.Ports.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Memory.Data.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Runtime.Caching.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-arm\native\libSystem.IO.Ports.Native.so
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-arm64\native\libSystem.IO.Ports.Native.so
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libSystem.IO.Ports.Native.so
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\osx-arm64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\osx-x64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\net6.0\System.IO.Ports.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.IO.Ports.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.AssemblyReference.cache
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmCreditDebitMaster.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmExpenseEntry.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmPos.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProduct.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProductRateCorrection.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmPurchaseEntry.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmRateMaster.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmReport.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmRePrint.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmTagPrint.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.MdiVegetableBox.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.Properties.Resources.resources
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.GenerateResource.cache
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfoInputs.cache
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfo.cs
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.CoreCompileInputs.cache
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.CopyComplete
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\refint\VegetableBox.dll
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.pdb
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.genruntimeconfig.cache
+C:\Users\lenovo\Desktop\Sathiyaseelan Don't Delete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\ref\VegetableBox.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.exe
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.deps.json
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.runtimeconfig.json
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.pdb
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Azure.Core.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Azure.Identity.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Identity.Client.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Logging.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Tokens.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.SqlServer.Server.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.IO.Ports.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Memory.Data.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Runtime.Caching.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-arm\native\libSystem.IO.Ports.Native.so
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-arm64\native\libSystem.IO.Ports.Native.so
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libSystem.IO.Ports.Native.so
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\osx-arm64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\osx-x64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\net6.0\System.IO.Ports.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.IO.Ports.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.AssemblyReference.cache
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmCreditDebitMaster.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmExpenseEntry.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmPos.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProduct.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProductRateCorrection.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmPurchaseEntry.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmRateMaster.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmReport.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmRePrint.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmTagPrint.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.MdiVegetableBox.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.Properties.Resources.resources
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.GenerateResource.cache
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfoInputs.cache
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfo.cs
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.CoreCompileInputs.cache
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.CopyComplete
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\refint\VegetableBox.dll
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.pdb
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.genruntimeconfig.cache
+C:\Users\lenovo\Desktop\SathiyaseelanDonNotDelete\Source\VegetableBox_28092023\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\ref\VegetableBox.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.exe
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.deps.json
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.runtimeconfig.json
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.pdb
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Azure.Core.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Azure.Identity.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Data.SqlClient.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Memory.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Identity.Client.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Abstractions.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Logging.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Tokens.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\Microsoft.SqlServer.Server.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Configuration.ConfigurationManager.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.IdentityModel.Tokens.Jwt.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.IO.Ports.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Memory.Data.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Runtime.Caching.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-arm\native\libSystem.IO.Ports.Native.so
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-arm64\native\libSystem.IO.Ports.Native.so
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libSystem.IO.Ports.Native.so
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\osx-arm64\native\libSystem.IO.Ports.Native.dylib
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\osx-x64\native\libSystem.IO.Ports.Native.dylib
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\net6.0\System.IO.Ports.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.IO.Ports.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.AssemblyReference.cache
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmCreditDebitMaster.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmExpenseEntry.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmPos.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProduct.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProductRateCorrection.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmPurchaseEntry.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmRateMaster.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmReport.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmRePrint.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmTagPrint.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.MdiVegetableBox.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.Properties.Resources.resources
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.GenerateResource.cache
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.GeneratedMSBuildEditorConfig.editorconfig
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfoInputs.cache
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfo.cs
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.CoreCompileInputs.cache
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.CopyComplete
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\refint\VegetableBox.dll
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.pdb
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.genruntimeconfig.cache
+E:\VBMain\Final\Source\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\ref\VegetableBox.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.exe
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.deps.json
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.runtimeconfig.json
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\VegetableBox.pdb
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\System.IO.Ports.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\android-arm\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\android-arm64\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\android-x64\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\android-x86\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-arm\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-arm64\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-bionic-arm64\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-bionic-x64\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-musl-arm\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-musl-arm64\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-musl-x64\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libSystem.IO.Ports.Native.so
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\maccatalyst-arm64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\maccatalyst-x64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\osx-arm64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\osx-x64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\unix\lib\net6.0\System.Data.SqlClient.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Data.SqlClient.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.AssemblyReference.cache
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmCreditDebitMaster.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmExpenseEntry.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmPos.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProduct.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmProductRateCorrection.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmPurchaseEntry.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmRateMaster.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmReport.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmRePrint.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.FrmTagPrint.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.MdiVegetableBox.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.Properties.Resources.resources
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.GenerateResource.cache
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfoInputs.cache
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.AssemblyInfo.cs
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\Vegetabl.4674AFBF.Up2Date
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\refint\VegetableBox.dll
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.pdb
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\VegetableBox.genruntimeconfig.cache
+C:\Users\ADMIN\Downloads\VegetableBox\VegetableBox\VegetableBox\obj\Debug\net6.0-windows\ref\VegetableBox.dll
