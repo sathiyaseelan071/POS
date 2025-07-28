@@ -162,7 +162,7 @@ namespace VegetableBox
         {
             try
             {
-                FrmVendorMaster frmProduct = new FrmVendorMaster();
+                FrmProduct frmProduct = new FrmProduct();
                 this.ShowForm(frmProduct);
             }
             catch (Exception ex)
@@ -255,6 +255,58 @@ namespace VegetableBox
             {
                 FrmTagPrint frmTagPrint = new FrmTagPrint();
                 this.ShowForm(frmTagPrint);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ToolStripMenuItem_UserMaster_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //FrmTagPrint frmTagPrint = new FrmTagPrint();
+                //this.ShowForm(frmTagPrint);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ToolStripMenuItem_VendorMaster_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmVendorMaster frmVendorMaster = new FrmVendorMaster();
+                this.ShowForm(frmVendorMaster);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ToolStripMenuItem_CustomerMaster_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //FrmTagPrint frmTagPrint = new FrmTagPrint();
+                //this.ShowForm(frmTagPrint);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ToolStripMenuItem_ExpenseMaster_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //FrmTagPrint frmTagPrint = new FrmTagPrint();
+                //this.ShowForm(frmTagPrint);
             }
             catch (Exception ex)
             {
