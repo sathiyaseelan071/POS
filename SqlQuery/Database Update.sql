@@ -78,6 +78,21 @@ WHERE [Code] = @Code
 Go
 --------------
 
+CREATE alter PROC [dbo].[SpGetVendorMaster]
+AS
+
+SELECT V.SNo, V.[Code], V.[Name], V.[ShortName], V.[MobileNo], V.[Address],
+V.[Active] AS ActiveStatusCode, (CASE WHEN V.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
+CU.[Name] AS CreatedBy, V.[CreatedDate], UU.[Name] AS LastUpdatedBy, V.[LastUpdatedDate]
+FROM [Vendor] AS V
+Left Join [User] AS CU ON V.[CreatedBy] = CU.[Code]
+Left Join [User] AS UU ON V.[LastUpdatedBy] = UU.[Code]
+ORDER BY V.SNo DESC
+
+--------------
+Go
+--------------
+
 CREATE TABLE [Customer](
     [SNo] INT IDENTITY(1,1) ,           
     [Code] INT PRIMARY KEY NOT NULL,               
@@ -157,3 +172,6 @@ WHERE [Code] = @Code
 --------------
 Go
 --------------
+
+
+

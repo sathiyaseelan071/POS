@@ -37,11 +37,16 @@
             ToolStripMenuItem_Master = new ToolStripMenuItem();
             ToolStripMenuItem_ProductMaster = new ToolStripMenuItem();
             ToolStripMenuItem_RateMaster = new ToolStripMenuItem();
+            ToolStripMenuItem_UserMaster = new ToolStripMenuItem();
+            ToolStripMenuItem_VendorMaster = new ToolStripMenuItem();
+            ToolStripMenuItem_CustomerMaster = new ToolStripMenuItem();
+            ToolStripMenuItem_ExpenseMaster = new ToolStripMenuItem();
             ToolStripMenuItem_Billing = new ToolStripMenuItem();
             pOSToolStripMenuItem = new ToolStripMenuItem();
             rePrintToolStripMenuItem = new ToolStripMenuItem();
             ToolStripMenuItem_Order = new ToolStripMenuItem();
             purchaseEntryToolStripMenuItem = new ToolStripMenuItem();
+            tagPrintToolStripMenuItem = new ToolStripMenuItem();
             ToolStripMenuItem_Accounts = new ToolStripMenuItem();
             expensesEntryToolStripMenuItem = new ToolStripMenuItem();
             ToolStripMenuItem_Reports = new ToolStripMenuItem();
@@ -57,7 +62,6 @@
             LblDate = new Label();
             LblTime = new Label();
             PicBoxCompanyLogo = new PictureBox();
-            tagPrintToolStripMenuItem = new ToolStripMenuItem();
             TlpMdiVegitableBox.SuspendLayout();
             TlpMain.SuspendLayout();
             TlpHeader.SuspendLayout();
@@ -141,7 +145,7 @@
             // 
             // ToolStripMenuItem_Master
             // 
-            ToolStripMenuItem_Master.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_ProductMaster, ToolStripMenuItem_RateMaster });
+            ToolStripMenuItem_Master.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_ProductMaster, ToolStripMenuItem_RateMaster, ToolStripMenuItem_UserMaster, ToolStripMenuItem_VendorMaster, ToolStripMenuItem_CustomerMaster, ToolStripMenuItem_ExpenseMaster });
             ToolStripMenuItem_Master.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_Master.ForeColor = Color.FromArgb(163, 0, 34);
             ToolStripMenuItem_Master.Name = "ToolStripMenuItem_Master";
@@ -153,7 +157,7 @@
             ToolStripMenuItem_ProductMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_ProductMaster.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_ProductMaster.Name = "ToolStripMenuItem_ProductMaster";
-            ToolStripMenuItem_ProductMaster.Size = new Size(186, 24);
+            ToolStripMenuItem_ProductMaster.Size = new Size(196, 24);
             ToolStripMenuItem_ProductMaster.Text = "Product Master";
             ToolStripMenuItem_ProductMaster.Click += ToolStripMenuItem_ProductMaster_Click;
             // 
@@ -162,9 +166,45 @@
             ToolStripMenuItem_RateMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_RateMaster.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_RateMaster.Name = "ToolStripMenuItem_RateMaster";
-            ToolStripMenuItem_RateMaster.Size = new Size(186, 24);
+            ToolStripMenuItem_RateMaster.Size = new Size(196, 24);
             ToolStripMenuItem_RateMaster.Text = "Rate Master";
             ToolStripMenuItem_RateMaster.Click += ToolStripMenuItem_RateMaster_Click;
+            // 
+            // ToolStripMenuItem_UserMaster
+            // 
+            ToolStripMenuItem_UserMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_UserMaster.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_UserMaster.Name = "ToolStripMenuItem_UserMaster";
+            ToolStripMenuItem_UserMaster.Size = new Size(196, 24);
+            ToolStripMenuItem_UserMaster.Text = "User Master";
+            ToolStripMenuItem_UserMaster.Click += ToolStripMenuItem_UserMaster_Click;
+            // 
+            // ToolStripMenuItem_VendorMaster
+            // 
+            ToolStripMenuItem_VendorMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_VendorMaster.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_VendorMaster.Name = "ToolStripMenuItem_VendorMaster";
+            ToolStripMenuItem_VendorMaster.Size = new Size(196, 24);
+            ToolStripMenuItem_VendorMaster.Text = "Vendor Master";
+            ToolStripMenuItem_VendorMaster.Click += ToolStripMenuItem_VendorMaster_Click;
+            // 
+            // ToolStripMenuItem_CustomerMaster
+            // 
+            ToolStripMenuItem_CustomerMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_CustomerMaster.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_CustomerMaster.Name = "ToolStripMenuItem_CustomerMaster";
+            ToolStripMenuItem_CustomerMaster.Size = new Size(196, 24);
+            ToolStripMenuItem_CustomerMaster.Text = "Customer Master";
+            ToolStripMenuItem_CustomerMaster.Click += ToolStripMenuItem_CustomerMaster_Click;
+            // 
+            // ToolStripMenuItem_ExpenseMaster
+            // 
+            ToolStripMenuItem_ExpenseMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_ExpenseMaster.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_ExpenseMaster.Name = "ToolStripMenuItem_ExpenseMaster";
+            ToolStripMenuItem_ExpenseMaster.Size = new Size(196, 24);
+            ToolStripMenuItem_ExpenseMaster.Text = "Expense Master";
+            ToolStripMenuItem_ExpenseMaster.Click += ToolStripMenuItem_ExpenseMaster_Click;
             // 
             // ToolStripMenuItem_Billing
             // 
@@ -210,6 +250,15 @@
             purchaseEntryToolStripMenuItem.Size = new Size(182, 24);
             purchaseEntryToolStripMenuItem.Text = "Purchase Entry";
             purchaseEntryToolStripMenuItem.Click += purchaseEntryToolStripMenuItem_Click;
+            // 
+            // tagPrintToolStripMenuItem
+            // 
+            tagPrintToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            tagPrintToolStripMenuItem.ForeColor = Color.DarkGreen;
+            tagPrintToolStripMenuItem.Name = "tagPrintToolStripMenuItem";
+            tagPrintToolStripMenuItem.Size = new Size(182, 24);
+            tagPrintToolStripMenuItem.Text = "&Tag Print";
+            tagPrintToolStripMenuItem.Click += tagPrintToolStripMenuItem_Click;
             // 
             // ToolStripMenuItem_Accounts
             // 
@@ -403,15 +452,6 @@
             PicBoxCompanyLogo.TabIndex = 2;
             PicBoxCompanyLogo.TabStop = false;
             // 
-            // tagPrintToolStripMenuItem
-            // 
-            tagPrintToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            tagPrintToolStripMenuItem.ForeColor = Color.DarkGreen;
-            tagPrintToolStripMenuItem.Name = "tagPrintToolStripMenuItem";
-            tagPrintToolStripMenuItem.Size = new Size(182, 24);
-            tagPrintToolStripMenuItem.Text = "&Tag Print";
-            tagPrintToolStripMenuItem.Click += tagPrintToolStripMenuItem_Click;
-            // 
             // MdiVegetableBox
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -476,5 +516,9 @@
         private ToolStripMenuItem purchaseReportToolStripMenuItem;
         private ToolStripMenuItem expensesEntryToolStripMenuItem;
         private ToolStripMenuItem tagPrintToolStripMenuItem;
+        private ToolStripMenuItem ToolStripMenuItem_UserMaster;
+        private ToolStripMenuItem ToolStripMenuItem_VendorMaster;
+        private ToolStripMenuItem ToolStripMenuItem_CustomerMaster;
+        private ToolStripMenuItem ToolStripMenuItem_ExpenseMaster;
     }
 }

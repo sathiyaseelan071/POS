@@ -12,20 +12,8 @@ namespace VegetableBox
     {
         #region "Master"
 
-        private DataTable _CategoryMaster = new DataTable();
-        private DataTable _QuantityMaster = new DataTable();
         private DataTable _YesNoMaster = new DataTable();
 
-        internal DataTable CategoryMaster
-        {
-            get { return _CategoryMaster; }
-            set { _CategoryMaster = value; }
-        }
-        internal DataTable QuantityMaster
-        {
-            get { return _QuantityMaster; }
-            set { _QuantityMaster = value; }
-        }
         internal DataTable YesNoMaster
         {
             get { return _YesNoMaster; }
@@ -36,10 +24,6 @@ namespace VegetableBox
         {
             try
             {
-                Master _Master = new Master();
-                this._CategoryMaster = _Master.GetCategoryMaster();
-                this._QuantityMaster = _Master.GetQuantityMaster();
-
                 DataTable _DataTable = new DataTable();
                 _DataTable.Columns.Add(new DataColumn("Code", typeof(string)));
                 _DataTable.Columns.Add(new DataColumn("Name", typeof(string)));
@@ -64,65 +48,44 @@ namespace VegetableBox
 
         #region "Save & View & Update"
 
-        private int _ProductCode = 0;
-        private string _ProductName = string.Empty;
-        private string _ProductTamilName = string.Empty;
-        private string _ProductAlternateName = string.Empty;
-        private int _CategoryTypeCode = 0;
-        private int _QuantityTypeCode = 0;
-        private string _CalcBasedOnRateMaster = string.Empty;
-        private string _BarCode = string.Empty;
+        private int _Code = 0;
+        private string _Name = string.Empty;
+        private string _ShortName = string.Empty;
+        private string _MobileNo = string.Empty;
+        private string _Address = string.Empty;
         private string _ActiveStatus = string.Empty;
 
-        internal int ProductCode
+        internal int Code
         {
-            get { return _ProductCode; }
-            set { _ProductCode = value; }
+            get { return _Code; }
+            set { _Code = value; }
         }
 
-        internal string ProductName
+        internal string Name
         {
-            get { return _ProductName; }
-            set { _ProductName = value; }
+            get { return _Name; }
+            set { _Name = value; }
         }
 
-        internal string ProductTamilName
+        internal string ShortName
         {
-            get { return _ProductTamilName; }
-            set { _ProductTamilName = value; }
+            get { return _ShortName; }
+            set { _ShortName = value; }
         }
 
-        internal string ProductAlternateName
+        internal string MobileNo
         {
-            get { return _ProductAlternateName; }
-            set { _ProductAlternateName = value; }
+            get { return _MobileNo; }
+            set { _MobileNo = value; }
         }
 
-        internal int CategoryTypeCode
+        internal string Address
         {
-            get { return _CategoryTypeCode; }
-            set { _CategoryTypeCode = value; }
+            get { return _Address; }
+            set { _Address = value; }
         }
 
-        internal int QuantityTypeCode
-        {
-            get { return _QuantityTypeCode; }
-            set { _QuantityTypeCode = value; }
-        }
-
-        internal string CalcBasedOnRateMaster
-        {
-            get { return _CalcBasedOnRateMaster; }
-            set { _CalcBasedOnRateMaster = value; }
-        }
-
-        internal string BarCode
-        {
-            get { return _BarCode; }
-            set { _BarCode = value; }
-        }
-
-        internal string ActiveStatus
+        internal string Active
         {
             get { return _ActiveStatus; }
             set { _ActiveStatus = value; }
@@ -134,17 +97,14 @@ namespace VegetableBox
             {
                 SqlIntract _SqlIntract = new SqlIntract();
 
-                String SqlQuery = "SpSaveProduct";
+                String SqlQuery = "SpSaveVendor";
 
                 List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
-                _ListSqlParameter.Add(new SqlParameter("@Name", this.ProductName));
-                _ListSqlParameter.Add(new SqlParameter("@TamilName", this.ProductTamilName));
-                _ListSqlParameter.Add(new SqlParameter("@AlternativeName", this.ProductAlternateName));
-                _ListSqlParameter.Add(new SqlParameter("@CatCode", this.CategoryTypeCode));
-                _ListSqlParameter.Add(new SqlParameter("@QtyTypeCode", this.QuantityTypeCode));
-                _ListSqlParameter.Add(new SqlParameter("@CalcBasedRateMast", this.CalcBasedOnRateMaster));
-                _ListSqlParameter.Add(new SqlParameter("@BarCode", this.BarCode));
-                _ListSqlParameter.Add(new SqlParameter("@Active", this.ActiveStatus));
+                _ListSqlParameter.Add(new SqlParameter("@Name", this.Name));
+                _ListSqlParameter.Add(new SqlParameter("@ShortName", this.ShortName));
+                _ListSqlParameter.Add(new SqlParameter("@MobileNo", this.MobileNo));
+                _ListSqlParameter.Add(new SqlParameter("@Address", this.Address));
+                _ListSqlParameter.Add(new SqlParameter("@Active", this.Active));
                 _ListSqlParameter.Add(new SqlParameter("@CreatedBy", Global.currentUserId));
                 _ListSqlParameter.Add(new SqlParameter("@LastUpdatedBy", Global.currentUserId));
 
@@ -162,18 +122,15 @@ namespace VegetableBox
             {
                 SqlIntract _SqlIntract = new SqlIntract();
 
-                String SqlQuery = "SpUpdateProduct";
+                String SqlQuery = "SpUpdateVendor";
 
                 List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
-                _ListSqlParameter.Add(new SqlParameter("@Code", this.ProductCode));
-                _ListSqlParameter.Add(new SqlParameter("@Name", this.ProductName));
-                _ListSqlParameter.Add(new SqlParameter("@TamilName", this.ProductTamilName));
-                _ListSqlParameter.Add(new SqlParameter("@AlternativeName", this.ProductAlternateName));
-                _ListSqlParameter.Add(new SqlParameter("@CatCode", this.CategoryTypeCode));
-                _ListSqlParameter.Add(new SqlParameter("@QtyTypeCode", this.QuantityTypeCode));
-                _ListSqlParameter.Add(new SqlParameter("@CalcBasedRateMast", this.CalcBasedOnRateMaster));
-                _ListSqlParameter.Add(new SqlParameter("@BarCode", this.BarCode));
-                _ListSqlParameter.Add(new SqlParameter("@Active", this.ActiveStatus));
+                _ListSqlParameter.Add(new SqlParameter("@Code", this.Code));
+                _ListSqlParameter.Add(new SqlParameter("@Name", this.Name));
+                _ListSqlParameter.Add(new SqlParameter("@ShortName", this.ShortName));
+                _ListSqlParameter.Add(new SqlParameter("@MobileNo", this.MobileNo));
+                _ListSqlParameter.Add(new SqlParameter("@Address", this.Address));
+                _ListSqlParameter.Add(new SqlParameter("@Active", this.Active));
                 _ListSqlParameter.Add(new SqlParameter("@LastUpdatedBy", Global.currentUserId));
 
                 int Result = _SqlIntract.ExecuteNonQuery(SqlQuery, CommandType.StoredProcedure, _ListSqlParameter);
@@ -184,11 +141,11 @@ namespace VegetableBox
             }
         }
 
-        private DataTable _ProductMaster = new DataTable();
-        internal DataTable ProductMaster
+        private DataTable _VendorMaster = new DataTable();
+        internal DataTable VendorMaster
         {
-            get { return _ProductMaster; }
-            set { _ProductMaster = value; }
+            get { return _VendorMaster; }
+            set { _VendorMaster = value; }
         }
 
         internal void View()
@@ -198,10 +155,10 @@ namespace VegetableBox
 
                 SqlIntract _SqlIntract = new SqlIntract();
 
-                String SqlQuery = "SpGetProduct";
+                String SqlQuery = "SpGetVendorMaster";
 
-                _ProductMaster = new DataTable();
-                _ProductMaster = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
+                _VendorMaster = new DataTable();
+                _VendorMaster = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
             }
             catch
             {
