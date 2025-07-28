@@ -11,8 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Master\Old\**" />
     <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="Master\Old\**" />
     <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="Master\Old\**" />
     <None Remove="NewFolder\**" />
   </ItemGroup>
 

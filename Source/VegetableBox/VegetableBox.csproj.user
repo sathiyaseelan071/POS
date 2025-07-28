@@ -28,7 +28,13 @@
     <Compile Update="FrmPos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Master\FrmVendorMaster.cs">
+    <Compile Update="Master\FrmCustomerMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Master\FrmUserMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Master\Old\FrmVendorMaster.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="MdiVegetableBox.cs">

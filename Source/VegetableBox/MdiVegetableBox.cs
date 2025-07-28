@@ -266,8 +266,8 @@ namespace VegetableBox
         {
             try
             {
-                //FrmTagPrint frmTagPrint = new FrmTagPrint();
-                //this.ShowForm(frmTagPrint);
+                FrmUserMaster frmUserMaster = new FrmUserMaster();
+                this.ShowForm(frmUserMaster);
             }
             catch (Exception ex)
             {
@@ -279,8 +279,8 @@ namespace VegetableBox
         {
             try
             {
-                FrmVendorMaster frmVendorMaster = new FrmVendorMaster();
-                this.ShowForm(frmVendorMaster);
+                //FrmVendorMaster frmVendorMaster = new FrmVendorMaster();
+                //this.ShowForm(frmVendorMaster);
             }
             catch (Exception ex)
             {
@@ -292,8 +292,8 @@ namespace VegetableBox
         {
             try
             {
-                //FrmTagPrint frmTagPrint = new FrmTagPrint();
-                //this.ShowForm(frmTagPrint);
+                FrmCustomerMaster frmCustomerMaster = new FrmCustomerMaster();
+                this.ShowForm(frmCustomerMaster);
             }
             catch (Exception ex)
             {

@@ -78,10 +78,10 @@ WHERE [Code] = @Code
 Go
 --------------
 
-CREATE alter PROC [dbo].[SpGetVendorMaster]
+CREATE PROC [dbo].[SpGetVendorMaster]
 AS
 
-SELECT V.SNo, V.[Code], V.[Name], V.[ShortName], V.[MobileNo], V.[Address],
+SELECT V.SNo, V.[Code], V.[Name], V.[ShortName], CAST(V.[MobileNo] AS VARCHAR) AS MobileNo, V.[Address],
 V.[Active] AS ActiveStatusCode, (CASE WHEN V.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
 CU.[Name] AS CreatedBy, V.[CreatedDate], UU.[Name] AS LastUpdatedBy, V.[LastUpdatedDate]
 FROM [Vendor] AS V
@@ -129,12 +129,27 @@ VALUES (@Code, @Name, @MobileNo, @Address,
 Go
 --------------
 
-CREATE PROC [dbo].[SpUpdateCustomer](@Code INT, @Name VARCHAR(100), @ShortName VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
+CREATE PROC [dbo].[SpUpdateCustomer](@Code INT, @Name VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
 @Active VARCHAR(50), @LastUpdatedBy INT)
 As
 UPDATE [Customer] SET [Name]=@Name, [MobileNo]=@MobileNo, [Address]=@Address, 
 [Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDate]=GETDATE()
 WHERE [Code] = @Code
+
+--------------
+Go
+--------------
+
+CREATE PROC [dbo].[SpGetCustomerMaster]
+AS
+
+SELECT C.SNo, C.[Code], C.[Name], CAST(C.[MobileNo] AS VARCHAR) AS MobileNo, C.[Address],
+C.[Active] AS ActiveStatusCode, (CASE WHEN C.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
+CU.[Name] AS CreatedBy, C.[CreatedDate], UU.[Name] AS LastUpdatedBy, C.[LastUpdatedDate]
+FROM [Customer] AS C
+Left Join [User] AS CU ON C.[CreatedBy] = CU.[Code]
+Left Join [User] AS UU ON C.[LastUpdatedBy] = UU.[Code]
+ORDER BY C.SNo DESC
 
 --------------
 Go
@@ -168,6 +183,21 @@ As
 UPDATE [User] SET [Name]=@Name, [Password]=@Password, 
 [Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDateTime]=GETDATE()
 WHERE [Code] = @Code
+
+--------------
+Go
+--------------
+
+CREATE PROC [dbo].[SpGetUser]
+AS
+
+SELECT C.SNo, C.[Code], C.[Name], C.[Password],
+C.[Active] AS ActiveStatusCode, (CASE WHEN C.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
+CU.[Name] AS CreatedBy, C.[CreatedDateTime] AS CreatedDate, UU.[Name] AS LastUpdatedBy, C.[LastUpdatedDateTime] AS LastUpdatedDate
+FROM [User] AS C
+Left Join [User] AS CU ON C.[CreatedBy] = CU.[Code]
+Left Join [User] AS UU ON C.[LastUpdatedBy] = UU.[Code]
+ORDER BY C.SNo DESC
 
 --------------
 Go
