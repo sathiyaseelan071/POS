@@ -15,6 +15,8 @@ namespace VegetableBox
     public partial class FrmCustomerMaster : Form
     {
         ClsFrmCustomerMaster clsFrmCustomerMaster = new ClsFrmCustomerMaster();
+        public Boolean IsChildForm = false;
+
         public FrmCustomerMaster()
         {
             InitializeComponent();
@@ -24,8 +26,16 @@ namespace VegetableBox
         {
             try
             {
-                if (Global.mdiVegetableBox != null)
-                    Global.mdiVegetableBox.CloseForm(this);
+                if (IsChildForm)
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.IsChildForm = false;
+                }
+                else
+                {
+                    if (Global.mdiVegetableBox != null)
+                        Global.mdiVegetableBox.CloseForm(this);
+                }
             }
             catch (Exception ex)
             {
@@ -37,6 +47,15 @@ namespace VegetableBox
         {
             try
             {
+                if (IsChildForm)
+                {
+                    this.TlpForm.BackColor = Color.PaleVioletRed;
+                }
+                else
+                {
+                    this.TlpForm.BackColor = Color.WhiteSmoke;
+                }
+
                 this.LoadControls();
                 this.ClearEntry();
                 this.ClearView();
@@ -283,6 +302,12 @@ namespace VegetableBox
                 clsFrmCustomerMaster.MobileNo = this.TxtMobileNo.Text.Trim();
                 clsFrmCustomerMaster.Address = this.TxtAddress.Text.Trim();
                 clsFrmCustomerMaster.Active = (string)this.CmbActive.SelectedValue;
+
+                if(clsFrmCustomerMaster.GetRecordCount() >= 1)
+                {
+                    this.ErrorProvider.SetError(this.TxtCustomerName, "Customer Name already exists. Please enter a different name.");
+                    throw new Exception("Customer Name already exists. Please enter a different name.");
+                }
 
                 if (BtnSave.Text.ToUpper() == "&SAVE")
                 {

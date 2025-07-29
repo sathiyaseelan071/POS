@@ -61,6 +61,7 @@
             CmbFilterActive = new ComboBox();
             LblFilterActive = new Label();
             ErrorProvider = new ErrorProvider(components);
+            TlpForm = new TableLayoutPanel();
             TlpMain.SuspendLayout();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -72,10 +73,12 @@
             PanelFilter.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ErrorProvider).BeginInit();
+            TlpForm.SuspendLayout();
             SuspendLayout();
             // 
             // TlpMain
             // 
+            TlpMain.BackColor = SystemColors.Control;
             TlpMain.ColumnCount = 4;
             TlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.9933658F));
             TlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34.36868F));
@@ -84,16 +87,17 @@
             TlpMain.Controls.Add(panel1, 1, 2);
             TlpMain.Controls.Add(panel2, 2, 1);
             TlpMain.Dock = DockStyle.Fill;
-            TlpMain.Location = new Point(0, 0);
-            TlpMain.Margin = new Padding(3, 4, 3, 4);
+            TlpMain.ForeColor = SystemColors.ControlText;
+            TlpMain.Location = new Point(5, 5);
+            TlpMain.Margin = new Padding(5);
             TlpMain.Name = "TlpMain";
             TlpMain.RowCount = 5;
-            TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 2.93153F));
-            TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 24.3903351F));
-            TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 45.35627F));
-            TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 24.3903351F));
-            TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 2.93153071F));
-            TlpMain.Size = new Size(1448, 717);
+            TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 7.86933374F));
+            TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 21.1320019F));
+            TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 44.6154556F));
+            TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 18.51388F));
+            TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 7.86933374F));
+            TlpMain.Size = new Size(1129, 520);
             TlpMain.TabIndex = 0;
             // 
             // panel1
@@ -101,10 +105,10 @@
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(17, 199);
+            panel1.Location = new Point(14, 153);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(491, 317);
+            panel1.Size = new Size(382, 224);
             panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -113,7 +117,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3.0226233F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 93.95475F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3.02262378F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3.022624F));
             tableLayoutPanel1.Controls.Add(LblVendorName, 1, 1);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 2, 6);
             tableLayoutPanel1.Controls.Add(TxtCustomerName, 2, 1);
@@ -128,15 +132,15 @@
             tableLayoutPanel1.Margin = new Padding(3, 4, 3, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 8;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 2.016268F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.6941681F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.6941681F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.6941681F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.6878433F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.69418F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5029478F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 2.01626754F));
-            tableLayoutPanel1.Size = new Size(489, 315);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 1.93523848F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.0232639F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.0232639F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.0232639F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.0171947F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.0232754F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.0192642F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 1.935238F));
+            tableLayoutPanel1.Size = new Size(380, 222);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // LblVendorName
@@ -144,7 +148,7 @@
             LblVendorName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblVendorName.AutoSize = true;
             LblVendorName.ForeColor = Color.FromArgb(163, 0, 34);
-            LblVendorName.Location = new Point(13, 22);
+            LblVendorName.Location = new Point(10, 12);
             LblVendorName.Name = "LblVendorName";
             LblVendorName.Size = new Size(126, 19);
             LblVendorName.TabIndex = 0;
@@ -159,40 +163,38 @@
             tableLayoutPanel2.Controls.Add(BtnSave, 1, 0);
             tableLayoutPanel2.Controls.Add(BtnCancel, 2, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(142, 266);
+            tableLayoutPanel2.Location = new Point(139, 179);
             tableLayoutPanel2.Margin = new Padding(0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(335, 39);
+            tableLayoutPanel2.Size = new Size(233, 35);
             tableLayoutPanel2.TabIndex = 10;
             // 
             // BtnSave
             // 
-            BtnSave.BackColor = Color.SeaGreen;
+            BtnSave.BackColor = SystemColors.Control;
             BtnSave.Dock = DockStyle.Fill;
-            BtnSave.FlatStyle = FlatStyle.Popup;
-            BtnSave.ForeColor = Color.White;
-            BtnSave.Location = new Point(63, 3);
+            BtnSave.ForeColor = Color.DarkGreen;
+            BtnSave.Location = new Point(45, 3);
             BtnSave.Name = "BtnSave";
-            BtnSave.Size = new Size(131, 33);
+            BtnSave.Size = new Size(89, 29);
             BtnSave.TabIndex = 0;
             BtnSave.Text = "&Save";
-            BtnSave.UseVisualStyleBackColor = false;
+            BtnSave.UseVisualStyleBackColor = true;
             BtnSave.Click += BtnSave_Click;
             // 
             // BtnCancel
             // 
             BtnCancel.BackColor = Color.SeaGreen;
             BtnCancel.Dock = DockStyle.Fill;
-            BtnCancel.FlatStyle = FlatStyle.Popup;
-            BtnCancel.ForeColor = Color.White;
-            BtnCancel.Location = new Point(200, 3);
+            BtnCancel.ForeColor = Color.Red;
+            BtnCancel.Location = new Point(140, 3);
             BtnCancel.Name = "BtnCancel";
-            BtnCancel.Size = new Size(132, 33);
+            BtnCancel.Size = new Size(90, 29);
             BtnCancel.TabIndex = 1;
             BtnCancel.Text = "&Cancel";
-            BtnCancel.UseVisualStyleBackColor = false;
+            BtnCancel.UseVisualStyleBackColor = true;
             BtnCancel.Click += BtnCancel_Click;
             // 
             // TxtCustomerName
@@ -200,10 +202,10 @@
             TxtCustomerName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCustomerName.BackColor = Color.White;
             TxtCustomerName.ForeColor = Color.DarkGreen;
-            TxtCustomerName.Location = new Point(145, 18);
+            TxtCustomerName.Location = new Point(142, 8);
             TxtCustomerName.MaxLength = 100;
             TxtCustomerName.Name = "TxtCustomerName";
-            TxtCustomerName.Size = new Size(329, 27);
+            TxtCustomerName.Size = new Size(227, 27);
             TxtCustomerName.TabIndex = 1;
             TxtCustomerName.Enter += TextBox_Enter;
             TxtCustomerName.Leave += TextBox_Leave;
@@ -213,7 +215,7 @@
             LblMobileNo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblMobileNo.AutoSize = true;
             LblMobileNo.ForeColor = Color.FromArgb(163, 0, 34);
-            LblMobileNo.Location = new Point(13, 74);
+            LblMobileNo.Location = new Point(10, 47);
             LblMobileNo.Name = "LblMobileNo";
             LblMobileNo.Size = new Size(126, 19);
             LblMobileNo.TabIndex = 4;
@@ -224,10 +226,10 @@
             TxtMobileNo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtMobileNo.BackColor = Color.White;
             TxtMobileNo.ForeColor = Color.DarkGreen;
-            TxtMobileNo.Location = new Point(145, 70);
+            TxtMobileNo.Location = new Point(142, 43);
             TxtMobileNo.MaxLength = 10;
             TxtMobileNo.Name = "TxtMobileNo";
-            TxtMobileNo.Size = new Size(329, 27);
+            TxtMobileNo.Size = new Size(227, 27);
             TxtMobileNo.TabIndex = 5;
             TxtMobileNo.Enter += TextBox_Enter;
             TxtMobileNo.KeyPress += Number_KeyPress;
@@ -238,7 +240,7 @@
             LblAddress.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblAddress.AutoSize = true;
             LblAddress.ForeColor = Color.FromArgb(163, 0, 34);
-            LblAddress.Location = new Point(13, 126);
+            LblAddress.Location = new Point(10, 82);
             LblAddress.Name = "LblAddress";
             LblAddress.Size = new Size(126, 19);
             LblAddress.TabIndex = 6;
@@ -249,10 +251,10 @@
             TxtAddress.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtAddress.BackColor = Color.White;
             TxtAddress.ForeColor = Color.DarkGreen;
-            TxtAddress.Location = new Point(145, 122);
+            TxtAddress.Location = new Point(142, 78);
             TxtAddress.MaxLength = 200;
             TxtAddress.Name = "TxtAddress";
-            TxtAddress.Size = new Size(329, 27);
+            TxtAddress.Size = new Size(227, 27);
             TxtAddress.TabIndex = 7;
             TxtAddress.Enter += TextBox_Enter;
             TxtAddress.Leave += TextBox_Leave;
@@ -262,7 +264,7 @@
             LblActive.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblActive.AutoSize = true;
             LblActive.ForeColor = Color.FromArgb(163, 0, 34);
-            LblActive.Location = new Point(13, 178);
+            LblActive.Location = new Point(10, 117);
             LblActive.Name = "LblActive";
             LblActive.Size = new Size(126, 19);
             LblActive.TabIndex = 8;
@@ -276,7 +278,7 @@
             CmbActive.FlatStyle = FlatStyle.Flat;
             CmbActive.ForeColor = Color.DarkGreen;
             CmbActive.FormattingEnabled = true;
-            CmbActive.Location = new Point(145, 174);
+            CmbActive.Location = new Point(142, 115);
             CmbActive.Name = "CmbActive";
             CmbActive.Size = new Size(121, 27);
             CmbActive.TabIndex = 9;
@@ -288,10 +290,10 @@
             panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(tableLayoutPanel3);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(514, 24);
+            panel2.Location = new Point(402, 43);
             panel2.Name = "panel2";
             TlpMain.SetRowSpan(panel2, 3);
-            panel2.Size = new Size(915, 667);
+            panel2.Size = new Size(712, 431);
             panel2.TabIndex = 3;
             // 
             // tableLayoutPanel3
@@ -306,9 +308,9 @@
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 3;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 16.3909779F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 76.54135F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 7F));
-            tableLayoutPanel3.Size = new Size(913, 665);
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 73.93939F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 9.69697F));
+            tableLayoutPanel3.Size = new Size(710, 429);
             tableLayoutPanel3.TabIndex = 0;
             // 
             // DGView
@@ -318,7 +320,7 @@
             DGView.BackgroundColor = SystemColors.Control;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             dataGridViewCellStyle1.ForeColor = Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(224, 224, 224);
             dataGridViewCellStyle1.SelectionForeColor = Color.Black;
@@ -327,21 +329,21 @@
             DGView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(224, 224, 224);
             dataGridViewCellStyle2.SelectionForeColor = Color.ForestGreen;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             DGView.DefaultCellStyle = dataGridViewCellStyle2;
             DGView.Dock = DockStyle.Fill;
-            DGView.Location = new Point(5, 112);
+            DGView.Location = new Point(5, 73);
             DGView.Margin = new Padding(5, 3, 3, 3);
             DGView.MultiSelect = false;
             DGView.Name = "DGView";
             DGView.ReadOnly = true;
             DGView.RowHeadersVisible = false;
             DGView.RowTemplate.Height = 25;
-            DGView.Size = new Size(905, 503);
+            DGView.Size = new Size(702, 311);
             DGView.TabIndex = 0;
             DGView.CellEnter += DGView_CellEnter;
             // 
@@ -357,53 +359,50 @@
             tableLayoutPanel4.Controls.Add(BtnDelete, 1, 0);
             tableLayoutPanel4.Controls.Add(LblHelp, 0, 0);
             tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(3, 621);
+            tableLayoutPanel4.Location = new Point(3, 390);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel4.Size = new Size(907, 41);
+            tableLayoutPanel4.Size = new Size(704, 36);
             tableLayoutPanel4.TabIndex = 1;
             // 
             // BtnExit
             // 
             BtnExit.BackColor = Color.SeaGreen;
             BtnExit.Dock = DockStyle.Fill;
-            BtnExit.FlatStyle = FlatStyle.Popup;
-            BtnExit.ForeColor = Color.White;
-            BtnExit.Location = new Point(812, 3);
+            BtnExit.ForeColor = Color.Crimson;
+            BtnExit.Location = new Point(630, 3);
             BtnExit.Name = "BtnExit";
-            BtnExit.Size = new Size(92, 35);
+            BtnExit.Size = new Size(71, 30);
             BtnExit.TabIndex = 3;
             BtnExit.Text = "E&xit";
-            BtnExit.UseVisualStyleBackColor = false;
+            BtnExit.UseVisualStyleBackColor = true;
             BtnExit.Click += BtnExit_Click;
             // 
             // BtnEdit
             // 
             BtnEdit.BackColor = Color.SeaGreen;
             BtnEdit.Dock = DockStyle.Fill;
-            BtnEdit.FlatStyle = FlatStyle.Popup;
-            BtnEdit.ForeColor = Color.White;
-            BtnEdit.Location = new Point(716, 3);
+            BtnEdit.ForeColor = Color.Brown;
+            BtnEdit.Location = new Point(556, 3);
             BtnEdit.Name = "BtnEdit";
-            BtnEdit.Size = new Size(90, 35);
+            BtnEdit.Size = new Size(68, 30);
             BtnEdit.TabIndex = 2;
             BtnEdit.Text = "&Edit";
-            BtnEdit.UseVisualStyleBackColor = false;
+            BtnEdit.UseVisualStyleBackColor = true;
             BtnEdit.Click += BtnEdit_Click;
             // 
             // BtnDelete
             // 
             BtnDelete.BackColor = Color.SeaGreen;
             BtnDelete.Dock = DockStyle.Fill;
-            BtnDelete.FlatStyle = FlatStyle.Popup;
-            BtnDelete.ForeColor = Color.White;
-            BtnDelete.Location = new Point(620, 3);
+            BtnDelete.ForeColor = Color.IndianRed;
+            BtnDelete.Location = new Point(482, 3);
             BtnDelete.Name = "BtnDelete";
-            BtnDelete.Size = new Size(90, 35);
+            BtnDelete.Size = new Size(68, 30);
             BtnDelete.TabIndex = 1;
-            BtnDelete.Text = "Delete";
-            BtnDelete.UseVisualStyleBackColor = false;
+            BtnDelete.Text = "&Delete";
+            BtnDelete.UseVisualStyleBackColor = true;
             BtnDelete.Visible = false;
             // 
             // LblHelp
@@ -411,9 +410,10 @@
             LblHelp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblHelp.AutoSize = true;
             LblHelp.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LblHelp.Location = new Point(3, 13);
+            LblHelp.ForeColor = Color.DarkRed;
+            LblHelp.Location = new Point(3, 10);
             LblHelp.Name = "LblHelp";
-            LblHelp.Size = new Size(611, 15);
+            LblHelp.Size = new Size(473, 15);
             LblHelp.TabIndex = 0;
             LblHelp.Text = "Focus : Ctrl + G => Grid View && F1 => Filter";
             // 
@@ -424,7 +424,7 @@
             PanelFilter.Dock = DockStyle.Fill;
             PanelFilter.Location = new Point(3, 3);
             PanelFilter.Name = "PanelFilter";
-            PanelFilter.Size = new Size(907, 103);
+            PanelFilter.Size = new Size(704, 64);
             PanelFilter.TabIndex = 0;
             // 
             // tableLayoutPanel5
@@ -451,7 +451,7 @@
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 26.1744957F));
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 52.34899F));
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 10.7382565F));
-            tableLayoutPanel5.Size = new Size(905, 101);
+            tableLayoutPanel5.Size = new Size(702, 62);
             tableLayoutPanel5.TabIndex = 0;
             // 
             // LblFilters
@@ -461,9 +461,9 @@
             tableLayoutPanel5.SetColumnSpan(LblFilters, 2);
             LblFilters.Font = new Font("Calibri", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
             LblFilters.ForeColor = Color.DarkGreen;
-            LblFilters.Location = new Point(3, 13);
+            LblFilters.Location = new Point(3, 6);
             LblFilters.Name = "LblFilters";
-            LblFilters.Size = new Size(149, 19);
+            LblFilters.Size = new Size(142, 16);
             LblFilters.TabIndex = 0;
             LblFilters.Text = "Filters";
             // 
@@ -472,7 +472,7 @@
             LblFilterVendor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblFilterVendor.AutoSize = true;
             LblFilterVendor.ForeColor = Color.FromArgb(163, 0, 34);
-            LblFilterVendor.Location = new Point(28, 52);
+            LblFilterVendor.Location = new Point(21, 28);
             LblFilterVendor.Name = "LblFilterVendor";
             LblFilterVendor.Size = new Size(124, 19);
             LblFilterVendor.TabIndex = 1;
@@ -484,10 +484,10 @@
             TxtFilterVendor.BackColor = Color.White;
             tableLayoutPanel5.SetColumnSpan(TxtFilterVendor, 2);
             TxtFilterVendor.ForeColor = Color.DarkGreen;
-            TxtFilterVendor.Location = new Point(158, 48);
+            TxtFilterVendor.Location = new Point(151, 25);
             TxtFilterVendor.MaxLength = 25;
             TxtFilterVendor.Name = "TxtFilterVendor";
-            TxtFilterVendor.Size = new Size(384, 27);
+            TxtFilterVendor.Size = new Size(274, 27);
             TxtFilterVendor.TabIndex = 2;
             TxtFilterVendor.TextChanged += TxtFilterProduct_TextChanged;
             TxtFilterVendor.Enter += TextBox_Enter;
@@ -501,9 +501,9 @@
             CmbFilterActive.FlatStyle = FlatStyle.Flat;
             CmbFilterActive.ForeColor = Color.DarkGreen;
             CmbFilterActive.FormattingEnabled = true;
-            CmbFilterActive.Location = new Point(636, 50);
+            CmbFilterActive.Location = new Point(510, 26);
             CmbFilterActive.Name = "CmbFilterActive";
-            CmbFilterActive.Size = new Size(113, 27);
+            CmbFilterActive.Size = new Size(79, 27);
             CmbFilterActive.TabIndex = 4;
             CmbFilterActive.SelectedIndexChanged += CmbFilterQtyType_SelectedIndexChanged;
             CmbFilterActive.Enter += ComboBox_Enter;
@@ -514,7 +514,7 @@
             LblFilterActive.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblFilterActive.AutoSize = true;
             LblFilterActive.ForeColor = Color.FromArgb(163, 0, 34);
-            LblFilterActive.Location = new Point(579, 52);
+            LblFilterActive.Location = new Point(453, 28);
             LblFilterActive.Name = "LblFilterActive";
             LblFilterActive.Size = new Size(51, 19);
             LblFilterActive.TabIndex = 3;
@@ -525,18 +525,36 @@
             ErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
             ErrorProvider.ContainerControl = this;
             // 
+            // TlpForm
+            // 
+            TlpForm.BackColor = Color.WhiteSmoke;
+            TlpForm.ColumnCount = 1;
+            TlpForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TlpForm.Controls.Add(TlpMain, 0, 0);
+            TlpForm.Dock = DockStyle.Fill;
+            TlpForm.ForeColor = SystemColors.ControlText;
+            TlpForm.Location = new Point(5, 5);
+            TlpForm.Name = "TlpForm";
+            TlpForm.RowCount = 1;
+            TlpForm.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TlpForm.Size = new Size(1139, 530);
+            TlpForm.TabIndex = 1;
+            // 
             // FrmCustomerMaster
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1448, 717);
-            Controls.Add(TlpMain);
+            BackColor = SystemColors.Control;
+            ClientSize = new Size(1149, 540);
+            Controls.Add(TlpForm);
             Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ForeColor = Color.Black;
+            ForeColor = Color.FromArgb(0, 64, 0);
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
             Margin = new Padding(3, 4, 3, 4);
             Name = "FrmCustomerMaster";
+            Padding = new Padding(5);
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Customer - Master";
             Activated += FrmCustomerMaster_Activated;
             Load += FrmCustomerMaster_Load;
@@ -555,6 +573,7 @@
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ErrorProvider).EndInit();
+            TlpForm.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -590,5 +609,6 @@
         private TextBox TxtMobileNo;
         private Label LblAddress;
         private TextBox TxtAddress;
+        private TableLayoutPanel TlpForm;
     }
 }
