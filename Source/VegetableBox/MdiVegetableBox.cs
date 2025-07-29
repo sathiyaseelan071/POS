@@ -240,7 +240,7 @@ namespace VegetableBox
         {
             try
             {
-                FrmExpenseEntry frmExpenseEntry = new FrmExpenseEntry();
+                FrmCustomerCreditDebit frmExpenseEntry = new FrmCustomerCreditDebit();
                 this.ShowForm(frmExpenseEntry);
             }
             catch (Exception ex)
@@ -279,8 +279,8 @@ namespace VegetableBox
         {
             try
             {
-                //FrmVendorMaster frmVendorMaster = new FrmVendorMaster();
-                //this.ShowForm(frmVendorMaster);
+                FrmVendorMaster frmVendorMaster = new FrmVendorMaster();
+                this.ShowForm(frmVendorMaster);
             }
             catch (Exception ex)
             {
@@ -305,8 +305,21 @@ namespace VegetableBox
         {
             try
             {
-                //FrmTagPrint frmTagPrint = new FrmTagPrint();
-                //this.ShowForm(frmTagPrint);
+                FrmExpenseMaster frmFrmExpenseMaster = new FrmExpenseMaster();
+                this.ShowForm(frmFrmExpenseMaster);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ToolStripMenuItem_CustomerCreditDebit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmCustomerCreditDebit frmCustomerCreditDebit = new FrmCustomerCreditDebit();
+                this.ShowForm(frmCustomerCreditDebit);
             }
             catch (Exception ex)
             {

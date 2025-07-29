@@ -49,6 +49,7 @@
             tagPrintToolStripMenuItem = new ToolStripMenuItem();
             ToolStripMenuItem_Accounts = new ToolStripMenuItem();
             expensesEntryToolStripMenuItem = new ToolStripMenuItem();
+            ToolStripMenuItem_CustomerCreditDebit = new ToolStripMenuItem();
             ToolStripMenuItem_Reports = new ToolStripMenuItem();
             purchaseReportToolStripMenuItem = new ToolStripMenuItem();
             LblFormHeader = new Label();
@@ -262,7 +263,7 @@
             // 
             // ToolStripMenuItem_Accounts
             // 
-            ToolStripMenuItem_Accounts.DropDownItems.AddRange(new ToolStripItem[] { expensesEntryToolStripMenuItem });
+            ToolStripMenuItem_Accounts.DropDownItems.AddRange(new ToolStripItem[] { expensesEntryToolStripMenuItem, ToolStripMenuItem_CustomerCreditDebit });
             ToolStripMenuItem_Accounts.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_Accounts.ForeColor = Color.FromArgb(163, 0, 34);
             ToolStripMenuItem_Accounts.Name = "ToolStripMenuItem_Accounts";
@@ -277,6 +278,15 @@
             expensesEntryToolStripMenuItem.Size = new Size(259, 24);
             expensesEntryToolStripMenuItem.Text = "Income and Expense Entry";
             expensesEntryToolStripMenuItem.Click += expensesEntryToolStripMenuItem_Click;
+            // 
+            // ToolStripMenuItem_CustomerCreditDebit
+            // 
+            ToolStripMenuItem_CustomerCreditDebit.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_CustomerCreditDebit.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_CustomerCreditDebit.Name = "ToolStripMenuItem_CustomerCreditDebit";
+            ToolStripMenuItem_CustomerCreditDebit.Size = new Size(259, 24);
+            ToolStripMenuItem_CustomerCreditDebit.Text = "Customer (Credit/Debit)";
+            ToolStripMenuItem_CustomerCreditDebit.Click += ToolStripMenuItem_CustomerCreditDebit_Click;
             // 
             // ToolStripMenuItem_Reports
             // 
@@ -520,5 +530,6 @@
         private ToolStripMenuItem ToolStripMenuItem_VendorMaster;
         private ToolStripMenuItem ToolStripMenuItem_CustomerMaster;
         private ToolStripMenuItem ToolStripMenuItem_ExpenseMaster;
+        private ToolStripMenuItem ToolStripMenuItem_CustomerCreditDebit;
     }
 }

@@ -62,5 +62,42 @@ namespace VegetableBox
                 throw;
             }
         }
+
+        internal DataTable GetCustomerMaster()
+        {
+            try
+            {
+                DataTable _Result = new DataTable();
+                String _SqlQuery = "Select [Code], [Name] From [Customer] Where Isnull([Active],'') = 'Y' Order By [Name]";
+
+                SqlIntract _SqlIntract = new SqlIntract();
+                _Result = _SqlIntract.ExecuteDataTable(_SqlQuery, CommandType.Text, null);
+
+                return _Result;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        internal DataTable GetPaymentTypeMaster()
+        {
+            try
+            {
+                DataTable _Result = new DataTable();
+                String _SqlQuery = "Select [Code], [Name] From [PaymentType] Where Isnull([Active],'') = 'Y' Order By [Name]";
+
+                SqlIntract _SqlIntract = new SqlIntract();
+                _Result = _SqlIntract.ExecuteDataTable(_SqlQuery, CommandType.Text, null);
+
+                return _Result;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
     }
 }

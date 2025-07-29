@@ -4,7 +4,7 @@
     <Compile Update="FrmCreditDebitMaster.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmExpenseEntry.cs">
+    <Compile Update="Accounts\FrmCustomerCreditDebit.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmProduct.cs">
@@ -34,7 +34,10 @@
     <Compile Update="Master\FrmUserMaster.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Master\Old\FrmVendorMaster.cs">
+    <Compile Update="Master\FrmExpenseMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Master\FrmVendorMaster.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="MdiVegetableBox.cs">

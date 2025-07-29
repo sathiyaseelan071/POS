@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace VegetableBox
 {
-    internal class ClsFrmCustomerMaster
+    internal class ClsFrmExpenseMaster
     {
         #region "Master"
 
@@ -50,8 +50,6 @@ namespace VegetableBox
 
         private int _Code = 0;
         private string _Name = string.Empty;
-        private string _MobileNo = string.Empty;
-        private string _Address = string.Empty;
         private string _ActiveStatus = string.Empty;
 
         internal int Code
@@ -66,18 +64,6 @@ namespace VegetableBox
             set { _Name = value; }
         }
 
-        internal string MobileNo
-        {
-            get { return _MobileNo; }
-            set { _MobileNo = value; }
-        }
-
-        internal string Address
-        {
-            get { return _Address; }
-            set { _Address = value; }
-        }
-
         internal string Active
         {
             get { return _ActiveStatus; }
@@ -90,12 +76,10 @@ namespace VegetableBox
             {
                 SqlIntract _SqlIntract = new SqlIntract();
 
-                String SqlQuery = "SpSaveCustomer";
+                String SqlQuery = "SpSaveExpenseMaster";
 
                 List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
                 _ListSqlParameter.Add(new SqlParameter("@Name", this.Name));
-                _ListSqlParameter.Add(new SqlParameter("@MobileNo", this.MobileNo));
-                _ListSqlParameter.Add(new SqlParameter("@Address", this.Address));
                 _ListSqlParameter.Add(new SqlParameter("@Active", this.Active));
                 _ListSqlParameter.Add(new SqlParameter("@CreatedBy", Global.currentUserId));
                 _ListSqlParameter.Add(new SqlParameter("@LastUpdatedBy", Global.currentUserId));
@@ -114,13 +98,11 @@ namespace VegetableBox
             {
                 SqlIntract _SqlIntract = new SqlIntract();
 
-                String SqlQuery = "SpUpdateCustomer";
+                String SqlQuery = "SpUpdateExpenseMaster";
 
                 List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
                 _ListSqlParameter.Add(new SqlParameter("@Code", this.Code));
                 _ListSqlParameter.Add(new SqlParameter("@Name", this.Name));
-                _ListSqlParameter.Add(new SqlParameter("@MobileNo", this.MobileNo));
-                _ListSqlParameter.Add(new SqlParameter("@Address", this.Address));
                 _ListSqlParameter.Add(new SqlParameter("@Active", this.Active));
                 _ListSqlParameter.Add(new SqlParameter("@LastUpdatedBy", Global.currentUserId));
 
@@ -132,11 +114,11 @@ namespace VegetableBox
             }
         }
 
-        private DataTable _CustomerMaster = new DataTable();
-        internal DataTable CustomerMaster
+        private DataTable _VendorMaster = new DataTable();
+        internal DataTable VendorMaster
         {
-            get { return _CustomerMaster; }
-            set { _CustomerMaster = value; }
+            get { return _VendorMaster; }
+            set { _VendorMaster = value; }
         }
 
         internal void View()
@@ -146,31 +128,10 @@ namespace VegetableBox
 
                 SqlIntract _SqlIntract = new SqlIntract();
 
-                String SqlQuery = "SpGetCustomerMaster";
+                String SqlQuery = "SpGetExpenseMaster";
 
-                _CustomerMaster = new DataTable();
-                _CustomerMaster = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        internal int GetRecordCount()
-        {
-            try
-            {
-                SqlIntract _SqlIntract = new SqlIntract();
-
-                String SqlQuery = "SELECT COUNT(*) AS RecordCount FROM [dbo].[Customer] WHERE [Name] = @Name";
-
-                List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
-                _ListSqlParameter.Add(new SqlParameter("@Name", this.Name));
-
-                int Result = (int)_SqlIntract.ExecuteScalar(SqlQuery, CommandType.Text, _ListSqlParameter);
-
-                return Result;
+                _VendorMaster = new DataTable();
+                _VendorMaster = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
             }
             catch
             {

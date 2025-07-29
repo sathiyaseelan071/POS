@@ -11,15 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Master\Old\**" />
-    <Compile Remove="NewFolder\**" />
-    <EmbeddedResource Remove="Master\Old\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
-    <None Remove="Master\Old\**" />
-    <None Remove="NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Images\VBLogo.ico" />
   </ItemGroup>
 
@@ -43,6 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Font\" />
+    <Folder Include="Master\ByUseNewFileCreation\" />
   </ItemGroup>
 
   <ItemGroup>
