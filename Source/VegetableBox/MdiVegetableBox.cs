@@ -240,8 +240,8 @@ namespace VegetableBox
         {
             try
             {
-                FrmCustomerCreditDebit frmExpenseEntry = new FrmCustomerCreditDebit();
-                this.ShowForm(frmExpenseEntry);
+                FrmExpenseRecorder frmExpenseRecorder = new FrmExpenseRecorder();
+                this.ShowForm(frmExpenseRecorder);
             }
             catch (Exception ex)
             {

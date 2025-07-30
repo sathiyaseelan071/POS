@@ -5,18 +5,18 @@ using System.Data.SqlClient;
 
 namespace VegetableBox
 {
-    internal class ClsFrmCustomerCreditDebitNote
+    internal class ClsFrmExpenseRecorder
     {
         #region "Master"
 
-        private DataTable _CustomerMaster = new DataTable();
+        private DataTable _ExpenseMaster = new DataTable();
         private DataTable _PaymentTypeMaster = new DataTable();
         private DataTable _TransTypeMaster = new DataTable();
 
-        internal DataTable CustomerMaster
+        internal DataTable ExpenseMaster
         {
-            get { return _CustomerMaster; }
-            set { _CustomerMaster = value; }
+            get { return _ExpenseMaster; }
+            set { _ExpenseMaster = value; }
         }
 
         internal DataTable PaymentTypeMaster
@@ -36,7 +36,7 @@ namespace VegetableBox
             try
             {
                 Master _Master = new Master();
-                this._CustomerMaster = _Master.GetCustomerMaster();
+                this._ExpenseMaster = _Master.GetExpenseMaster();
                 this._PaymentTypeMaster = _Master.GetPaymentTypeMaster();
 
                 DataTable _DataTable = new DataTable();
@@ -44,11 +44,11 @@ namespace VegetableBox
                 _DataTable.Columns.Add(new DataColumn("Name", typeof(string)));
 
                 DataRow _DataRow = _DataTable.NewRow();
-                _DataRow["Code"] = "D"; _DataRow["Name"] = "Purchase On Credit";
+                _DataRow["Code"] = "C"; _DataRow["Name"] = "Earning";
                 _DataTable.Rows.Add(_DataRow);
 
                 _DataRow = _DataTable.NewRow();
-                _DataRow["Code"] = "C"; _DataRow["Name"] = "Payment Received";
+                _DataRow["Code"] = "D"; _DataRow["Name"] = "Spending";
                 _DataTable.Rows.Add(_DataRow);
 
                 this._TransTypeMaster = _DataTable;
@@ -64,7 +64,7 @@ namespace VegetableBox
         #region "Save, View & Update"
 
         private int _TranNo = 0;
-        private int _CustomerCode = 0;
+        private int _ExpenseCode = 0;
         private string _TransType = string.Empty; // 'C' or 'D'
         private int _BillNo = 0;
         private DateTime _BillDate;
@@ -79,10 +79,10 @@ namespace VegetableBox
             set { _TranNo = value; }
         }
 
-        internal int CustomerCode
+        internal int ExpenseCode
         {
-            get { return _CustomerCode; }
-            set { _CustomerCode = value; }
+            get { return _ExpenseCode; }
+            set { _ExpenseCode = value; }
         }
 
         internal string TransType
@@ -132,11 +132,11 @@ namespace VegetableBox
             try
             {
                 SqlIntract _SqlIntract = new SqlIntract();
-                string SqlQuery = "SpSaveCustomerCreditDebitNote";
+                string SqlQuery = "SpSaveExpenses";
 
                 List<SqlParameter> _ListSqlParameter = new List<SqlParameter>
                 {
-                    new SqlParameter("@CustomerCode", this.CustomerCode),
+                    new SqlParameter("@ExpenseCode", this.ExpenseCode),
                     new SqlParameter("@TransType", this.TransType),
                     new SqlParameter("@BillNo", this.BillNo),
                     new SqlParameter("@BillDate", this.BillDate),
@@ -159,12 +159,12 @@ namespace VegetableBox
             try
             {
                 SqlIntract _SqlIntract = new SqlIntract();
-                string SqlQuery = "SpUpdateCustomerCreditDebitNote";
+                string SqlQuery = "SpUpdateExpenses";
 
                 List<SqlParameter> _ListSqlParameter = new List<SqlParameter>
                 {
                     new SqlParameter("@TranNo", this.TranNo),
-                    new SqlParameter("@CustomerCode", this.CustomerCode),
+                    new SqlParameter("@ExpenseCode", this.ExpenseCode),
                     new SqlParameter("@TransType", this.TransType),
                     new SqlParameter("@BillNo", this.BillNo),
                     new SqlParameter("@BillDate", this.BillDate),
@@ -182,12 +182,12 @@ namespace VegetableBox
             }
         }
 
-        private DataTable _CreditDebitNoteData = new DataTable();
+        private DataTable _ExpensesData = new DataTable();
 
-        internal DataTable CreditDebitNoteData
+        internal DataTable ExpensesData
         {
-            get { return _CreditDebitNoteData; }
-            set { _CreditDebitNoteData = value; }
+            get { return _ExpensesData; }
+            set { _ExpensesData = value; }
         }
 
         internal void View()
@@ -195,9 +195,9 @@ namespace VegetableBox
             try
             {
                 SqlIntract _SqlIntract = new SqlIntract();
-                string SqlQuery = "SpGetCustomerCreditDebitNote";
+                string SqlQuery = "SpGetExpenses";
 
-                _CreditDebitNoteData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
+                _ExpensesData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
             }
             catch
             {
@@ -206,20 +206,6 @@ namespace VegetableBox
         }
 
         #endregion
-    }
-
-    public static class Account
-    {
-        // Transaction Types
-        public const string TransTypeDebitedFromAccount = "D";  // Money taken (e.g., purchase)
-        public const string TransTypeCreditedToAccount = "C";   // Money received (e.g., payment)
-
-        // Payment Method Codes
-        public const string PaymentTypeOnCredit = "T";  // Payment pending / to be paid
-        public const string PaymentTypeCard = "R";  // Credit/Debit card
-        public const string PaymentTypeGPay = "Y";  // Google Pay
-        public const string PaymentTypeUpi = "I";  // UPI
-        public const string PaymentTypeCash = "H";  // Cash
     }
 }
 

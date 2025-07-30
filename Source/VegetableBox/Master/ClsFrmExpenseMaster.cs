@@ -139,6 +139,27 @@ namespace VegetableBox
             }
         }
 
+        internal int GetRecordCount()
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+
+                String SqlQuery = "SELECT COUNT(*) AS RecordCount FROM [dbo].[ExpenseMaster] WHERE [Name] = @Name";
+
+                List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
+                _ListSqlParameter.Add(new SqlParameter("@Name", this.Name));
+
+                int Result = (int)_SqlIntract.ExecuteScalar(SqlQuery, CommandType.Text, _ListSqlParameter);
+
+                return Result;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         #endregion
 
     }

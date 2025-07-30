@@ -286,16 +286,19 @@ Go
 --------------
 
 INSERT INTO [PaymentType]([Code], [Name], [Active], [CreatedBy], [CreatedDate], [LastUpdatedBy], [LastUpdatedDate]) 
-VALUES('C', 'CASH', 'Y', 1, GETDATE(), 1, GETDATE())
+VALUES('H', 'Cash', 'Y', 1, GETDATE(), 1, GETDATE())
 
 INSERT INTO [PaymentType]([Code], [Name], [Active], [CreatedBy], [CreatedDate], [LastUpdatedBy], [LastUpdatedDate]) 
-VALUES('R', 'CARD', 'Y', 1, GETDATE(), 1, GETDATE())
+VALUES('I', 'UPI', 'Y', 1, GETDATE(), 1, GETDATE())
 
 INSERT INTO [PaymentType]([Code], [Name], [Active], [CreatedBy], [CreatedDate], [LastUpdatedBy], [LastUpdatedDate]) 
-VALUES('U', 'UPI', 'Y', 1, GETDATE(), 1, GETDATE())
+VALUES('R', 'Card', 'Y', 1, GETDATE(), 1, GETDATE())
 
 INSERT INTO [PaymentType]([Code], [Name], [Active], [CreatedBy], [CreatedDate], [LastUpdatedBy], [LastUpdatedDate]) 
-VALUES('G', 'G PAY/PHONE PAY', 'Y', 1, GETDATE(), 1, GETDATE())
+VALUES('Y', 'GPay/Phone Pay', 'Y', 1, GETDATE(), 1, GETDATE())
+
+INSERT INTO [PaymentType]([Code], [Name], [Active], [CreatedBy], [CreatedDate], [LastUpdatedBy], [LastUpdatedDate]) 
+VALUES('T', 'On Credit', 'Y', 1, GETDATE(), 1, GETDATE())
 
 --------------
 Go
@@ -360,13 +363,13 @@ END
 Go
 --------------
 
-CREATE alter PROCEDURE [dbo].[SpGetCustomerCreditDebitNote]
+CREATE PROCEDURE [dbo].[SpGetCustomerCreditDebitNote]
 AS
 BEGIN
     SET NOCOUNT ON
 
     SELECT N.[SNo], N.[TranNo], N.[CustomerCode], C.[Name] AS CustomerName, N.[TransType] AS TransTypeCode,
-        (CASE WHEN N.[TransType] = 'C' THEN 'Credit' WHEN N.[TransType] = 'D' THEN 'Debit' ELSE 'Unknown' END) AS TransType,
+        (CASE WHEN N.[TransType] = 'C' THEN 'Payment Received' WHEN N.[TransType] = 'D' THEN 'Purchase On Credit' ELSE 'Unknown' END) AS TransType,
 		N.[BillNo], N.[BillDate], N.[Amount], N.[PaymentType] AS PaymentTypeCode, PT.[Name] AS PaymentType, N.[Remarks], U.[Name] AS UpdatedBy, N.[UpdatedDate]
 		FROM [CustomerCreditDebitNote] AS N
 		LEFT JOIN [Customer] AS C ON N.[CustomerCode] = C.[Code]
@@ -379,5 +382,86 @@ END
 Go
 --------------
 
+CREATE TABLE [Expenses](
+    [SNo] INT IDENTITY(1,1),
+	[TranNo] INT PRIMARY KEY NOT NULL,
+    [ExpenseCode] INT  NOT NULL,    
+	[TransType] CHAR(1) CHECK ([TransType] IN ('C','D'))  NOT NULL,
+	[BillNo] INT,
+	[BillDate] DATE NOT NULL,
+	[Amount] NUMERIC(12, 2) NOT NULL,
+	[PaymentType] VARCHAR(1) NOT NULL,
+	[Remarks] VARCHAR(100),
+    [UpdatedBy] INT NOT NULL,                           
+    [UpdatedDate] DATETIME NOT NULL,                    
+    FOREIGN KEY ([ExpenseCode]) REFERENCES [ExpenseMaster]([Code]),
+	FOREIGN KEY ([PaymentType]) REFERENCES [PaymentType]([Code]),
+    FOREIGN KEY ([UpdatedBy]) REFERENCES [USER]([Code])
+)
 
-Exec [SpGetCustomerCreditDebitNote]
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpSaveExpenses](@ExpenseCode INT, @TransType CHAR(1), @BillNo INT, @BillDate DATE,
+    @Amount NUMERIC(12, 2), @PaymentType VARCHAR(1), @Remarks VARCHAR(100), @UpdatedBy INT)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @TranNo INT;
+
+    -- Generate new TranNo
+    SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 FROM [CustomerCreditDebitNote]);
+
+    -- Insert record
+    INSERT INTO [Expenses] ([TranNo], [ExpenseCode], [TransType], [BillNo], [BillDate], 
+	[Amount], [PaymentType], [Remarks], [UpdatedBy], [UpdatedDate])
+    VALUES (@TranNo, @ExpenseCode, @TransType, @BillNo, @BillDate, 
+	@Amount, @PaymentType, @Remarks, @UpdatedBy, GETDATE());
+END
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpUpdateExpenses](
+    @TranNo INT, @ExpenseCode INT, @TransType CHAR(1), @BillNo INT, @BillDate DATE,
+    @Amount NUMERIC(12, 2), @PaymentType VARCHAR(1), @Remarks VARCHAR(100), @UpdatedBy INT)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE [Expenses] SET [ExpenseCode] = @ExpenseCode, [TransType] = @TransType, [BillNo] = @BillNo, [BillDate] = @BillDate,
+	[Amount] = @Amount, [PaymentType] = @PaymentType, [Remarks] = @Remarks, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = GETDATE()
+	WHERE [TranNo] = @TranNo;
+END
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpGetExpenses]
+AS
+BEGIN
+    SET NOCOUNT ON
+
+    SELECT N.[SNo], N.[TranNo], N.[ExpenseCode], C.[Name] AS ExpenseName, N.[TransType] AS TransTypeCode,
+        (CASE WHEN N.[TransType] = 'C' THEN 'Earning' WHEN N.[TransType] = 'D' THEN 'Spending' ELSE 'Unknown' END) AS TransType,
+		N.[BillNo], N.[BillDate], N.[Amount], N.[PaymentType] AS PaymentTypeCode, PT.[Name] AS PaymentType, N.[Remarks], U.[Name] AS UpdatedBy, N.[UpdatedDate]
+		FROM [Expenses] AS N
+		LEFT JOIN [ExpenseMaster] AS C ON N.[ExpenseCode] = C.[Code]
+		LEFT JOIN [PaymentType] AS PT ON N.[PaymentType] = PT.[Code]
+		LEFT JOIN [User] AS U ON N.[UpdatedBy] = U.[Code]
+    ORDER BY N.[SNo] DESC
+END
+
+--------------
+Go
+--------------
+
+
+
+Exec [SpGetExpenses]
+
+

@@ -48,7 +48,7 @@
             purchaseEntryToolStripMenuItem = new ToolStripMenuItem();
             tagPrintToolStripMenuItem = new ToolStripMenuItem();
             ToolStripMenuItem_Accounts = new ToolStripMenuItem();
-            expensesEntryToolStripMenuItem = new ToolStripMenuItem();
+            ToolStripMenuItem_ExpenseEntry_Click = new ToolStripMenuItem();
             ToolStripMenuItem_CustomerCreditDebit = new ToolStripMenuItem();
             ToolStripMenuItem_Reports = new ToolStripMenuItem();
             purchaseReportToolStripMenuItem = new ToolStripMenuItem();
@@ -263,28 +263,28 @@
             // 
             // ToolStripMenuItem_Accounts
             // 
-            ToolStripMenuItem_Accounts.DropDownItems.AddRange(new ToolStripItem[] { expensesEntryToolStripMenuItem, ToolStripMenuItem_CustomerCreditDebit });
+            ToolStripMenuItem_Accounts.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_ExpenseEntry_Click, ToolStripMenuItem_CustomerCreditDebit });
             ToolStripMenuItem_Accounts.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_Accounts.ForeColor = Color.FromArgb(163, 0, 34);
             ToolStripMenuItem_Accounts.Name = "ToolStripMenuItem_Accounts";
             ToolStripMenuItem_Accounts.Size = new Size(95, 40);
             ToolStripMenuItem_Accounts.Text = "&Accounts";
             // 
-            // expensesEntryToolStripMenuItem
+            // ToolStripMenuItem_ExpenseEntry_Click
             // 
-            expensesEntryToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            expensesEntryToolStripMenuItem.ForeColor = Color.DarkGreen;
-            expensesEntryToolStripMenuItem.Name = "expensesEntryToolStripMenuItem";
-            expensesEntryToolStripMenuItem.Size = new Size(259, 24);
-            expensesEntryToolStripMenuItem.Text = "Income and Expense Entry";
-            expensesEntryToolStripMenuItem.Click += expensesEntryToolStripMenuItem_Click;
+            ToolStripMenuItem_ExpenseEntry_Click.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_ExpenseEntry_Click.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_ExpenseEntry_Click.Name = "ToolStripMenuItem_ExpenseEntry_Click";
+            ToolStripMenuItem_ExpenseEntry_Click.Size = new Size(243, 24);
+            ToolStripMenuItem_ExpenseEntry_Click.Text = "Expense Recorder";
+            ToolStripMenuItem_ExpenseEntry_Click.Click += expensesEntryToolStripMenuItem_Click;
             // 
             // ToolStripMenuItem_CustomerCreditDebit
             // 
             ToolStripMenuItem_CustomerCreditDebit.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_CustomerCreditDebit.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_CustomerCreditDebit.Name = "ToolStripMenuItem_CustomerCreditDebit";
-            ToolStripMenuItem_CustomerCreditDebit.Size = new Size(259, 24);
+            ToolStripMenuItem_CustomerCreditDebit.Size = new Size(243, 24);
             ToolStripMenuItem_CustomerCreditDebit.Text = "Customer (Credit/Debit)";
             ToolStripMenuItem_CustomerCreditDebit.Click += ToolStripMenuItem_CustomerCreditDebit_Click;
             // 
@@ -524,7 +524,7 @@
         private ToolStripMenuItem rePrintToolStripMenuItem;
         private ToolStripMenuItem purchaseEntryToolStripMenuItem;
         private ToolStripMenuItem purchaseReportToolStripMenuItem;
-        private ToolStripMenuItem expensesEntryToolStripMenuItem;
+        private ToolStripMenuItem ToolStripMenuItem_ExpenseEntry_Click;
         private ToolStripMenuItem tagPrintToolStripMenuItem;
         private ToolStripMenuItem ToolStripMenuItem_UserMaster;
         private ToolStripMenuItem ToolStripMenuItem_VendorMaster;

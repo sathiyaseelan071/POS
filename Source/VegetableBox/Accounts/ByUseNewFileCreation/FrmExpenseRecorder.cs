@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace VegetableBox
 {
-    public partial class FrmCustomerCreditDebit : Form
+    public partial class FrmExpenseRecorder : Form
     {
 
-        ClsFrmCustomerCreditDebitNote clsFrmCustomerCreditDebitNote = new ClsFrmCustomerCreditDebitNote();
-        public FrmCustomerCreditDebit()
+        ClsFrmExpenseRecorder clsFrmExpenseRecorder = new ClsFrmExpenseRecorder();
+        public FrmExpenseRecorder()
         {
             InitializeComponent();
         }
@@ -39,12 +39,12 @@ namespace VegetableBox
         {
             try
             {
-                FrmCustomerMaster frmCustomerMaster = new FrmCustomerMaster();
-                frmCustomerMaster.IsChildForm = true;
-                frmCustomerMaster.WindowState = FormWindowState.Normal;
-                frmCustomerMaster.ShowDialog();
+                FrmExpenseMaster frmFrmExpenseMaster = new FrmExpenseMaster();
+                frmFrmExpenseMaster.IsChildForm = true;
+                frmFrmExpenseMaster.WindowState = FormWindowState.Normal;
+                frmFrmExpenseMaster.ShowDialog();
                 this.LoadControls();
-                this.CmbCustomerName.Focus();
+                this.CmbExpenseName.Focus();
             }
             catch (Exception ex)
             {
@@ -59,7 +59,7 @@ namespace VegetableBox
                 this.LoadControls();
                 this.ClearEntry();
                 this.ClearAndLoadView();
-                this.CmbCustomerName.Focus();
+                this.CmbExpenseName.Focus();
             }
             catch (Exception ex)
             {
@@ -71,14 +71,14 @@ namespace VegetableBox
         {
             try
             {
-                this.clsFrmCustomerCreditDebitNote = new ClsFrmCustomerCreditDebitNote();
-                this.clsFrmCustomerCreditDebitNote.GetMasterData();
+                this.clsFrmExpenseRecorder = new ClsFrmExpenseRecorder();
+                this.clsFrmExpenseRecorder.GetMasterData();
 
-                FillControls.ComboBoxFill(this.CmbCustomerName, this.clsFrmCustomerCreditDebitNote.CustomerMaster, "Code", "Name", false, "");
-                FillControls.ComboBoxFill(this.CmbTransactionType, this.clsFrmCustomerCreditDebitNote.TransTypeMaster, "Code", "Name", false, "");
-                FillControls.ComboBoxFill(this.CmbPaymentType, this.clsFrmCustomerCreditDebitNote.PaymentTypeMaster, "Code", "Name", false, "");
+                FillControls.ComboBoxFill(this.CmbExpenseName, this.clsFrmExpenseRecorder.ExpenseMaster, "Code", "Name", false, "");
+                FillControls.ComboBoxFill(this.CmbTransactionType, this.clsFrmExpenseRecorder.TransTypeMaster, "Code", "Name", false, "");
+                FillControls.ComboBoxFill(this.CmbPaymentType, this.clsFrmExpenseRecorder.PaymentTypeMaster, "Code", "Name", false, "");
 
-                FillControls.ComboBoxFill(this.CmbFilterTransactionType, this.clsFrmCustomerCreditDebitNote.TransTypeMaster, "Code", "Name", true, "All");
+                FillControls.ComboBoxFill(this.CmbFilterTransactionType, this.clsFrmExpenseRecorder.TransTypeMaster, "Code", "Name", true, "All");
             }
             catch
             {
@@ -90,14 +90,16 @@ namespace VegetableBox
         {
             try
             {
-                this.CmbCustomerName.Tag = null;
-                this.CmbCustomerName.SelectedIndex = -1;
-                this.CmbTransactionType.SelectedIndex = -1;
+                this.CmbExpenseName.Tag = null;
+                this.CmbExpenseName.SelectedIndex = -1;
                 this.TxtBillNo.Text = string.Empty;
                 this.DtpBillDate.Value = DateTime.Now;
                 this.TxtAmount.Text = string.Empty;
                 this.CmbPaymentType.SelectedIndex = -1;
                 this.TxtRemarks.Text = string.Empty;
+
+                this.CmbTransactionType.SelectedIndex = 1;
+                this.CmbTransactionType.Enabled = false;
 
                 this.ErrorProvider.Clear();
                 this.BtnSave.Text = "&Save";
@@ -114,10 +116,12 @@ namespace VegetableBox
             {
                 this.ChkFltrApplyDate.Checked = false;
                 this.CmbFilterTransactionType.SelectedIndex = 0;
-                this.TxtFilterCustomer.Text = string.Empty;
+                this.CmbFilterTransactionType.Enabled = false;
 
-                clsFrmCustomerCreditDebitNote.View();
-                DGView.DataSource = clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Copy();
+                this.TxtFilterExpense.Text = string.Empty;
+
+                clsFrmExpenseRecorder.View();
+                DGView.DataSource = clsFrmExpenseRecorder.ExpensesData.Copy();
                 this.SetGridStyle();
                 this.ToCalcTotalAmount();
             }
@@ -136,23 +140,15 @@ namespace VegetableBox
 
                 if (DtView != null && DtView.Rows.Count > 0)
                 {
-                    object resultPurchaseOnCredit = DtView.Compute("SUM([" + CustomerCreditDebitNoteTable.ColumnName.Amount + "])",
-                        CustomerCreditDebitNoteTable.ColumnName.TransTypeCode + " = 'D'");
-                    decimal decTotalPurchaseOnCredit = resultPurchaseOnCredit != DBNull.Value ? Math.Round(Convert.ToDecimal(resultPurchaseOnCredit), 2) : 0.00m;
+                    object resultTotalExpenses = DtView.Compute("SUM([" + ExpensesTable.ColumnName.Amount + "])",
+                        string.Empty);
+                    decimal decTotalExpenses = resultTotalExpenses != DBNull.Value ? Math.Round(Convert.ToDecimal(resultTotalExpenses), 2) : 0.00m;
 
-                    object resultPaymentReceived = DtView.Compute("SUM([" + CustomerCreditDebitNoteTable.ColumnName.Amount + "])",
-                        CustomerCreditDebitNoteTable.ColumnName.TransTypeCode + " = 'C'");
-                    decimal decTotalPaymentReceived = resultPaymentReceived != DBNull.Value ? Math.Round(Convert.ToDecimal(resultPaymentReceived), 2) : 0.00m;
-
-                    decimal decTotalPendingAmount = decTotalPurchaseOnCredit - decTotalPaymentReceived;
-
-                    this.LblTotalCreditAmt.Text = this.ToConvertDecimalFormatString(decTotalPurchaseOnCredit.ToString());
-                    this.LblTotalDebitAmt.Text = this.ToConvertDecimalFormatString(decTotalPaymentReceived.ToString());
-                    this.LblTotalPendingAmt.Text = this.ToConvertDecimalFormatString(decTotalPendingAmount.ToString());
+                    this.LblTotalExpenses.Text = this.ToConvertDecimalFormatString(decTotalExpenses.ToString());
                 }
                 else
                 {
-                    this.LblTotalPendingAmt.Text = "0.00";
+                    this.LblTotalExpenses.Text = "0.00";
                 }
             }
             catch
@@ -165,71 +161,69 @@ namespace VegetableBox
         {
             try
             {
-                string FilterCustomer = TxtFilterCustomer.Text;
+                string FilterExpense = TxtFilterExpense.Text;
                 string FilterTransactionType = CmbFilterTransactionType.SelectedValue.ToString();
 
                 DataTable DtView = new DataTable();
-                DtView = clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Copy();
+                DtView = clsFrmExpenseRecorder.ExpensesData.Copy();
 
                 if (!string.IsNullOrEmpty(FilterTransactionType))
                 {
                     if (DtView.AsEnumerable()
-                    .Where(x => x.Field<string>(CustomerCreditDebitNoteTable.ColumnName.TransTypeCode) == FilterTransactionType).Count() > 0)
+                    .Where(x => x.Field<string>(ExpensesTable.ColumnName.TransTypeCode) == FilterTransactionType).Count() > 0)
                     {
                         DtView = DtView.AsEnumerable()
-                            .Where(x => x.Field<string>(CustomerCreditDebitNoteTable.ColumnName.TransTypeCode) == FilterTransactionType).CopyToDataTable();
+                            .Where(x => x.Field<string>(ExpensesTable.ColumnName.TransTypeCode) == FilterTransactionType).CopyToDataTable();
                     }
                     else
                     {
-                        DtView = clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Clone();
+                        DtView = clsFrmExpenseRecorder.ExpensesData.Clone();
                     }
                 }
 
-                if (!string.IsNullOrEmpty(FilterCustomer))
+                if (!string.IsNullOrEmpty(FilterExpense))
                 {
                     if (ChkSearchLike.Checked)
                     {
-                        if (DtView.AsEnumerable()
-                            .Where(x => x.Field<string>(CustomerCreditDebitNoteTable.ColumnName.CustomerName).ToLower().Contains(FilterCustomer.ToLower())
-                            ).Count() > 0)
+                        if (DtView.AsEnumerable().Where(x => x.Field<string>(ExpensesTable.ColumnName.ExpenseName).ToLower().Contains(FilterExpense.ToLower())
+                        ).Count() > 0)
                         {
                             DtView = DtView.AsEnumerable()
-                                .Where(x => x.Field<string>(CustomerCreditDebitNoteTable.ColumnName.CustomerName).ToLower().Contains(FilterCustomer.ToLower())
+                                .Where(x => x.Field<string>(ExpensesTable.ColumnName.ExpenseName).ToLower().Contains(FilterExpense.ToLower())
                                 ).CopyToDataTable();
                         }
                         else
                         {
-                            DtView = clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Clone();
+                            DtView = clsFrmExpenseRecorder.ExpensesData.Clone();
                         }
                     }
                     else
                     {
-                        if (DtView.AsEnumerable()
-                            .Where(x => x.Field<string>(CustomerCreditDebitNoteTable.ColumnName.CustomerName).ToLower() == FilterCustomer.ToLower()
-                            ).Count() > 0)
+                        if (DtView.AsEnumerable().Where(x => x.Field<string>(ExpensesTable.ColumnName.ExpenseName).ToLower() == FilterExpense.ToLower()
+                        ).Count() > 0)
                         {
                             DtView = DtView.AsEnumerable()
-                                .Where(x => x.Field<string>(CustomerCreditDebitNoteTable.ColumnName.CustomerName).ToLower() == FilterCustomer.ToLower()
+                                .Where(x => x.Field<string>(ExpensesTable.ColumnName.ExpenseName).ToLower() == FilterExpense.ToLower()
                                 ).CopyToDataTable();
                         }
                         else
                         {
-                            DtView = clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Clone();
+                            DtView = clsFrmExpenseRecorder.ExpensesData.Clone();
                         }
                     }
                 }
 
                 if (ChkFltrApplyDate.Checked)
                 {
-                    if (DtView.AsEnumerable().Where(x => x.Field<DateTime>(CustomerCreditDebitNoteTable.ColumnName.UpdatedDate) >= DtpFltrFromDate.Value.Date
-                    && x.Field<DateTime>(CustomerCreditDebitNoteTable.ColumnName.UpdatedDate) <= DtpFltrToDate.Value.Date.AddDays(1)).Count() > 0)
+                    if (DtView.AsEnumerable().Where(x => x.Field<DateTime>(ExpensesTable.ColumnName.UpdatedDate) >= DtpFltrFromDate.Value.Date
+                    && x.Field<DateTime>(ExpensesTable.ColumnName.UpdatedDate) <= DtpFltrToDate.Value.Date.AddDays(1)).Count() > 0)
                     {
-                        DtView = DtView.AsEnumerable().Where(x => x.Field<DateTime>(CustomerCreditDebitNoteTable.ColumnName.UpdatedDate) >= DtpFltrFromDate.Value.Date
-                        && x.Field<DateTime>(CustomerCreditDebitNoteTable.ColumnName.UpdatedDate) <= DtpFltrToDate.Value.Date.AddDays(1)).CopyToDataTable();
+                        DtView = DtView.AsEnumerable().Where(x => x.Field<DateTime>(ExpensesTable.ColumnName.UpdatedDate) >= DtpFltrFromDate.Value.Date
+                        && x.Field<DateTime>(ExpensesTable.ColumnName.UpdatedDate) <= DtpFltrToDate.Value.Date.AddDays(1)).CopyToDataTable();
                     }
                     else
                     {
-                        DtView = clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Clone();
+                        DtView = clsFrmExpenseRecorder.ExpensesData.Clone();
                     }
                 }
 
@@ -360,17 +354,17 @@ namespace VegetableBox
         {
             try
             {
-                if (e.KeyCode == Keys.Enter && !CmbCustomerName.Focused)
+                if (e.KeyCode == Keys.Enter && !CmbExpenseName.Focused)
                     SendKeys.Send("{TAB}");
 
-                if (e.KeyCode == Keys.Enter && CmbCustomerName.Focused)
-                    CmbTransactionType.Focus();
+                if (e.KeyCode == Keys.Enter && CmbExpenseName.Focused)
+                    TxtBillNo.Focus();
 
                 if (e.Control && e.KeyCode == Keys.G)
                     DGView.Focus();
 
                 if (e.KeyCode == Keys.F1)
-                    CmbCustomerName.Focus();
+                    CmbExpenseName.Focus();
             }
             catch (Exception ex)
             {
@@ -382,7 +376,7 @@ namespace VegetableBox
         {
             try
             {
-                this.CmbCustomerName.Focus();
+                this.CmbExpenseName.Focus();
             }
             catch (Exception ex)
             {
@@ -396,29 +390,29 @@ namespace VegetableBox
             {
                 this.Validation();
 
-                clsFrmCustomerCreditDebitNote.TranNo = this.CmbCustomerName.Tag != null ? (int)this.CmbCustomerName.Tag : 0;
-                clsFrmCustomerCreditDebitNote.CustomerCode = (int)this.CmbCustomerName.SelectedValue;
-                clsFrmCustomerCreditDebitNote.TransType = (string)this.CmbTransactionType.SelectedValue;
-                clsFrmCustomerCreditDebitNote.BillNo = Convert.ToInt32(this.TxtBillNo.Text.Trim());
-                clsFrmCustomerCreditDebitNote.BillDate = DtpBillDate.Value;
-                clsFrmCustomerCreditDebitNote.Amount = Convert.ToDecimal(TxtAmount.Text);
-                clsFrmCustomerCreditDebitNote.PaymentType = (string)this.CmbPaymentType.SelectedValue;
-                clsFrmCustomerCreditDebitNote.Remarks = (string)this.TxtRemarks.Text.Trim();
+                clsFrmExpenseRecorder.TranNo = this.CmbExpenseName.Tag != null ? (int)this.CmbExpenseName.Tag : 0;
+                clsFrmExpenseRecorder.ExpenseCode = (int)this.CmbExpenseName.SelectedValue;
+                clsFrmExpenseRecorder.TransType = (string)this.CmbTransactionType.SelectedValue;
+                clsFrmExpenseRecorder.BillNo = Convert.ToInt32(this.TxtBillNo.Text.Trim());
+                clsFrmExpenseRecorder.BillDate = DtpBillDate.Value;
+                clsFrmExpenseRecorder.Amount = Convert.ToDecimal(TxtAmount.Text);
+                clsFrmExpenseRecorder.PaymentType = (string)this.CmbPaymentType.SelectedValue;
+                clsFrmExpenseRecorder.Remarks = (string)this.TxtRemarks.Text.Trim();
 
                 if (BtnSave.Text.ToUpper() == "&SAVE")
                 {
-                    clsFrmCustomerCreditDebitNote.Save();
+                    clsFrmExpenseRecorder.Save();
                     MessageBox.Show("Saved Successfully...");
                 }
                 else
                 {
-                    clsFrmCustomerCreditDebitNote.Update();
+                    clsFrmExpenseRecorder.Update();
                     MessageBox.Show("Update Successfully...");
                 }
 
                 this.ClearEntry();
                 this.ClearAndLoadView();
-                this.CmbCustomerName.Focus();
+                this.CmbExpenseName.Focus();
             }
             catch (Exception ex)
             {
@@ -434,9 +428,9 @@ namespace VegetableBox
                 this.ErrorProvider.Clear();
 
 
-                if (this.CmbCustomerName.SelectedValue == null || this.CmbCustomerName.SelectedValue.ToString() == string.Empty)
+                if (this.CmbExpenseName.SelectedValue == null || this.CmbExpenseName.SelectedValue.ToString() == string.Empty)
                 {
-                    this.ErrorProvider.SetError(this.CmbCustomerName, "Please select the customer.");
+                    this.ErrorProvider.SetError(this.CmbExpenseName, "Please select the expense.");
                     IsValid = false;
                 }
 
@@ -489,32 +483,31 @@ namespace VegetableBox
         {
             try
             {
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.SNo].Visible = false;
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.TranNo].Visible = true;
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.CustomerCode].Visible = false;
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.PaymentTypeCode].Visible = false;
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.TransTypeCode].Visible = false;
+                DGView.Columns[ExpensesTable.ColumnName.SNo].Visible = false;
+                DGView.Columns[ExpensesTable.ColumnName.TranNo].Visible = true;
+                DGView.Columns[ExpensesTable.ColumnName.ExpenseCode].Visible = false;
+                DGView.Columns[ExpensesTable.ColumnName.PaymentTypeCode].Visible = false;
+                DGView.Columns[ExpensesTable.ColumnName.TransTypeCode].Visible = false;
 
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.TranNo].HeaderText = "TranNo";
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.CustomerName].HeaderText = "Customer Name";
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.TransType].HeaderText = "Trans-Type";
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.BillNo].HeaderText = "Bill No";
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.BillDate].HeaderText = "Bill Date";
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.Amount].HeaderText = "Amount";
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.PaymentType].HeaderText = "Payment-Type";
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.Remarks].HeaderText = "Remarks";
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.UpdatedBy].HeaderText = "UpdatedBy";
-                DGView.Columns[CustomerCreditDebitNoteTable.ColumnName.UpdatedDate].HeaderText = "UpdatedDate";
+                DGView.Columns[ExpensesTable.ColumnName.TranNo].HeaderText = "TranNo";
+                DGView.Columns[ExpensesTable.ColumnName.ExpenseName].HeaderText = "Expense Name";
+                DGView.Columns[ExpensesTable.ColumnName.TransType].HeaderText = "Trans-Type";
+                DGView.Columns[ExpensesTable.ColumnName.BillNo].HeaderText = "Bill No";
+                DGView.Columns[ExpensesTable.ColumnName.BillDate].HeaderText = "Bill Date";
+                DGView.Columns[ExpensesTable.ColumnName.Amount].HeaderText = "Amount";
+                DGView.Columns[ExpensesTable.ColumnName.PaymentType].HeaderText = "Payment-Type";
+                DGView.Columns[ExpensesTable.ColumnName.Remarks].HeaderText = "Remarks";
+                DGView.Columns[ExpensesTable.ColumnName.UpdatedBy].HeaderText = "UpdatedBy";
+                DGView.Columns[ExpensesTable.ColumnName.UpdatedDate].HeaderText = "UpdatedDate";
 
                 foreach (DataGridViewColumn DGVColumn in DGView.Columns)
                 {
-                    if (DGVColumn.Name == CustomerCreditDebitNoteTable.ColumnName.CustomerName || DGVColumn.Name == CustomerCreditDebitNoteTable.ColumnName.TransType
-                        || DGVColumn.Name == CustomerCreditDebitNoteTable.ColumnName.Remarks)
+                    if (DGVColumn.Name == ExpensesTable.ColumnName.ExpenseName || DGVColumn.Name == ExpensesTable.ColumnName.Remarks)
                         DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     else
                         DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
-                    if (DGVColumn.Name == CustomerCreditDebitNoteTable.ColumnName.Amount)
+                    if (DGVColumn.Name == ExpensesTable.ColumnName.Amount)
                     {
                         DGVColumn.DefaultCellStyle.Format = "0.00";
                         DGVColumn.ValueType = typeof(decimal);
@@ -551,23 +544,23 @@ namespace VegetableBox
             {
                 if (DGView.SelectedRows.Count > 0)
                 {
-                    int _TransNo = Convert.ToInt32(DGView[CustomerCreditDebitNoteTable.ColumnName.TranNo, DGSelectedRowIndex].Value);
+                    int _TransNo = Convert.ToInt32(DGView[ExpensesTable.ColumnName.TranNo, DGSelectedRowIndex].Value);
 
-                    if (clsFrmCustomerCreditDebitNote.CreditDebitNoteData.AsEnumerable().Where(x => x.Field<int>(CustomerCreditDebitNoteTable.ColumnName.TranNo) == _TransNo).Count() > 0)
+                    if (clsFrmExpenseRecorder.ExpensesData.AsEnumerable().Where(x => x.Field<int>(ExpensesTable.ColumnName.TranNo) == _TransNo).Count() > 0)
                     {
-                        DataRow? _DataRow = clsFrmCustomerCreditDebitNote.CreditDebitNoteData.AsEnumerable().Where(x => x.Field<int>(CustomerCreditDebitNoteTable.ColumnName.TranNo) == _TransNo).FirstOrDefault();
+                        DataRow? _DataRow = clsFrmExpenseRecorder.ExpensesData.AsEnumerable().Where(x => x.Field<int>(ExpensesTable.ColumnName.TranNo) == _TransNo).FirstOrDefault();
 
-                        this.CmbCustomerName.Tag = Convert.ToInt32(_DataRow[CustomerCreditDebitNoteTable.ColumnName.TranNo]);
-                        this.CmbCustomerName.SelectedValue = _DataRow[CustomerCreditDebitNoteTable.ColumnName.CustomerCode].ToString();
-                        this.CmbTransactionType.SelectedValue = _DataRow[CustomerCreditDebitNoteTable.ColumnName.TransTypeCode].ToString();
-                        this.TxtBillNo.Text = _DataRow[CustomerCreditDebitNoteTable.ColumnName.BillNo].ToString();
-                        this.DtpBillDate.Value = Convert.ToDateTime(_DataRow[CustomerCreditDebitNoteTable.ColumnName.BillDate]);
-                        this.TxtAmount.Text = _DataRow[CustomerCreditDebitNoteTable.ColumnName.Amount].ToString();
-                        this.CmbPaymentType.SelectedValue = _DataRow[CustomerCreditDebitNoteTable.ColumnName.PaymentTypeCode].ToString();
-                        this.TxtRemarks.Text = _DataRow[CustomerCreditDebitNoteTable.ColumnName.Remarks].ToString();
+                        this.CmbExpenseName.Tag = Convert.ToInt32(_DataRow[ExpensesTable.ColumnName.TranNo]);
+                        this.CmbExpenseName.SelectedValue = _DataRow[ExpensesTable.ColumnName.ExpenseCode].ToString();
+                        this.CmbTransactionType.SelectedValue = _DataRow[ExpensesTable.ColumnName.TransTypeCode].ToString();
+                        this.TxtBillNo.Text = _DataRow[ExpensesTable.ColumnName.BillNo].ToString();
+                        this.DtpBillDate.Value = Convert.ToDateTime(_DataRow[ExpensesTable.ColumnName.BillDate]);
+                        this.TxtAmount.Text = _DataRow[ExpensesTable.ColumnName.Amount].ToString();
+                        this.CmbPaymentType.SelectedValue = _DataRow[ExpensesTable.ColumnName.PaymentTypeCode].ToString();
+                        this.TxtRemarks.Text = _DataRow[ExpensesTable.ColumnName.Remarks].ToString();
 
                         BtnSave.Text = "&Update";
-                        CmbCustomerName.Focus();
+                        CmbExpenseName.Focus();
                     }
                 }
             }
@@ -582,7 +575,7 @@ namespace VegetableBox
             try
             {
                 this.ClearEntry();
-                this.CmbCustomerName.Focus();
+                this.CmbExpenseName.Focus();
             }
             catch (Exception ex)
             {
@@ -594,7 +587,7 @@ namespace VegetableBox
         {
             try
             {
-                if (clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Rows.Count > 0)
+                if (clsFrmExpenseRecorder.ExpensesData.Rows.Count > 0)
                 {
                     this.FilterGridData();
                     this.SetGridStyle();
@@ -611,7 +604,7 @@ namespace VegetableBox
         {
             try
             {
-                if (clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Rows.Count > 0)
+                if (clsFrmExpenseRecorder.ExpensesData.Rows.Count > 0)
                 {
                     this.FilterGridData();
                     this.SetGridStyle();
@@ -628,32 +621,8 @@ namespace VegetableBox
         {
             try
             {
-                if (this.CmbCustomerName.SelectedIndex >= 0 || this.TxtAmount.Text != string.Empty)
+                if (this.CmbExpenseName.SelectedIndex >= 0 || this.TxtAmount.Text != string.Empty)
                     this.TxtAmount.Text = this.ToConvertDecimalFormatString(this.TxtAmount.Text);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Vegetable Box");
-            }
-        }
-
-        private void CmbTransactionType_SelectedValueChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (this.CmbTransactionType.SelectedIndex >= 0)
-                {
-                    if (this.CmbTransactionType.SelectedValue.ToString() == Account.TransTypeDebitedFromAccount)
-                    {
-                        this.CmbPaymentType.SelectedValue = Account.PaymentTypeOnCredit;
-                        this.CmbPaymentType.Enabled = false;
-                    }
-                    else
-                    {
-                        this.CmbPaymentType.Enabled = true;
-                        this.CmbPaymentType.SelectedIndex = -1;
-                    }
-                }
             }
             catch (Exception ex)
             {
@@ -680,7 +649,7 @@ namespace VegetableBox
                     this.LblFltrToDate.Enabled = false;
                 }
 
-                if (clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Rows.Count > 0)
+                if (clsFrmExpenseRecorder.ExpensesData.Rows.Count > 0)
                 {
                     this.FilterGridData();
                     this.SetGridStyle();
@@ -697,7 +666,7 @@ namespace VegetableBox
         {
             try
             {
-                if (clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Rows.Count > 0)
+                if (clsFrmExpenseRecorder.ExpensesData.Rows.Count > 0)
                 {
                     this.FilterGridData();
                     this.SetGridStyle();
@@ -714,7 +683,7 @@ namespace VegetableBox
         {
             try
             {
-                if (clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Rows.Count > 0)
+                if (clsFrmExpenseRecorder.ExpensesData.Rows.Count > 0)
                 {
                     this.FilterGridData();
                     this.SetGridStyle();
@@ -731,7 +700,7 @@ namespace VegetableBox
         {
             try
             {
-                if (clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Rows.Count > 0)
+                if (clsFrmExpenseRecorder.ExpensesData.Rows.Count > 0)
                 {
                     this.FilterGridData();
                     this.SetGridStyle();
@@ -747,14 +716,14 @@ namespace VegetableBox
 
     #region "Struct"
 
-    internal struct CustomerCreditDebitNoteTable
+    internal struct ExpensesTable
     {
         internal struct ColumnName
         {
             internal static string SNo = "SNo";
             internal static string TranNo = "TranNo";
-            internal static string CustomerCode = "CustomerCode";
-            internal static string CustomerName = "CustomerName";
+            internal static string ExpenseCode = "ExpenseCode";
+            internal static string ExpenseName = "ExpenseName";
             internal static string TransType = "TransType";
             internal static string BillNo = "BillNo";
             internal static string BillDate = "BillDate";

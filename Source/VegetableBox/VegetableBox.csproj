@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Font\" />
-    <Folder Include="Master\ByUseNewFileCreation\" />
   </ItemGroup>
 
   <ItemGroup>
