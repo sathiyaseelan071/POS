@@ -238,15 +238,15 @@ namespace VegetableBox
 
         private void expensesEntryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                FrmExpenseRecorder frmExpenseRecorder = new FrmExpenseRecorder();
-                this.ShowForm(frmExpenseRecorder);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Vegetable Box");
-            }
+            //try
+            //{
+            //    FrmExpenseRecorder frmExpenseRecorder = new FrmExpenseRecorder();
+            //    this.ShowForm(frmExpenseRecorder);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Vegetable Box");
+            //}
         }
 
         private void tagPrintToolStripMenuItem_Click(object sender, EventArgs e)
@@ -305,8 +305,8 @@ namespace VegetableBox
         {
             try
             {
-                FrmExpenseMaster frmFrmExpenseMaster = new FrmExpenseMaster();
-                this.ShowForm(frmFrmExpenseMaster);
+                FrmExpenseMaster frmExpenseMaster = new FrmExpenseMaster();
+                this.ShowForm(frmExpenseMaster);
             }
             catch (Exception ex)
             {
@@ -320,6 +320,19 @@ namespace VegetableBox
             {
                 FrmCustomerCreditDebit frmCustomerCreditDebit = new FrmCustomerCreditDebit();
                 this.ShowForm(frmCustomerCreditDebit);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ToolStripMenuItem_VendorInvoiceEntry_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmVendorInvoiceEntry frmVendorInvoiceEntry = new FrmVendorInvoiceEntry();
+                this.ShowForm(frmVendorInvoiceEntry);
             }
             catch (Exception ex)
             {

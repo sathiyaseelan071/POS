@@ -47,6 +47,7 @@
             ToolStripMenuItem_Order = new ToolStripMenuItem();
             purchaseEntryToolStripMenuItem = new ToolStripMenuItem();
             tagPrintToolStripMenuItem = new ToolStripMenuItem();
+            ToolStripMenuItem_VendorInvoiceEntry = new ToolStripMenuItem();
             ToolStripMenuItem_Accounts = new ToolStripMenuItem();
             ToolStripMenuItem_ExpenseEntry_Click = new ToolStripMenuItem();
             ToolStripMenuItem_CustomerCreditDebit = new ToolStripMenuItem();
@@ -221,7 +222,7 @@
             pOSToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             pOSToolStripMenuItem.ForeColor = Color.DarkGreen;
             pOSToolStripMenuItem.Name = "pOSToolStripMenuItem";
-            pOSToolStripMenuItem.Size = new Size(135, 24);
+            pOSToolStripMenuItem.Size = new Size(180, 24);
             pOSToolStripMenuItem.Text = "POS";
             pOSToolStripMenuItem.Click += pOSToolStripMenuItem_Click;
             // 
@@ -230,26 +231,26 @@
             rePrintToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             rePrintToolStripMenuItem.ForeColor = Color.DarkGreen;
             rePrintToolStripMenuItem.Name = "rePrintToolStripMenuItem";
-            rePrintToolStripMenuItem.Size = new Size(135, 24);
+            rePrintToolStripMenuItem.Size = new Size(180, 24);
             rePrintToolStripMenuItem.Text = "Re-Print";
             rePrintToolStripMenuItem.Click += rePrintToolStripMenuItem_Click;
             // 
             // ToolStripMenuItem_Order
             // 
-            ToolStripMenuItem_Order.DropDownItems.AddRange(new ToolStripItem[] { purchaseEntryToolStripMenuItem, tagPrintToolStripMenuItem });
+            ToolStripMenuItem_Order.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_VendorInvoiceEntry, purchaseEntryToolStripMenuItem, tagPrintToolStripMenuItem });
             ToolStripMenuItem_Order.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_Order.ForeColor = Color.FromArgb(163, 0, 34);
             ToolStripMenuItem_Order.Name = "ToolStripMenuItem_Order";
-            ToolStripMenuItem_Order.Size = new Size(69, 40);
-            ToolStripMenuItem_Order.Text = "&Order";
+            ToolStripMenuItem_Order.Size = new Size(94, 40);
+            ToolStripMenuItem_Order.Text = "&Purchase";
             // 
             // purchaseEntryToolStripMenuItem
             // 
             purchaseEntryToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             purchaseEntryToolStripMenuItem.ForeColor = Color.DarkGreen;
             purchaseEntryToolStripMenuItem.Name = "purchaseEntryToolStripMenuItem";
-            purchaseEntryToolStripMenuItem.Size = new Size(182, 24);
-            purchaseEntryToolStripMenuItem.Text = "Purchase Entry";
+            purchaseEntryToolStripMenuItem.Size = new Size(222, 24);
+            purchaseEntryToolStripMenuItem.Text = "P&urchase Entry";
             purchaseEntryToolStripMenuItem.Click += purchaseEntryToolStripMenuItem_Click;
             // 
             // tagPrintToolStripMenuItem
@@ -257,9 +258,18 @@
             tagPrintToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             tagPrintToolStripMenuItem.ForeColor = Color.DarkGreen;
             tagPrintToolStripMenuItem.Name = "tagPrintToolStripMenuItem";
-            tagPrintToolStripMenuItem.Size = new Size(182, 24);
+            tagPrintToolStripMenuItem.Size = new Size(222, 24);
             tagPrintToolStripMenuItem.Text = "&Tag Print";
             tagPrintToolStripMenuItem.Click += tagPrintToolStripMenuItem_Click;
+            // 
+            // ToolStripMenuItem_VendorInvoiceEntry
+            // 
+            ToolStripMenuItem_VendorInvoiceEntry.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_VendorInvoiceEntry.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_VendorInvoiceEntry.Name = "ToolStripMenuItem_VendorInvoiceEntry";
+            ToolStripMenuItem_VendorInvoiceEntry.Size = new Size(222, 24);
+            ToolStripMenuItem_VendorInvoiceEntry.Text = "&Vendor Invoice Entry";
+            ToolStripMenuItem_VendorInvoiceEntry.Click += ToolStripMenuItem_VendorInvoiceEntry_Click;
             // 
             // ToolStripMenuItem_Accounts
             // 
@@ -302,7 +312,7 @@
             purchaseReportToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             purchaseReportToolStripMenuItem.ForeColor = Color.DarkGreen;
             purchaseReportToolStripMenuItem.Name = "purchaseReportToolStripMenuItem";
-            purchaseReportToolStripMenuItem.Size = new Size(148, 24);
+            purchaseReportToolStripMenuItem.Size = new Size(180, 24);
             purchaseReportToolStripMenuItem.Text = "&All Report";
             purchaseReportToolStripMenuItem.Click += purchaseReportToolStripMenuItem_Click;
             // 
@@ -531,5 +541,6 @@
         private ToolStripMenuItem ToolStripMenuItem_CustomerMaster;
         private ToolStripMenuItem ToolStripMenuItem_ExpenseMaster;
         private ToolStripMenuItem ToolStripMenuItem_CustomerCreditDebit;
+        private ToolStripMenuItem ToolStripMenuItem_VendorInvoiceEntry;
     }
 }

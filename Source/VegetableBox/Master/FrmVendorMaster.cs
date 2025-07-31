@@ -15,6 +15,8 @@ namespace VegetableBox
     public partial class FrmVendorMaster : Form
     {
         ClsFrmVendorMaster clsVendorMaster = new ClsFrmVendorMaster();
+        public Boolean IsChildForm = false;
+
         public FrmVendorMaster()
         {
             InitializeComponent();
@@ -24,8 +26,16 @@ namespace VegetableBox
         {
             try
             {
-                if (Global.mdiVegetableBox != null)
-                    Global.mdiVegetableBox.CloseForm(this);
+                if (IsChildForm)
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.IsChildForm = false;
+                }
+                else
+                {
+                    if (Global.mdiVegetableBox != null)
+                        Global.mdiVegetableBox.CloseForm(this);
+                }
             }
             catch (Exception ex)
             {
@@ -37,6 +47,15 @@ namespace VegetableBox
         {
             try
             {
+                if (IsChildForm)
+                {
+                    this.TlpForm.BackColor = Color.PaleVioletRed;
+                }
+                else
+                {
+                    this.TlpForm.BackColor = Color.WhiteSmoke;
+                }
+
                 this.LoadControls();
                 this.ClearEntry();
                 this.ClearView();

@@ -24,19 +24,8 @@ namespace VegetableBox
         {
             try
             {
-                DataTable _DataTable = new DataTable();
-                _DataTable.Columns.Add(new DataColumn("Code", typeof(string)));
-                _DataTable.Columns.Add(new DataColumn("Name", typeof(string)));
-
-                DataRow _DataRow = _DataTable.NewRow();
-                _DataRow["Code"] = "Y"; _DataRow["Name"] = "Yes";
-                _DataTable.Rows.Add(_DataRow);
-
-                _DataRow = _DataTable.NewRow();
-                _DataRow["Code"] = "N"; _DataRow["Name"] = "No";
-                _DataTable.Rows.Add(_DataRow);
-
-                this._YesNoMaster = _DataTable;
+                Master _Master = new Master();
+                this._YesNoMaster = _Master.GetYesNoMaster();
             }
             catch
             {

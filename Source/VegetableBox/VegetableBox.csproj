@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Accounts\ByUseNewFileCreation\**" />
+    <EmbeddedResource Remove="Accounts\ByUseNewFileCreation\**" />
+    <None Remove="Accounts\ByUseNewFileCreation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Images\VBLogo.ico" />
   </ItemGroup>
 

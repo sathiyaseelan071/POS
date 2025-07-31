@@ -1,4 +1,4 @@
-ALTER PROC [dbo].[SpSaveRateMaster] (@UDT_RateMaster UDT_RateMaster readonly)
+ALTER PROCEDURE [dbo].[SpSaveRateMaster] (@UDT_RateMaster UDT_RateMaster readonly)
 As
 BEGIN TRAN
 
@@ -51,43 +51,50 @@ CREATE TABLE [Vendor](
 Go
 --------------
 
-CREATE PROC [dbo].[SpSaveVendor] (@Name VARCHAR(100), @ShortName VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
+CREATE PROCEDURE [dbo].[SpSaveVendor] (@Name VARCHAR(100), @ShortName VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
 @Active VARCHAR(50), @CreatedBy INT, @LastUpdatedBy INT)
-As
+AS BEGIN
+    SET NOCOUNT ON;
 
-DECLARE @Code INT
-SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [Vendor])
+	DECLARE @Code INT
+	SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [Vendor])
 
-INSERT INTO [Vendor]([Code],[Name],[ShortName],[MobileNo],[Address],
-[Active],[CreatedBy],[CreatedDate],[LastUpdatedBy],[LastUpdatedDate])
-VALUES (@Code, @Name, @ShortName, @MobileNo, @Address, 
-@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE())
+	INSERT INTO [Vendor]([Code],[Name],[ShortName],[MobileNo],[Address],
+	[Active],[CreatedBy],[CreatedDate],[LastUpdatedBy],[LastUpdatedDate])
+	VALUES (@Code, @Name, @ShortName, @MobileNo, @Address, 
+	@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE())
+END
 
 --------------
 Go
 --------------
 
-CREATE PROC [dbo].[SpUpdateVendor](@Code INT, @Name VARCHAR(100), @ShortName VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
+CREATE PROCEDURE [dbo].[SpUpdateVendor](@Code INT, @Name VARCHAR(100), @ShortName VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
 @Active VARCHAR(50), @LastUpdatedBy INT)
-As
-UPDATE [Vendor] SET [Name]=@Name, [ShortName]=@ShortName, [MobileNo]=@MobileNo, [Address]=@Address, 
-[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDate]=GETDATE()
-WHERE [Code] = @Code
+AS BEGIN
+    SET NOCOUNT ON;
+
+	UPDATE [Vendor] SET [Name]=@Name, [ShortName]=@ShortName, [MobileNo]=@MobileNo, [Address]=@Address, 
+	[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDate]=GETDATE()
+	WHERE [Code] = @Code
+END
 
 --------------
 Go
 --------------
 
-CREATE PROC [dbo].[SpGetVendorMaster]
-AS
+CREATE PROCEDURE [dbo].[SpGetVendorMaster]
+AS BEGIN
+    SET NOCOUNT ON;
 
-SELECT V.SNo, V.[Code], V.[Name], V.[ShortName], CAST(V.[MobileNo] AS VARCHAR) AS MobileNo, V.[Address],
-V.[Active] AS ActiveStatusCode, (CASE WHEN V.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
-CU.[Name] AS CreatedBy, V.[CreatedDate], UU.[Name] AS LastUpdatedBy, V.[LastUpdatedDate]
-FROM [Vendor] AS V
-Left Join [User] AS CU ON V.[CreatedBy] = CU.[Code]
-Left Join [User] AS UU ON V.[LastUpdatedBy] = UU.[Code]
-ORDER BY V.SNo DESC
+	SELECT V.SNo, V.[Code], V.[Name], V.[ShortName], CAST(V.[MobileNo] AS VARCHAR) AS MobileNo, V.[Address],
+	V.[Active] AS ActiveStatusCode, (CASE WHEN V.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
+	CU.[Name] AS CreatedBy, V.[CreatedDate], UU.[Name] AS LastUpdatedBy, V.[LastUpdatedDate]
+	FROM [Vendor] AS V
+	Left Join [User] AS CU ON V.[CreatedBy] = CU.[Code]
+	Left Join [User] AS UU ON V.[LastUpdatedBy] = UU.[Code]
+	ORDER BY V.SNo DESC
+END
 
 --------------
 Go
@@ -113,43 +120,50 @@ CREATE TABLE [Customer](
 Go
 --------------
 
-CREATE PROC [dbo].[SpSaveCustomer](@Name VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
+CREATE PROCEDURE [dbo].[SpSaveCustomer](@Name VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
 @Active VARCHAR(50), @CreatedBy INT, @LastUpdatedBy INT)
-As
+AS BEGIN
+    SET NOCOUNT ON;
 
-DECLARE @Code INT
-SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [Customer])
+	DECLARE @Code INT
+	SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [Customer])
 
-INSERT INTO [Customer]([Code],[Name],[MobileNo],[Address],
-[Active],[CreatedBy],[CreatedDate],[LastUpdatedBy],[LastUpdatedDate])
-VALUES (@Code, @Name, @MobileNo, @Address, 
-@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE())
+	INSERT INTO [Customer]([Code],[Name],[MobileNo],[Address],
+	[Active],[CreatedBy],[CreatedDate],[LastUpdatedBy],[LastUpdatedDate])
+	VALUES (@Code, @Name, @MobileNo, @Address, 
+	@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE())
+END
 
 --------------
 Go
 --------------
 
-CREATE PROC [dbo].[SpUpdateCustomer](@Code INT, @Name VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
+CREATE PROCEDURE [dbo].[SpUpdateCustomer](@Code INT, @Name VARCHAR(100), @MobileNo BIGINT, @Address VARCHAR(200), 
 @Active VARCHAR(50), @LastUpdatedBy INT)
-As
-UPDATE [Customer] SET [Name]=@Name, [MobileNo]=@MobileNo, [Address]=@Address, 
-[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDate]=GETDATE()
-WHERE [Code] = @Code
+AS BEGIN
+    SET NOCOUNT ON;
+
+	UPDATE [Customer] SET [Name]=@Name, [MobileNo]=@MobileNo, [Address]=@Address, 
+	[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDate]=GETDATE()
+	WHERE [Code] = @Code
+END
 
 --------------
 Go
 --------------
 
-CREATE PROC [dbo].[SpGetCustomerMaster]
-AS
+CREATE PROCEDURE [dbo].[SpGetCustomerMaster]
+AS BEGIN
+    SET NOCOUNT ON;
 
-SELECT C.SNo, C.[Code], C.[Name], CAST(C.[MobileNo] AS VARCHAR) AS MobileNo, C.[Address],
-C.[Active] AS ActiveStatusCode, (CASE WHEN C.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
-CU.[Name] AS CreatedBy, C.[CreatedDate], UU.[Name] AS LastUpdatedBy, C.[LastUpdatedDate]
-FROM [Customer] AS C
-Left Join [User] AS CU ON C.[CreatedBy] = CU.[Code]
-Left Join [User] AS UU ON C.[LastUpdatedBy] = UU.[Code]
-ORDER BY C.SNo DESC
+	SELECT C.SNo, C.[Code], C.[Name], CAST(C.[MobileNo] AS VARCHAR) AS MobileNo, C.[Address],
+	C.[Active] AS ActiveStatusCode, (CASE WHEN C.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
+	CU.[Name] AS CreatedBy, C.[CreatedDate], UU.[Name] AS LastUpdatedBy, C.[LastUpdatedDate]
+	FROM [Customer] AS C
+	Left Join [User] AS CU ON C.[CreatedBy] = CU.[Code]
+	Left Join [User] AS UU ON C.[LastUpdatedBy] = UU.[Code]
+	ORDER BY C.SNo DESC
+END
 
 --------------
 Go
@@ -161,43 +175,50 @@ ALTER TABLE [User] ADD [Password] VARCHAR(15)
 Go
 --------------
 
-CREATE PROC [dbo].[SpSaveUser](@Name VARCHAR(100), @Password VARCHAR(15), 
+CREATE PROCEDURE [dbo].[SpSaveUser](@Name VARCHAR(100), @Password VARCHAR(15), 
 @Active VARCHAR(50), @CreatedBy INT, @LastUpdatedBy INT)
-As
+AS BEGIN
+    SET NOCOUNT ON;
 
-DECLARE @Code INT
-SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [User])
+	DECLARE @Code INT
+	SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [User])
 
-INSERT INTO [User]([Code],[Name],[Password],
-[Active],[CreatedBy],[CreatedDateTime],[LastUpdatedBy],[LastUpdatedDateTime])
-VALUES (@Code, @Name, @Password,
-@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE())
+	INSERT INTO [User]([Code],[Name],[Password],
+	[Active],[CreatedBy],[CreatedDateTime],[LastUpdatedBy],[LastUpdatedDateTime])
+	VALUES (@Code, @Name, @Password,
+	@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE())
+END
 
 --------------
 Go
 --------------
 
-CREATE PROC [dbo].[SpUpdateUser](@Code INT, @Name VARCHAR(100), @Password VARCHAR(15), 
+CREATE PROCEDURE [dbo].[SpUpdateUser](@Code INT, @Name VARCHAR(100), @Password VARCHAR(15), 
 @Active VARCHAR(50), @LastUpdatedBy INT)
-As
-UPDATE [User] SET [Name]=@Name, [Password]=@Password, 
-[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDateTime]=GETDATE()
-WHERE [Code] = @Code
+AS BEGIN
+    SET NOCOUNT ON;
+
+	UPDATE [User] SET [Name]=@Name, [Password]=@Password, 
+	[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDateTime]=GETDATE()
+	WHERE [Code] = @Code
+END
 
 --------------
 Go
 --------------
 
-CREATE PROC [dbo].[SpGetUser]
-AS
+CREATE PROCEDURE [dbo].[SpGetUser]
+AS BEGIN
+    SET NOCOUNT ON;
 
-SELECT C.SNo, C.[Code], C.[Name], C.[Password],
-C.[Active] AS ActiveStatusCode, (CASE WHEN C.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
-CU.[Name] AS CreatedBy, C.[CreatedDateTime] AS CreatedDate, UU.[Name] AS LastUpdatedBy, C.[LastUpdatedDateTime] AS LastUpdatedDate
-FROM [User] AS C
-Left Join [User] AS CU ON C.[CreatedBy] = CU.[Code]
-Left Join [User] AS UU ON C.[LastUpdatedBy] = UU.[Code]
-ORDER BY C.SNo DESC
+	SELECT C.SNo, C.[Code], C.[Name], C.[Password],
+	C.[Active] AS ActiveStatusCode, (CASE WHEN C.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
+	CU.[Name] AS CreatedBy, C.[CreatedDateTime] AS CreatedDate, UU.[Name] AS LastUpdatedBy, C.[LastUpdatedDateTime] AS LastUpdatedDate
+	FROM [User] AS C
+	Left Join [User] AS CU ON C.[CreatedBy] = CU.[Code]
+	Left Join [User] AS UU ON C.[LastUpdatedBy] = UU.[Code]
+	ORDER BY C.SNo DESC
+END
 
 --------------
 Go
@@ -225,43 +246,49 @@ CREATE TABLE [ExpenseMaster](
 Go
 --------------
 
-CREATE PROC [dbo].[SpSaveExpenseMaster](@Name VARCHAR(100),
+CREATE PROCEDURE [dbo].[SpSaveExpenseMaster](@Name VARCHAR(100),
 @Active VARCHAR(50), @CreatedBy INT, @LastUpdatedBy INT)
-As
+AS BEGIN
+    SET NOCOUNT ON;
 
-DECLARE @Code INT
-SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [ExpenseMaster])
+	DECLARE @Code INT
+	SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [ExpenseMaster])
 
-INSERT INTO [ExpenseMaster]([Code],[Name],
-[Active],[CreatedBy],[CreatedDate],[LastUpdatedBy],[LastUpdatedDate])
-VALUES (@Code, @Name,
-@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE())
+	INSERT INTO [ExpenseMaster]([Code],[Name],
+	[Active],[CreatedBy],[CreatedDate],[LastUpdatedBy],[LastUpdatedDate])
+	VALUES (@Code, @Name,
+	@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE())
 
+END
 --------------
 Go
 --------------
 
-CREATE PROC [dbo].[SpUpdateExpenseMaster](@Code INT, @Name VARCHAR(100), 
+CREATE PROCEDURE [dbo].[SpUpdateExpenseMaster](@Code INT, @Name VARCHAR(100), 
 @Active VARCHAR(50), @LastUpdatedBy INT)
-As
-UPDATE [ExpenseMaster] SET [Name]=@Name,
-[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDate]=GETDATE()
-WHERE [Code] = @Code
+AS BEGIN
+    SET NOCOUNT ON;
 
+	UPDATE [ExpenseMaster] SET [Name]=@Name,
+	[Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDate]=GETDATE()
+	WHERE [Code] = @Code
+END
 --------------
 Go
 --------------
 
-CREATE PROC [dbo].[SpGetExpenseMaster]
-AS
+CREATE PROCEDURE [dbo].[SpGetExpenseMaster]
+AS BEGIN
+    SET NOCOUNT ON;
 
-SELECT E.SNo, E.[Code], E.[Name],
-E.[Active] AS ActiveStatusCode, (CASE WHEN E.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
-CU.[Name] AS CreatedBy, E.[CreatedDate] AS CreatedDate, UU.[Name] AS LastUpdatedBy, E.[LastUpdatedDate] AS LastUpdatedDate
-FROM [ExpenseMaster] AS E
-Left Join [User] AS CU ON E.[CreatedBy] = CU.[Code]
-Left Join [User] AS UU ON E.[LastUpdatedBy] = UU.[Code]
-ORDER BY E.SNo DESC
+	SELECT E.SNo, E.[Code], E.[Name],
+	E.[Active] AS ActiveStatusCode, (CASE WHEN E.[Active] = 'Y' THEN 'Yes' ELSE 'No' END) AS Active,
+	CU.[Name] AS CreatedBy, E.[CreatedDate] AS CreatedDate, UU.[Name] AS LastUpdatedBy, E.[LastUpdatedDate] AS LastUpdatedDate
+	FROM [ExpenseMaster] AS E
+	Left Join [User] AS CU ON E.[CreatedBy] = CU.[Code]
+	Left Join [User] AS UU ON E.[LastUpdatedBy] = UU.[Code]
+	ORDER BY E.SNo DESC
+END
 
 --------------
 Go
@@ -412,7 +439,7 @@ BEGIN
     DECLARE @TranNo INT;
 
     -- Generate new TranNo
-    SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 FROM [CustomerCreditDebitNote]);
+    SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 FROM [Expenses]);
 
     -- Insert record
     INSERT INTO [Expenses] ([TranNo], [ExpenseCode], [TransType], [BillNo], [BillDate], 
@@ -460,8 +487,140 @@ END
 Go
 --------------
 
+CREATE TABLE [ProgressStatusMaster](
+    [SNo] INT IDENTITY(1,1) ,           
+    [Code] VARCHAR(1) PRIMARY KEY NOT NULL,               
+    [Name] VARCHAR(20) UNIQUE NOT NULL,               
+	
+    [Active] CHAR(1) DEFAULT 'Y' CHECK ([Active] IN ('Y', 'N')),                  
+    [CreatedBy] INT NOT NULL,                      
+    [CreatedDate] DATETIME,      
+    [LastUpdatedBy] INT,                           
+    [LastUpdatedDate] DATETIME,                    
+    FOREIGN KEY ([CreatedBy]) REFERENCES [USER]([Code]),
+    FOREIGN KEY ([LastUpdatedBy]) REFERENCES [USER]([Code])
+)
+
+--------------
+Go
+--------------
+
+INSERT INTO [ProgressStatusMaster]([Code], [Name], [Active], [CreatedBy], [CreatedDate], [LastUpdatedBy], [LastUpdatedDate]) 
+VALUES('N', 'Not Started', 'Y', 1, GETDATE(), 1, GETDATE())
+
+INSERT INTO [ProgressStatusMaster]([Code], [Name], [Active], [CreatedBy], [CreatedDate], [LastUpdatedBy], [LastUpdatedDate]) 
+VALUES('P', 'In Progress', 'Y', 1, GETDATE(), 1, GETDATE())
+
+INSERT INTO [ProgressStatusMaster]([Code], [Name], [Active], [CreatedBy], [CreatedDate], [LastUpdatedBy], [LastUpdatedDate]) 
+VALUES('C', 'Completed', 'Y', 1, GETDATE(), 1, GETDATE())
+
+--------------
+Go
+--------------
+
+CREATE TABLE [VendorBillDetails](
+    [SNo] INT IDENTITY(1,1),
+	[TranNo] INT PRIMARY KEY NOT NULL,              
+	[VendorCode] INT NOT NULL,
+	[BillNo] VARCHAR(20),
+	[BillDate] DATE NOT NULL,
+	[BillAmount] NUMERIC(12, 2) NOT NULL,
+	[ItemsCount] INT,
+    [IsItemMissing] CHAR(1) CHECK ([IsItemMissing] IN (NULL, 'Y','N')),
+    [MissingItemDetails] VARCHAR(100),
+	[BillChecked] CHAR(1) CHECK ([BillChecked] IN (NULL, 'Y','N')),
+    [BillCheckedBy] INT,
+	[PurchaseEntryStatus] VARCHAR(1),
+    [PurchaseEntryBy] INT,
+	[IsMissingItemReceived] CHAR(1) CHECK ([IsMissingItemReceived] IN (NULL, 'Y','N')),
+	[MissingItemReceivedBy] INT,
+	[Remarks] VARCHAR(100),
+	[AmountPaid] NUMERIC(12, 2) NOT NULL,
+    [UpdatedBy] INT NOT NULL,                           
+    [UpdatedDate] DATETIME NOT NULL,
+	
+    FOREIGN KEY ([VendorCode]) REFERENCES [Vendor]([Code]),	
+	FOREIGN KEY ([PurchaseEntryStatus]) REFERENCES [ProgressStatusMaster]([Code]),
+	FOREIGN KEY ([BillCheckedBy]) REFERENCES [USER]([Code]),
+	FOREIGN KEY ([PurchaseEntryBy]) REFERENCES [USER]([Code]),
+	FOREIGN KEY ([MissingItemReceivedBy]) REFERENCES [USER]([Code]),
+    FOREIGN KEY ([UpdatedBy]) REFERENCES [USER]([Code])
+)
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpSaveVendorBillDetails](@VendorCode INT, @BillNo VARCHAR(20), @BillDate DATE, @BillAmount NUMERIC(12, 2), @ItemsCount INT,
+    @IsItemMissing CHAR(1), @MissingItemDetails VARCHAR(100), @BillChecked CHAR(1), @BillCheckedBy INT, @PurchaseEntryStatus VARCHAR(20),
+    @PurchaseEntryBy INT, @IsMissingItemReceived CHAR(1), @MissingItemReceivedBy INT, @Remarks VARCHAR(100), @AmountPaid NUMERIC(12, 2), @UpdatedBy INT)
+AS BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @TranNo INT;
+
+    -- Generate new TranNo
+    SET @TranNo = (SELECT ISNULL(MAX(TranNo), 0) + 1 FROM [VendorBillDetails]);
+
+    -- Insert record
+    INSERT INTO [VendorBillDetails] ([TranNo], [VendorCode], [BillNo], [BillDate], [BillAmount], [ItemsCount], 
+	[IsItemMissing], [MissingItemDetails], [BillChecked], [BillCheckedBy], [PurchaseEntryStatus], 
+	[PurchaseEntryBy], [IsMissingItemReceived], [MissingItemReceivedBy], [Remarks], [AmountPaid], [UpdatedBy], [UpdatedDate])
+    VALUES (@TranNo, @VendorCode, @BillNo, @BillDate, @BillAmount, @ItemsCount, 
+	@IsItemMissing, @MissingItemDetails, @BillChecked, @BillCheckedBy, @PurchaseEntryStatus,
+	@PurchaseEntryBy, @IsMissingItemReceived, @MissingItemReceivedBy, @Remarks, @AmountPaid, @UpdatedBy, GETDATE());
+END
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpUpdateVendorBillDetails](@TranNo INT,@VendorCode INT, @BillNo INT, @BillDate DATE, @BillAmount NUMERIC(12, 2), @ItemsCount INT,
+    @IsItemMissing CHAR(1), @MissingItemDetails VARCHAR(100), @BillChecked CHAR(1), @BillCheckedBy INT, @PurchaseEntryStatus VARCHAR(20),
+    @PurchaseEntryBy INT, @IsMissingItemReceived CHAR(1), @MissingItemReceivedBy INT, @Remarks VARCHAR(100), @AmountPaid NUMERIC(12, 2), @UpdatedBy INT)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE [VendorBillDetails] SET  [VendorCode] = @VendorCode, [BillNo] = @BillNo, [BillDate] = @BillDate, [BillAmount] = @BillAmount, [ItemsCount] = @ItemsCount,
+	[IsItemMissing] = @IsItemMissing, [MissingItemDetails] = @MissingItemDetails, [BillChecked] = @BillChecked, [BillCheckedBy] = @BillCheckedBy,
+	[PurchaseEntryStatus] = @PurchaseEntryStatus, [PurchaseEntryBy] = @PurchaseEntryBy, [IsMissingItemReceived] = @IsMissingItemReceived, 
+	[MissingItemReceivedBy] = @MissingItemReceivedBy, [Remarks] = @Remarks, [AmountPaid] = @AmountPaid, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = GETDATE()
+    WHERE [TranNo] = @TranNo;
+END
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpGetVendorBillDetails]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT VT.[SNo], VT.[TranNo], VM.[Name] AS VendorName, VT.[BillNo], VT.[BillDate], VT.[BillAmount], VT.[ItemsCount], 
+	(CASE WHEN VT.[IsItemMissing] = 'Y' THEN 'Yes' WHEN VT.[IsItemMissing] = 'N' THEN 'No' ELSE '' END) AS [IsItemMissing], VT.[MissingItemDetails], 
+	(CASE WHEN VT.[BillChecked] = 'Y' THEN 'Yes' WHEN VT.[BillChecked] = 'N' THEN 'No' ELSE '' END) AS BillChecked, UB.[Name] AS BillCheckedBy, 
+	PS.[Name] AS PurchaseEntryStatus, UP.[Name] AS PurchaseEntryBy,
+	(CASE WHEN VT.[IsMissingItemReceived] = 'Y' THEN 'Yes' WHEN VT.[IsMissingItemReceived] = 'N' THEN 'No' ELSE '' END) AS IsMissingItemReceived, UM.[Name] AS MissingItemReceivedBy, 
+	VT.[Remarks], VT.[AmountPaid], UU.[Name] AS UpdatedBy, VT.[UpdatedDate],
+
+	VT.[VendorCode], VT.[IsItemMissing] AS IsItemMissingCode, VT.[BillChecked] AS BillCheckedCode, VT.[PurchaseEntryStatus] AS PurchaseEntryStatusCode, 
+	VT.[BillCheckedBy] AS BillCheckedByCode, VT.[PurchaseEntryBy] AS PurchaseEntryByCode, VT.[MissingItemReceivedBy] AS MissingItemReceivedByCode,  VT.[UpdatedBy] AS UpdatedByCode
+
+    FROM [VendorBillDetails] AS VT
+    LEFT JOIN [Vendor] AS VM ON VT.[VendorCode] = VM.[Code]
+	LEFT JOIN [ProgressStatusMaster] AS PS ON VT.[PurchaseEntryStatus] = PS.[Code]
+    LEFT JOIN [User] AS UB ON VT.[BillCheckedBy] = UB.[Code]
+    LEFT JOIN [User] AS UP ON VT.[PurchaseEntryBy] = UP.[Code]
+    LEFT JOIN [User] AS UM ON VT.[MissingItemReceivedBy] = UM.[Code]
+    LEFT JOIN [User] AS UU ON VT.[UpdatedBy] = UU.[Code]
+    ORDER BY VT.[SNo] DESC;
+END
+
+--------------
+Go
+--------------
 
 
-Exec [SpGetExpenses]
-
-
+Exec [SpGetVendorBillDetails]

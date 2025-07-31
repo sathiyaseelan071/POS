@@ -117,5 +117,83 @@ namespace VegetableBox
             }
         }
 
+        internal DataTable GetVendorMaster()
+        {
+            try
+            {
+                DataTable _Result = new DataTable();
+                String _SqlQuery = "Select [Code], [Name] From [Vendor] Where Isnull([Active],'') = 'Y' Order By [Name]";
+
+                SqlIntract _SqlIntract = new SqlIntract();
+                _Result = _SqlIntract.ExecuteDataTable(_SqlQuery, CommandType.Text, null);
+
+                return _Result;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        internal DataTable GetUserMaster()
+        {
+            try
+            {
+                DataTable _Result = new DataTable();
+                String _SqlQuery = "Select [Code], [Name], [Password] From [User] Where Isnull([Active],'') = 'Y' Order By [Name]";
+
+                SqlIntract _SqlIntract = new SqlIntract();
+                _Result = _SqlIntract.ExecuteDataTable(_SqlQuery, CommandType.Text, null);
+
+                return _Result;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        internal DataTable GetProgressStatusMaster()
+        {
+            try
+            {
+                DataTable _Result = new DataTable();
+                String _SqlQuery = "Select [Code], [Name] From [ProgressStatusMaster] Where Isnull([Active],'') = 'Y' Order By [SNo]";
+
+                SqlIntract _SqlIntract = new SqlIntract();
+                _Result = _SqlIntract.ExecuteDataTable(_SqlQuery, CommandType.Text, null);
+
+                return _Result;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        internal DataTable GetYesNoMaster()
+        {
+            try
+            {
+                DataTable _DataTable = new DataTable();
+                _DataTable.Columns.Add(new DataColumn("Code", typeof(string)));
+                _DataTable.Columns.Add(new DataColumn("Name", typeof(string)));
+
+                DataRow _DataRow = _DataTable.NewRow();
+                _DataRow["Code"] = "Y"; _DataRow["Name"] = "Yes";
+                _DataTable.Rows.Add(_DataRow);
+
+                _DataRow = _DataTable.NewRow();
+                _DataRow["Code"] = "N"; _DataRow["Name"] = "No";
+                _DataTable.Rows.Add(_DataRow);
+
+                return _DataTable;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
     }
 }
