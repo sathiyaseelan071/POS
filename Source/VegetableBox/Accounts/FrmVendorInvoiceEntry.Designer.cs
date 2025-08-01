@@ -47,13 +47,13 @@
             TxtFilterVendor = new TextBox();
             ChkSearchLike = new CheckBox();
             tableLayoutPanel9 = new TableLayoutPanel();
-            LblFilterCatType = new Label();
-            CmbFilterIsItemMissing = new ComboBox();
-            label16 = new Label();
             CmbFilterBillChecked = new ComboBox();
+            CmbFilterIsItemMissing = new ComboBox();
+            LblFilterCatType = new Label();
+            label16 = new Label();
             label17 = new Label();
-            CmbFilterPurchaseEntryStatus = new ComboBox();
             label18 = new Label();
+            CmbFilterPurchaseEntryStatus = new ComboBox();
             CmbFilterIsMissingItemReceived = new ComboBox();
             tableLayoutPanel5 = new TableLayoutPanel();
             BtnEdit = new Button();
@@ -70,8 +70,6 @@
             tableLayoutPanel7 = new TableLayoutPanel();
             CmbVendorName = new ComboBox();
             BtnAddVendorMaster = new Button();
-            label2 = new Label();
-            CmbIsItemMissing = new ComboBox();
             label5 = new Label();
             TxtRemarks = new TextBox();
             label7 = new Label();
@@ -80,21 +78,23 @@
             DtpBillDate = new DateTimePicker();
             label4 = new Label();
             TxtBillAmount = new TextBox();
-            label9 = new Label();
-            TxtItemsCount = new TextBox();
             label6 = new Label();
             CmbBillChecked = new ComboBox();
-            TxtMissingItemDetails = new TextBox();
             label10 = new Label();
-            CmbBillCheckedBy = new ComboBox();
+            TxtMissingItemDetails = new TextBox();
+            label2 = new Label();
+            CmbIsItemMissing = new ComboBox();
             label11 = new Label();
+            label9 = new Label();
+            CmbBillCheckedBy = new ComboBox();
+            TxtItemsCount = new TextBox();
             label12 = new Label();
-            label13 = new Label();
-            CmbPurchaseEntryStatus = new ComboBox();
-            CmbPurchaseEntryBy = new ComboBox();
             label14 = new Label();
+            CmbPurchaseEntryStatus = new ComboBox();
             CmbIsMissingItemReceived = new ComboBox();
+            label13 = new Label();
             label15 = new Label();
+            CmbPurchaseEntryBy = new ComboBox();
             CmbMissingItemReceivedBy = new ComboBox();
             ErrorProvider = new ErrorProvider(components);
             tableLayoutPanel1.SuspendLayout();
@@ -259,7 +259,7 @@
             DtpFltrToDate.Location = new Point(800, 42);
             DtpFltrToDate.Name = "DtpFltrToDate";
             DtpFltrToDate.Size = new Size(111, 23);
-            DtpFltrToDate.TabIndex = 8;
+            DtpFltrToDate.TabIndex = 9;
             DtpFltrToDate.ValueChanged += DtpFltrToDate_ValueChanged;
             // 
             // LblFltrToDate
@@ -271,7 +271,7 @@
             LblFltrToDate.Margin = new Padding(2, 0, 2, 0);
             LblFltrToDate.Name = "LblFltrToDate";
             LblFltrToDate.Size = new Size(75, 19);
-            LblFltrToDate.TabIndex = 7;
+            LblFltrToDate.TabIndex = 8;
             LblFltrToDate.Text = "To";
             LblFltrToDate.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -285,7 +285,7 @@
             DtpFltrFromDate.Location = new Point(604, 42);
             DtpFltrFromDate.Name = "DtpFltrFromDate";
             DtpFltrFromDate.Size = new Size(111, 23);
-            DtpFltrFromDate.TabIndex = 6;
+            DtpFltrFromDate.TabIndex = 7;
             DtpFltrFromDate.ValueChanged += DtpFltrFromDate_ValueChanged;
             // 
             // LblFltrFromDate
@@ -297,7 +297,7 @@
             LblFltrFromDate.Margin = new Padding(2, 0, 2, 0);
             LblFltrFromDate.Name = "LblFltrFromDate";
             LblFltrFromDate.Size = new Size(75, 19);
-            LblFltrFromDate.TabIndex = 5;
+            LblFltrFromDate.TabIndex = 6;
             LblFltrFromDate.Text = "From";
             LblFltrFromDate.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -313,7 +313,7 @@
             ChkFltrApplyDate.Location = new Point(408, 42);
             ChkFltrApplyDate.Name = "ChkFltrApplyDate";
             ChkFltrApplyDate.Size = new Size(111, 23);
-            ChkFltrApplyDate.TabIndex = 4;
+            ChkFltrApplyDate.TabIndex = 5;
             ChkFltrApplyDate.Text = "Apply Date Filter";
             ChkFltrApplyDate.TextAlign = ContentAlignment.MiddleRight;
             ChkFltrApplyDate.UseVisualStyleBackColor = false;
@@ -339,11 +339,13 @@
             TxtFilterVendor.ForeColor = Color.DarkGreen;
             TxtFilterVendor.Location = new Point(142, 40);
             TxtFilterVendor.Margin = new Padding(2);
-            TxtFilterVendor.MaxLength = 25;
+            TxtFilterVendor.MaxLength = 50;
             TxtFilterVendor.Name = "TxtFilterVendor";
             TxtFilterVendor.Size = new Size(261, 27);
             TxtFilterVendor.TabIndex = 2;
             TxtFilterVendor.TextChanged += TxtFilterCustomer_TextChanged;
+            TxtFilterVendor.Enter += TextBox_Enter;
+            TxtFilterVendor.Leave += TextBox_Leave;
             // 
             // ChkSearchLike
             // 
@@ -373,14 +375,14 @@
             tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tableLayoutPanel9.Controls.Add(LblFilterCatType, 0, 0);
-            tableLayoutPanel9.Controls.Add(CmbFilterIsItemMissing, 1, 0);
-            tableLayoutPanel9.Controls.Add(label16, 2, 0);
-            tableLayoutPanel9.Controls.Add(CmbFilterBillChecked, 3, 0);
-            tableLayoutPanel9.Controls.Add(label17, 4, 0);
-            tableLayoutPanel9.Controls.Add(CmbFilterPurchaseEntryStatus, 5, 0);
-            tableLayoutPanel9.Controls.Add(label18, 6, 0);
-            tableLayoutPanel9.Controls.Add(CmbFilterIsMissingItemReceived, 7, 0);
+            tableLayoutPanel9.Controls.Add(CmbFilterBillChecked, 1, 0);
+            tableLayoutPanel9.Controls.Add(CmbFilterIsItemMissing, 3, 0);
+            tableLayoutPanel9.Controls.Add(LblFilterCatType, 2, 0);
+            tableLayoutPanel9.Controls.Add(label16, 0, 0);
+            tableLayoutPanel9.Controls.Add(label17, 6, 0);
+            tableLayoutPanel9.Controls.Add(label18, 4, 0);
+            tableLayoutPanel9.Controls.Add(CmbFilterPurchaseEntryStatus, 7, 0);
+            tableLayoutPanel9.Controls.Add(CmbFilterIsMissingItemReceived, 5, 0);
             tableLayoutPanel9.Dock = DockStyle.Fill;
             tableLayoutPanel9.Location = new Point(140, 69);
             tableLayoutPanel9.Margin = new Padding(0);
@@ -388,48 +390,7 @@
             tableLayoutPanel9.RowCount = 1;
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel9.Size = new Size(828, 31);
-            tableLayoutPanel9.TabIndex = 11;
-            // 
-            // LblFilterCatType
-            // 
-            LblFilterCatType.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblFilterCatType.AutoSize = true;
-            LblFilterCatType.ForeColor = Color.FromArgb(163, 0, 34);
-            LblFilterCatType.Location = new Point(2, 6);
-            LblFilterCatType.Margin = new Padding(2, 0, 2, 0);
-            LblFilterCatType.Name = "LblFilterCatType";
-            LblFilterCatType.Size = new Size(109, 19);
-            LblFilterCatType.TabIndex = 0;
-            LblFilterCatType.Text = "Is Item Missing";
-            LblFilterCatType.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // CmbFilterIsItemMissing
-            // 
-            CmbFilterIsItemMissing.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CmbFilterIsItemMissing.BackColor = Color.White;
-            CmbFilterIsItemMissing.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbFilterIsItemMissing.ForeColor = Color.DarkGreen;
-            CmbFilterIsItemMissing.FormattingEnabled = true;
-            CmbFilterIsItemMissing.Location = new Point(115, 2);
-            CmbFilterIsItemMissing.Margin = new Padding(2);
-            CmbFilterIsItemMissing.Name = "CmbFilterIsItemMissing";
-            CmbFilterIsItemMissing.Size = new Size(51, 27);
-            CmbFilterIsItemMissing.TabIndex = 1;
-            CmbFilterIsItemMissing.SelectedIndexChanged += CmbFilterTransactionType_SelectedIndexChanged;
-            CmbFilterIsItemMissing.Enter += ComboBox_Enter;
-            // 
-            // label16
-            // 
-            label16.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label16.AutoSize = true;
-            label16.ForeColor = Color.FromArgb(163, 0, 34);
-            label16.Location = new Point(170, 6);
-            label16.Margin = new Padding(2, 0, 2, 0);
-            label16.Name = "label16";
-            label16.Size = new Size(91, 19);
-            label16.TabIndex = 2;
-            label16.Text = "Bill Checked";
-            label16.TextAlign = ContentAlignment.MiddleRight;
+            tableLayoutPanel9.TabIndex = 4;
             // 
             // CmbFilterBillChecked
             // 
@@ -438,26 +399,80 @@
             CmbFilterBillChecked.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbFilterBillChecked.ForeColor = Color.DarkGreen;
             CmbFilterBillChecked.FormattingEnabled = true;
-            CmbFilterBillChecked.Location = new Point(265, 2);
+            CmbFilterBillChecked.Location = new Point(97, 2);
             CmbFilterBillChecked.Margin = new Padding(2);
             CmbFilterBillChecked.Name = "CmbFilterBillChecked";
             CmbFilterBillChecked.Size = new Size(51, 27);
-            CmbFilterBillChecked.TabIndex = 3;
+            CmbFilterBillChecked.TabIndex = 1;
             CmbFilterBillChecked.SelectedIndexChanged += CmbFilterTransactionType_SelectedIndexChanged;
             CmbFilterBillChecked.Enter += ComboBox_Enter;
+            // 
+            // CmbFilterIsItemMissing
+            // 
+            CmbFilterIsItemMissing.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CmbFilterIsItemMissing.BackColor = Color.White;
+            CmbFilterIsItemMissing.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbFilterIsItemMissing.ForeColor = Color.DarkGreen;
+            CmbFilterIsItemMissing.FormattingEnabled = true;
+            CmbFilterIsItemMissing.Location = new Point(265, 2);
+            CmbFilterIsItemMissing.Margin = new Padding(2);
+            CmbFilterIsItemMissing.Name = "CmbFilterIsItemMissing";
+            CmbFilterIsItemMissing.Size = new Size(51, 27);
+            CmbFilterIsItemMissing.TabIndex = 3;
+            CmbFilterIsItemMissing.SelectedIndexChanged += CmbFilterTransactionType_SelectedIndexChanged;
+            CmbFilterIsItemMissing.Enter += ComboBox_Enter;
+            // 
+            // LblFilterCatType
+            // 
+            LblFilterCatType.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblFilterCatType.AutoSize = true;
+            LblFilterCatType.ForeColor = Color.FromArgb(163, 0, 34);
+            LblFilterCatType.Location = new Point(152, 6);
+            LblFilterCatType.Margin = new Padding(2, 0, 2, 0);
+            LblFilterCatType.Name = "LblFilterCatType";
+            LblFilterCatType.Size = new Size(109, 19);
+            LblFilterCatType.TabIndex = 2;
+            LblFilterCatType.Text = "Is Item Missing";
+            LblFilterCatType.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label16
+            // 
+            label16.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label16.AutoSize = true;
+            label16.ForeColor = Color.FromArgb(163, 0, 34);
+            label16.Location = new Point(2, 6);
+            label16.Margin = new Padding(2, 0, 2, 0);
+            label16.Name = "label16";
+            label16.Size = new Size(91, 19);
+            label16.TabIndex = 0;
+            label16.Text = "Bill Checked";
+            label16.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label17
             // 
             label17.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label17.AutoSize = true;
             label17.ForeColor = Color.FromArgb(163, 0, 34);
-            label17.Location = new Point(320, 6);
+            label17.Location = new Point(553, 6);
             label17.Margin = new Padding(2, 0, 2, 0);
             label17.Name = "label17";
             label17.Size = new Size(159, 19);
-            label17.TabIndex = 4;
+            label17.TabIndex = 6;
             label17.Text = "Purchase Entry Status";
             label17.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label18
+            // 
+            label18.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label18.AutoSize = true;
+            label18.ForeColor = Color.FromArgb(163, 0, 34);
+            label18.Location = new Point(320, 6);
+            label18.Margin = new Padding(2, 0, 2, 0);
+            label18.Name = "label18";
+            label18.Size = new Size(174, 19);
+            label18.TabIndex = 4;
+            label18.Text = "Is Missing Item Received";
+            label18.TextAlign = ContentAlignment.MiddleRight;
             // 
             // CmbFilterPurchaseEntryStatus
             // 
@@ -466,26 +481,13 @@
             CmbFilterPurchaseEntryStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbFilterPurchaseEntryStatus.ForeColor = Color.DarkGreen;
             CmbFilterPurchaseEntryStatus.FormattingEnabled = true;
-            CmbFilterPurchaseEntryStatus.Location = new Point(483, 2);
+            CmbFilterPurchaseEntryStatus.Location = new Point(716, 2);
             CmbFilterPurchaseEntryStatus.Margin = new Padding(2);
             CmbFilterPurchaseEntryStatus.Name = "CmbFilterPurchaseEntryStatus";
             CmbFilterPurchaseEntryStatus.Size = new Size(51, 27);
-            CmbFilterPurchaseEntryStatus.TabIndex = 5;
+            CmbFilterPurchaseEntryStatus.TabIndex = 7;
             CmbFilterPurchaseEntryStatus.SelectedIndexChanged += CmbFilterTransactionType_SelectedIndexChanged;
             CmbFilterPurchaseEntryStatus.Enter += ComboBox_Enter;
-            // 
-            // label18
-            // 
-            label18.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label18.AutoSize = true;
-            label18.ForeColor = Color.FromArgb(163, 0, 34);
-            label18.Location = new Point(538, 6);
-            label18.Margin = new Padding(2, 0, 2, 0);
-            label18.Name = "label18";
-            label18.Size = new Size(174, 19);
-            label18.TabIndex = 6;
-            label18.Text = "Is Missing Item Received";
-            label18.TextAlign = ContentAlignment.MiddleRight;
             // 
             // CmbFilterIsMissingItemReceived
             // 
@@ -494,11 +496,11 @@
             CmbFilterIsMissingItemReceived.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbFilterIsMissingItemReceived.ForeColor = Color.DarkGreen;
             CmbFilterIsMissingItemReceived.FormattingEnabled = true;
-            CmbFilterIsMissingItemReceived.Location = new Point(716, 2);
+            CmbFilterIsMissingItemReceived.Location = new Point(498, 2);
             CmbFilterIsMissingItemReceived.Margin = new Padding(2);
             CmbFilterIsMissingItemReceived.Name = "CmbFilterIsMissingItemReceived";
             CmbFilterIsMissingItemReceived.Size = new Size(51, 27);
-            CmbFilterIsMissingItemReceived.TabIndex = 7;
+            CmbFilterIsMissingItemReceived.TabIndex = 5;
             CmbFilterIsMissingItemReceived.SelectedIndexChanged += CmbFilterTransactionType_SelectedIndexChanged;
             CmbFilterIsMissingItemReceived.Enter += ComboBox_Enter;
             // 
@@ -564,6 +566,7 @@
             label3.Size = new Size(148, 23);
             label3.TabIndex = 0;
             label3.Text = "Total Expenses =>";
+            label3.Visible = false;
             // 
             // LblTotalExpenses
             // 
@@ -577,6 +580,7 @@
             LblTotalExpenses.Size = new Size(159, 23);
             LblTotalExpenses.TabIndex = 1;
             LblTotalExpenses.Text = "...";
+            LblTotalExpenses.Visible = false;
             // 
             // tableLayoutPanel6
             // 
@@ -612,8 +616,6 @@
             tableLayoutPanel2.Controls.Add(label1, 0, 2);
             tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 1, 16);
             tableLayoutPanel2.Controls.Add(tableLayoutPanel7, 1, 2);
-            tableLayoutPanel2.Controls.Add(label2, 0, 7);
-            tableLayoutPanel2.Controls.Add(CmbIsItemMissing, 1, 7);
             tableLayoutPanel2.Controls.Add(label5, 0, 15);
             tableLayoutPanel2.Controls.Add(TxtRemarks, 1, 15);
             tableLayoutPanel2.Controls.Add(label7, 0, 3);
@@ -622,22 +624,24 @@
             tableLayoutPanel2.Controls.Add(DtpBillDate, 1, 4);
             tableLayoutPanel2.Controls.Add(label4, 0, 5);
             tableLayoutPanel2.Controls.Add(TxtBillAmount, 1, 5);
-            tableLayoutPanel2.Controls.Add(label9, 0, 6);
-            tableLayoutPanel2.Controls.Add(TxtItemsCount, 1, 6);
-            tableLayoutPanel2.Controls.Add(label6, 0, 9);
-            tableLayoutPanel2.Controls.Add(CmbBillChecked, 1, 9);
-            tableLayoutPanel2.Controls.Add(TxtMissingItemDetails, 1, 8);
-            tableLayoutPanel2.Controls.Add(label10, 0, 8);
-            tableLayoutPanel2.Controls.Add(CmbBillCheckedBy, 1, 10);
-            tableLayoutPanel2.Controls.Add(label11, 0, 10);
-            tableLayoutPanel2.Controls.Add(label12, 0, 11);
-            tableLayoutPanel2.Controls.Add(label13, 0, 12);
-            tableLayoutPanel2.Controls.Add(CmbPurchaseEntryStatus, 1, 11);
-            tableLayoutPanel2.Controls.Add(CmbPurchaseEntryBy, 1, 12);
-            tableLayoutPanel2.Controls.Add(label14, 0, 13);
-            tableLayoutPanel2.Controls.Add(CmbIsMissingItemReceived, 1, 13);
-            tableLayoutPanel2.Controls.Add(label15, 0, 14);
-            tableLayoutPanel2.Controls.Add(CmbMissingItemReceivedBy, 1, 14);
+            tableLayoutPanel2.Controls.Add(label6, 0, 6);
+            tableLayoutPanel2.Controls.Add(CmbBillChecked, 1, 6);
+            tableLayoutPanel2.Controls.Add(label10, 0, 10);
+            tableLayoutPanel2.Controls.Add(TxtMissingItemDetails, 1, 10);
+            tableLayoutPanel2.Controls.Add(label2, 0, 9);
+            tableLayoutPanel2.Controls.Add(CmbIsItemMissing, 1, 9);
+            tableLayoutPanel2.Controls.Add(label11, 0, 7);
+            tableLayoutPanel2.Controls.Add(label9, 0, 8);
+            tableLayoutPanel2.Controls.Add(CmbBillCheckedBy, 1, 7);
+            tableLayoutPanel2.Controls.Add(TxtItemsCount, 1, 8);
+            tableLayoutPanel2.Controls.Add(label12, 0, 13);
+            tableLayoutPanel2.Controls.Add(label14, 0, 11);
+            tableLayoutPanel2.Controls.Add(CmbPurchaseEntryStatus, 1, 13);
+            tableLayoutPanel2.Controls.Add(CmbIsMissingItemReceived, 1, 11);
+            tableLayoutPanel2.Controls.Add(label13, 0, 14);
+            tableLayoutPanel2.Controls.Add(label15, 0, 12);
+            tableLayoutPanel2.Controls.Add(CmbPurchaseEntryBy, 1, 14);
+            tableLayoutPanel2.Controls.Add(CmbMissingItemReceivedBy, 1, 12);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Margin = new Padding(3, 4, 3, 4);
@@ -757,31 +761,6 @@
             BtnAddVendorMaster.UseVisualStyleBackColor = true;
             BtnAddVendorMaster.Click += BtnAddVendorMaster_Click;
             // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label2.AutoSize = true;
-            label2.ForeColor = Color.FromArgb(163, 0, 34);
-            label2.Location = new Point(3, 237);
-            label2.Name = "label2";
-            label2.Size = new Size(189, 19);
-            label2.TabIndex = 10;
-            label2.Text = "Is Item Missing*";
-            // 
-            // CmbIsItemMissing
-            // 
-            CmbIsItemMissing.Anchor = AnchorStyles.Left;
-            CmbIsItemMissing.BackColor = Color.White;
-            CmbIsItemMissing.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbIsItemMissing.ForeColor = Color.DarkGreen;
-            CmbIsItemMissing.FormattingEnabled = true;
-            CmbIsItemMissing.Location = new Point(197, 235);
-            CmbIsItemMissing.Margin = new Padding(2);
-            CmbIsItemMissing.Name = "CmbIsItemMissing";
-            CmbIsItemMissing.Size = new Size(133, 27);
-            CmbIsItemMissing.TabIndex = 11;
-            CmbIsItemMissing.Enter += ComboBox_Enter;
-            // 
             // label5
             // 
             label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -799,7 +778,7 @@
             TxtRemarks.BackColor = Color.WhiteSmoke;
             TxtRemarks.ForeColor = Color.ForestGreen;
             TxtRemarks.Location = new Point(198, 537);
-            TxtRemarks.MaxLength = 10;
+            TxtRemarks.MaxLength = 100;
             TxtRemarks.Name = "TxtRemarks";
             TxtRemarks.Size = new Size(199, 27);
             TxtRemarks.TabIndex = 27;
@@ -828,7 +807,6 @@
             TxtBillNo.Size = new Size(132, 27);
             TxtBillNo.TabIndex = 3;
             TxtBillNo.Enter += TextBox_Enter;
-            TxtBillNo.KeyPress += Decimal_KeyPress;
             TxtBillNo.Leave += TextBox_Leave;
             // 
             // label8
@@ -879,40 +857,15 @@
             TxtBillAmount.Leave += TextBox_Leave;
             TxtBillAmount.Validated += TxtAmount_Validated;
             // 
-            // label9
-            // 
-            label9.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label9.AutoSize = true;
-            label9.ForeColor = Color.FromArgb(163, 0, 34);
-            label9.Location = new Point(3, 199);
-            label9.Name = "label9";
-            label9.Size = new Size(189, 19);
-            label9.TabIndex = 8;
-            label9.Text = "Items Count*";
-            // 
-            // TxtItemsCount
-            // 
-            TxtItemsCount.Anchor = AnchorStyles.Left;
-            TxtItemsCount.BackColor = Color.WhiteSmoke;
-            TxtItemsCount.ForeColor = Color.ForestGreen;
-            TxtItemsCount.Location = new Point(198, 195);
-            TxtItemsCount.MaxLength = 3;
-            TxtItemsCount.Name = "TxtItemsCount";
-            TxtItemsCount.Size = new Size(132, 27);
-            TxtItemsCount.TabIndex = 9;
-            TxtItemsCount.TextAlign = HorizontalAlignment.Right;
-            TxtItemsCount.Enter += TextBox_Enter;
-            TxtItemsCount.Leave += TextBox_Leave;
-            // 
             // label6
             // 
             label6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label6.AutoSize = true;
             label6.ForeColor = Color.FromArgb(163, 0, 34);
-            label6.Location = new Point(3, 313);
+            label6.Location = new Point(3, 199);
             label6.Name = "label6";
             label6.Size = new Size(189, 19);
-            label6.TabIndex = 14;
+            label6.TabIndex = 8;
             label6.Text = "Bill Checked*";
             // 
             // CmbBillChecked
@@ -922,83 +875,137 @@
             CmbBillChecked.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbBillChecked.ForeColor = Color.DarkGreen;
             CmbBillChecked.FormattingEnabled = true;
-            CmbBillChecked.Location = new Point(197, 311);
+            CmbBillChecked.Location = new Point(197, 197);
             CmbBillChecked.Margin = new Padding(2);
             CmbBillChecked.Name = "CmbBillChecked";
             CmbBillChecked.Size = new Size(133, 27);
-            CmbBillChecked.TabIndex = 15;
+            CmbBillChecked.TabIndex = 9;
+            CmbBillChecked.SelectedIndexChanged += CmbCommon_SelectedIndexChanged;
             CmbBillChecked.Enter += ComboBox_Enter;
-            // 
-            // TxtMissingItemDetails
-            // 
-            TxtMissingItemDetails.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtMissingItemDetails.BackColor = Color.WhiteSmoke;
-            TxtMissingItemDetails.ForeColor = Color.ForestGreen;
-            TxtMissingItemDetails.Location = new Point(198, 271);
-            TxtMissingItemDetails.MaxLength = 100;
-            TxtMissingItemDetails.Name = "TxtMissingItemDetails";
-            TxtMissingItemDetails.Size = new Size(199, 27);
-            TxtMissingItemDetails.TabIndex = 13;
-            TxtMissingItemDetails.Enter += TextBox_Enter;
-            TxtMissingItemDetails.Leave += TextBox_Leave;
             // 
             // label10
             // 
             label10.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label10.AutoSize = true;
             label10.ForeColor = Color.FromArgb(163, 0, 34);
-            label10.Location = new Point(3, 275);
+            label10.Location = new Point(3, 351);
             label10.Name = "label10";
             label10.Size = new Size(189, 19);
-            label10.TabIndex = 12;
+            label10.TabIndex = 16;
             label10.Text = "Missing Item Details*";
             // 
-            // CmbBillCheckedBy
+            // TxtMissingItemDetails
             // 
-            CmbBillCheckedBy.Anchor = AnchorStyles.Left;
-            CmbBillCheckedBy.BackColor = Color.White;
-            CmbBillCheckedBy.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbBillCheckedBy.ForeColor = Color.DarkGreen;
-            CmbBillCheckedBy.FormattingEnabled = true;
-            CmbBillCheckedBy.Location = new Point(197, 349);
-            CmbBillCheckedBy.Margin = new Padding(2);
-            CmbBillCheckedBy.Name = "CmbBillCheckedBy";
-            CmbBillCheckedBy.Size = new Size(133, 27);
-            CmbBillCheckedBy.TabIndex = 17;
-            CmbBillCheckedBy.Enter += ComboBox_Enter;
+            TxtMissingItemDetails.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtMissingItemDetails.BackColor = Color.WhiteSmoke;
+            TxtMissingItemDetails.ForeColor = Color.ForestGreen;
+            TxtMissingItemDetails.Location = new Point(198, 347);
+            TxtMissingItemDetails.MaxLength = 100;
+            TxtMissingItemDetails.Name = "TxtMissingItemDetails";
+            TxtMissingItemDetails.Size = new Size(199, 27);
+            TxtMissingItemDetails.TabIndex = 17;
+            TxtMissingItemDetails.Enter += TextBox_Enter;
+            TxtMissingItemDetails.Leave += TextBox_Leave;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.ForeColor = Color.FromArgb(163, 0, 34);
+            label2.Location = new Point(3, 313);
+            label2.Name = "label2";
+            label2.Size = new Size(189, 19);
+            label2.TabIndex = 14;
+            label2.Text = "Is Item Missing*";
+            // 
+            // CmbIsItemMissing
+            // 
+            CmbIsItemMissing.Anchor = AnchorStyles.Left;
+            CmbIsItemMissing.BackColor = Color.White;
+            CmbIsItemMissing.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbIsItemMissing.ForeColor = Color.DarkGreen;
+            CmbIsItemMissing.FormattingEnabled = true;
+            CmbIsItemMissing.Location = new Point(197, 311);
+            CmbIsItemMissing.Margin = new Padding(2);
+            CmbIsItemMissing.Name = "CmbIsItemMissing";
+            CmbIsItemMissing.Size = new Size(133, 27);
+            CmbIsItemMissing.TabIndex = 15;
+            CmbIsItemMissing.SelectedIndexChanged += CmbCommon_SelectedIndexChanged;
+            CmbIsItemMissing.Enter += ComboBox_Enter;
             // 
             // label11
             // 
             label11.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label11.AutoSize = true;
             label11.ForeColor = Color.FromArgb(163, 0, 34);
-            label11.Location = new Point(3, 351);
+            label11.Location = new Point(3, 237);
             label11.Name = "label11";
             label11.Size = new Size(189, 19);
-            label11.TabIndex = 16;
+            label11.TabIndex = 10;
             label11.Text = "Bill CheckedBy*";
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label9.AutoSize = true;
+            label9.ForeColor = Color.FromArgb(163, 0, 34);
+            label9.Location = new Point(3, 275);
+            label9.Name = "label9";
+            label9.Size = new Size(189, 19);
+            label9.TabIndex = 12;
+            label9.Text = "Items Count*";
+            // 
+            // CmbBillCheckedBy
+            // 
+            CmbBillCheckedBy.Anchor = AnchorStyles.Left;
+            CmbBillCheckedBy.BackColor = Color.White;
+            CmbBillCheckedBy.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbBillCheckedBy.Enabled = false;
+            CmbBillCheckedBy.ForeColor = Color.DarkGreen;
+            CmbBillCheckedBy.FormattingEnabled = true;
+            CmbBillCheckedBy.Location = new Point(197, 235);
+            CmbBillCheckedBy.Margin = new Padding(2);
+            CmbBillCheckedBy.Name = "CmbBillCheckedBy";
+            CmbBillCheckedBy.Size = new Size(133, 27);
+            CmbBillCheckedBy.TabIndex = 11;
+            CmbBillCheckedBy.Enter += ComboBox_Enter;
+            // 
+            // TxtItemsCount
+            // 
+            TxtItemsCount.Anchor = AnchorStyles.Left;
+            TxtItemsCount.BackColor = Color.WhiteSmoke;
+            TxtItemsCount.ForeColor = Color.ForestGreen;
+            TxtItemsCount.Location = new Point(198, 271);
+            TxtItemsCount.MaxLength = 3;
+            TxtItemsCount.Name = "TxtItemsCount";
+            TxtItemsCount.Size = new Size(132, 27);
+            TxtItemsCount.TabIndex = 13;
+            TxtItemsCount.TextAlign = HorizontalAlignment.Right;
+            TxtItemsCount.Enter += TextBox_Enter;
+            TxtItemsCount.KeyPress += Number_KeyPress;
+            TxtItemsCount.Leave += TextBox_Leave;
             // 
             // label12
             // 
             label12.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label12.AutoSize = true;
             label12.ForeColor = Color.FromArgb(163, 0, 34);
-            label12.Location = new Point(3, 389);
+            label12.Location = new Point(3, 465);
             label12.Name = "label12";
             label12.Size = new Size(189, 19);
-            label12.TabIndex = 18;
+            label12.TabIndex = 22;
             label12.Text = "Purchase Entry Status*";
             // 
-            // label13
+            // label14
             // 
-            label13.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label13.AutoSize = true;
-            label13.ForeColor = Color.FromArgb(163, 0, 34);
-            label13.Location = new Point(3, 427);
-            label13.Name = "label13";
-            label13.Size = new Size(189, 19);
-            label13.TabIndex = 20;
-            label13.Text = "Purchase Entry By*";
+            label14.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label14.AutoSize = true;
+            label14.ForeColor = Color.FromArgb(163, 0, 34);
+            label14.Location = new Point(3, 389);
+            label14.Name = "label14";
+            label14.Size = new Size(189, 19);
+            label14.TabIndex = 18;
+            label14.Text = "Is Missing Item Received*";
             // 
             // CmbPurchaseEntryStatus
             // 
@@ -1007,37 +1014,13 @@
             CmbPurchaseEntryStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbPurchaseEntryStatus.ForeColor = Color.DarkGreen;
             CmbPurchaseEntryStatus.FormattingEnabled = true;
-            CmbPurchaseEntryStatus.Location = new Point(197, 387);
+            CmbPurchaseEntryStatus.Location = new Point(197, 463);
             CmbPurchaseEntryStatus.Margin = new Padding(2);
             CmbPurchaseEntryStatus.Name = "CmbPurchaseEntryStatus";
             CmbPurchaseEntryStatus.Size = new Size(133, 27);
-            CmbPurchaseEntryStatus.TabIndex = 19;
+            CmbPurchaseEntryStatus.TabIndex = 23;
+            CmbPurchaseEntryStatus.SelectedIndexChanged += CmbCommon_SelectedIndexChanged;
             CmbPurchaseEntryStatus.Enter += ComboBox_Enter;
-            // 
-            // CmbPurchaseEntryBy
-            // 
-            CmbPurchaseEntryBy.Anchor = AnchorStyles.Left;
-            CmbPurchaseEntryBy.BackColor = Color.White;
-            CmbPurchaseEntryBy.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbPurchaseEntryBy.ForeColor = Color.DarkGreen;
-            CmbPurchaseEntryBy.FormattingEnabled = true;
-            CmbPurchaseEntryBy.Location = new Point(197, 425);
-            CmbPurchaseEntryBy.Margin = new Padding(2);
-            CmbPurchaseEntryBy.Name = "CmbPurchaseEntryBy";
-            CmbPurchaseEntryBy.Size = new Size(133, 27);
-            CmbPurchaseEntryBy.TabIndex = 21;
-            CmbPurchaseEntryBy.Enter += ComboBox_Enter;
-            // 
-            // label14
-            // 
-            label14.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label14.AutoSize = true;
-            label14.ForeColor = Color.FromArgb(163, 0, 34);
-            label14.Location = new Point(3, 465);
-            label14.Name = "label14";
-            label14.Size = new Size(189, 19);
-            label14.TabIndex = 22;
-            label14.Text = "Is Missing Item Received*";
             // 
             // CmbIsMissingItemReceived
             // 
@@ -1046,36 +1029,64 @@
             CmbIsMissingItemReceived.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbIsMissingItemReceived.ForeColor = Color.DarkGreen;
             CmbIsMissingItemReceived.FormattingEnabled = true;
-            CmbIsMissingItemReceived.Location = new Point(197, 463);
+            CmbIsMissingItemReceived.Location = new Point(197, 387);
             CmbIsMissingItemReceived.Margin = new Padding(2);
             CmbIsMissingItemReceived.Name = "CmbIsMissingItemReceived";
             CmbIsMissingItemReceived.Size = new Size(133, 27);
-            CmbIsMissingItemReceived.TabIndex = 23;
+            CmbIsMissingItemReceived.TabIndex = 19;
+            CmbIsMissingItemReceived.SelectedIndexChanged += CmbCommon_SelectedIndexChanged;
             CmbIsMissingItemReceived.Enter += ComboBox_Enter;
+            // 
+            // label13
+            // 
+            label13.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label13.AutoSize = true;
+            label13.ForeColor = Color.FromArgb(163, 0, 34);
+            label13.Location = new Point(3, 503);
+            label13.Name = "label13";
+            label13.Size = new Size(189, 19);
+            label13.TabIndex = 24;
+            label13.Text = "Purchase Entry By*";
             // 
             // label15
             // 
             label15.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label15.AutoSize = true;
             label15.ForeColor = Color.FromArgb(163, 0, 34);
-            label15.Location = new Point(3, 503);
+            label15.Location = new Point(3, 427);
             label15.Name = "label15";
             label15.Size = new Size(189, 19);
-            label15.TabIndex = 24;
+            label15.TabIndex = 20;
             label15.Text = "Missing Item Received By*";
+            // 
+            // CmbPurchaseEntryBy
+            // 
+            CmbPurchaseEntryBy.Anchor = AnchorStyles.Left;
+            CmbPurchaseEntryBy.BackColor = Color.White;
+            CmbPurchaseEntryBy.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbPurchaseEntryBy.Enabled = false;
+            CmbPurchaseEntryBy.ForeColor = Color.DarkGreen;
+            CmbPurchaseEntryBy.FormattingEnabled = true;
+            CmbPurchaseEntryBy.Location = new Point(197, 501);
+            CmbPurchaseEntryBy.Margin = new Padding(2);
+            CmbPurchaseEntryBy.Name = "CmbPurchaseEntryBy";
+            CmbPurchaseEntryBy.Size = new Size(133, 27);
+            CmbPurchaseEntryBy.TabIndex = 25;
+            CmbPurchaseEntryBy.Enter += ComboBox_Enter;
             // 
             // CmbMissingItemReceivedBy
             // 
             CmbMissingItemReceivedBy.Anchor = AnchorStyles.Left;
             CmbMissingItemReceivedBy.BackColor = Color.White;
             CmbMissingItemReceivedBy.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbMissingItemReceivedBy.Enabled = false;
             CmbMissingItemReceivedBy.ForeColor = Color.DarkGreen;
             CmbMissingItemReceivedBy.FormattingEnabled = true;
-            CmbMissingItemReceivedBy.Location = new Point(197, 501);
+            CmbMissingItemReceivedBy.Location = new Point(197, 425);
             CmbMissingItemReceivedBy.Margin = new Padding(2);
             CmbMissingItemReceivedBy.Name = "CmbMissingItemReceivedBy";
             CmbMissingItemReceivedBy.Size = new Size(133, 27);
-            CmbMissingItemReceivedBy.TabIndex = 25;
+            CmbMissingItemReceivedBy.TabIndex = 21;
             CmbMissingItemReceivedBy.Enter += ComboBox_Enter;
             // 
             // ErrorProvider

@@ -238,15 +238,15 @@ namespace VegetableBox
 
         private void expensesEntryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    FrmExpenseRecorder frmExpenseRecorder = new FrmExpenseRecorder();
-            //    this.ShowForm(frmExpenseRecorder);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Vegetable Box");
-            //}
+            try
+            {
+                FrmExpenseRecorder frmExpenseRecorder = new FrmExpenseRecorder();
+                this.ShowForm(frmExpenseRecorder);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
         }
 
         private void tagPrintToolStripMenuItem_Click(object sender, EventArgs e)

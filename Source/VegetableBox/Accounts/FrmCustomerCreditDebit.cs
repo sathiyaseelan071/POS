@@ -43,7 +43,10 @@ namespace VegetableBox
                 frmCustomerMaster.IsChildForm = true;
                 frmCustomerMaster.WindowState = FormWindowState.Normal;
                 frmCustomerMaster.ShowDialog();
+
                 this.LoadControls();
+                this.ClearEntry();
+                this.ClearAndLoadView();
                 this.CmbCustomerName.Focus();
             }
             catch (Exception ex)

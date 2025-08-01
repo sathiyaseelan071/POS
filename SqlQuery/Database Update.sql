@@ -525,25 +525,27 @@ CREATE TABLE [VendorBillDetails](
 	[BillNo] VARCHAR(20),
 	[BillDate] DATE NOT NULL,
 	[BillAmount] NUMERIC(12, 2) NOT NULL,
+	[BillChecked] CHAR(1) CHECK ([BillChecked] IN (NULL, 'Y','N')),
+    [BillCheckedBy] INT,
+
 	[ItemsCount] INT,
     [IsItemMissing] CHAR(1) CHECK ([IsItemMissing] IN (NULL, 'Y','N')),
     [MissingItemDetails] VARCHAR(100),
-	[BillChecked] CHAR(1) CHECK ([BillChecked] IN (NULL, 'Y','N')),
-    [BillCheckedBy] INT,
-	[PurchaseEntryStatus] VARCHAR(1),
-    [PurchaseEntryBy] INT,
 	[IsMissingItemReceived] CHAR(1) CHECK ([IsMissingItemReceived] IN (NULL, 'Y','N')),
 	[MissingItemReceivedBy] INT,
+	[PurchaseEntryStatus] VARCHAR(1),
+    [PurchaseEntryBy] INT,
+
 	[Remarks] VARCHAR(100),
 	[AmountPaid] NUMERIC(12, 2) NOT NULL,
     [UpdatedBy] INT NOT NULL,                           
     [UpdatedDate] DATETIME NOT NULL,
 	
     FOREIGN KEY ([VendorCode]) REFERENCES [Vendor]([Code]),	
-	FOREIGN KEY ([PurchaseEntryStatus]) REFERENCES [ProgressStatusMaster]([Code]),
 	FOREIGN KEY ([BillCheckedBy]) REFERENCES [USER]([Code]),
-	FOREIGN KEY ([PurchaseEntryBy]) REFERENCES [USER]([Code]),
 	FOREIGN KEY ([MissingItemReceivedBy]) REFERENCES [USER]([Code]),
+	FOREIGN KEY ([PurchaseEntryStatus]) REFERENCES [ProgressStatusMaster]([Code]),
+	FOREIGN KEY ([PurchaseEntryBy]) REFERENCES [USER]([Code]),
     FOREIGN KEY ([UpdatedBy]) REFERENCES [USER]([Code])
 )
 
@@ -551,9 +553,9 @@ CREATE TABLE [VendorBillDetails](
 Go
 --------------
 
-CREATE PROCEDURE [dbo].[SpSaveVendorBillDetails](@VendorCode INT, @BillNo VARCHAR(20), @BillDate DATE, @BillAmount NUMERIC(12, 2), @ItemsCount INT,
-    @IsItemMissing CHAR(1), @MissingItemDetails VARCHAR(100), @BillChecked CHAR(1), @BillCheckedBy INT, @PurchaseEntryStatus VARCHAR(20),
-    @PurchaseEntryBy INT, @IsMissingItemReceived CHAR(1), @MissingItemReceivedBy INT, @Remarks VARCHAR(100), @AmountPaid NUMERIC(12, 2), @UpdatedBy INT)
+CREATE PROCEDURE [dbo].[SpSaveVendorBillDetails](@VendorCode INT, @BillNo VARCHAR(20), @BillDate DATE, @BillAmount NUMERIC(12, 2), @BillChecked CHAR(1), @BillCheckedBy INT, 
+    @ItemsCount INT, @IsItemMissing CHAR(1), @MissingItemDetails VARCHAR(100), @IsMissingItemReceived CHAR(1), @MissingItemReceivedBy INT, 
+    @PurchaseEntryStatus VARCHAR(20),@PurchaseEntryBy INT, @Remarks VARCHAR(100), @AmountPaid NUMERIC(12, 2), @UpdatedBy INT)
 AS BEGIN
     SET NOCOUNT ON;
 
@@ -563,29 +565,28 @@ AS BEGIN
     SET @TranNo = (SELECT ISNULL(MAX(TranNo), 0) + 1 FROM [VendorBillDetails]);
 
     -- Insert record
-    INSERT INTO [VendorBillDetails] ([TranNo], [VendorCode], [BillNo], [BillDate], [BillAmount], [ItemsCount], 
-	[IsItemMissing], [MissingItemDetails], [BillChecked], [BillCheckedBy], [PurchaseEntryStatus], 
-	[PurchaseEntryBy], [IsMissingItemReceived], [MissingItemReceivedBy], [Remarks], [AmountPaid], [UpdatedBy], [UpdatedDate])
-    VALUES (@TranNo, @VendorCode, @BillNo, @BillDate, @BillAmount, @ItemsCount, 
-	@IsItemMissing, @MissingItemDetails, @BillChecked, @BillCheckedBy, @PurchaseEntryStatus,
-	@PurchaseEntryBy, @IsMissingItemReceived, @MissingItemReceivedBy, @Remarks, @AmountPaid, @UpdatedBy, GETDATE());
+    INSERT INTO [VendorBillDetails] ([TranNo], [VendorCode], [BillNo], [BillDate], [BillAmount], [BillChecked], [BillCheckedBy], 
+	[ItemsCount], [IsItemMissing], [MissingItemDetails], [IsMissingItemReceived], [MissingItemReceivedBy], 
+	[PurchaseEntryStatus], [PurchaseEntryBy], [Remarks], [AmountPaid], [UpdatedBy], [UpdatedDate])
+    VALUES (@TranNo, @VendorCode, @BillNo, @BillDate, @BillAmount, @BillChecked, @BillCheckedBy,
+	@ItemsCount, @IsItemMissing, @MissingItemDetails, @IsMissingItemReceived, @MissingItemReceivedBy, 
+	@PurchaseEntryStatus, @PurchaseEntryBy, @Remarks, @AmountPaid, @UpdatedBy, GETDATE());
 END
 
 --------------
 Go
 --------------
 
-CREATE PROCEDURE [dbo].[SpUpdateVendorBillDetails](@TranNo INT,@VendorCode INT, @BillNo INT, @BillDate DATE, @BillAmount NUMERIC(12, 2), @ItemsCount INT,
-    @IsItemMissing CHAR(1), @MissingItemDetails VARCHAR(100), @BillChecked CHAR(1), @BillCheckedBy INT, @PurchaseEntryStatus VARCHAR(20),
-    @PurchaseEntryBy INT, @IsMissingItemReceived CHAR(1), @MissingItemReceivedBy INT, @Remarks VARCHAR(100), @AmountPaid NUMERIC(12, 2), @UpdatedBy INT)
+CREATE PROCEDURE [dbo].[SpUpdateVendorBillDetails](@TranNo INT, @VendorCode INT, @BillNo VARCHAR(20), @BillDate DATE, @BillAmount NUMERIC(12, 2), @BillChecked CHAR(1), @BillCheckedBy INT, 
+    @ItemsCount INT, @IsItemMissing CHAR(1), @MissingItemDetails VARCHAR(100), @IsMissingItemReceived CHAR(1), @MissingItemReceivedBy INT, 
+    @PurchaseEntryStatus VARCHAR(20),@PurchaseEntryBy INT, @Remarks VARCHAR(100), @AmountPaid NUMERIC(12, 2), @UpdatedBy INT)
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE [VendorBillDetails] SET  [VendorCode] = @VendorCode, [BillNo] = @BillNo, [BillDate] = @BillDate, [BillAmount] = @BillAmount, [ItemsCount] = @ItemsCount,
-	[IsItemMissing] = @IsItemMissing, [MissingItemDetails] = @MissingItemDetails, [BillChecked] = @BillChecked, [BillCheckedBy] = @BillCheckedBy,
-	[PurchaseEntryStatus] = @PurchaseEntryStatus, [PurchaseEntryBy] = @PurchaseEntryBy, [IsMissingItemReceived] = @IsMissingItemReceived, 
-	[MissingItemReceivedBy] = @MissingItemReceivedBy, [Remarks] = @Remarks, [AmountPaid] = @AmountPaid, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = GETDATE()
+    UPDATE [VendorBillDetails] SET  [VendorCode] = @VendorCode, [BillNo] = @BillNo, [BillDate] = @BillDate, [BillAmount] = @BillAmount, [BillChecked] = @BillChecked, [BillCheckedBy] = @BillCheckedBy,
+	[ItemsCount] = @ItemsCount,	[IsItemMissing] = @IsItemMissing, [MissingItemDetails] = @MissingItemDetails, [IsMissingItemReceived] = @IsMissingItemReceived,  [MissingItemReceivedBy] = @MissingItemReceivedBy, 
+	[PurchaseEntryStatus] = @PurchaseEntryStatus, [PurchaseEntryBy] = @PurchaseEntryBy,	[Remarks] = @Remarks, [AmountPaid] = @AmountPaid, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = GETDATE()
     WHERE [TranNo] = @TranNo;
 END
 
@@ -598,16 +599,14 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT VT.[SNo], VT.[TranNo], VM.[Name] AS VendorName, VT.[BillNo], VT.[BillDate], VT.[BillAmount], VT.[ItemsCount], 
-	(CASE WHEN VT.[IsItemMissing] = 'Y' THEN 'Yes' WHEN VT.[IsItemMissing] = 'N' THEN 'No' ELSE '' END) AS [IsItemMissing], VT.[MissingItemDetails], 
+    SELECT VT.[SNo], VT.[TranNo], VM.[Name] AS VendorName, VT.[BillNo], VT.[BillDate], VT.[BillAmount], 
 	(CASE WHEN VT.[BillChecked] = 'Y' THEN 'Yes' WHEN VT.[BillChecked] = 'N' THEN 'No' ELSE '' END) AS BillChecked, UB.[Name] AS BillCheckedBy, 
-	PS.[Name] AS PurchaseEntryStatus, UP.[Name] AS PurchaseEntryBy,
+	VT.[ItemsCount],  (CASE WHEN VT.[IsItemMissing] = 'Y' THEN 'Yes' WHEN VT.[IsItemMissing] = 'N' THEN 'No' ELSE '' END) AS [IsItemMissing], VT.[MissingItemDetails], 
 	(CASE WHEN VT.[IsMissingItemReceived] = 'Y' THEN 'Yes' WHEN VT.[IsMissingItemReceived] = 'N' THEN 'No' ELSE '' END) AS IsMissingItemReceived, UM.[Name] AS MissingItemReceivedBy, 
-	VT.[Remarks], VT.[AmountPaid], UU.[Name] AS UpdatedBy, VT.[UpdatedDate],
-
-	VT.[VendorCode], VT.[IsItemMissing] AS IsItemMissingCode, VT.[BillChecked] AS BillCheckedCode, VT.[PurchaseEntryStatus] AS PurchaseEntryStatusCode, 
-	VT.[BillCheckedBy] AS BillCheckedByCode, VT.[PurchaseEntryBy] AS PurchaseEntryByCode, VT.[MissingItemReceivedBy] AS MissingItemReceivedByCode,  VT.[UpdatedBy] AS UpdatedByCode
-
+	PS.[Name] AS PurchaseEntryStatus, UP.[Name] AS PurchaseEntryBy,	VT.[Remarks], VT.[AmountPaid], UU.[Name] AS UpdatedBy, VT.[UpdatedDate],
+	VT.[VendorCode], VT.[BillChecked] AS BillCheckedCode, VT.[BillCheckedBy] AS BillCheckedByCode,  VT.[IsItemMissing] AS IsItemMissingCode, VT.[IsMissingItemReceived] AS IsMissingItemReceivedCode,
+	VT.[MissingItemReceivedBy] AS MissingItemReceivedByCode,  VT.[PurchaseEntryStatus] AS PurchaseEntryStatusCode, 	VT.[PurchaseEntryBy] AS PurchaseEntryByCode, 
+	VT.[UpdatedBy] AS UpdatedByCode
     FROM [VendorBillDetails] AS VT
     LEFT JOIN [Vendor] AS VM ON VT.[VendorCode] = VM.[Code]
 	LEFT JOIN [ProgressStatusMaster] AS PS ON VT.[PurchaseEntryStatus] = PS.[Code]

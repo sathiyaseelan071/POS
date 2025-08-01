@@ -63,15 +63,15 @@ namespace VegetableBox
         private string _BillNo = string.Empty;
         private DateTime _BillDate;
         private decimal _BillAmount = 0;
-        private int _ItemsCount = 0;
-        private string _IsItemMissing = string.Empty;
-        private string _MissingItemDetails = string.Empty;
         private string _BillChecked = string.Empty;
         private int? _BillCheckedBy = 0;
-        private string _PurchaseEntryStatus = string.Empty;
-        private int? _PurchaseEntryBy = 0;
-        private string _IsMissingItemReceived = string.Empty;
+        private int? _ItemsCount = 0;
+        private string? _IsItemMissing = string.Empty;
+        private string? _MissingItemDetails = string.Empty;
+        private string? _IsMissingItemReceived = string.Empty;
         private int? _MissingItemReceivedBy = 0;
+        private string? _PurchaseEntryStatus = string.Empty;
+        private int? _PurchaseEntryBy = 0;
         private string _Remarks = string.Empty;
         private decimal _AmountPaid = 0;
         private int _UpdatedBy = 0;
@@ -106,24 +106,6 @@ namespace VegetableBox
             set { _BillAmount = value; }
         }
 
-        internal int ItemsCount
-        {
-            get { return _ItemsCount; }
-            set { _ItemsCount = value; }
-        }
-
-        internal string IsItemMissing
-        {
-            get { return _IsItemMissing; }
-            set { _IsItemMissing = value; }
-        }
-
-        internal string MissingItemDetails
-        {
-            get { return _MissingItemDetails; }
-            set { _MissingItemDetails = value; }
-        }
-
         internal string BillChecked
         {
             get { return _BillChecked; }
@@ -136,7 +118,25 @@ namespace VegetableBox
             set { _BillCheckedBy = value; }
         }
 
-        internal string PurchaseEntryStatus
+        internal Nullable<int> ItemsCount
+        {
+            get { return _ItemsCount; }
+            set { _ItemsCount = value; }
+        }
+
+        internal string? IsItemMissing
+        {
+            get { return _IsItemMissing; }
+            set { _IsItemMissing = value; }
+        }
+
+        internal string? MissingItemDetails
+        {
+            get { return _MissingItemDetails; }
+            set { _MissingItemDetails = value; }
+        }
+
+        internal string? PurchaseEntryStatus
         {
             get { return _PurchaseEntryStatus; }
             set { _PurchaseEntryStatus = value; }
@@ -148,7 +148,7 @@ namespace VegetableBox
             set { _PurchaseEntryBy = value; }
         }
 
-        internal string IsMissingItemReceived
+        internal string? IsMissingItemReceived
         {
             get { return _IsMissingItemReceived; }
             set { _IsMissingItemReceived = value; }
@@ -191,15 +191,17 @@ namespace VegetableBox
                     new SqlParameter("@BillNo", this.BillNo),
                     new SqlParameter("@BillDate", this.BillDate),
                     new SqlParameter("@BillAmount", this.BillAmount),
-                    new SqlParameter("@ItemsCount", this.ItemsCount),
-                    new SqlParameter("@IsItemMissing", this.IsItemMissing != null ? this.IsItemMissing : DBNull.Value),
-                    new SqlParameter("@MissingItemDetails", this.MissingItemDetails),
-                    new SqlParameter("@BillChecked", this.BillChecked != null ? this.BillChecked : DBNull.Value),
+                    new SqlParameter("@BillChecked", this.BillChecked),
                     new SqlParameter("@BillCheckedBy", this.BillCheckedBy.HasValue ? this.BillCheckedBy.Value : DBNull.Value),
-                    new SqlParameter("@PurchaseEntryStatus", this.PurchaseEntryStatus != null ? this.PurchaseEntryStatus : DBNull.Value),
-                    new SqlParameter("@PurchaseEntryBy", this.PurchaseEntryBy.HasValue ? this.PurchaseEntryBy.Value : DBNull.Value),
+
+                    new SqlParameter("@ItemsCount", this.ItemsCount.HasValue ?  this.ItemsCount : DBNull.Value),
+                    new SqlParameter("@IsItemMissing", this.IsItemMissing != null ? this.IsItemMissing : DBNull.Value),
+                    new SqlParameter("@MissingItemDetails", this.MissingItemDetails != null ? this.MissingItemDetails : DBNull.Value),
                     new SqlParameter("@IsMissingItemReceived", this.IsMissingItemReceived != null ? this.IsMissingItemReceived : DBNull.Value),
                     new SqlParameter("@MissingItemReceivedBy", this.MissingItemReceivedBy.HasValue ? this.MissingItemReceivedBy.Value : DBNull.Value),
+                    new SqlParameter("@PurchaseEntryStatus", this.PurchaseEntryStatus != null ? this.PurchaseEntryStatus : DBNull.Value),
+                    new SqlParameter("@PurchaseEntryBy", this.PurchaseEntryBy.HasValue ? this.PurchaseEntryBy.Value : DBNull.Value),
+
                     new SqlParameter("@Remarks", this.Remarks),
                     new SqlParameter("@AmountPaid", this.AmountPaid),
                     new SqlParameter("@UpdatedBy", Global.currentUserId)
@@ -227,15 +229,17 @@ namespace VegetableBox
                     new SqlParameter("@BillNo", this.BillNo),
                     new SqlParameter("@BillDate", this.BillDate),
                     new SqlParameter("@BillAmount", this.BillAmount),
-                    new SqlParameter("@ItemsCount", this.ItemsCount),
-                    new SqlParameter("@IsItemMissing", this.IsItemMissing),
-                    new SqlParameter("@MissingItemDetails", this.MissingItemDetails),
                     new SqlParameter("@BillChecked", this.BillChecked),
-                    new SqlParameter("@BillCheckedBy", this.BillCheckedBy),
-                    new SqlParameter("@PurchaseEntryStatus", this.PurchaseEntryStatus),
-                    new SqlParameter("@PurchaseEntryBy", this.PurchaseEntryBy),
-                    new SqlParameter("@IsMissingItemReceived", this.IsMissingItemReceived),
-                    new SqlParameter("@MissingItemReceivedBy", this.MissingItemReceivedBy),
+                    new SqlParameter("@BillCheckedBy", this.BillCheckedBy.HasValue ? this.BillCheckedBy.Value : DBNull.Value),
+
+                    new SqlParameter("@ItemsCount", this.ItemsCount.HasValue ?  this.ItemsCount : DBNull.Value),
+                    new SqlParameter("@IsItemMissing", this.IsItemMissing != null ? this.IsItemMissing : DBNull.Value),
+                    new SqlParameter("@MissingItemDetails", this.MissingItemDetails != null ? this.MissingItemDetails : DBNull.Value),
+                    new SqlParameter("@IsMissingItemReceived", this.IsMissingItemReceived != null ? this.IsMissingItemReceived : DBNull.Value),
+                    new SqlParameter("@MissingItemReceivedBy", this.MissingItemReceivedBy.HasValue ? this.MissingItemReceivedBy.Value : DBNull.Value),
+                    new SqlParameter("@PurchaseEntryStatus", this.PurchaseEntryStatus != null ? this.PurchaseEntryStatus : DBNull.Value),
+                    new SqlParameter("@PurchaseEntryBy", this.PurchaseEntryBy.HasValue ? this.PurchaseEntryBy.Value : DBNull.Value),
+
                     new SqlParameter("@Remarks", this.Remarks),
                     new SqlParameter("@AmountPaid", this.AmountPaid),
                     new SqlParameter("@UpdatedBy", Global.currentUserId)

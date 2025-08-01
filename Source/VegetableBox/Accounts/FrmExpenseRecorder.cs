@@ -44,6 +44,8 @@ namespace VegetableBox
                 frmFrmExpenseMaster.WindowState = FormWindowState.Normal;
                 frmFrmExpenseMaster.ShowDialog();
                 this.LoadControls();
+                this.ClearEntry();
+                this.ClearAndLoadView();
                 this.CmbExpenseName.Focus();
             }
             catch (Exception ex)

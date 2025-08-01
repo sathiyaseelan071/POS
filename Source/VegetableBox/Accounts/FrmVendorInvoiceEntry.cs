@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 
 namespace VegetableBox
 {
@@ -43,7 +35,10 @@ namespace VegetableBox
                 frmVendorMaster.IsChildForm = true;
                 frmVendorMaster.WindowState = FormWindowState.Normal;
                 frmVendorMaster.ShowDialog();
+
                 this.LoadControls();
+                this.ClearEntry();
+                this.ClearAndLoadView();
                 this.CmbVendorName.Focus();
             }
             catch (Exception ex)
@@ -87,9 +82,9 @@ namespace VegetableBox
                 FillControls.ComboBoxFill(this.CmbMissingItemReceivedBy, this.clsFrmVendorInvoiceEntry.UserMaster, "Code", "Name", false, "");
 
                 FillControls.ComboBoxFill(this.CmbFilterIsItemMissing, this.clsFrmVendorInvoiceEntry.YesNoMaster, "Code", "Name", true, "All");
-                FillControls.ComboBoxFill(this.CmbFilterBillChecked, this.clsFrmVendorInvoiceEntry.YesNoMaster, "Code", "Name", true, "All");                
+                FillControls.ComboBoxFill(this.CmbFilterBillChecked, this.clsFrmVendorInvoiceEntry.YesNoMaster, "Code", "Name", true, "All");
                 FillControls.ComboBoxFill(this.CmbFilterPurchaseEntryStatus, this.clsFrmVendorInvoiceEntry.ProgressStatusMaster, "Code", "Name", true, "All");
-                FillControls.ComboBoxFill(this.CmbFilterIsMissingItemReceived, this.clsFrmVendorInvoiceEntry.YesNoMaster, "Code", "Name", true, "All");                
+                FillControls.ComboBoxFill(this.CmbFilterIsMissingItemReceived, this.clsFrmVendorInvoiceEntry.YesNoMaster, "Code", "Name", true, "All");
             }
             catch
             {
@@ -140,7 +135,7 @@ namespace VegetableBox
                 this.ChkSearchLike.Checked = true;
                 this.ChkFltrApplyDate.Checked = false;
                 this.DtpFltrFromDate.Value = DateTime.Now.Date;
-                this.DtpFltrToDate.Value = DateTime.Now.Date.AddDays(1).AddSeconds(-1); // To include the whole day
+                this.DtpFltrToDate.Value = DateTime.Now.Date; // To include the whole day
 
                 clsFrmVendorInvoiceEntry.View();
                 DGView.DataSource = clsFrmVendorInvoiceEntry.VendorBillData.Copy();
@@ -183,65 +178,111 @@ namespace VegetableBox
         {
             try
             {
-                string FilterExpense = TxtFilterVendor.Text;
-                string FilterTransactionType = CmbFilterIsItemMissing.SelectedValue.ToString();
+                string FilterVendor = TxtFilterVendor.Text;
+
+                string FilterBillChecked = CmbFilterBillChecked.SelectedValue.ToString();
+                string FilterIsItemMissing = CmbFilterIsItemMissing.SelectedValue.ToString();
+                string FilterIsMissingItemReceived = CmbFilterIsMissingItemReceived.SelectedValue.ToString();
+                string FilterPurchaseEntryStatus = CmbFilterPurchaseEntryStatus.SelectedValue.ToString();
 
                 DataTable DtView = new DataTable();
                 DtView = clsFrmVendorInvoiceEntry.VendorBillData.Copy();
 
-                if (!string.IsNullOrEmpty(FilterTransactionType))
+                if (!string.IsNullOrEmpty(FilterBillChecked))
                 {
-                    //if (DtView.AsEnumerable()
-                    //.Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.TransTypeCode) == FilterTransactionType).Count() > 0)
-                    //{
-                    //    DtView = DtView.AsEnumerable()
-                    //        .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.TransTypeCode) == FilterTransactionType).CopyToDataTable();
-                    //}
-                    //else
-                    //{
-                    //    DtView = clsFrmVendorInvoiceEntry.VendorBillData.Clone();
-                    //}
-                }
-
-                if (!string.IsNullOrEmpty(FilterExpense))
-                {
-                    if (ChkSearchLike.Checked)
+                    if (DtView.AsEnumerable()
+                    .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.BillCheckedCode) == FilterBillChecked).Count() > 0)
                     {
-                        //if (DtView.AsEnumerable().Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.ExpenseName).ToLower().Contains(FilterExpense.ToLower())
-                        //).Count() > 0)
-                        //{
-                        //    DtView = DtView.AsEnumerable()
-                        //        .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.ExpenseName).ToLower().Contains(FilterExpense.ToLower())
-                        //        ).CopyToDataTable();
-                        //}
-                        //else
-                        //{
-                        //    DtView = clsFrmVendorInvoiceEntry.VendorBillData.Clone();
-                        //}
+                        DtView = DtView.AsEnumerable()
+                            .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.BillCheckedCode) == FilterBillChecked).CopyToDataTable();
                     }
                     else
                     {
-                        //if (DtView.AsEnumerable().Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.ExpenseName).ToLower() == FilterExpense.ToLower()
-                        //).Count() > 0)
-                        //{
-                        //    DtView = DtView.AsEnumerable()
-                        //        .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.ExpenseName).ToLower() == FilterExpense.ToLower()
-                        //        ).CopyToDataTable();
-                        //}
-                        //else
-                        //{
-                        //    DtView = clsFrmVendorInvoiceEntry.VendorBillData.Clone();
-                        //}
+                        DtView = clsFrmVendorInvoiceEntry.VendorBillData.Clone();
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(FilterIsItemMissing))
+                {
+                    if (DtView.AsEnumerable()
+                    .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.IsItemMissingCode) == FilterIsItemMissing).Count() > 0)
+                    {
+                        DtView = DtView.AsEnumerable()
+                            .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.IsItemMissingCode) == FilterIsItemMissing).CopyToDataTable();
+                    }
+                    else
+                    {
+                        DtView = clsFrmVendorInvoiceEntry.VendorBillData.Clone();
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(FilterIsMissingItemReceived))
+                {
+                    if (DtView.AsEnumerable()
+                    .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.IsMissingItemReceivedCode) == FilterIsMissingItemReceived).Count() > 0)
+                    {
+                        DtView = DtView.AsEnumerable()
+                            .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.IsMissingItemReceivedCode) == FilterIsMissingItemReceived).CopyToDataTable();
+                    }
+                    else
+                    {
+                        DtView = clsFrmVendorInvoiceEntry.VendorBillData.Clone();
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(FilterPurchaseEntryStatus))
+                {
+                    if (DtView.AsEnumerable()
+                    .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.PurchaseEntryStatusCode) == FilterPurchaseEntryStatus).Count() > 0)
+                    {
+                        DtView = DtView.AsEnumerable()
+                            .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.PurchaseEntryStatusCode) == FilterPurchaseEntryStatus).CopyToDataTable();
+                    }
+                    else
+                    {
+                        DtView = clsFrmVendorInvoiceEntry.VendorBillData.Clone();
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(FilterVendor))
+                {
+                    if (ChkSearchLike.Checked)
+                    {
+                        if (DtView.AsEnumerable().Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.VendorName).ToLower().Contains(FilterVendor.ToLower())
+                        ).Count() > 0)
+                        {
+                            DtView = DtView.AsEnumerable()
+                                .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.VendorName).ToLower().Contains(FilterVendor.ToLower())
+                                ).CopyToDataTable();
+                        }
+                        else
+                        {
+                            DtView = clsFrmVendorInvoiceEntry.VendorBillData.Clone();
+                        }
+                    }
+                    else
+                    {
+                        if (DtView.AsEnumerable().Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.VendorName).ToLower() == FilterVendor.ToLower()
+                        ).Count() > 0)
+                        {
+                            DtView = DtView.AsEnumerable()
+                                .Where(x => x.Field<string>(VendorBillDetailsTable.ColumnName.VendorName).ToLower() == FilterVendor.ToLower()
+                                ).CopyToDataTable();
+                        }
+                        else
+                        {
+                            DtView = clsFrmVendorInvoiceEntry.VendorBillData.Clone();
+                        }
                     }
                 }
 
                 if (ChkFltrApplyDate.Checked)
                 {
                     if (DtView.AsEnumerable().Where(x => x.Field<DateTime>(VendorBillDetailsTable.ColumnName.UpdatedDate) >= DtpFltrFromDate.Value.Date
-                    && x.Field<DateTime>(VendorBillDetailsTable.ColumnName.UpdatedDate) <= DtpFltrToDate.Value.Date.AddDays(1)).Count() > 0)
+                    && x.Field<DateTime>(VendorBillDetailsTable.ColumnName.UpdatedDate) <= DtpFltrToDate.Value.Date.AddDays(1).AddSeconds(-1)).Count() > 0)
                     {
                         DtView = DtView.AsEnumerable().Where(x => x.Field<DateTime>(VendorBillDetailsTable.ColumnName.UpdatedDate) >= DtpFltrFromDate.Value.Date
-                        && x.Field<DateTime>(VendorBillDetailsTable.ColumnName.UpdatedDate) <= DtpFltrToDate.Value.Date.AddDays(1)).CopyToDataTable();
+                        && x.Field<DateTime>(VendorBillDetailsTable.ColumnName.UpdatedDate) <= DtpFltrToDate.Value.Date.AddDays(1).AddSeconds(-1)).CopyToDataTable();
                     }
                     else
                     {
@@ -410,39 +451,56 @@ namespace VegetableBox
         {
             try
             {
-                //this.Validation();
+                this.Validation();
 
-                clsFrmVendorInvoiceEntry.TranNo = this.CmbVendorName.Tag != null ? (int)this.CmbVendorName.Tag : 0;                
+                clsFrmVendorInvoiceEntry.TranNo = this.CmbVendorName.Tag != null ? (int)this.CmbVendorName.Tag : 0;
                 clsFrmVendorInvoiceEntry.VendorCode = (int)this.CmbVendorName.SelectedValue;
-                clsFrmVendorInvoiceEntry.BillNo = Convert.ToString(this.TxtBillNo.Text.Trim());
+                clsFrmVendorInvoiceEntry.BillNo = Convert.ToString(this.TxtBillNo.Text.Trim().ToUpper());
                 clsFrmVendorInvoiceEntry.BillDate = DtpBillDate.Value;
                 clsFrmVendorInvoiceEntry.BillAmount = Convert.ToDecimal(this.TxtBillAmount.Text);
-                clsFrmVendorInvoiceEntry.ItemsCount = Convert.ToInt32(this.TxtItemsCount.Text);
-                clsFrmVendorInvoiceEntry.IsItemMissing = (string)this.CmbIsItemMissing.SelectedValue;
-                clsFrmVendorInvoiceEntry.MissingItemDetails = (string)this.TxtMissingItemDetails.Text.Trim();
-
+                
                 clsFrmVendorInvoiceEntry.BillChecked = (string)this.CmbBillChecked.SelectedValue;
-                if(clsFrmVendorInvoiceEntry.BillChecked == YesNoValues.Yes)//Yes
+                if (clsFrmVendorInvoiceEntry.BillChecked == YesNoValues.Yes)//Yes
                     clsFrmVendorInvoiceEntry.BillCheckedBy = (int)this.CmbBillCheckedBy.SelectedValue;
                 else
                     clsFrmVendorInvoiceEntry.BillCheckedBy = null;
 
-                clsFrmVendorInvoiceEntry.PurchaseEntryStatus = (string)this.CmbPurchaseEntryStatus.SelectedValue;
-                if(clsFrmVendorInvoiceEntry.PurchaseEntryStatus == ProgressStatusValues.Completed 
-                    || clsFrmVendorInvoiceEntry.PurchaseEntryStatus == ProgressStatusValues.InProgress)
-                    clsFrmVendorInvoiceEntry.PurchaseEntryBy = (int)this.CmbPurchaseEntryBy.SelectedValue;
-                else
-                    clsFrmVendorInvoiceEntry.PurchaseEntryBy = null;
+                if (clsFrmVendorInvoiceEntry.BillCheckedBy == null)
+                {
+                    clsFrmVendorInvoiceEntry.ItemsCount = null;
 
-                clsFrmVendorInvoiceEntry.IsMissingItemReceived = (string)this.CmbIsMissingItemReceived.SelectedValue;
-                if(clsFrmVendorInvoiceEntry.IsMissingItemReceived == YesNoValues.Yes) //Yes
-                    clsFrmVendorInvoiceEntry.MissingItemReceivedBy = (int)this.CmbMissingItemReceivedBy.SelectedValue;
-                else
+                    clsFrmVendorInvoiceEntry.IsItemMissing = null;
+                    clsFrmVendorInvoiceEntry.MissingItemDetails = null;
+
+                    clsFrmVendorInvoiceEntry.IsMissingItemReceived = null;
                     clsFrmVendorInvoiceEntry.MissingItemReceivedBy = null;
 
-                clsFrmVendorInvoiceEntry.Remarks = (string)this.TxtRemarks.Text.Trim();
-                clsFrmVendorInvoiceEntry.AmountPaid = 0.00m;
+                    clsFrmVendorInvoiceEntry.PurchaseEntryStatus = null;
+                    clsFrmVendorInvoiceEntry.PurchaseEntryBy = null;
+                }
+                else
+                {
+                    clsFrmVendorInvoiceEntry.ItemsCount = Convert.ToInt32(this.TxtItemsCount.Text);
 
+                    clsFrmVendorInvoiceEntry.IsItemMissing = (string)this.CmbIsItemMissing.SelectedValue;
+                    clsFrmVendorInvoiceEntry.MissingItemDetails = (string)this.TxtMissingItemDetails.Text.Trim().ToUpper();
+
+                    clsFrmVendorInvoiceEntry.IsMissingItemReceived = (string)this.CmbIsMissingItemReceived.SelectedValue;
+                    if (clsFrmVendorInvoiceEntry.IsMissingItemReceived == YesNoValues.Yes) //Yes
+                        clsFrmVendorInvoiceEntry.MissingItemReceivedBy = (int)this.CmbMissingItemReceivedBy.SelectedValue;
+                    else
+                        clsFrmVendorInvoiceEntry.MissingItemReceivedBy = null;
+
+                    clsFrmVendorInvoiceEntry.PurchaseEntryStatus = (string)this.CmbPurchaseEntryStatus.SelectedValue;
+                    if (clsFrmVendorInvoiceEntry.PurchaseEntryStatus == ProgressStatusValues.Completed
+                        || clsFrmVendorInvoiceEntry.PurchaseEntryStatus == ProgressStatusValues.InProgress)
+                        clsFrmVendorInvoiceEntry.PurchaseEntryBy = (int)this.CmbPurchaseEntryBy.SelectedValue;
+                    else
+                        clsFrmVendorInvoiceEntry.PurchaseEntryBy = null;
+                }
+
+                clsFrmVendorInvoiceEntry.Remarks = (string)this.TxtRemarks.Text.Trim().ToUpper();
+                clsFrmVendorInvoiceEntry.AmountPaid = 0.00m;
 
                 if (BtnSave.Text.ToUpper() == "&SAVE")
                 {
@@ -472,27 +530,15 @@ namespace VegetableBox
                 bool IsValid = true;
                 this.ErrorProvider.Clear();
 
-
                 if (this.CmbVendorName.SelectedValue == null || this.CmbVendorName.SelectedValue.ToString() == string.Empty)
                 {
-                    this.ErrorProvider.SetError(this.CmbVendorName, "Please select the expense.");
-                    IsValid = false;
-                }
-
-                if (this.CmbBillChecked.SelectedValue == null || this.CmbBillChecked.SelectedValue.ToString() == string.Empty)
-                {
-                    this.ErrorProvider.SetError(this.CmbBillChecked, "Please select the transaction type.");
+                    this.ErrorProvider.SetError(this.CmbVendorName, "Please select the vendor.");
                     IsValid = false;
                 }
 
                 if (string.IsNullOrEmpty(this.TxtBillNo.Text.Trim()))
                 {
                     this.ErrorProvider.SetError(this.TxtBillNo, "Please enter the bill no.");
-                    IsValid = false;
-                }
-                else if (Convert.ToInt64(this.TxtBillNo.Text.Trim()) <= 0)
-                {
-                    this.ErrorProvider.SetError(this.TxtBillNo, "Bill-No must be greater than 0.");
                     IsValid = false;
                 }
 
@@ -507,10 +553,44 @@ namespace VegetableBox
                     IsValid = false;
                 }
 
-                if (this.CmbIsItemMissing.SelectedValue == null || this.CmbIsItemMissing.SelectedValue.ToString() == string.Empty)
+                if (this.CmbBillChecked.SelectedValue == null || this.CmbBillChecked.SelectedValue.ToString() == string.Empty)
                 {
-                    this.ErrorProvider.SetError(this.CmbIsItemMissing, "Please select the payment type...");
+                    this.ErrorProvider.SetError(this.CmbBillChecked, "Please select the bill checked.");
                     IsValid = false;
+                }
+                else if (this.CmbBillChecked.SelectedValue != null && this.CmbBillChecked.SelectedValue.ToString() == YesNoValues.Yes)
+                {
+                    if (string.IsNullOrEmpty(this.TxtItemsCount.Text.Trim()))
+                    {
+                        this.ErrorProvider.SetError(this.TxtItemsCount, "Please enter the item count.");
+                        IsValid = false;
+                    }
+
+                    if (this.CmbIsItemMissing.SelectedValue == null || this.CmbIsItemMissing.SelectedValue.ToString() == string.Empty)
+                    {
+                        this.ErrorProvider.SetError(this.CmbIsItemMissing, "Please select item missing status.");
+                        IsValid = false;
+                    }
+                    else if (this.CmbIsItemMissing.SelectedValue.ToString() == YesNoValues.Yes) //Yes
+                    {
+                        if (string.IsNullOrEmpty(this.TxtMissingItemDetails.Text.Trim()))
+                        {
+                            this.ErrorProvider.SetError(this.TxtMissingItemDetails, "Please enter the missing item details.");
+                            IsValid = false;
+                        }
+
+                        if (this.CmbIsMissingItemReceived.SelectedValue == null || this.CmbIsMissingItemReceived.SelectedValue.ToString() == string.Empty)
+                        {
+                            this.ErrorProvider.SetError(this.CmbIsMissingItemReceived, "Select if the missing item was received.");
+                            IsValid = false;
+                        }
+                    }
+
+                    if (this.CmbPurchaseEntryStatus.SelectedValue == null || this.CmbPurchaseEntryStatus.SelectedValue.ToString() == string.Empty)
+                    {
+                        this.ErrorProvider.SetError(this.CmbPurchaseEntryStatus, "Please select a purchase entry status.");
+                        IsValid = false;
+                    }
                 }
 
                 if (IsValid == false)
@@ -540,7 +620,6 @@ namespace VegetableBox
                 DGView.Columns[VendorBillDetailsTable.ColumnName.PurchaseEntryByCode].Visible = false;
                 DGView.Columns[VendorBillDetailsTable.ColumnName.MissingItemReceivedByCode].Visible = false;
                 DGView.Columns[VendorBillDetailsTable.ColumnName.UpdatedByCode].Visible = false;
-
 
                 DGView.Columns[VendorBillDetailsTable.ColumnName.TranNo].HeaderText = "TranNo";
                 DGView.Columns[VendorBillDetailsTable.ColumnName.VendorName].HeaderText = "Vendor Name";
@@ -616,14 +695,78 @@ namespace VegetableBox
                     {
                         DataRow? _DataRow = clsFrmVendorInvoiceEntry.VendorBillData.AsEnumerable().Where(x => x.Field<int>(VendorBillDetailsTable.ColumnName.TranNo) == _TransNo).FirstOrDefault();
 
-                        //this.CmbExpenseName.Tag = Convert.ToInt32(_DataRow[VendorBillDetailsTable.ColumnName.TranNo]);
-                        //this.CmbExpenseName.SelectedValue = _DataRow[VendorBillDetailsTable.ColumnName.ExpenseCode].ToString();
-                        //this.CmbTransactionType.SelectedValue = _DataRow[VendorBillDetailsTable.ColumnName.TransTypeCode].ToString();
-                        //this.TxtBillNo.Text = _DataRow[VendorBillDetailsTable.ColumnName.BillNo].ToString();
-                        //this.DtpBillDate.Value = Convert.ToDateTime(_DataRow[VendorBillDetailsTable.ColumnName.BillDate]);
-                        //this.TxtAmount.Text = _DataRow[VendorBillDetailsTable.ColumnName.Amount].ToString();
-                        //this.CmbPaymentType.SelectedValue = _DataRow[VendorBillDetailsTable.ColumnName.PaymentTypeCode].ToString();
-                        //this.TxtRemarks.Text = _DataRow[VendorBillDetailsTable.ColumnName.Remarks].ToString();
+                        this.CmbVendorName.Tag = Convert.ToInt32(_DataRow[VendorBillDetailsTable.ColumnName.TranNo].ToString());
+                        this.CmbVendorName.SelectedValue = _DataRow[VendorBillDetailsTable.ColumnName.VendorCode].ToString();
+                        this.TxtBillNo.Text = _DataRow[VendorBillDetailsTable.ColumnName.BillNo].ToString();
+                        this.DtpBillDate.Value = Convert.ToDateTime(_DataRow[VendorBillDetailsTable.ColumnName.BillDate]);
+                        this.TxtBillAmount.Text = _DataRow[VendorBillDetailsTable.ColumnName.BillAmount].ToString();
+                        this.CmbBillChecked.SelectedValue = _DataRow[VendorBillDetailsTable.ColumnName.BillCheckedCode].ToString();
+
+                        if (_DataRow[VendorBillDetailsTable.ColumnName.BillCheckedByCode] != DBNull.Value
+                            && _DataRow[VendorBillDetailsTable.ColumnName.BillCheckedByCode].ToString() != "")
+                        {
+                            this.CmbBillCheckedBy.SelectedValue = Convert.ToInt32(_DataRow[VendorBillDetailsTable.ColumnName.BillCheckedByCode]);
+                        }
+                        else
+                        {
+                            this.CmbBillCheckedBy.SelectedIndex = -1;
+                        }
+
+                        this.TxtItemsCount.Text = _DataRow[VendorBillDetailsTable.ColumnName.ItemsCount].ToString();
+
+                        if (_DataRow[VendorBillDetailsTable.ColumnName.IsItemMissingCode] != DBNull.Value
+                            && _DataRow[VendorBillDetailsTable.ColumnName.IsItemMissingCode].ToString() != "")
+                        {
+                            this.CmbIsItemMissing.SelectedValue = _DataRow[VendorBillDetailsTable.ColumnName.IsItemMissingCode];
+                        }
+                        else
+                        {
+                            this.CmbIsItemMissing.SelectedIndex = -1;
+                        }
+
+                        this.TxtMissingItemDetails.Text = _DataRow[VendorBillDetailsTable.ColumnName.MissingItemDetails].ToString();
+
+                        if (_DataRow[VendorBillDetailsTable.ColumnName.IsMissingItemReceivedCode] != DBNull.Value
+                            && _DataRow[VendorBillDetailsTable.ColumnName.IsMissingItemReceivedCode].ToString() != "")
+                        {
+                            this.CmbIsMissingItemReceived.SelectedValue = _DataRow[VendorBillDetailsTable.ColumnName.IsMissingItemReceivedCode].ToString();
+                        }
+                        else
+                        {
+                            this.CmbIsMissingItemReceived.SelectedIndex = -1;
+                        }
+
+                        if (_DataRow[VendorBillDetailsTable.ColumnName.MissingItemReceivedByCode] != DBNull.Value
+                            && _DataRow[VendorBillDetailsTable.ColumnName.MissingItemReceivedByCode].ToString() != "")
+                        {
+                            this.CmbMissingItemReceivedBy.SelectedValue = Convert.ToInt32(_DataRow[VendorBillDetailsTable.ColumnName.MissingItemReceivedByCode]);
+                        }
+                        else
+                        {
+                            this.CmbMissingItemReceivedBy.SelectedIndex = -1;
+                        }
+
+                        if (_DataRow[VendorBillDetailsTable.ColumnName.PurchaseEntryStatusCode] != DBNull.Value
+                            && _DataRow[VendorBillDetailsTable.ColumnName.PurchaseEntryStatusCode].ToString() != "")
+                        {
+                            this.CmbPurchaseEntryStatus.SelectedValue = _DataRow[VendorBillDetailsTable.ColumnName.PurchaseEntryStatusCode].ToString();
+                        }
+                        else
+                        {
+                            this.CmbPurchaseEntryStatus.SelectedIndex = -1;
+                        }
+
+                        if (_DataRow[VendorBillDetailsTable.ColumnName.PurchaseEntryByCode] != DBNull.Value
+                            && _DataRow[VendorBillDetailsTable.ColumnName.PurchaseEntryByCode].ToString() != "")
+                        {
+                            this.CmbPurchaseEntryBy.SelectedValue = Convert.ToInt32(_DataRow[VendorBillDetailsTable.ColumnName.PurchaseEntryByCode]);
+                        }
+                        else
+                        {
+                            this.CmbPurchaseEntryBy.SelectedIndex = -1;
+                        }
+
+                        this.TxtRemarks.Text = _DataRow[VendorBillDetailsTable.ColumnName.Remarks].ToString();
 
                         BtnSave.Text = "&Update";
                         CmbVendorName.Focus();
@@ -778,7 +921,100 @@ namespace VegetableBox
                 MessageBox.Show(ex.Message, "Vegetable Box");
             }
         }
+
+        private void CmbCommon_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.ControlsPropertySet();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ControlsPropertySet()
+        {
+            try
+            {
+                this.CmbBillCheckedBy.Enabled = false;
+                this.CmbMissingItemReceivedBy.Enabled = false;
+                this.CmbPurchaseEntryStatus.Enabled = false;
+
+                if (this.CmbBillChecked.SelectedValue == null || (this.CmbBillChecked.SelectedValue != null && this.CmbBillChecked.SelectedValue.ToString() == YesNoValues.No))
+                {
+                    this.CmbBillCheckedBy.SelectedIndex = -1;
+
+                    this.TxtItemsCount.Enabled = false;
+                    this.TxtItemsCount.Text = string.Empty;
+
+                    this.CmbIsItemMissing.Enabled = false;
+                    this.CmbIsItemMissing.SelectedIndex = -1;
+
+                    this.TxtMissingItemDetails.Enabled = false;
+                    this.TxtMissingItemDetails.Text = string.Empty;
+
+                    this.CmbIsMissingItemReceived.Enabled = false;
+                    this.CmbIsMissingItemReceived.SelectedIndex = -1;
+
+                    this.CmbMissingItemReceivedBy.SelectedIndex = -1;
+
+                    this.CmbPurchaseEntryStatus.Enabled = false;
+                    this.CmbPurchaseEntryStatus.SelectedIndex = -1;
+
+                    this.CmbPurchaseEntryBy.SelectedIndex = -1;
+                }
+                else if (this.CmbBillChecked.SelectedValue != null && this.CmbBillChecked.SelectedValue.ToString() == YesNoValues.Yes)
+                {
+                    this.CmbBillCheckedBy.SelectedValue = Global.currentUserId;
+
+                    this.TxtItemsCount.Enabled = true;
+                    this.CmbIsItemMissing.Enabled = true;
+
+                    if (this.CmbIsItemMissing.SelectedValue != null && this.CmbIsItemMissing.SelectedValue.ToString() == YesNoValues.Yes)
+                    {
+                        this.TxtMissingItemDetails.Enabled = true;
+                        this.CmbIsMissingItemReceived.Enabled = true;
+                    }
+                    else
+                    {
+                        this.TxtMissingItemDetails.Enabled = false;
+                        this.TxtMissingItemDetails.Text = string.Empty;
+
+                        this.CmbIsMissingItemReceived.Enabled = false;
+                        this.CmbIsMissingItemReceived.SelectedIndex = -1;
+                    }
+
+                    if (this.CmbIsMissingItemReceived.SelectedValue != null && this.CmbIsMissingItemReceived.SelectedValue.ToString() == YesNoValues.Yes)
+                    {
+                        this.CmbIsMissingItemReceived.Enabled = true;
+                        this.CmbMissingItemReceivedBy.SelectedValue = Global.currentUserId;
+                    }
+                    else
+                    {
+                        this.CmbMissingItemReceivedBy.SelectedIndex = -1;
+                    }
+
+                    this.CmbPurchaseEntryStatus.Enabled = true;
+
+                    if (this.CmbPurchaseEntryStatus.SelectedValue != null && this.CmbPurchaseEntryStatus.SelectedValue.ToString() != ProgressStatusValues.NotStarted)
+                    {
+                        this.CmbPurchaseEntryBy.SelectedValue = Global.currentUserId;
+                    }
+                    else
+                    {
+                        this.CmbPurchaseEntryBy.SelectedIndex = -1;
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
+
 
     #region "Struct"
 
@@ -806,28 +1042,28 @@ namespace VegetableBox
             internal static string BillNo = "BillNo";
             internal static string BillDate = "BillDate";
             internal static string BillAmount = "BillAmount";
+            internal static string BillChecked = "BillChecked";
+            internal static string BillCheckedBy = "BillCheckedBy";
             internal static string ItemsCount = "ItemsCount";
             internal static string IsItemMissing = "IsItemMissing";
             internal static string MissingItemDetails = "MissingItemDetails";
-            internal static string BillChecked = "BillChecked";
-            internal static string BillCheckedBy = "BillCheckedBy";
-            internal static string PurchaseEntryStatus = "PurchaseEntryStatus";
-            internal static string PurchaseEntryBy = "PurchaseEntryBy";
             internal static string IsMissingItemReceived = "IsMissingItemReceived";
             internal static string MissingItemReceivedBy = "MissingItemReceivedBy";
+            internal static string PurchaseEntryStatus = "PurchaseEntryStatus";
+            internal static string PurchaseEntryBy = "PurchaseEntryBy";
             internal static string Remarks = "Remarks";
             internal static string AmountPaid = "AmountPaid";
             internal static string UpdatedBy = "UpdatedBy";
             internal static string UpdatedDate = "UpdatedDate";
 
-            internal static string IsItemMissingCode = "IsItemMissingCode";
             internal static string BillCheckedCode = "BillCheckedCode";
-            internal static string PurchaseEntryStatusCode = "PurchaseEntryStatusCode";
             internal static string BillCheckedByCode = "BillCheckedByCode";
-            internal static string PurchaseEntryByCode = "PurchaseEntryByCode";
+            internal static string IsItemMissingCode = "IsItemMissingCode";
+            internal static string IsMissingItemReceivedCode = "IsMissingItemReceivedCode";
             internal static string MissingItemReceivedByCode = "MissingItemReceivedByCode";
+            internal static string PurchaseEntryStatusCode = "PurchaseEntryStatusCode";
+            internal static string PurchaseEntryByCode = "PurchaseEntryByCode";
             internal static string UpdatedByCode = "UpdatedByCode";
-
         }
     }
 

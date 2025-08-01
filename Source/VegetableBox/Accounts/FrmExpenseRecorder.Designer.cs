@@ -259,7 +259,7 @@
             CmbFilterTransactionType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbFilterTransactionType.ForeColor = Color.DarkGreen;
             CmbFilterTransactionType.FormattingEnabled = true;
-            CmbFilterTransactionType.Location = new Point(142, 42);
+            CmbFilterTransactionType.Location = new Point(142, 40);
             CmbFilterTransactionType.Margin = new Padding(2);
             CmbFilterTransactionType.Name = "CmbFilterTransactionType";
             CmbFilterTransactionType.Size = new Size(113, 27);
@@ -280,6 +280,8 @@
             TxtFilterExpense.Size = new Size(378, 27);
             TxtFilterExpense.TabIndex = 4;
             TxtFilterExpense.TextChanged += TxtFilterCustomer_TextChanged;
+            TxtFilterExpense.Enter += TextBox_Enter;
+            TxtFilterExpense.Leave += TextBox_Leave;
             // 
             // DtpFltrToDate
             // 
@@ -584,7 +586,7 @@
             CmbExpenseName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             CmbExpenseName.AutoCompleteSource = AutoCompleteSource.ListItems;
             CmbExpenseName.FormattingEnabled = true;
-            CmbExpenseName.Location = new Point(2, 6);
+            CmbExpenseName.Location = new Point(2, 8);
             CmbExpenseName.Margin = new Padding(2);
             CmbExpenseName.Name = "CmbExpenseName";
             CmbExpenseName.Size = new Size(214, 27);
@@ -610,7 +612,7 @@
             CmbTransactionType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbTransactionType.ForeColor = Color.DarkGreen;
             CmbTransactionType.FormattingEnabled = true;
-            CmbTransactionType.Location = new Point(140, 84);
+            CmbTransactionType.Location = new Point(140, 86);
             CmbTransactionType.Margin = new Padding(2);
             CmbTransactionType.Name = "CmbTransactionType";
             CmbTransactionType.Size = new Size(133, 27);
@@ -744,7 +746,7 @@
             CmbPaymentType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbPaymentType.ForeColor = Color.DarkGreen;
             CmbPaymentType.FormattingEnabled = true;
-            CmbPaymentType.Location = new Point(140, 240);
+            CmbPaymentType.Location = new Point(140, 242);
             CmbPaymentType.Margin = new Padding(2);
             CmbPaymentType.Name = "CmbPaymentType";
             CmbPaymentType.Size = new Size(133, 27);

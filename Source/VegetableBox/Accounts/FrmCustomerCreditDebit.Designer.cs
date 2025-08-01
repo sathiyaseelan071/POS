@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel4 = new TableLayoutPanel();
             DGView = new DataGridView();
@@ -135,37 +135,37 @@
             DGView.AllowUserToAddRows = false;
             DGView.AllowUserToDeleteRows = false;
             DGView.BackgroundColor = SystemColors.Control;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = Color.IndianRed;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle1.SelectionForeColor = Color.IndianRed;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            DGView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = Color.IndianRed;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle4.SelectionForeColor = Color.IndianRed;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            DGView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             DGView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableLayoutPanel4.SetColumnSpan(DGView, 2);
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = Color.FromArgb(0, 64, 64);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle2.SelectionForeColor = Color.ForestGreen;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            DGView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = Color.FromArgb(0, 64, 64);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle5.SelectionForeColor = Color.ForestGreen;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            DGView.DefaultCellStyle = dataGridViewCellStyle5;
             DGView.Dock = DockStyle.Fill;
             DGView.Location = new Point(3, 138);
             DGView.MultiSelect = false;
             DGView.Name = "DGView";
             DGView.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.Maroon;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            DGView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = Color.Maroon;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            DGView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             DGView.RowHeadersVisible = false;
             tableLayoutPanel4.SetRowSpan(DGView, 2);
             DGView.RowTemplate.Height = 25;
@@ -238,7 +238,7 @@
             CmbFilterTransactionType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbFilterTransactionType.ForeColor = Color.DarkGreen;
             CmbFilterTransactionType.FormattingEnabled = true;
-            CmbFilterTransactionType.Location = new Point(142, 40);
+            CmbFilterTransactionType.Location = new Point(142, 42);
             CmbFilterTransactionType.Margin = new Padding(2);
             CmbFilterTransactionType.Name = "CmbFilterTransactionType";
             CmbFilterTransactionType.Size = new Size(113, 27);
@@ -285,6 +285,8 @@
             TxtFilterCustomer.Size = new Size(378, 27);
             TxtFilterCustomer.TabIndex = 4;
             TxtFilterCustomer.TextChanged += TxtFilterCustomer_TextChanged;
+            TxtFilterCustomer.Enter += TextBox_Enter;
+            TxtFilterCustomer.Leave += TextBox_Leave;
             // 
             // ChkFltrApplyDate
             // 
@@ -656,7 +658,7 @@
             CmbCustomerName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             CmbCustomerName.AutoCompleteSource = AutoCompleteSource.ListItems;
             CmbCustomerName.FormattingEnabled = true;
-            CmbCustomerName.Location = new Point(2, 6);
+            CmbCustomerName.Location = new Point(2, 8);
             CmbCustomerName.Margin = new Padding(2);
             CmbCustomerName.Name = "CmbCustomerName";
             CmbCustomerName.Size = new Size(214, 27);
@@ -682,7 +684,7 @@
             CmbTransactionType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbTransactionType.ForeColor = Color.DarkGreen;
             CmbTransactionType.FormattingEnabled = true;
-            CmbTransactionType.Location = new Point(140, 84);
+            CmbTransactionType.Location = new Point(140, 86);
             CmbTransactionType.Margin = new Padding(2);
             CmbTransactionType.Name = "CmbTransactionType";
             CmbTransactionType.Size = new Size(151, 27);
@@ -817,7 +819,7 @@
             CmbPaymentType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbPaymentType.ForeColor = Color.DarkGreen;
             CmbPaymentType.FormattingEnabled = true;
-            CmbPaymentType.Location = new Point(140, 240);
+            CmbPaymentType.Location = new Point(140, 242);
             CmbPaymentType.Margin = new Padding(2);
             CmbPaymentType.Name = "CmbPaymentType";
             CmbPaymentType.Size = new Size(151, 27);
