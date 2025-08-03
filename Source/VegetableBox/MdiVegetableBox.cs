@@ -339,5 +339,18 @@ namespace VegetableBox
                 MessageBox.Show(ex.Message, "Vegetable Box");
             }
         }
+
+        private void ToolStripMenuItem_VendorPayment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmVendorPayment frmVendorInvoiceEntry = new FrmVendorPayment();
+                this.ShowForm(frmVendorInvoiceEntry);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
     }
 }

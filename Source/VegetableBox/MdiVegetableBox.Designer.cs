@@ -45,9 +45,9 @@
             pOSToolStripMenuItem = new ToolStripMenuItem();
             rePrintToolStripMenuItem = new ToolStripMenuItem();
             ToolStripMenuItem_Order = new ToolStripMenuItem();
+            ToolStripMenuItem_VendorInvoiceEntry = new ToolStripMenuItem();
             purchaseEntryToolStripMenuItem = new ToolStripMenuItem();
             tagPrintToolStripMenuItem = new ToolStripMenuItem();
-            ToolStripMenuItem_VendorInvoiceEntry = new ToolStripMenuItem();
             ToolStripMenuItem_Accounts = new ToolStripMenuItem();
             ToolStripMenuItem_ExpenseEntry_Click = new ToolStripMenuItem();
             ToolStripMenuItem_CustomerCreditDebit = new ToolStripMenuItem();
@@ -64,6 +64,7 @@
             LblDate = new Label();
             LblTime = new Label();
             PicBoxCompanyLogo = new PictureBox();
+            ToolStripMenuItem_VendorPayment = new ToolStripMenuItem();
             TlpMdiVegitableBox.SuspendLayout();
             TlpMain.SuspendLayout();
             TlpHeader.SuspendLayout();
@@ -222,7 +223,7 @@
             pOSToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             pOSToolStripMenuItem.ForeColor = Color.DarkGreen;
             pOSToolStripMenuItem.Name = "pOSToolStripMenuItem";
-            pOSToolStripMenuItem.Size = new Size(180, 24);
+            pOSToolStripMenuItem.Size = new Size(135, 24);
             pOSToolStripMenuItem.Text = "POS";
             pOSToolStripMenuItem.Click += pOSToolStripMenuItem_Click;
             // 
@@ -231,7 +232,7 @@
             rePrintToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             rePrintToolStripMenuItem.ForeColor = Color.DarkGreen;
             rePrintToolStripMenuItem.Name = "rePrintToolStripMenuItem";
-            rePrintToolStripMenuItem.Size = new Size(180, 24);
+            rePrintToolStripMenuItem.Size = new Size(135, 24);
             rePrintToolStripMenuItem.Text = "Re-Print";
             rePrintToolStripMenuItem.Click += rePrintToolStripMenuItem_Click;
             // 
@@ -243,6 +244,15 @@
             ToolStripMenuItem_Order.Name = "ToolStripMenuItem_Order";
             ToolStripMenuItem_Order.Size = new Size(94, 40);
             ToolStripMenuItem_Order.Text = "&Purchase";
+            // 
+            // ToolStripMenuItem_VendorInvoiceEntry
+            // 
+            ToolStripMenuItem_VendorInvoiceEntry.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_VendorInvoiceEntry.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_VendorInvoiceEntry.Name = "ToolStripMenuItem_VendorInvoiceEntry";
+            ToolStripMenuItem_VendorInvoiceEntry.Size = new Size(222, 24);
+            ToolStripMenuItem_VendorInvoiceEntry.Text = "&Vendor Invoice Entry";
+            ToolStripMenuItem_VendorInvoiceEntry.Click += ToolStripMenuItem_VendorInvoiceEntry_Click;
             // 
             // purchaseEntryToolStripMenuItem
             // 
@@ -262,18 +272,9 @@
             tagPrintToolStripMenuItem.Text = "&Tag Print";
             tagPrintToolStripMenuItem.Click += tagPrintToolStripMenuItem_Click;
             // 
-            // ToolStripMenuItem_VendorInvoiceEntry
-            // 
-            ToolStripMenuItem_VendorInvoiceEntry.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ToolStripMenuItem_VendorInvoiceEntry.ForeColor = Color.DarkGreen;
-            ToolStripMenuItem_VendorInvoiceEntry.Name = "ToolStripMenuItem_VendorInvoiceEntry";
-            ToolStripMenuItem_VendorInvoiceEntry.Size = new Size(222, 24);
-            ToolStripMenuItem_VendorInvoiceEntry.Text = "&Vendor Invoice Entry";
-            ToolStripMenuItem_VendorInvoiceEntry.Click += ToolStripMenuItem_VendorInvoiceEntry_Click;
-            // 
             // ToolStripMenuItem_Accounts
             // 
-            ToolStripMenuItem_Accounts.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_ExpenseEntry_Click, ToolStripMenuItem_CustomerCreditDebit });
+            ToolStripMenuItem_Accounts.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_ExpenseEntry_Click, ToolStripMenuItem_CustomerCreditDebit, ToolStripMenuItem_VendorPayment });
             ToolStripMenuItem_Accounts.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_Accounts.ForeColor = Color.FromArgb(163, 0, 34);
             ToolStripMenuItem_Accounts.Name = "ToolStripMenuItem_Accounts";
@@ -312,7 +313,7 @@
             purchaseReportToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             purchaseReportToolStripMenuItem.ForeColor = Color.DarkGreen;
             purchaseReportToolStripMenuItem.Name = "purchaseReportToolStripMenuItem";
-            purchaseReportToolStripMenuItem.Size = new Size(180, 24);
+            purchaseReportToolStripMenuItem.Size = new Size(148, 24);
             purchaseReportToolStripMenuItem.Text = "&All Report";
             purchaseReportToolStripMenuItem.Click += purchaseReportToolStripMenuItem_Click;
             // 
@@ -472,6 +473,15 @@
             PicBoxCompanyLogo.TabIndex = 2;
             PicBoxCompanyLogo.TabStop = false;
             // 
+            // ToolStripMenuItem_VendorPayment
+            // 
+            ToolStripMenuItem_VendorPayment.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_VendorPayment.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_VendorPayment.Name = "ToolStripMenuItem_VendorPayment";
+            ToolStripMenuItem_VendorPayment.Size = new Size(243, 24);
+            ToolStripMenuItem_VendorPayment.Text = "Vendor Bill Payment";
+            ToolStripMenuItem_VendorPayment.Click += ToolStripMenuItem_VendorPayment_Click;
+            // 
             // MdiVegetableBox
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -542,5 +552,6 @@
         private ToolStripMenuItem ToolStripMenuItem_ExpenseMaster;
         private ToolStripMenuItem ToolStripMenuItem_CustomerCreditDebit;
         private ToolStripMenuItem ToolStripMenuItem_VendorInvoiceEntry;
+        private ToolStripMenuItem ToolStripMenuItem_VendorPayment;
     }
 }

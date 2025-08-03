@@ -571,6 +571,8 @@ AS BEGIN
     VALUES (@TranNo, @VendorCode, @BillNo, @BillDate, @BillAmount, @BillChecked, @BillCheckedBy,
 	@ItemsCount, @IsItemMissing, @MissingItemDetails, @IsMissingItemReceived, @MissingItemReceivedBy, 
 	@PurchaseEntryStatus, @PurchaseEntryBy, @Remarks, @AmountPaid, @UpdatedBy, GETDATE());
+
+
 END
 
 --------------
@@ -621,5 +623,121 @@ END
 Go
 --------------
 
+CREATE TABLE [VendorPaymentDetails] (
+    [SNo] INT IDENTITY(1,1),
+    [TranNo] INT  PRIMARY KEY NOT NULL,
+    [VendorCode] INT NOT NULL,
+    [BillNo] VARCHAR(20) NOT NULL,
+    [BillDate] DATE NOT NULL,    
+    [Amount] NUMERIC(12, 2) NOT NULL,
+    [PaymentType] VARCHAR(1) NOT NULL,
+	[TransType] CHAR(1) CHECK ([TransType] IN ('C','D'))  NOT NULL,
+    [Remarks] VARCHAR(100) NULL,	
+	[RefTranNo] INT NULL,	
+    [UpdatedBy] INT NOT NULL,
+    [UpdatedDate] DATETIME NOT NULL,
 
-Exec [SpGetVendorBillDetails]
+    FOREIGN KEY ([VendorCode]) REFERENCES [Vendor]([Code]),
+	FOREIGN KEY ([PaymentType]) REFERENCES [PaymentType]([Code]),
+	FOREIGN KEY ([RefTranNo]) REFERENCES [VendorBillDetails]([TranNo]),
+    FOREIGN KEY ([UpdatedBy]) REFERENCES [USER]([Code])
+)
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpSaveVendorPaymentDetails](@VendorCode INT, @BillNo VARCHAR(20), @BillDate DATE, 
+@Amount NUMERIC(12, 2), @PaymentType VARCHAR(1), @TransType CHAR(1), @Remarks VARCHAR(100), @RefTranNo INT, @UpdatedBy INT)
+AS
+BEGIN
+	BEGIN TRAN
+
+	BEGIN TRY
+		SET NOCOUNT ON;
+
+		DECLARE @TranNo INT;
+
+		-- Generate new TranNo
+		SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 FROM [VendorPaymentDetails]);
+
+		-- Insert into table
+		INSERT INTO [VendorPaymentDetails]([TranNo], [VendorCode], [BillNo], [BillDate], [Amount],
+		[PaymentType], [TransType], [Remarks], [RefTranNo], [UpdatedBy], [UpdatedDate])
+		VALUES (@TranNo, @VendorCode, @BillNo, @BillDate, @Amount,
+		@PaymentType, @TransType, @Remarks, @RefTranNo, @UpdatedBy, GETDATE());
+
+		UPDATE [VendorBillDetails] SET [AmountPaid] = [AmountPaid] + @Amount WHERE [TranNo] = @RefTranNo AND [BillNo] = @BillNo AND [BillDate] = @BillDate 
+		AND [VendorCode] = @VendorCode
+
+		COMMIT TRAN
+
+	END TRY
+	BEGIN CATCH
+
+		ROLLBACK TRAN
+
+	END CATCH
+END
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpUpdateVendorPaymentDetails](@TranNo INT, @VendorCode INT, @BillNo VARCHAR(20), @BillDate DATE, 
+		@Amount NUMERIC(12, 2), @PaymentType VARCHAR(1), @Remarks VARCHAR(100), @RefTranNo INT, @UpdatedBy INT)
+AS
+BEGIN
+	BEGIN TRAN
+
+	BEGIN TRY
+		SET NOCOUNT ON;
+
+	
+		DECLARE @OldAmount NUMERIC(12, 2);
+		DECLARE @AmountDiff NUMERIC(12, 2);
+
+		-- Get old amount
+		SET @OldAmount = (SELECT [Amount] FROM [VendorPaymentDetails] WHERE [TranNo] = @TranNo);
+		-- Find Amount diff
+		SET @AmountDiff = @Amount - @OldAmount
+
+		UPDATE [VendorPaymentDetails] SET [Amount] = @Amount, [PaymentType] = @PaymentType, [Remarks] = @Remarks, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = GETDATE()
+		WHERE [TranNo] = @TranNo;
+
+		UPDATE [VendorBillDetails] SET [AmountPaid] = [AmountPaid] + @AmountDiff WHERE [TranNo] = @RefTranNo AND [BillNo] = @BillNo AND [BillDate] = @BillDate 
+		AND [VendorCode] = @VendorCode
+	
+		COMMIT TRAN
+
+	END TRY
+	BEGIN CATCH
+
+		ROLLBACK TRAN
+
+	END CATCH
+END
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpGetVendorPaymentDetails]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT  VPD.[SNo], VPD.[TranNo], VPD.[VendorCode], V.[Name] AS VendorName,	
+    VPD.[BillNo], VPD.[BillDate], VPD.[Amount] AS AmountPaid, PT.[Name] AS PaymentType, VPD.[Remarks],
+	(CASE WHEN VPD.[TransType] = 'C' THEN 'Credit' WHEN VPD.[TransType] = 'D' THEN 'Debit' ELSE '' END) AS TransType,
+	VPD.[RefTranNo], U.[Name] AS UpdatedBy, VPD.[UpdatedDate], VPD.[TransType] AS TransTypeCode, VPD.[PaymentType] AS PaymentTypeCode
+    FROM [VendorPaymentDetails] AS VPD 
+	LEFT JOIN [Vendor] AS V ON VPD.[VendorCode] = V.[Code]
+	LEFT JOIN [PaymentType] AS PT ON VPD.[PaymentType] = PT.[Code]
+	LEFT JOIN [User] AS U ON VPD.[UpdatedBy] = U.[Code]
+    ORDER BY VPD.[SNo] DESC;
+END
+
+-------------
+
+
