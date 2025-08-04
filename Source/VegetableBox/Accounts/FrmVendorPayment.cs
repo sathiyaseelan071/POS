@@ -82,8 +82,8 @@ namespace VegetableBox
                 this.TxtBillNo.Tag = null; //RefTranNo
                 this.TxtBillNo.Text = string.Empty;
 
-                this.DGView.DataSource = null;
-                this.DGView.ClearSelection();
+                this.DgvVendorInvoiceDetails.DataSource = null;
+                this.DgvVendorInvoiceDetails.ClearSelection();
                 this.DtpBillDate.Value = DateTime.Now;
                 this.TxtTotalBillAmount.Text = string.Empty;
                 this.TxtPaidTillNow.Text = string.Empty;
@@ -95,8 +95,21 @@ namespace VegetableBox
                 this.CmbTransactionType.Enabled = false;
                 this.CmbTransactionType.SelectedIndex = 0;
 
+                this.CmbVendorName.Enabled = true;
+                this.DgvVendorInvoiceDetails.Enabled = true;
+
                 this.ErrorProvider.Clear();
                 this.BtnSave.Text = "&Save";
+
+                if(Global.currentUserId == 1) //ADMIN
+                {
+                    this.BtnEdit.Enabled = true;
+                }
+                else
+                {
+                    this.BtnEdit.Enabled = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -112,8 +125,12 @@ namespace VegetableBox
                 this.CmbFilterTransactionType.SelectedIndex = 0;
                 this.TxtFilterVendorSearch.Text = string.Empty;
 
+                this.DGView.DataSource = null;
+                this.DGView.ClearSelection();
+
                 clsFrmVendorPayment.View();
                 DGView.DataSource = clsFrmVendorPayment.VendorPaymentData.Copy();
+
                 this.SetGridStyle();
                 this.ToCalcTotalAmount();
             }
@@ -502,9 +519,10 @@ namespace VegetableBox
 
                 foreach (DataGridViewColumn DGVColumn in DGView.Columns)
                 {
-                    if (DGVColumn.Name == VendorPaymentTable.ColumnName.VendorName || DGVColumn.Name == VendorPaymentTable.ColumnName.TransType
-                        || DGVColumn.Name == VendorPaymentTable.ColumnName.Remarks)
+                    if (DGVColumn.Name == VendorPaymentTable.ColumnName.VendorName || DGVColumn.Name == VendorPaymentTable.ColumnName.TransType)
                         DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    else if (DGVColumn.Name == VendorPaymentTable.ColumnName.AmountPaid)
+                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     else
                         DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
@@ -545,6 +563,9 @@ namespace VegetableBox
             {
                 if (DGView.SelectedRows.Count > 0)
                 {
+                    this.ClearEntry();
+                    this.ErrorProvider.Clear();
+
                     int _TransNo = Convert.ToInt32(DGView[VendorPaymentTable.ColumnName.TranNo, DGSelectedRowIndex].Value);
 
                     if (clsFrmVendorPayment.VendorPaymentData.AsEnumerable().Where(x => x.Field<int>(VendorPaymentTable.ColumnName.TranNo) == _TransNo).Count() > 0)
@@ -562,8 +583,11 @@ namespace VegetableBox
                         this.CmbTransactionType.SelectedValue = _DataRow[VendorPaymentTable.ColumnName.TransTypeCode].ToString();
                         this.TxtRemarks.Text = _DataRow[VendorPaymentTable.ColumnName.Remarks].ToString();
 
-                        BtnSave.Text = "&Update";
-                        CmbVendorName.Focus();
+                        this.CmbVendorName.Enabled = false;
+                        this.DgvVendorInvoiceDetails.Enabled = false;
+
+                        this.BtnSave.Text = "&Update";
+                        this.TxtCurrentPayment.Focus();
                     }
                 }
             }

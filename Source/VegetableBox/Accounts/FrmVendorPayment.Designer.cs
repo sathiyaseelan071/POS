@@ -138,6 +138,7 @@
             // 
             DGView.AllowUserToAddRows = false;
             DGView.AllowUserToDeleteRows = false;
+            DGView.AllowUserToResizeRows = false;
             DGView.BackgroundColor = SystemColors.Control;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
@@ -843,6 +844,8 @@
             // 
             DgvVendorInvoiceDetails.AllowUserToAddRows = false;
             DgvVendorInvoiceDetails.AllowUserToDeleteRows = false;
+            DgvVendorInvoiceDetails.AllowUserToResizeColumns = false;
+            DgvVendorInvoiceDetails.AllowUserToResizeRows = false;
             DgvVendorInvoiceDetails.BackgroundColor = SystemColors.Control;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = SystemColors.Control;

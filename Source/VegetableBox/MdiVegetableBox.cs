@@ -352,5 +352,18 @@ namespace VegetableBox
                 MessageBox.Show(ex.Message, "Vegetable Box");
             }
         }
+
+        private void ToolStripMenuItem_UndiyalCreditDebit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmUndiyalCreditDebit frmUndiyalCreditDebit = new FrmUndiyalCreditDebit();
+                this.ShowForm(frmUndiyalCreditDebit);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
     }
 }

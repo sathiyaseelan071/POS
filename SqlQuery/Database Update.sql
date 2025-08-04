@@ -738,6 +738,273 @@ BEGIN
     ORDER BY VPD.[SNo] DESC;
 END
 
--------------
+--------------
+Go
+--------------
+
+CREATE TABLE [UndiyalCreditDebitNote](
+    [SNo] INT IDENTITY(1,1),
+	[TranNo] INT PRIMARY KEY NOT NULL,
+	[TranDate] DATE NOT NULL,
+	[TransType] CHAR(1) CHECK ([TransType] IN ('C','D'))  NOT NULL,
+	[Amount] NUMERIC(12, 2) NOT NULL,
+	[PaymentType] VARCHAR(1) NOT NULL,
+	[Remarks] VARCHAR(100),
+    [UpdatedBy] INT NOT NULL,                           
+    [UpdatedDate] DATETIME NOT NULL,
+	FOREIGN KEY ([PaymentType]) REFERENCES [PaymentType]([Code]),
+    FOREIGN KEY ([UpdatedBy]) REFERENCES [USER]([Code])
+)
+
+--------------
+Go
+--------------
+
+CREATE TABLE [UndiyalDailyTransaction](
+    [SNo] INT IDENTITY(1,1),
+	[TranNo] INT PRIMARY KEY NOT NULL,
+	[TranDate] DATE UNIQUE NOT NULL,
+	[OpeningBalance] NUMERIC(12, 2) NOT NULL,
+	[Deposit] NUMERIC(12, 2) NOT NULL,
+	[Withdraw] NUMERIC(12, 2) NOT NULL,
+	[ClosingBalance] NUMERIC(12, 2) NOT NULL,
+    [UpdatedBy] INT NOT NULL,                           
+    [UpdatedDate] DATETIME NOT NULL,
+    FOREIGN KEY ([UpdatedBy]) REFERENCES [USER]([Code])
+)
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpSaveUndiyalCreditDebitNote](@TranDate DATE, @TransType CHAR(1), @Amount NUMERIC(12, 2), @PaymentType VARCHAR(1), @Remarks VARCHAR(100), @UpdatedBy INT)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        ----------------------------------
+        -- Step 1: Insert into Credit/Debit Note
+        ----------------------------------
+        DECLARE @CreditDebitTranNo INT;
+        SET @CreditDebitTranNo = (SELECT ISNULL(MAX(TranNo), 0) + 1 FROM [UndiyalCreditDebitNote]);
+
+        INSERT INTO [UndiyalCreditDebitNote]([TranNo], [TranDate], [TransType], [Amount], [PaymentType], [Remarks], [UpdatedBy], [UpdatedDate])
+        VALUES (@CreditDebitTranNo, @TranDate, @TransType, @Amount, @PaymentType, @Remarks, @UpdatedBy, GETDATE());
+
+        ----------------------------------
+        -- Step 2: Insert or Update Daily Cumulative Transaction
+        ----------------------------------
+        DECLARE @OpeningBalance NUMERIC(12,2) = 0;
+        DECLARE @ClosingBalance NUMERIC(12,2);
+        DECLARE @LastClosingBalance NUMERIC(12,2);
+        DECLARE @ExistingTranNo INT;
+        DECLARE @Deposit NUMERIC(12,2) = 0;
+        DECLARE @Withdraw NUMERIC(12,2) = 0;
+
+        -- Set deposit/withdraw based on transaction type
+        IF @TransType = 'C'
+            SET @Deposit = @Amount;
+        ELSE IF @TransType = 'D'
+            SET @Withdraw = @Amount;
+
+        -- Check if entry already exists for the date
+        SELECT @ExistingTranNo = [TranNo] 
+		FROM [UndiyalDailyTransaction] 
+        WHERE [TranDate] = @TranDate;
+
+        -- Get previous day's closing balance
+        SELECT TOP 1 @LastClosingBalance = [ClosingBalance] 
+		FROM [UndiyalDailyTransaction]
+        WHERE [TranDate] < @TranDate
+        ORDER BY [TranDate] DESC;
+
+        SET @OpeningBalance = ISNULL(@LastClosingBalance, 0);
+
+        IF @ExistingTranNo IS NOT NULL
+        BEGIN
+            -- Update existing record
+            UPDATE [UndiyalDailyTransaction]
+            SET 
+                [Deposit] = [Deposit] + @Deposit,
+                [Withdraw] = [Withdraw] + @Withdraw,
+                [ClosingBalance] = [OpeningBalance] + ([Deposit] + @Deposit) - ([Withdraw] + @Withdraw),
+                [UpdatedBy] = @UpdatedBy,
+                [UpdatedDate] = GETDATE()
+            WHERE [TranNo] = @ExistingTranNo;
+        END
+        ELSE
+        BEGIN
+            -- Insert new record
+            DECLARE @NewTranNo INT;
+            SELECT @NewTranNo = ISNULL(MAX([TranNo]), 0) + 1 FROM [UndiyalDailyTransaction];
+
+            SET @ClosingBalance = @OpeningBalance + @Deposit - @Withdraw;
+
+            INSERT INTO [UndiyalDailyTransaction] (
+                [TranNo], [TranDate], [OpeningBalance], [Deposit], [Withdraw], [ClosingBalance], [UpdatedBy], [UpdatedDate]
+            )
+            VALUES (
+                @NewTranNo, @TranDate, @OpeningBalance, @Deposit, @Withdraw, @ClosingBalance, @UpdatedBy, GETDATE()
+            );
+        END
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+
+        DECLARE @ErrMsg NVARCHAR(4000), @ErrSeverity INT;
+        SELECT @ErrMsg = ERROR_MESSAGE(), @ErrSeverity = ERROR_SEVERITY();
+        RAISERROR(@ErrMsg, @ErrSeverity, 1);
+    END CATCH
+END
+
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpUpdateUndiyalCreditDebitNote](@TranNo INT, @TransType CHAR(1), @Amount NUMERIC(12,2), 
+@PaymentType VARCHAR(1), @Remarks VARCHAR(100), @UpdatedBy INT)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        --------------------------------------
+        -- 1. Get the old record details
+        --------------------------------------
+        DECLARE 
+            @OldTransType CHAR(1),
+            @OldAmount NUMERIC(12,2),
+            @TranDate DATE,
+            @ExistingTranNo INT;
+
+        SELECT
+            @OldTransType = TransType,
+            @OldAmount = Amount,
+            @TranDate = TranDate
+        FROM UndiyalCreditDebitNote
+        WHERE TranNo = @TranNo;
+
+        IF @TranDate IS NULL
+        BEGIN
+            RAISERROR('Transaction not found.', 16, 1);
+            ROLLBACK TRANSACTION;
+            RETURN;
+        END
+
+        --------------------------------------
+        -- 2. Update UndiyalCreditDebitNote
+        --------------------------------------
+        UPDATE UndiyalCreditDebitNote
+        SET
+            TransType = @TransType,
+            Amount = @Amount,
+            PaymentType = @PaymentType,
+            Remarks = @Remarks,
+            UpdatedBy = @UpdatedBy,
+            UpdatedDate = GETDATE()
+        WHERE TranNo = @TranNo;
+
+        --------------------------------------
+        -- 3. Update UndiyalDailyTransaction
+        --------------------------------------
+
+        -- Find the daily record
+        SELECT @ExistingTranNo = TranNo
+        FROM UndiyalDailyTransaction
+        WHERE TranDate = @TranDate;
+
+        IF @ExistingTranNo IS NULL
+        BEGIN
+            RAISERROR('Daily transaction not found for this date.', 16, 1);
+            ROLLBACK TRANSACTION;
+            RETURN;
+        END
+
+        -- Adjust Deposit and Withdraw:
+        -- First, remove old amount
+        IF @OldTransType = 'C'
+        BEGIN
+            UPDATE UndiyalDailyTransaction
+            SET 
+                Deposit = Deposit - @OldAmount
+            WHERE TranNo = @ExistingTranNo;
+        END
+        ELSE IF @OldTransType = 'D'
+        BEGIN
+            UPDATE UndiyalDailyTransaction
+            SET 
+                Withdraw = Withdraw - @OldAmount
+            WHERE TranNo = @ExistingTranNo;
+        END
+
+        -- Then, add new amount
+        IF @TransType = 'C'
+        BEGIN
+            UPDATE UndiyalDailyTransaction
+            SET 
+                Deposit = Deposit + @Amount
+            WHERE TranNo = @ExistingTranNo;
+        END
+        ELSE IF @TransType = 'D'
+        BEGIN
+            UPDATE UndiyalDailyTransaction
+            SET 
+                Withdraw = Withdraw + @Amount
+            WHERE TranNo = @ExistingTranNo;
+        END
+
+        -- Recompute ClosingBalance
+        UPDATE UndiyalDailyTransaction
+        SET
+            ClosingBalance = OpeningBalance + Deposit - Withdraw,
+            UpdatedBy = @UpdatedBy,
+            UpdatedDate = GETDATE()
+        WHERE TranNo = @ExistingTranNo;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+
+        DECLARE @ErrMsg NVARCHAR(4000), @ErrSeverity INT;
+        SELECT @ErrMsg = ERROR_MESSAGE(), @ErrSeverity = ERROR_SEVERITY();
+        RAISERROR(@ErrMsg, @ErrSeverity, 1);
+    END CATCH
+END
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [dbo].[SpGetUndiyalCreditDebitNote]
+AS
+BEGIN
+    SET NOCOUNT ON
+
+    SELECT MT.[SNo], MT.[TranNo], MT.[TranDate], MT.[TransType] AS TransTypeCode,
+        (CASE WHEN MT.[TransType] = 'C' THEN 'Deposit' WHEN MT.[TransType] = 'D' THEN 'Withdraw' ELSE 'Unknown' END) AS TransType,
+		MT.[Amount], MT.[PaymentType] AS PaymentTypeCode, PT.[Name] AS PaymentType, MT.[Remarks], U.[Name] AS UpdatedBy, MT.[UpdatedDate]
+		FROM [UndiyalCreditDebitNote] AS MT
+		LEFT JOIN [PaymentType] AS PT ON MT.[PaymentType] = PT.[Code]
+		LEFT JOIN [User] AS U ON MT.[UpdatedBy] = U.[Code]
+    ORDER BY MT.[SNo] DESC
+END
+
+--------------
+Go
+--------------
+
+
+
+EXEC [SpGetUndiyalCreditDebitNote]
 
 
