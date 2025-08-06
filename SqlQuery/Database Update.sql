@@ -334,6 +334,7 @@ Go
 CREATE TABLE [CustomerCreditDebitNote](
     [SNo] INT IDENTITY(1,1),
 	[TranNo] INT PRIMARY KEY NOT NULL,
+    [TranDate] DATE NOT NULL,
     [CustomerCode] INT  NOT NULL,    
 	[TransType] CHAR(1) CHECK ([TransType] IN ('C','D'))  NOT NULL,
 	[BillNo] INT,
@@ -341,7 +342,7 @@ CREATE TABLE [CustomerCreditDebitNote](
 	[Amount] NUMERIC(12, 2) NOT NULL,
 	[PaymentType] VARCHAR(1) NOT NULL,
 	[Remarks] VARCHAR(100),
-    [UpdatedBy] INT NOT NULL,                           
+    [UpdatedBy] INT NOT NULL,
     [UpdatedDate] DATETIME NOT NULL,                    
     FOREIGN KEY ([CustomerCode]) REFERENCES [Customer]([Code]),
 	FOREIGN KEY ([PaymentType]) REFERENCES [PaymentType]([Code]),
@@ -364,9 +365,9 @@ BEGIN
     SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 FROM [CustomerCreditDebitNote]);
 
     -- Insert record
-    INSERT INTO [CustomerCreditDebitNote] ([TranNo], [CustomerCode], [TransType], [BillNo], [BillDate], 
+    INSERT INTO [CustomerCreditDebitNote] ([TranNo], [TranDate], [CustomerCode], [TransType], [BillNo], [BillDate], 
 	[Amount], [PaymentType], [Remarks], [UpdatedBy], [UpdatedDate])
-    VALUES (@TranNo, @CustomerCode, @TransType, @BillNo, @BillDate, 
+    VALUES (@TranNo, GETDATE(), @CustomerCode, @TransType, @BillNo, @BillDate, 
 	@Amount, @PaymentType, @Remarks, @UpdatedBy, GETDATE());
 END
 
@@ -412,6 +413,7 @@ Go
 CREATE TABLE [Expenses](
     [SNo] INT IDENTITY(1,1),
 	[TranNo] INT PRIMARY KEY NOT NULL,
+	[TranDate] DATE NOT NULL,
     [ExpenseCode] INT  NOT NULL,    
 	[TransType] CHAR(1) CHECK ([TransType] IN ('C','D'))  NOT NULL,
 	[BillNo] INT,
@@ -442,9 +444,9 @@ BEGIN
     SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 FROM [Expenses]);
 
     -- Insert record
-    INSERT INTO [Expenses] ([TranNo], [ExpenseCode], [TransType], [BillNo], [BillDate], 
+    INSERT INTO [Expenses] ([TranNo], [TranDate], [ExpenseCode], [TransType], [BillNo], [BillDate], 
 	[Amount], [PaymentType], [Remarks], [UpdatedBy], [UpdatedDate])
-    VALUES (@TranNo, @ExpenseCode, @TransType, @BillNo, @BillDate, 
+    VALUES (@TranNo, GETDATE(), @ExpenseCode, @TransType, @BillNo, @BillDate, 
 	@Amount, @PaymentType, @Remarks, @UpdatedBy, GETDATE());
 END
 
@@ -520,7 +522,8 @@ Go
 
 CREATE TABLE [VendorBillDetails](
     [SNo] INT IDENTITY(1,1),
-	[TranNo] INT PRIMARY KEY NOT NULL,              
+	[TranNo] INT PRIMARY KEY NOT NULL,
+	[TranDate] DATE NOT NULL,
 	[VendorCode] INT NOT NULL,
 	[BillNo] VARCHAR(20),
 	[BillDate] DATE NOT NULL,
@@ -565,10 +568,10 @@ AS BEGIN
     SET @TranNo = (SELECT ISNULL(MAX(TranNo), 0) + 1 FROM [VendorBillDetails]);
 
     -- Insert record
-    INSERT INTO [VendorBillDetails] ([TranNo], [VendorCode], [BillNo], [BillDate], [BillAmount], [BillChecked], [BillCheckedBy], 
+    INSERT INTO [VendorBillDetails] ([TranNo], [TranDate], [VendorCode], [BillNo], [BillDate], [BillAmount], [BillChecked], [BillCheckedBy], 
 	[ItemsCount], [IsItemMissing], [MissingItemDetails], [IsMissingItemReceived], [MissingItemReceivedBy], 
 	[PurchaseEntryStatus], [PurchaseEntryBy], [Remarks], [AmountPaid], [UpdatedBy], [UpdatedDate])
-    VALUES (@TranNo, @VendorCode, @BillNo, @BillDate, @BillAmount, @BillChecked, @BillCheckedBy,
+    VALUES (@TranNo, GETDATE(), @VendorCode, @BillNo, @BillDate, @BillAmount, @BillChecked, @BillCheckedBy,
 	@ItemsCount, @IsItemMissing, @MissingItemDetails, @IsMissingItemReceived, @MissingItemReceivedBy, 
 	@PurchaseEntryStatus, @PurchaseEntryBy, @Remarks, @AmountPaid, @UpdatedBy, GETDATE());
 
@@ -626,6 +629,7 @@ Go
 CREATE TABLE [VendorPaymentDetails] (
     [SNo] INT IDENTITY(1,1),
     [TranNo] INT  PRIMARY KEY NOT NULL,
+	[TranDate] DATE NOT NULL,
     [VendorCode] INT NOT NULL,
     [BillNo] VARCHAR(20) NOT NULL,
     [BillDate] DATE NOT NULL,    
@@ -662,9 +666,9 @@ BEGIN
 		SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 FROM [VendorPaymentDetails]);
 
 		-- Insert into table
-		INSERT INTO [VendorPaymentDetails]([TranNo], [VendorCode], [BillNo], [BillDate], [Amount],
+		INSERT INTO [VendorPaymentDetails]([TranNo], [TranDate], [VendorCode], [BillNo], [BillDate], [Amount],
 		[PaymentType], [TransType], [Remarks], [RefTranNo], [UpdatedBy], [UpdatedDate])
-		VALUES (@TranNo, @VendorCode, @BillNo, @BillDate, @Amount,
+		VALUES (@TranNo, GETDATE(), @VendorCode, @BillNo, @BillDate, @Amount,
 		@PaymentType, @TransType, @Remarks, @RefTranNo, @UpdatedBy, GETDATE());
 
 		UPDATE [VendorBillDetails] SET [AmountPaid] = [AmountPaid] + @Amount WHERE [TranNo] = @RefTranNo AND [BillNo] = @BillNo AND [BillDate] = @BillDate 
@@ -1003,8 +1007,46 @@ END
 Go
 --------------
 
+UPDATE [PaymentDetails] SET PaymentType = 'H' WHERE PaymentType = 'CASH'
+UPDATE [PaymentDetails] SET PaymentType = 'R' WHERE PaymentType = 'CARD'
+UPDATE [PaymentDetails] SET PaymentType = 'I' WHERE PaymentType = 'UPI'
+
+--------------
+Go
+--------------
+
+
+
+
 
 
 EXEC [SpGetUndiyalCreditDebitNote]
 
+Select * from [VendorPaymentDetails]
+
+
+--Sales
+
+SELECT P.[Name] AS [PaymentType], SUM([Amount]) AS AMOUNT 
+FROM [PaymentDetails] AS MT
+LEFT JOIN [PaymentType] AS P ON MT.[PaymentType] = P.[Code]
+WHERE [BilledDate] = CAST(GETDATE() AS DATE)
+GROUP BY P.[Name]
+
+--Vendor
+
+SELECT P.[Name] AS [PaymentType], SUM([Amount]) AS AMOUNT 
+FROM [dbo].[VendorPaymentDetails] AS MT
+LEFT JOIN [PaymentType] AS P ON MT.[PaymentType] = P.[Code]
+WHERE CAST(GETDATE() AS DATE) = CAST(GETDATE() AS DATE)
+GROUP BY P.[Name]
+
+
+--Expenses
+
+SELECT P.[Name] AS [PaymentType], SUM([Amount]) AS AMOUNT 
+FROM [dbo].[Expenses] AS MT
+LEFT JOIN [PaymentType] AS P ON MT.[PaymentType] = P.[Code]
+WHERE [BillDate] = CAST(GETDATE() AS DATE)
+GROUP BY P.[Name]
 

@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Accounts\ClsFrmUndiyalCreditDebitt.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Images\VBLogo.ico" />
   </ItemGroup>
 
@@ -33,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Accounts\ByUseNewFileCreation\" />
     <Folder Include="Font\" />
   </ItemGroup>
 

@@ -469,6 +469,11 @@ namespace VegetableBox
                     this.ErrorProvider.SetError(this.CmbPaymentType, "Please select the payment type...");
                     IsValid = false;
                 }
+                else if (this.CmbPaymentType.SelectedValue.ToString() == Account.PaymentTypeOnCredit || this.CmbPaymentType.SelectedValue.ToString() == Account.PaymentTypeUpi)
+                {
+                    this.ErrorProvider.SetError(this.CmbPaymentType, "Payment type 'Credit' or 'UPI' is not allowed");
+                    IsValid = false;
+                }
 
                 if (IsValid == false)
                 {

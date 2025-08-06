@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,31 @@ namespace VegetableBox
             "Initial Catalog=VBOX2324_LIVE;" +
             "User id=sa;" +
             "Password=athi@123;";
+    }
+
+    public static class CommonUtils
+    {
+        public static bool IsDataTableValid(this DataTable dataTable)
+        {
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static decimal GetTotalAmountFromStrings(params string[] amounts)
+        {
+            decimal total = 0;
+            foreach (string amount in amounts)
+            {
+                total += string.IsNullOrEmpty(amount.Trim()) ? 0 : Convert.ToDecimal(amount.Trim());
+            }
+            return total;
+        }
+
     }
 }

@@ -52,6 +52,7 @@
             ToolStripMenuItem_ExpenseEntry_Click = new ToolStripMenuItem();
             ToolStripMenuItem_CustomerCreditDebit = new ToolStripMenuItem();
             ToolStripMenuItem_VendorPayment = new ToolStripMenuItem();
+            ToolStripMenuItem_UndiyalCreditDebit = new ToolStripMenuItem();
             ToolStripMenuItem_Reports = new ToolStripMenuItem();
             purchaseReportToolStripMenuItem = new ToolStripMenuItem();
             LblFormHeader = new Label();
@@ -65,7 +66,7 @@
             LblDate = new Label();
             LblTime = new Label();
             PicBoxCompanyLogo = new PictureBox();
-            ToolStripMenuItem_UndiyalCreditDebit = new ToolStripMenuItem();
+            ToolStripMenuItem_DailyAccountClosing_Click = new ToolStripMenuItem();
             TlpMdiVegitableBox.SuspendLayout();
             TlpMain.SuspendLayout();
             TlpHeader.SuspendLayout();
@@ -275,7 +276,7 @@
             // 
             // ToolStripMenuItem_Accounts
             // 
-            ToolStripMenuItem_Accounts.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_ExpenseEntry_Click, ToolStripMenuItem_CustomerCreditDebit, ToolStripMenuItem_VendorPayment, ToolStripMenuItem_UndiyalCreditDebit });
+            ToolStripMenuItem_Accounts.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_ExpenseEntry_Click, ToolStripMenuItem_CustomerCreditDebit, ToolStripMenuItem_VendorPayment, ToolStripMenuItem_UndiyalCreditDebit, ToolStripMenuItem_DailyAccountClosing_Click });
             ToolStripMenuItem_Accounts.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_Accounts.ForeColor = Color.FromArgb(163, 0, 34);
             ToolStripMenuItem_Accounts.Name = "ToolStripMenuItem_Accounts";
@@ -308,6 +309,15 @@
             ToolStripMenuItem_VendorPayment.Size = new Size(273, 24);
             ToolStripMenuItem_VendorPayment.Text = "Vendor Bill Payment";
             ToolStripMenuItem_VendorPayment.Click += ToolStripMenuItem_VendorPayment_Click;
+            // 
+            // ToolStripMenuItem_UndiyalCreditDebit
+            // 
+            ToolStripMenuItem_UndiyalCreditDebit.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_UndiyalCreditDebit.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_UndiyalCreditDebit.Name = "ToolStripMenuItem_UndiyalCreditDebit";
+            ToolStripMenuItem_UndiyalCreditDebit.Size = new Size(273, 24);
+            ToolStripMenuItem_UndiyalCreditDebit.Text = "Undiyal (Deposit/Withdraw)";
+            ToolStripMenuItem_UndiyalCreditDebit.Click += ToolStripMenuItem_UndiyalCreditDebit_Click;
             // 
             // ToolStripMenuItem_Reports
             // 
@@ -483,14 +493,14 @@
             PicBoxCompanyLogo.TabIndex = 2;
             PicBoxCompanyLogo.TabStop = false;
             // 
-            // ToolStripMenuItem_UndiyalCreditDebit
+            // ToolStripMenuItem_DailyAccountClosing_Click
             // 
-            ToolStripMenuItem_UndiyalCreditDebit.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ToolStripMenuItem_UndiyalCreditDebit.ForeColor = Color.DarkGreen;
-            ToolStripMenuItem_UndiyalCreditDebit.Name = "ToolStripMenuItem_UndiyalCreditDebit";
-            ToolStripMenuItem_UndiyalCreditDebit.Size = new Size(273, 24);
-            ToolStripMenuItem_UndiyalCreditDebit.Text = "Undiyal (Deposit/Withdraw)";
-            ToolStripMenuItem_UndiyalCreditDebit.Click += ToolStripMenuItem_UndiyalCreditDebit_Click;
+            ToolStripMenuItem_DailyAccountClosing_Click.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_DailyAccountClosing_Click.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_DailyAccountClosing_Click.Name = "ToolStripMenuItem_DailyAccountClosing_Click";
+            ToolStripMenuItem_DailyAccountClosing_Click.Size = new Size(273, 24);
+            ToolStripMenuItem_DailyAccountClosing_Click.Text = "Daily Cash Closing";
+            ToolStripMenuItem_DailyAccountClosing_Click.Click += ToolStripMenuItem_DailyAccountClosing_Click_Click;
             // 
             // MdiVegetableBox
             // 
@@ -564,5 +574,6 @@
         private ToolStripMenuItem ToolStripMenuItem_VendorInvoiceEntry;
         private ToolStripMenuItem ToolStripMenuItem_VendorPayment;
         private ToolStripMenuItem ToolStripMenuItem_UndiyalCreditDebit;
+        private ToolStripMenuItem ToolStripMenuItem_DailyAccountClosing_Click;
     }
 }

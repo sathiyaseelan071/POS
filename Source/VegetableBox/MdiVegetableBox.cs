@@ -365,5 +365,18 @@ namespace VegetableBox
                 MessageBox.Show(ex.Message, "Vegetable Box");
             }
         }
+
+        private void ToolStripMenuItem_DailyAccountClosing_Click_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmDailyAccountClosing frmDailyAccountClosing = new FrmDailyAccountClosing();
+                this.ShowForm(frmDailyAccountClosing);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
     }
 }

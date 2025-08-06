@@ -1052,7 +1052,7 @@ namespace VegetableBox
                     if (Convert.ToDecimal(this.TxtPaymentDetCash.Text) > 0)
                     {
                         clsPaymentDetails = new ClsPaymentDetails();
-                        clsPaymentDetails.PaymentType = "CASH";
+                        clsPaymentDetails.PaymentType = Account.PaymentTypeCash;
                         clsPaymentDetails.Amount = Convert.ToDecimal(this.TxtPaymentDetCash.Text);
                         listClsPaymentDetails.Add(clsPaymentDetails);
                     }
@@ -1060,7 +1060,7 @@ namespace VegetableBox
                     if (Convert.ToDecimal(this.TxtPaymentDetCard.Text) > 0)
                     {
                         clsPaymentDetails = new ClsPaymentDetails();
-                        clsPaymentDetails.PaymentType = "CARD";
+                        clsPaymentDetails.PaymentType = Account.PaymentTypeCard;
                         clsPaymentDetails.Amount = Convert.ToDecimal(this.TxtPaymentDetCard.Text);
                         listClsPaymentDetails.Add(clsPaymentDetails);
                     }
@@ -1068,7 +1068,7 @@ namespace VegetableBox
                     if (Convert.ToDecimal(this.TxtPaymentDetUpi.Text) > 0)
                     {
                         clsPaymentDetails = new ClsPaymentDetails();
-                        clsPaymentDetails.PaymentType = "UPI";
+                        clsPaymentDetails.PaymentType = Account.PaymentTypeUpi;
                         clsPaymentDetails.Amount = Convert.ToDecimal(this.TxtPaymentDetUpi.Text);
                         listClsPaymentDetails.Add(clsPaymentDetails);
                     }

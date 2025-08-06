@@ -333,7 +333,7 @@ namespace VegetableBox
         {
             try
             {
-                this.CmbTransactionType.Focus();
+                //this.CmbTransactionType.Focus();
             }
             catch (Exception ex)
             {
