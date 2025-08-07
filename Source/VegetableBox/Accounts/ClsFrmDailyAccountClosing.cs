@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 
 namespace VegetableBox
 {
@@ -9,35 +10,86 @@ namespace VegetableBox
     {
         #region "Save, View & Update"
 
-        private int _TranNo = 0;
-        private string _TransType = string.Empty; // 'C' or 'D'
-        private decimal _Amount = 0;
-        private string _PaymentType = string.Empty;
+        #region "Properties"
+
+        private decimal _OpeningBalance = 0;
+        private decimal _CashSales = 0;
+        private decimal _CustomerDueReceivedCash = 0;
+        private decimal _UndiyalCashWithdraw = 0;
+        private decimal _VendorPaymentCash = 0;
+        private decimal _ExpenseCash = 0;
+        private decimal _UndiyalCashDeposit = 0;
+        private decimal _CashOnHand = 0;
+        private decimal _CoinOnHand = 0;
+        private decimal _TallyAmount = 0;
+        private decimal _ClosingBalance = 0;
         private string _Remarks = string.Empty;
         private int _UpdatedBy = 0;
 
-        internal int TranNo
+        internal decimal OpeningBalance
         {
-            get { return _TranNo; }
-            set { _TranNo = value; }
+            get { return _OpeningBalance; }
+            set { _OpeningBalance = value; }
         }
 
-        internal string TransType
+        internal decimal CashSales
         {
-            get { return _TransType; }
-            set { _TransType = value; }
+            get { return _CashSales; }
+            set { _CashSales = value; }
         }
 
-        internal decimal Amount
+        internal decimal CustomerDueReceivedCash
         {
-            get { return _Amount; }
-            set { _Amount = value; }
+            get { return _CustomerDueReceivedCash; }
+            set { _CustomerDueReceivedCash = value; }
         }
 
-        internal string PaymentType
+        internal decimal UndiyalCashWithdraw
         {
-            get { return _PaymentType; }
-            set { _PaymentType = value; }
+            get { return _UndiyalCashWithdraw; }
+            set { _UndiyalCashWithdraw = value; }
+        }
+
+        internal decimal VendorPaymentCash
+        {
+            get { return _VendorPaymentCash; }
+            set { _VendorPaymentCash = value; }
+        }
+
+        internal decimal ExpenseCash
+        {
+            get { return _ExpenseCash; }
+            set { _ExpenseCash = value; }
+        }
+
+        internal decimal UndiyalCashDeposit
+        {
+            get { return _UndiyalCashDeposit; }
+            set { _UndiyalCashDeposit = value; }
+        }
+
+        internal decimal CashOnHand
+        {
+            get { return _CashOnHand; }
+            set { _CashOnHand = value; }
+        }
+
+        internal decimal CoinOnHand
+        {
+            get { return _CoinOnHand; }
+            set { _CoinOnHand = value; }
+        }
+
+        internal decimal TallyAmount
+        {
+            get { return _TallyAmount; }
+            set { _TallyAmount = value; }
+        }
+
+        internal decimal ClosingBalance
+        {
+            get { return _ClosingBalance; }
+            set { _ClosingBalance = value; }
         }
 
         internal string Remarks
@@ -52,20 +104,49 @@ namespace VegetableBox
             set { _UpdatedBy = value; }
         }
 
+        #endregion
+
         internal void Save()
         {
             try
             {
                 SqlIntract _SqlIntract = new SqlIntract();
-                string SqlQuery = "SpSaveUndiyalCreditDebitNote";
+                string SqlQuery = "SpSaveCashDailySummary";
+
+                List<SqlParameter> _ListSqlParameter = new List<SqlParameter>
+            {
+                new SqlParameter("@OpeningBalance", this.OpeningBalance),
+                new SqlParameter("@CashSales", this.CashSales),
+                new SqlParameter("@CustomerDueReceivedCash", this.CustomerDueReceivedCash),
+                new SqlParameter("@UndiyalCashWithdraw", this.UndiyalCashWithdraw),
+                new SqlParameter("@VendorPaymentCash", this.VendorPaymentCash),
+                new SqlParameter("@ExpenseCash", this.ExpenseCash),
+                new SqlParameter("@UndiyalCashDeposit", this.UndiyalCashDeposit),
+                new SqlParameter("@CashOnHand", this.CashOnHand),
+                new SqlParameter("@CoinOnHand", this.CoinOnHand),
+                new SqlParameter("@TallyAmount", this.TallyAmount),
+                new SqlParameter("@ClosingBalance", this.ClosingBalance),
+                new SqlParameter("@Remarks", this.Remarks),
+                new SqlParameter("@UpdatedBy", Global.currentUserId)
+            };
+
+                _SqlIntract.ExecuteNonQuery(SqlQuery, CommandType.StoredProcedure, _ListSqlParameter);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        internal void InsertZeroCashDailySummary()
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+                string SqlQuery = "SpInsertZeroCashDailySummary";
 
                 List<SqlParameter> _ListSqlParameter = new List<SqlParameter>
                 {
-                    new SqlParameter("@TransType", this.TransType),
-                    new SqlParameter("@TranDate", DateTime.Now.Date),
-                    new SqlParameter("@Amount", this.Amount),
-                    new SqlParameter("@PaymentType", this.PaymentType),
-                    new SqlParameter("@Remarks", this.Remarks),
                     new SqlParameter("@UpdatedBy", Global.currentUserId)
                 };
 
@@ -77,24 +158,43 @@ namespace VegetableBox
             }
         }
 
-        internal void Update()
+        private DataTable _CashDailySummaryByTodayData = new DataTable();
+        internal DataTable CashDailySummaryByTodayData
+        {
+            get { return _CashDailySummaryByTodayData; }
+            set { _CashDailySummaryByTodayData = value; }
+        }
+
+        internal void GetCashDailySummaryByToday()
         {
             try
             {
                 SqlIntract _SqlIntract = new SqlIntract();
-                string SqlQuery = "SpUpdateUndiyalCreditDebitNote";
+                string SqlQuery = "SpGetCashDailySummaryByToday";
 
-                List<SqlParameter> _ListSqlParameter = new List<SqlParameter>
-                {
-                    new SqlParameter("@TranNo", this.TranNo),
-                    new SqlParameter("@TransType", this.TransType),
-                    new SqlParameter("@Amount", this.Amount),
-                    new SqlParameter("@PaymentType", this.PaymentType),
-                    new SqlParameter("@Remarks", this.Remarks),
-                    new SqlParameter("@UpdatedBy", Global.currentUserId)
-                };
+                this._CashDailySummaryByTodayData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.StoredProcedure, null);
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
-                _SqlIntract.ExecuteNonQuery(SqlQuery, CommandType.StoredProcedure, _ListSqlParameter);
+        private DataTable _CashDailyAllClosingDetailsByTodayData = new DataTable();
+        internal DataTable CashDailyAllClosingDetailsByTodayData
+        {
+            get { return _CashDailyAllClosingDetailsByTodayData; }
+            set { _CashDailyAllClosingDetailsByTodayData = value; }
+        }
+
+        internal void GetCashDailyAllClosingDetailsByToday()
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+                string SqlQuery = "SpGetCashDailyAllClosingDetailsByToday";
+
+                this._CashDailyAllClosingDetailsByTodayData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.StoredProcedure, null);
             }
             catch
             {

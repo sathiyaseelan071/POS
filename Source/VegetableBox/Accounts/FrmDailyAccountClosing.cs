@@ -32,8 +32,16 @@ namespace VegetableBox
         {
             try
             {
+                this.clsFrmDailyAccountClosing.InsertZeroCashDailySummary();
+
                 this.ClearControls();
-                this.LoadControls();
+                this.ClearDenominationControls();
+                this.ClearCashRelated();
+
+                this.LoadAllTranControls();
+                this.LoadOpeningBalanceControls();
+                this.LoadGridControls();
+
                 this.TxtCash500Count.Focus();
             }
             catch (Exception ex)
@@ -47,6 +55,11 @@ namespace VegetableBox
             try
             {
                 this.ClearDenominationControls();
+                this.ClearCashRelated();
+
+                this.PnlCash.Enabled = true;
+                this.PnlCoin.Enabled = true;
+
                 this.TxtCash500Count.Focus();
             }
             catch (Exception ex)
@@ -91,23 +104,10 @@ namespace VegetableBox
                 this.TxtUndiyalWithdraw.Text = string.Empty;
                 this.TxtUndiyalClosingBalance.Text = string.Empty;
 
-                this.ClearDenominationControls();
-
-                //CashOnly
-                this.TxtCashOnlyOpeningBalance.Text = string.Empty;
-                this.TxtCashOnlySales.Text = string.Empty;
-                this.TxtCashOnlyCustomerDebit.Text = string.Empty;
-                this.TxtCashOnlyUndiyalWithdraw.Text = string.Empty;
-                this.TxtCashOnlyVendorPayment.Text = string.Empty;
-                this.TxtCashOnlyExpense.Text = string.Empty;
-                this.TxtCashOnlyUndiyalDeposit.Text = string.Empty;
-                this.TxtCashOnHand.Text = string.Empty;
-                this.TxtCoinOnHand.Text = string.Empty;
-                this.TxtCashOnlyTally.Text = string.Empty;
-                this.TxtCashOnlyClosingBalance.Text = string.Empty;
+                this.PnlCash.Enabled = true;
+                this.PnlCoin.Enabled = true;
 
                 this.ErrorProvider.Clear();
-
             }
             catch (Exception ex)
             {
@@ -165,11 +165,38 @@ namespace VegetableBox
             }
         }
 
-        private void LoadControls()
+        private void ClearCashRelated()
         {
             try
             {
-                this.clsFrmDailyAccountClosing = new ClsFrmDailyAccountClosing();
+                //CashOnly
+                this.TxtCashOnlyOpeningBalance.Text = string.Empty;
+                this.TxtCashOnlySales.Text = string.Empty;
+                this.TxtCashOnlyCustomerCreditRepayment.Text = string.Empty;
+                this.TxtCashOnlyUndiyalWithdraw.Text = string.Empty;
+                this.TxtCashOnlyVendorPayment.Text = string.Empty;
+                this.TxtCashOnlyExpense.Text = string.Empty;
+                this.TxtCashOnlyUndiyalDeposit.Text = string.Empty;
+                this.TxtCashOnHand.Text = string.Empty;
+                this.TxtCoinOnHand.Text = string.Empty;
+                this.TxtCashOnlyTally.Text = string.Empty;
+                this.TxtCashOnlyClosingBalance.Text = string.Empty;
+
+                this.TxtMismatchAmount.Text = string.Empty;
+                this.TxtMismatchExplanation.Text = string.Empty;
+
+                this.ErrorProvider.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void LoadAllTranControls()
+        {
+            try
+            {
                 this.clsFrmDailyAccountClosing.GetUIData();
 
                 if (this.clsFrmDailyAccountClosing.SalesPaymentData.IsDataTableValid())
@@ -255,6 +282,48 @@ namespace VegetableBox
                     }
                 }
 
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void LoadOpeningBalanceControls()
+        {
+            try
+            {
+                this.clsFrmDailyAccountClosing = new ClsFrmDailyAccountClosing();
+                this.clsFrmDailyAccountClosing.GetCashDailySummaryByToday();
+
+                if (this.clsFrmDailyAccountClosing.CashDailySummaryByTodayData.IsDataTableValid())
+                {
+                    DataRow? dataRow = this.clsFrmDailyAccountClosing.CashDailySummaryByTodayData.Rows[0];
+                    if (dataRow != null)
+                    {
+                        this.TxtCashOnlyOpeningBalance.Text = dataRow[CashDailySummaryTable.ColumnName.OpeningBalance].ToString();
+                        this.TxtCashOnlyClosingBalance.Text = dataRow[CashDailySummaryTable.ColumnName.ClosingBalance].ToString();
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void LoadGridControls()
+        {
+            try
+            {
+                this.clsFrmDailyAccountClosing = new ClsFrmDailyAccountClosing();
+                this.clsFrmDailyAccountClosing.GetCashDailyAllClosingDetailsByToday();
+
+                this.DGView.DataSource = this.clsFrmDailyAccountClosing.CashDailyAllClosingDetailsByTodayData;
+
+                this.SetGridStyle();
+
+                this.DGView.ClearSelection();
             }
             catch
             {
@@ -409,6 +478,8 @@ namespace VegetableBox
                         this.TxtCoinPktAmt.Focus();
                     else if (this.TxtCoinPktAmt.Focused)
                         this.BtnProceed.Focus();
+                    else if (this.TxtMismatchExplanation.Focused)
+                        this.BtnSave.Focus();
 
                     //SendKeys.Send("{TAB}");
                 }
@@ -420,44 +491,31 @@ namespace VegetableBox
             }
         }
 
-        private void FrmDailyAccountClosing_Activated(object sender, EventArgs e)
-        {
-            try
-            {
-                //this.CmbTransactionType.Focus();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Vegetable Box");
-            }
-        }
-
         private void BtnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                //this.Validation();
+                this.Validation();
 
-                //clsFrmDailyAccountClosing.TranNo = this.CmbTransactionType.Tag != null ? (int)this.CmbTransactionType.Tag : 0;
-                //clsFrmDailyAccountClosing.TransType = (string)this.CmbTransactionType.SelectedValue;
-                //clsFrmDailyAccountClosing.Amount = Convert.ToDecimal(TxtAmount.Text);
-                //clsFrmDailyAccountClosing.PaymentType = (string)this.CmbPaymentType.SelectedValue;
-                //clsFrmDailyAccountClosing.Remarks = (string)this.TxtRemarks.Text.Trim();
+                clsFrmDailyAccountClosing.OpeningBalance = Convert.ToDecimal(TxtCashOnlyOpeningBalance.Text);
+                clsFrmDailyAccountClosing.CashSales = Convert.ToDecimal(TxtCashOnlySales.Text);
+                clsFrmDailyAccountClosing.CustomerDueReceivedCash = Convert.ToDecimal(TxtCashOnlyCustomerCreditRepayment.Text);
+                clsFrmDailyAccountClosing.UndiyalCashWithdraw = Convert.ToDecimal(TxtCashOnlyUndiyalWithdraw.Text);
 
-                //if (BtnSave.Text.ToUpper() == "&SAVE")
-                //{
-                //    clsFrmDailyAccountClosing.Save();
-                //    MessageBox.Show("Saved Successfully...");
-                //}
-                //else
-                //{
-                //    clsFrmDailyAccountClosing.Update();
-                //    MessageBox.Show("Update Successfully...");
-                //}
+                clsFrmDailyAccountClosing.VendorPaymentCash = Convert.ToDecimal(TxtCashOnlyVendorPayment.Text);
+                clsFrmDailyAccountClosing.ExpenseCash = Convert.ToDecimal(TxtCashOnlyExpense.Text);
+                clsFrmDailyAccountClosing.UndiyalCashDeposit = Convert.ToDecimal(TxtCashOnlyUndiyalDeposit.Text);
 
-                //this.ClearEntry();
-                //this.ClearAndLoadView();
-                //this.CmbTransactionType.Focus();
+                clsFrmDailyAccountClosing.CashOnHand = Convert.ToDecimal(TxtCashOnHand.Text);
+                clsFrmDailyAccountClosing.CoinOnHand = Convert.ToDecimal(TxtCoinOnHand.Text);
+
+                clsFrmDailyAccountClosing.TallyAmount = Convert.ToDecimal(TxtCashOnlyTally.Text);
+                clsFrmDailyAccountClosing.ClosingBalance = Convert.ToDecimal(TxtCashOnlyClosingBalance.Text);
+
+                clsFrmDailyAccountClosing.Remarks = TxtMismatchExplanation.Text.Trim();
+
+                clsFrmDailyAccountClosing.Save();
+                MessageBox.Show("Cash account closed successfully. Don't forget to take a backup.", "Vegetable Box");
             }
             catch (Exception ex)
             {
@@ -469,36 +527,31 @@ namespace VegetableBox
         {
             try
             {
-                //bool IsValid = true;
-                //this.ErrorProvider.Clear();
+                bool IsValid = true;
+                this.ErrorProvider.Clear();
 
-                //if (this.CmbTransactionType.SelectedValue == null || this.CmbTransactionType.SelectedValue.ToString() == string.Empty)
-                //{
-                //    this.ErrorProvider.SetError(this.CmbTransactionType, "Please select the transaction type.");
-                //    IsValid = false;
-                //}
+                if (this.TxtSalesTotal.Text == string.Empty || this.TxtSalesTotal.Text == "0.00")
+                {
+                    this.ErrorProvider.SetError(this.TxtSalesTotal, "At least one sale must be done before closing the account.");
+                    IsValid = false;
+                }
 
-                //if (string.IsNullOrEmpty(this.TxtAmount.Text.Trim()))
-                //{
-                //    this.ErrorProvider.SetError(this.TxtAmount, "Please enter the amount.");
-                //    IsValid = false;
-                //}
-                //else if (Convert.ToDecimal(this.TxtAmount.Text.Trim()) <= 0)
-                //{
-                //    this.ErrorProvider.SetError(this.TxtAmount, "Amount must be greater than 0.");
-                //    IsValid = false;
-                //}
+                if (this.TxtCashOnHand.Text == string.Empty || this.TxtCashOnHand.Text == "0.00")
+                {
+                    this.ErrorProvider.SetError(this.TxtCashOnHand, "Please enter cash denominations.");
+                    IsValid = false;
+                }
 
-                //if (this.CmbPaymentType.SelectedValue == null || this.CmbPaymentType.SelectedValue.ToString() == string.Empty)
-                //{
-                //    this.ErrorProvider.SetError(this.CmbPaymentType, "Please select the payment type...");
-                //    IsValid = false;
-                //}
+                if (this.TxtMismatchAmount.Text != string.Empty && Convert.ToDecimal(this.TxtMismatchAmount.Text) != 0 && this.TxtMismatchExplanation.Text.Trim() == string.Empty)
+                {
+                    this.ErrorProvider.SetError(this.TxtMismatchExplanation, "Please enter cash mismatch explanation.");
+                    IsValid = false;
+                }
 
-                //if (IsValid == false)
-                //{
-                //    throw new Exception("Please enter the valid input...");
-                //}
+                if (IsValid == false)
+                {
+                    throw new Exception("Please enter the valid input...");
+                }
             }
             catch
             {
@@ -510,33 +563,38 @@ namespace VegetableBox
         {
             try
             {
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.SNo].Visible = false;
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.PaymentTypeCode].Visible = false;
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.TransTypeCode].Visible = false;
+                DGView.Columns[CashDailySummaryTable.ColumnName.TranNo].Visible = false;
+                DGView.Columns[CashDailySummaryTable.ColumnName.TranDate].Visible = false;
+                DGView.Columns[CashDailySummaryTable.ColumnName.UpdatedDate].Visible = false;
 
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.TranNo].HeaderText = "Tran No";
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.TranDate].HeaderText = "Tran Date";
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.TransType].HeaderText = "Trans-Type";
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.Amount].HeaderText = "Amount";
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.PaymentType].HeaderText = "Payment-Type";
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.Remarks].HeaderText = "Remarks";
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.UpdatedBy].HeaderText = "UpdatedBy";
-                //DGView.Columns[DailyAccountClosingTable.ColumnName.UpdatedDate].HeaderText = "UpdatedDate";
+                DGView.Columns[CashDailySummaryTable.ColumnName.OpeningBalance].HeaderText = "Opening Balance";
+                DGView.Columns[CashDailySummaryTable.ColumnName.CashSales].HeaderText = "Sales";
+                DGView.Columns[CashDailySummaryTable.ColumnName.CustomerDueReceivedCash].HeaderText = "Customer Due Received";
+                DGView.Columns[CashDailySummaryTable.ColumnName.UndiyalCashWithdraw].HeaderText = "Undiyal Withdraw";
+                DGView.Columns[CashDailySummaryTable.ColumnName.VendorPaymentCash].HeaderText = "Vendor Payment";
+                DGView.Columns[CashDailySummaryTable.ColumnName.ExpenseCash].HeaderText = "Expense";
+                DGView.Columns[CashDailySummaryTable.ColumnName.UndiyalCashDeposit].HeaderText = "Undiyal Deposit";
+                DGView.Columns[CashDailySummaryTable.ColumnName.CashOnHand].HeaderText = "Cash On Hand";
+                DGView.Columns[CashDailySummaryTable.ColumnName.CoinOnHand].HeaderText = "Coin On Hand";
+                DGView.Columns[CashDailySummaryTable.ColumnName.TallyAmount].HeaderText = "Tally Amount";
+                DGView.Columns[CashDailySummaryTable.ColumnName.ClosingBalance].HeaderText = "Closing Balance";
+                DGView.Columns[CashDailySummaryTable.ColumnName.Remarks].HeaderText = "Remarks";
+                DGView.Columns[CashDailySummaryTable.ColumnName.UpdatedBy].HeaderText = "Closed By";
 
-                //foreach (DataGridViewColumn DGVColumn in DGView.Columns)
-                //{
-                //    if (DGVColumn.Name == DailyAccountClosingTable.ColumnName.TransType || DGVColumn.Name == DailyAccountClosingTable.ColumnName.Remarks)
-                //        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                //    else
-                //        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                foreach (DataGridViewColumn DGVColumn in DGView.Columns)
+                {
+                    if (DGVColumn.Name == CashDailySummaryTable.ColumnName.OpeningBalance)
+                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    else
+                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-                //    if (DGVColumn.Name == DailyAccountClosingTable.ColumnName.Amount)
-                //    {
-                //        DGVColumn.DefaultCellStyle.Format = "0.00";
-                //        DGVColumn.ValueType = typeof(decimal);
-                //        DGVColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                //    }
-                //}
+                    if (DGVColumn.Name != CashDailySummaryTable.ColumnName.Remarks && DGVColumn.Name != CashDailySummaryTable.ColumnName.UpdatedBy)
+                    {
+                        DGVColumn.DefaultCellStyle.Format = "0.00";
+                        DGVColumn.ValueType = typeof(decimal);
+                        DGVColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    }
+                }
             }
             catch
             {
@@ -549,11 +607,11 @@ namespace VegetableBox
         {
             try
             {
-                //DGSelectedRowIndex = e.RowIndex;
-                //if (e.RowIndex >= 0)
-                //{
-                //    DGView.Rows[e.RowIndex].Selected = true;
-                //}
+                DGSelectedRowIndex = e.RowIndex;
+                if (e.RowIndex >= 0)
+                {
+                    DGView.Rows[e.RowIndex].Selected = true;
+                }
             }
             catch (Exception ex)
             {
@@ -567,9 +625,13 @@ namespace VegetableBox
             try
             {
                 if (!string.IsNullOrEmpty(TxtCash500Count.Text.Trim()))
-                    TxtCash500Amt.Text = this.ToConvertDecimalFormatString((Convert.ToInt32(TxtCash500Count.Text.Trim()) * 500).ToString());
+                {
+                    this.TxtCash500Amt.Text = this.ToConvertDecimalFormatString((Convert.ToInt32(TxtCash500Count.Text.Trim()) * 500).ToString());
+
+                    this.CalculatedDenominationAmount();
+                }
                 else
-                    TxtCash500Amt.Text = string.Empty;
+                    this.TxtCash500Amt.Text = string.Empty;
             }
             catch (Exception ex)
             {
@@ -796,7 +858,7 @@ namespace VegetableBox
 
                 this.TxtCashOnlyOpeningBalance.Text = "0.00";
                 this.TxtCashOnlySales.Text = this.ToConvertDecimalFormatString(this.TxtSalesCash.Text);
-                this.TxtCashOnlyCustomerDebit.Text = this.ToConvertDecimalFormatString(this.TxtCustomerDebitCash.Text);
+                this.TxtCashOnlyCustomerCreditRepayment.Text = this.ToConvertDecimalFormatString(this.TxtCustomerDebitCash.Text);
                 this.TxtCashOnlyUndiyalWithdraw.Text = this.ToConvertDecimalFormatString(this.TxtUndiyalWithdraw.Text);
 
                 this.TxtCashOnlyVendorPayment.Text = this.ToConvertDecimalFormatString(this.TxtVendorCash.Text);
@@ -806,8 +868,8 @@ namespace VegetableBox
                 this.TxtCashOnHand.Text = this.ToConvertDecimalFormatString(this.TxtCashTotalAmt.Text);
                 this.TxtCoinOnHand.Text = this.ToConvertDecimalFormatString(this.TxtCoinTotalAmt.Text);
 
-                decimal totalReceipts = CommonUtils.GetTotalAmountFromStrings(this.TxtCashOnlyOpeningBalance.Text, this.TxtCashOnlySales.Text, 
-                                        this.TxtCashOnlyCustomerDebit.Text, this.TxtCashOnlyUndiyalWithdraw.Text);
+                decimal totalReceipts = CommonUtils.GetTotalAmountFromStrings(this.TxtCashOnlyOpeningBalance.Text, this.TxtCashOnlySales.Text,
+                                        this.TxtCashOnlyCustomerCreditRepayment.Text, this.TxtCashOnlyUndiyalWithdraw.Text);
 
                 decimal totalPayments = CommonUtils.GetTotalAmountFromStrings(this.TxtCashOnlyVendorPayment.Text, this.TxtCashOnlyExpense.Text,
                                         this.TxtCashOnlyUndiyalDeposit.Text);
@@ -816,11 +878,40 @@ namespace VegetableBox
 
                 this.TxtCashOnlyTally.Text = ((totalPayments + availableCash) - totalReceipts).ToString("0.00");
                 this.TxtCashOnlyClosingBalance.Text = (availableCash).ToString("0.00");
+
+                this.TxtMismatchAmount.Text = this.TxtCashOnlyTally.Text;
+
+                this.PnlCash.Enabled = false;
+                this.PnlCoin.Enabled = false;
+
+                this.TxtMismatchExplanation.Focus();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Vegetable Box");
             }
+        }
+
+        private void BtnEditDenomEntry_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.ClearCashRelated();
+
+                this.PnlCash.Enabled = true;
+                this.PnlCoin.Enabled = true;
+
+                this.TxtCash500Count.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void FrmDailyAccountClosing_Activated(object sender, EventArgs e)
+        {
+            this.TxtCash500Count.Focus();
         }
     }
 
@@ -879,6 +970,29 @@ namespace VegetableBox
             internal static string Deposit = "Deposit";
             internal static string Withdraw = "Withdraw";
             internal static string ClosingBalance = "ClosingBalance";
+        }
+    }
+
+    internal struct CashDailySummaryTable
+    {
+        internal struct ColumnName
+        {
+            internal static string TranNo = "TranNo";
+            internal static string TranDate = "TranDate";
+            internal static string OpeningBalance = "OpeningBalance";
+            internal static string CashSales = "CashSales";
+            internal static string CustomerDueReceivedCash = "CustomerDueReceivedCash";
+            internal static string UndiyalCashWithdraw = "UndiyalCashWithdraw";
+            internal static string VendorPaymentCash = "VendorPaymentCash";
+            internal static string ExpenseCash = "ExpenseCash";
+            internal static string UndiyalCashDeposit = "UndiyalCashDeposit";
+            internal static string CashOnHand = "CashOnHand";
+            internal static string CoinOnHand = "CoinOnHand";
+            internal static string TallyAmount = "TallyAmount";
+            internal static string ClosingBalance = "ClosingBalance";
+            internal static string Remarks = "Remarks";
+            internal static string UpdatedBy = "UpdatedBy";
+            internal static string UpdatedDate = "UpdatedDate";
         }
     }
 

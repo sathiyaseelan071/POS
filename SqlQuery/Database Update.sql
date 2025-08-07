@@ -1016,37 +1016,282 @@ Go
 --------------
 
 
+CREATE TABLE [CashDailySummary] (
+    [SNo] INT IDENTITY(1,1),
+    [TranNo] INT PRIMARY KEY NOT NULL,
+    [TranDate] DATE UNIQUE NOT NULL,
+
+    -- Opening
+    [OpeningBalance] NUMERIC(12, 2) NOT NULL,
+
+    -- Inflows
+    [CashSales] NUMERIC(12, 2) NOT NULL,
+    [CustomerDueReceivedCash] NUMERIC(12, 2) NOT NULL,
+    [UndiyalCashWithdraw] NUMERIC(12, 2) NOT NULL,
+
+    -- Outflows
+    [VendorPaymentCash] NUMERIC(12, 2) NOT NULL,
+    [ExpenseCash] NUMERIC(12, 2) NOT NULL,
+    [UndiyalCashDeposit] NUMERIC(12, 2) NOT NULL,
+
+    -- Balances
+    [CashOnHand] NUMERIC(12, 2) NOT NULL,
+    [CoinOnHand] NUMERIC(12, 2) NOT NULL,
+
+    [TallyAmount] NUMERIC(12, 2) NOT NULL,
+
+    [ClosingBalance] NUMERIC(12, 2) NOT NULL,
+	
+    [Remarks] VARCHAR(200),
+
+    [UpdatedBy] INT NOT NULL,
+    [UpdatedDate] DATETIME NOT NULL,
+
+    FOREIGN KEY ([UpdatedBy]) REFERENCES [USER]([Code])
+)
+
+--------------
+Go
+--------------
+
+CREATE TABLE [CashDailyAllClosingDetails] (
+    [SNo] INT IDENTITY(1,1),
+    [TranNo] INT PRIMARY KEY NOT NULL,
+    [TranDate] DATE UNIQUE NOT NULL,
+
+    -- Opening
+    [OpeningBalance] NUMERIC(12, 2) NOT NULL,
+
+    -- Inflows
+    [CashSales] NUMERIC(12, 2) NOT NULL,
+    [CustomerDueReceivedCash] NUMERIC(12, 2) NOT NULL,
+    [UndiyalCashWithdraw] NUMERIC(12, 2) NOT NULL,
+
+    -- Outflows
+    [VendorPaymentCash] NUMERIC(12, 2) NOT NULL,
+    [ExpenseCash] NUMERIC(12, 2) NOT NULL,
+    [UndiyalCashDeposit] NUMERIC(12, 2) NOT NULL,
+
+    -- Balances
+    [CashOnHand] NUMERIC(12, 2) NOT NULL,
+    [CoinOnHand] NUMERIC(12, 2) NOT NULL,
+
+    [TallyAmount] NUMERIC(12, 2) NOT NULL,
+
+    [ClosingBalance] NUMERIC(12, 2) NOT NULL,
+	
+    [Remarks] VARCHAR(200),
+
+    [UpdatedBy] INT NOT NULL,
+    [UpdatedDate] DATETIME NOT NULL,
+
+    FOREIGN KEY ([UpdatedBy]) REFERENCES [USER]([Code])
+)
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [SpSaveCashDailySummary]
+(
+    @OpeningBalance NUMERIC(12, 2),
+    @CashSales NUMERIC(12, 2),
+    @CustomerDueReceivedCash NUMERIC(12, 2),
+    @UndiyalCashWithdraw NUMERIC(12, 2),
+    @VendorPaymentCash NUMERIC(12, 2),
+    @ExpenseCash NUMERIC(12, 2),
+    @UndiyalCashDeposit NUMERIC(12, 2),
+    @CashOnHand NUMERIC(12, 2),
+    @CoinOnHand NUMERIC(12, 2),
+    @TallyAmount NUMERIC(12, 2),
+    @ClosingBalance NUMERIC(12, 2),
+    @Remarks VARCHAR(200),
+    @UpdatedBy INT
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        DECLARE @Today DATE = CAST(GETDATE() AS DATE);
+
+        -------------------------------
+        -- 1. Handle [CashDailySummary]
+        -------------------------------
+        IF EXISTS (
+            SELECT 1 
+            FROM [CashDailySummary] 
+            WHERE CAST([TranDate] AS DATE) = @Today
+        )
+        BEGIN
+            -- Update existing record for today
+            UPDATE [CashDailySummary]
+            SET 
+                [OpeningBalance] = @OpeningBalance,
+                [CashSales] = @CashSales,
+                [CustomerDueReceivedCash] = @CustomerDueReceivedCash,
+                [UndiyalCashWithdraw] = @UndiyalCashWithdraw,
+                [VendorPaymentCash] = @VendorPaymentCash,
+                [ExpenseCash] = @ExpenseCash,
+                [UndiyalCashDeposit] = @UndiyalCashDeposit,
+                [CashOnHand] = @CashOnHand,
+                [CoinOnHand] = @CoinOnHand,
+                [TallyAmount] = @TallyAmount,
+                [ClosingBalance] = @ClosingBalance,
+                [Remarks] = @Remarks,
+                [UpdatedBy] = @UpdatedBy,
+                [UpdatedDate] = GETDATE()
+            WHERE CAST([TranDate] AS DATE) = @Today;
+        END
+        ELSE
+        BEGIN
+            -- Insert new record
+            DECLARE @SummaryTranNo INT = ISNULL((SELECT MAX([TranNo]) FROM [CashDailySummary]), 0) + 1;
+
+            INSERT INTO [CashDailySummary]
+            (
+                [TranNo], [TranDate], [OpeningBalance], [CashSales], [CustomerDueReceivedCash],
+                [UndiyalCashWithdraw], [VendorPaymentCash], [ExpenseCash], [UndiyalCashDeposit],
+                [CashOnHand], [CoinOnHand], [TallyAmount], [ClosingBalance],
+                [Remarks], [UpdatedBy], [UpdatedDate]
+            )
+            VALUES
+            (
+                @SummaryTranNo, GETDATE(), @OpeningBalance, @CashSales, @CustomerDueReceivedCash,
+                @UndiyalCashWithdraw, @VendorPaymentCash, @ExpenseCash, @UndiyalCashDeposit,
+                @CashOnHand, @CoinOnHand, @TallyAmount, @ClosingBalance,
+                @Remarks, @UpdatedBy, GETDATE()
+            );
+        END
+
+        -------------------------------------------
+        -- 2. Always Insert into [CashDailyAllClosingDetails]
+        -------------------------------------------
+        DECLARE @AllClosingTranNo INT = ISNULL((SELECT MAX([TranNo]) FROM [CashDailyAllClosingDetails]), 0) + 1;
+
+        INSERT INTO [CashDailyAllClosingDetails]
+        (
+            [TranNo], [TranDate], [OpeningBalance], [CashSales], [CustomerDueReceivedCash],
+            [UndiyalCashWithdraw], [VendorPaymentCash], [ExpenseCash], [UndiyalCashDeposit],
+            [CashOnHand], [CoinOnHand], [TallyAmount], [ClosingBalance],
+            [Remarks], [UpdatedBy], [UpdatedDate]
+        )
+        VALUES
+        (
+            @AllClosingTranNo, GETDATE(), @OpeningBalance, @CashSales, @CustomerDueReceivedCash,
+            @UndiyalCashWithdraw, @VendorPaymentCash, @ExpenseCash, @UndiyalCashDeposit,
+            @CashOnHand, @CoinOnHand, @TallyAmount, @ClosingBalance,
+            @Remarks, @UpdatedBy, GETDATE()
+        );
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        DECLARE @ErrMsg NVARCHAR(4000) = ERROR_MESSAGE();
+        RAISERROR(@ErrMsg, 16, 1);
+    END CATCH
+END
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [SpInsertZeroCashDailySummary](@UpdatedBy INT)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        DECLARE @Today DATE = CAST(GETDATE() AS DATE);
+        DECLARE @NewTranNo INT = ISNULL((SELECT MAX([TranNo]) FROM [CashDailySummary]), 0) + 1;
+        DECLARE @OpeningBalance NUMERIC(12, 2) = 0.00;
+
+        -- Prevent duplicate insert for today
+        IF NOT EXISTS (SELECT 1 FROM [CashDailySummary] WHERE CAST([TranDate] AS DATE) = @Today)
+        BEGIN
+            -- Get last closing balance if exists
+            IF EXISTS (SELECT 1 FROM [CashDailySummary])
+            BEGIN
+                SELECT TOP 1 @OpeningBalance = [ClosingBalance]
+                FROM [CashDailySummary]
+                ORDER BY [TranDate] DESC;
+            END
+
+            -- Insert new zero record
+            INSERT INTO [CashDailySummary]
+            (
+                [TranNo], [TranDate], [OpeningBalance], [CashSales], [CustomerDueReceivedCash],
+                [UndiyalCashWithdraw], [VendorPaymentCash], [ExpenseCash], [UndiyalCashDeposit],
+                [CashOnHand], [CoinOnHand], [TallyAmount], [ClosingBalance],
+                [Remarks], [UpdatedBy], [UpdatedDate]
+            )
+            VALUES
+            (
+                @NewTranNo, @Today, @OpeningBalance, 0.00, 0.00,
+                0.00, 0.00, 0.00, 0.00,
+                0.00, 0.00, 0.00, @OpeningBalance,
+                N'Auto Insert - Opening Entry', @UpdatedBy, GETDATE()
+            );
+        END
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+
+        DECLARE @ErrMsg NVARCHAR(4000) = ERROR_MESSAGE();
+        RAISERROR(@ErrMsg, 16, 1);
+    END CATCH
+END
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [SpGetCashDailySummaryByToday]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT [TranNo], [TranDate], [OpeningBalance], [CashSales], [CustomerDueReceivedCash], [UndiyalCashWithdraw],
+    [VendorPaymentCash], [ExpenseCash], [UndiyalCashDeposit], [CashOnHand], [CoinOnHand], [TallyAmount],
+    [ClosingBalance], [Remarks], [UpdatedBy], [UpdatedDate] 
+	FROM [CashDailySummary]
+    WHERE CAST([TranDate] AS DATE) = CAST(GETDATE() AS DATE)
+END
+
+--------------
+Go
+--------------
+
+CREATE PROCEDURE [SpGetCashDailyAllClosingDetailsByToday]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT [TranNo], [TranDate], [OpeningBalance], [CashSales], [CustomerDueReceivedCash], [UndiyalCashWithdraw],
+    [VendorPaymentCash], [ExpenseCash], [UndiyalCashDeposit], [CashOnHand], [CoinOnHand], [TallyAmount],
+    [ClosingBalance], [Remarks], U.[Name] AS UpdatedBy, [UpdatedDate] 
+	FROM [CashDailyAllClosingDetails] AS MT
+	LEFT JOIN [User] AS U ON MT.[UpdatedBy] = U.[Code]
+    WHERE CAST([TranDate] AS DATE) = CAST(GETDATE() AS DATE)
+	ORDER BY [TranNo] DESC
+END
 
 
 
 
 EXEC [SpGetUndiyalCreditDebitNote]
 
-Select * from [VendorPaymentDetails]
 
+--Truncate Table [CashDailyAllClosingDetails]
+--Truncate Table [CashDailySummary]
 
---Sales
-
-SELECT P.[Name] AS [PaymentType], SUM([Amount]) AS AMOUNT 
-FROM [PaymentDetails] AS MT
-LEFT JOIN [PaymentType] AS P ON MT.[PaymentType] = P.[Code]
-WHERE [BilledDate] = CAST(GETDATE() AS DATE)
-GROUP BY P.[Name]
-
---Vendor
-
-SELECT P.[Name] AS [PaymentType], SUM([Amount]) AS AMOUNT 
-FROM [dbo].[VendorPaymentDetails] AS MT
-LEFT JOIN [PaymentType] AS P ON MT.[PaymentType] = P.[Code]
-WHERE CAST(GETDATE() AS DATE) = CAST(GETDATE() AS DATE)
-GROUP BY P.[Name]
-
-
---Expenses
-
-SELECT P.[Name] AS [PaymentType], SUM([Amount]) AS AMOUNT 
-FROM [dbo].[Expenses] AS MT
-LEFT JOIN [PaymentType] AS P ON MT.[PaymentType] = P.[Code]
-WHERE [BillDate] = CAST(GETDATE() AS DATE)
-GROUP BY P.[Name]
+SELECT * FROM [dbo].[CashDailyAllClosingDetails]
+SELECT * FROM [dbo].[CashDailySummary]
 

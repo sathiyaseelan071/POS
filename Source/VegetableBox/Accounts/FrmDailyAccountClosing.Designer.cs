@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             TlpMain = new TableLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel11 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
-            panel1 = new Panel();
+            PnlCash = new Panel();
             tableLayoutPanel3 = new TableLayoutPanel();
             label3 = new Label();
             label4 = new Label();
@@ -61,7 +62,7 @@
             label1 = new Label();
             label19 = new Label();
             label20 = new Label();
-            panel2 = new Panel();
+            PnlCoin = new Panel();
             tableLayoutPanel4 = new TableLayoutPanel();
             label2 = new Label();
             label11 = new Label();
@@ -89,6 +90,7 @@
             tableLayoutPanel6 = new TableLayoutPanel();
             BtnProceed = new Button();
             BtnClear = new Button();
+            BtnEditDenomEntry = new Button();
             tableLayoutPanel13 = new TableLayoutPanel();
             TxtTotalCashCoinOnHand = new TextBox();
             label64 = new Label();
@@ -158,7 +160,7 @@
             TxtCashOnlySales = new TextBox();
             label25 = new Label();
             label27 = new Label();
-            TxtCashOnlyCustomerDebit = new TextBox();
+            TxtCashOnlyCustomerCreditRepayment = new TextBox();
             label32 = new Label();
             TxtCashOnlyOpeningBalance = new TextBox();
             label24 = new Label();
@@ -178,15 +180,23 @@
             TxtCashOnlyVendorPayment = new TextBox();
             label28 = new Label();
             label63 = new Label();
+            tableLayoutPanel14 = new TableLayoutPanel();
             BtnExit = new Button();
+            DGView = new DataGridView();
+            tableLayoutPanel15 = new TableLayoutPanel();
+            BtnSave = new Button();
+            label31 = new Label();
+            label65 = new Label();
+            TxtMismatchAmount = new TextBox();
+            TxtMismatchExplanation = new TextBox();
             ErrorProvider = new ErrorProvider(components);
             TlpMain.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel11.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
-            panel1.SuspendLayout();
+            PnlCash.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
-            panel2.SuspendLayout();
+            PnlCoin.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             tableLayoutPanel13.SuspendLayout();
@@ -202,6 +212,9 @@
             tableLayoutPanel9.SuspendLayout();
             panel8.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
+            tableLayoutPanel14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DGView).BeginInit();
+            tableLayoutPanel15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ErrorProvider).BeginInit();
             SuspendLayout();
             // 
@@ -226,7 +239,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 74.7982F));
             tableLayoutPanel1.Controls.Add(tableLayoutPanel11, 0, 0);
             tableLayoutPanel1.Controls.Add(panel8, 0, 1);
-            tableLayoutPanel1.Controls.Add(BtnExit, 1, 1);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel14, 1, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(3, 3);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -268,8 +281,8 @@
             tableLayoutPanel11.SetColumnSpan(tableLayoutPanel2, 3);
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000076F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.9999924F));
-            tableLayoutPanel2.Controls.Add(panel1, 0, 1);
-            tableLayoutPanel2.Controls.Add(panel2, 1, 1);
+            tableLayoutPanel2.Controls.Add(PnlCash, 0, 1);
+            tableLayoutPanel2.Controls.Add(PnlCoin, 1, 1);
             tableLayoutPanel2.Controls.Add(label17, 0, 0);
             tableLayoutPanel2.Controls.Add(tableLayoutPanel6, 1, 2);
             tableLayoutPanel2.Controls.Add(tableLayoutPanel13, 0, 2);
@@ -285,15 +298,15 @@
             tableLayoutPanel2.Size = new Size(419, 300);
             tableLayoutPanel2.TabIndex = 0;
             // 
-            // panel1
+            // PnlCash
             // 
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(tableLayoutPanel3);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(3, 33);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(203, 234);
-            panel1.TabIndex = 0;
+            PnlCash.BorderStyle = BorderStyle.FixedSingle;
+            PnlCash.Controls.Add(tableLayoutPanel3);
+            PnlCash.Dock = DockStyle.Fill;
+            PnlCash.Location = new Point(3, 33);
+            PnlCash.Name = "PnlCash";
+            PnlCash.Size = new Size(203, 234);
+            PnlCash.TabIndex = 0;
             // 
             // tableLayoutPanel3
             // 
@@ -644,15 +657,15 @@
             label20.TabIndex = 2;
             label20.Text = "Total";
             // 
-            // panel2
+            // PnlCoin
             // 
-            panel2.BorderStyle = BorderStyle.FixedSingle;
-            panel2.Controls.Add(tableLayoutPanel4);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(212, 33);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(204, 234);
-            panel2.TabIndex = 0;
+            PnlCoin.BorderStyle = BorderStyle.FixedSingle;
+            PnlCoin.Controls.Add(tableLayoutPanel4);
+            PnlCoin.Dock = DockStyle.Fill;
+            PnlCoin.Location = new Point(212, 33);
+            PnlCoin.Name = "PnlCoin";
+            PnlCoin.Size = new Size(204, 234);
+            PnlCoin.TabIndex = 0;
             // 
             // tableLayoutPanel4
             // 
@@ -970,11 +983,13 @@
             // 
             // tableLayoutPanel6
             // 
-            tableLayoutPanel6.ColumnCount = 2;
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel6.ColumnCount = 3;
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel6.Controls.Add(BtnProceed, 0, 0);
-            tableLayoutPanel6.Controls.Add(BtnClear, 1, 0);
+            tableLayoutPanel6.Controls.Add(BtnClear, 2, 0);
+            tableLayoutPanel6.Controls.Add(BtnEditDenomEntry, 1, 0);
             tableLayoutPanel6.Dock = DockStyle.Fill;
             tableLayoutPanel6.Location = new Point(209, 270);
             tableLayoutPanel6.Margin = new Padding(0);
@@ -988,10 +1003,12 @@
             // BtnProceed
             // 
             BtnProceed.Dock = DockStyle.Fill;
+            BtnProceed.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            BtnProceed.ForeColor = Color.Purple;
             BtnProceed.Location = new Point(3, 0);
             BtnProceed.Margin = new Padding(0);
             BtnProceed.Name = "BtnProceed";
-            BtnProceed.Size = new Size(102, 30);
+            BtnProceed.Size = new Size(67, 30);
             BtnProceed.TabIndex = 21;
             BtnProceed.Text = "&Proceed";
             BtnProceed.UseVisualStyleBackColor = true;
@@ -1000,14 +1017,30 @@
             // BtnClear
             // 
             BtnClear.Dock = DockStyle.Fill;
-            BtnClear.Location = new Point(105, 0);
+            BtnClear.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            BtnClear.ForeColor = Color.Red;
+            BtnClear.Location = new Point(137, 0);
             BtnClear.Margin = new Padding(0);
             BtnClear.Name = "BtnClear";
-            BtnClear.Size = new Size(102, 30);
+            BtnClear.Size = new Size(70, 30);
             BtnClear.TabIndex = 21;
             BtnClear.Text = "&Clear";
             BtnClear.UseVisualStyleBackColor = true;
             BtnClear.Click += BtnClear_Click;
+            // 
+            // BtnEditDenomEntry
+            // 
+            BtnEditDenomEntry.Dock = DockStyle.Fill;
+            BtnEditDenomEntry.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            BtnEditDenomEntry.ForeColor = Color.FromArgb(0, 0, 192);
+            BtnEditDenomEntry.Location = new Point(70, 0);
+            BtnEditDenomEntry.Margin = new Padding(0);
+            BtnEditDenomEntry.Name = "BtnEditDenomEntry";
+            BtnEditDenomEntry.Size = new Size(67, 30);
+            BtnEditDenomEntry.TabIndex = 21;
+            BtnEditDenomEntry.Text = "&Edit Count";
+            BtnEditDenomEntry.UseVisualStyleBackColor = true;
+            BtnEditDenomEntry.Click += BtnEditDenomEntry_Click;
             // 
             // tableLayoutPanel13
             // 
@@ -1128,9 +1161,9 @@
             label61.Font = new Font("Calibri", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
             label61.Location = new Point(10, 7);
             label61.Name = "label61";
-            label61.Size = new Size(110, 38);
+            label61.Size = new Size(110, 39);
             label61.TabIndex = 0;
-            label61.Text = "Customer Debits";
+            label61.Text = "Customer Credit Repayment";
             label61.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // TxtCustomerDebitGPay
@@ -1819,7 +1852,7 @@
             tableLayoutPanel5.Controls.Add(TxtCashOnlySales, 1, 2);
             tableLayoutPanel5.Controls.Add(label25, 0, 0);
             tableLayoutPanel5.Controls.Add(label27, 0, 2);
-            tableLayoutPanel5.Controls.Add(TxtCashOnlyCustomerDebit, 1, 3);
+            tableLayoutPanel5.Controls.Add(TxtCashOnlyCustomerCreditRepayment, 1, 3);
             tableLayoutPanel5.Controls.Add(label32, 0, 1);
             tableLayoutPanel5.Controls.Add(TxtCashOnlyOpeningBalance, 1, 1);
             tableLayoutPanel5.Controls.Add(label24, 0, 3);
@@ -1866,6 +1899,7 @@
             // 
             TxtCashOnlySales.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCashOnlySales.Location = new Point(136, 70);
+            TxtCashOnlySales.MaxLength = 13;
             TxtCashOnlySales.Name = "TxtCashOnlySales";
             TxtCashOnlySales.ReadOnly = true;
             TxtCashOnlySales.Size = new Size(121, 31);
@@ -1897,15 +1931,16 @@
             label27.Text = "Sales";
             label27.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // TxtCashOnlyCustomerDebit
+            // TxtCashOnlyCustomerCreditRepayment
             // 
-            TxtCashOnlyCustomerDebit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnlyCustomerDebit.Location = new Point(136, 100);
-            TxtCashOnlyCustomerDebit.Name = "TxtCashOnlyCustomerDebit";
-            TxtCashOnlyCustomerDebit.ReadOnly = true;
-            TxtCashOnlyCustomerDebit.Size = new Size(121, 31);
-            TxtCashOnlyCustomerDebit.TabIndex = 6;
-            TxtCashOnlyCustomerDebit.TextAlign = HorizontalAlignment.Right;
+            TxtCashOnlyCustomerCreditRepayment.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtCashOnlyCustomerCreditRepayment.Location = new Point(136, 100);
+            TxtCashOnlyCustomerCreditRepayment.MaxLength = 13;
+            TxtCashOnlyCustomerCreditRepayment.Name = "TxtCashOnlyCustomerCreditRepayment";
+            TxtCashOnlyCustomerCreditRepayment.ReadOnly = true;
+            TxtCashOnlyCustomerCreditRepayment.Size = new Size(121, 31);
+            TxtCashOnlyCustomerCreditRepayment.TabIndex = 6;
+            TxtCashOnlyCustomerCreditRepayment.TextAlign = HorizontalAlignment.Right;
             // 
             // label32
             // 
@@ -1923,6 +1958,7 @@
             // 
             TxtCashOnlyOpeningBalance.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCashOnlyOpeningBalance.Location = new Point(136, 40);
+            TxtCashOnlyOpeningBalance.MaxLength = 13;
             TxtCashOnlyOpeningBalance.Name = "TxtCashOnlyOpeningBalance";
             TxtCashOnlyOpeningBalance.ReadOnly = true;
             TxtCashOnlyOpeningBalance.Size = new Size(121, 31);
@@ -1933,18 +1969,20 @@
             // 
             label24.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label24.AutoSize = true;
+            label24.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label24.ForeColor = Color.Green;
             label24.Location = new Point(10, 97);
             label24.Name = "label24";
             label24.Size = new Size(120, 30);
             label24.TabIndex = 5;
-            label24.Text = "Customer Debit";
+            label24.Text = "Cust CR Repayment";
             label24.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TxtCashOnlyUndiyalDeposit
             // 
             TxtCashOnlyUndiyalDeposit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCashOnlyUndiyalDeposit.Location = new Point(136, 220);
+            TxtCashOnlyUndiyalDeposit.MaxLength = 13;
             TxtCashOnlyUndiyalDeposit.Name = "TxtCashOnlyUndiyalDeposit";
             TxtCashOnlyUndiyalDeposit.ReadOnly = true;
             TxtCashOnlyUndiyalDeposit.Size = new Size(121, 31);
@@ -1967,6 +2005,7 @@
             // 
             TxtCashOnHand.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCashOnHand.Location = new Point(136, 250);
+            TxtCashOnHand.MaxLength = 13;
             TxtCashOnHand.Name = "TxtCashOnHand";
             TxtCashOnHand.ReadOnly = true;
             TxtCashOnHand.Size = new Size(121, 31);
@@ -1989,6 +2028,7 @@
             // 
             TxtCoinOnHand.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCoinOnHand.Location = new Point(136, 280);
+            TxtCoinOnHand.MaxLength = 13;
             TxtCoinOnHand.Name = "TxtCoinOnHand";
             TxtCoinOnHand.ReadOnly = true;
             TxtCoinOnHand.Size = new Size(121, 31);
@@ -2010,6 +2050,7 @@
             // 
             TxtCashOnlyTally.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCashOnlyTally.Location = new Point(136, 310);
+            TxtCashOnlyTally.MaxLength = 13;
             TxtCashOnlyTally.Name = "TxtCashOnlyTally";
             TxtCashOnlyTally.ReadOnly = true;
             TxtCashOnlyTally.Size = new Size(121, 31);
@@ -2031,6 +2072,7 @@
             // 
             TxtCashOnlyClosingBalance.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCashOnlyClosingBalance.Location = new Point(136, 340);
+            TxtCashOnlyClosingBalance.MaxLength = 13;
             TxtCashOnlyClosingBalance.Name = "TxtCashOnlyClosingBalance";
             TxtCashOnlyClosingBalance.ReadOnly = true;
             TxtCashOnlyClosingBalance.Size = new Size(121, 31);
@@ -2041,6 +2083,7 @@
             // 
             TxtCashOnlyUndiyalWithdraw.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCashOnlyUndiyalWithdraw.Location = new Point(136, 130);
+            TxtCashOnlyUndiyalWithdraw.MaxLength = 13;
             TxtCashOnlyUndiyalWithdraw.Name = "TxtCashOnlyUndiyalWithdraw";
             TxtCashOnlyUndiyalWithdraw.ReadOnly = true;
             TxtCashOnlyUndiyalWithdraw.Size = new Size(121, 31);
@@ -2075,6 +2118,7 @@
             // 
             TxtCashOnlyExpense.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCashOnlyExpense.Location = new Point(136, 190);
+            TxtCashOnlyExpense.MaxLength = 13;
             TxtCashOnlyExpense.Name = "TxtCashOnlyExpense";
             TxtCashOnlyExpense.ReadOnly = true;
             TxtCashOnlyExpense.Size = new Size(121, 31);
@@ -2085,6 +2129,7 @@
             // 
             TxtCashOnlyVendorPayment.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtCashOnlyVendorPayment.Location = new Point(136, 160);
+            TxtCashOnlyVendorPayment.MaxLength = 13;
             TxtCashOnlyVendorPayment.Name = "TxtCashOnlyVendorPayment";
             TxtCashOnlyVendorPayment.ReadOnly = true;
             TxtCashOnlyVendorPayment.Size = new Size(121, 31);
@@ -2115,16 +2160,151 @@
             label63.Text = "Undiyal Withdraw";
             label63.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // tableLayoutPanel14
+            // 
+            tableLayoutPanel14.ColumnCount = 2;
+            tableLayoutPanel14.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 85.99034F));
+            tableLayoutPanel14.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.0096617F));
+            tableLayoutPanel14.Controls.Add(BtnExit, 1, 2);
+            tableLayoutPanel14.Controls.Add(DGView, 0, 1);
+            tableLayoutPanel14.Controls.Add(tableLayoutPanel15, 0, 0);
+            tableLayoutPanel14.Dock = DockStyle.Fill;
+            tableLayoutPanel14.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            tableLayoutPanel14.Location = new Point(284, 309);
+            tableLayoutPanel14.Name = "tableLayoutPanel14";
+            tableLayoutPanel14.RowCount = 3;
+            tableLayoutPanel14.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel14.RowStyles.Add(new RowStyle(SizeType.Percent, 80F));
+            tableLayoutPanel14.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel14.Size = new Size(828, 421);
+            tableLayoutPanel14.TabIndex = 5;
+            // 
             // BtnExit
             // 
-            BtnExit.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            BtnExit.Location = new Point(1016, 692);
+            BtnExit.Dock = DockStyle.Fill;
+            BtnExit.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            BtnExit.ForeColor = Color.Red;
+            BtnExit.Location = new Point(715, 381);
             BtnExit.Name = "BtnExit";
-            BtnExit.Size = new Size(96, 38);
-            BtnExit.TabIndex = 5;
-            BtnExit.Text = "Exit";
+            BtnExit.Size = new Size(110, 37);
+            BtnExit.TabIndex = 6;
+            BtnExit.Text = "E&xit";
             BtnExit.UseVisualStyleBackColor = true;
             BtnExit.Click += BtnExit_Click;
+            // 
+            // DGView
+            // 
+            DGView.AllowUserToAddRows = false;
+            DGView.AllowUserToDeleteRows = false;
+            DGView.AllowUserToResizeRows = false;
+            DGView.BackgroundColor = SystemColors.Control;
+            DGView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tableLayoutPanel14.SetColumnSpan(DGView, 2);
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(0, 64, 64);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle1.SelectionForeColor = Color.ForestGreen;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            DGView.DefaultCellStyle = dataGridViewCellStyle1;
+            DGView.Dock = DockStyle.Fill;
+            DGView.Location = new Point(3, 45);
+            DGView.Name = "DGView";
+            DGView.ReadOnly = true;
+            DGView.RowHeadersVisible = false;
+            DGView.RowTemplate.Height = 25;
+            DGView.Size = new Size(822, 330);
+            DGView.TabIndex = 0;
+            DGView.CellEnter += DGView_CellEnter;
+            // 
+            // tableLayoutPanel15
+            // 
+            tableLayoutPanel15.ColumnCount = 7;
+            tableLayoutPanel14.SetColumnSpan(tableLayoutPanel15, 2);
+            tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2462587F));
+            tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55.325264F));
+            tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2.61001086F));
+            tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.8184566F));
+            tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2.00000834F));
+            tableLayoutPanel15.Controls.Add(BtnSave, 5, 0);
+            tableLayoutPanel15.Controls.Add(label31, 0, 0);
+            tableLayoutPanel15.Controls.Add(label65, 2, 0);
+            tableLayoutPanel15.Controls.Add(TxtMismatchAmount, 1, 0);
+            tableLayoutPanel15.Controls.Add(TxtMismatchExplanation, 3, 0);
+            tableLayoutPanel15.Dock = DockStyle.Fill;
+            tableLayoutPanel15.Location = new Point(3, 3);
+            tableLayoutPanel15.Name = "tableLayoutPanel15";
+            tableLayoutPanel15.RowCount = 1;
+            tableLayoutPanel15.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel15.Size = new Size(822, 36);
+            tableLayoutPanel15.TabIndex = 1;
+            // 
+            // BtnSave
+            // 
+            BtnSave.Dock = DockStyle.Fill;
+            BtnSave.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            BtnSave.ForeColor = Color.Green;
+            BtnSave.Location = new Point(702, 3);
+            BtnSave.Name = "BtnSave";
+            BtnSave.Size = new Size(106, 30);
+            BtnSave.TabIndex = 5;
+            BtnSave.Text = "Cash &Account Close";
+            BtnSave.UseVisualStyleBackColor = true;
+            BtnSave.Click += BtnSave_Click;
+            // 
+            // label31
+            // 
+            label31.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label31.AutoSize = true;
+            label31.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label31.ForeColor = Color.Maroon;
+            label31.Location = new Point(3, 5);
+            label31.Name = "label31";
+            label31.Size = new Size(172, 26);
+            label31.TabIndex = 6;
+            label31.Text = "Amount Mismatch";
+            // 
+            // label65
+            // 
+            label65.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label65.AutoSize = true;
+            label65.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label65.ForeColor = Color.Maroon;
+            label65.Location = new Point(242, 5);
+            label65.Name = "label65";
+            label65.Size = new Size(203, 26);
+            label65.TabIndex = 6;
+            label65.Text = "Mismatch Explanation";
+            // 
+            // TxtMismatchAmount
+            // 
+            TxtMismatchAmount.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtMismatchAmount.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            TxtMismatchAmount.ForeColor = Color.Crimson;
+            TxtMismatchAmount.Location = new Point(181, 3);
+            TxtMismatchAmount.MaxLength = 13;
+            TxtMismatchAmount.Name = "TxtMismatchAmount";
+            TxtMismatchAmount.Size = new Size(55, 33);
+            TxtMismatchAmount.TabIndex = 2;
+            TxtMismatchAmount.TextAlign = HorizontalAlignment.Right;
+            TxtMismatchAmount.Enter += TextBox_Enter;
+            TxtMismatchAmount.KeyPress += ReadOnlyTextBox_KeyPress;
+            TxtMismatchAmount.Leave += TextBox_Leave;
+            // 
+            // TxtMismatchExplanation
+            // 
+            TxtMismatchExplanation.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtMismatchExplanation.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            TxtMismatchExplanation.Location = new Point(451, 3);
+            TxtMismatchExplanation.MaxLength = 200;
+            TxtMismatchExplanation.Name = "TxtMismatchExplanation";
+            TxtMismatchExplanation.Size = new Size(234, 33);
+            TxtMismatchExplanation.TabIndex = 2;
+            TxtMismatchExplanation.Enter += TextBox_Enter;
+            TxtMismatchExplanation.Leave += TextBox_Leave;
             // 
             // ErrorProvider
             // 
@@ -2151,10 +2331,10 @@
             tableLayoutPanel11.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
-            panel1.ResumeLayout(false);
+            PnlCash.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
-            panel2.ResumeLayout(false);
+            PnlCoin.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel4.PerformLayout();
             tableLayoutPanel6.ResumeLayout(false);
@@ -2178,6 +2358,10 @@
             panel8.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
+            tableLayoutPanel14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)DGView).EndInit();
+            tableLayoutPanel15.ResumeLayout(false);
+            tableLayoutPanel15.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ErrorProvider).EndInit();
             ResumeLayout(false);
         }
@@ -2188,8 +2372,8 @@
         private ErrorProvider ErrorProvider;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel2;
-        private Panel panel1;
-        private Panel panel2;
+        private Panel PnlCash;
+        private Panel PnlCoin;
         private TableLayoutPanel tableLayoutPanel3;
         private TableLayoutPanel tableLayoutPanel4;
         private Label label1;
@@ -2314,7 +2498,7 @@
         private Label label29;
         private Label label30;
         private TextBox TxtCashOnlySales;
-        private TextBox TxtCashOnlyCustomerDebit;
+        private TextBox TxtCashOnlyCustomerCreditRepayment;
         private TextBox TxtCashOnlyVendorPayment;
         private TextBox TxtCashOnlyExpense;
         private TextBox TxtCashOnlyUndiyalWithdraw;
@@ -2334,6 +2518,15 @@
         private TableLayoutPanel tableLayoutPanel13;
         private TextBox TxtTotalCashCoinOnHand;
         private Label label64;
+        private TableLayoutPanel tableLayoutPanel14;
+        private DataGridView DGView;
+        private TableLayoutPanel tableLayoutPanel15;
+        private Button BtnSave;
+        private Label label31;
+        private Label label65;
+        private TextBox TxtMismatchAmount;
+        private TextBox TxtMismatchExplanation;
         private Button BtnExit;
+        private Button BtnEditDenomEntry;
     }
 }
