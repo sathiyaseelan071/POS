@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Compile Update="FrmBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Accounts\FrmDailyAccountClosing.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -19,16 +25,13 @@
     <Compile Update="Accounts\FrmVendorInvoiceEntry.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmCreditDebitMaster.cs">
+    <Compile Update="FrmPosCreditCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmProduct.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmPurchaseEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="FrmTagPrint.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmReport.cs">
@@ -41,6 +44,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmPos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmTagPrint.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Master\FrmCustomerMaster.cs">

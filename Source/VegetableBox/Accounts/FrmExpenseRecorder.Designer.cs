@@ -259,7 +259,7 @@
             CmbFilterTransactionType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbFilterTransactionType.ForeColor = Color.DarkGreen;
             CmbFilterTransactionType.FormattingEnabled = true;
-            CmbFilterTransactionType.Location = new Point(142, 40);
+            CmbFilterTransactionType.Location = new Point(142, 42);
             CmbFilterTransactionType.Margin = new Padding(2);
             CmbFilterTransactionType.Name = "CmbFilterTransactionType";
             CmbFilterTransactionType.Size = new Size(113, 27);
@@ -340,8 +340,6 @@
             ChkFltrApplyDate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             ChkFltrApplyDate.AutoSize = true;
             ChkFltrApplyDate.CheckAlign = ContentAlignment.MiddleRight;
-            ChkFltrApplyDate.Checked = true;
-            ChkFltrApplyDate.CheckState = CheckState.Checked;
             ChkFltrApplyDate.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ChkFltrApplyDate.ForeColor = Color.Maroon;
             ChkFltrApplyDate.Location = new Point(408, 42);
@@ -586,7 +584,7 @@
             CmbExpenseName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             CmbExpenseName.AutoCompleteSource = AutoCompleteSource.ListItems;
             CmbExpenseName.FormattingEnabled = true;
-            CmbExpenseName.Location = new Point(2, 8);
+            CmbExpenseName.Location = new Point(2, 6);
             CmbExpenseName.Margin = new Padding(2);
             CmbExpenseName.Name = "CmbExpenseName";
             CmbExpenseName.Size = new Size(214, 27);
@@ -612,7 +610,7 @@
             CmbTransactionType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbTransactionType.ForeColor = Color.DarkGreen;
             CmbTransactionType.FormattingEnabled = true;
-            CmbTransactionType.Location = new Point(140, 86);
+            CmbTransactionType.Location = new Point(140, 84);
             CmbTransactionType.Margin = new Padding(2);
             CmbTransactionType.Name = "CmbTransactionType";
             CmbTransactionType.Size = new Size(133, 27);
@@ -746,7 +744,7 @@
             CmbPaymentType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbPaymentType.ForeColor = Color.DarkGreen;
             CmbPaymentType.FormattingEnabled = true;
-            CmbPaymentType.Location = new Point(140, 242);
+            CmbPaymentType.Location = new Point(140, 240);
             CmbPaymentType.Margin = new Padding(2);
             CmbPaymentType.Name = "CmbPaymentType";
             CmbPaymentType.Size = new Size(133, 27);

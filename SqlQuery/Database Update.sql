@@ -1057,7 +1057,7 @@ Go
 CREATE TABLE [CashDailyAllClosingDetails] (
     [SNo] INT IDENTITY(1,1),
     [TranNo] INT PRIMARY KEY NOT NULL,
-    [TranDate] DATE UNIQUE NOT NULL,
+    [TranDate] DATE NOT NULL,
 
     -- Opening
     [OpeningBalance] NUMERIC(12, 2) NOT NULL,
@@ -1283,15 +1283,126 @@ BEGIN
 	ORDER BY [TranNo] DESC
 END
 
+--------------
+Go
+--------------
+
+DROP PROCEDURE [SpSaveSale]
+
+DROP TYPE [UDT_PaymentDetails]
+
+CREATE TYPE [dbo].[UDT_PaymentDetails] AS TABLE(
+	[PaymentType] [varchar](10) NOT NULL,
+	[Amount] [numeric](12, 2) NOT NULL,
+	[CustomerCode] [int] NULL,
+	[BilledBy] [int] NULL
+)
+
+--------------
+Go
+--------------
+
+CREATE PROC [dbo].[SpSaveSale] (@UDT_Sales UDT_Sales readonly, @UDT_Transaction UDT_Transaction readonly, @UDT_PaymentDetails UDT_PaymentDetails readonly, @BILLNO INT OUTPUT)  
+As  
+BEGIN TRAN  
+  
+BEGIN TRY  
+  
+	 DECLARE @CNT AS INT  
+  
+	 SET @CNT = (SELECT COUNT(*) AS CNT FROM [BillNoDetails] WHERE BilledDate = CAST(GETDATE() AS Date ))  
+  
+	 IF @CNT <= 0  
+	  INSERT INTO [BillNoDetails]([BillNo], [BilledDate]) VALUES (101, CAST(GETDATE() AS Date ))  
+	 ELSE  
+	  UPDATE [BillNoDetails] SET [BillNo] = [BillNo] + 1 WHERE BilledDate = CAST(GETDATE() AS Date )  
+  
+	 SET @BILLNO = (SELECT BillNo FROM [BillNoDetails] WHERE BilledDate = CAST(GETDATE() AS Date ))  
+  
+  
+	 INSERT INTO [Sales]([BillNo],[BilledDate],[ProductCode],[Qty],[Unit],[SellRate],[Amount],  
+	 [DiscPercent],[DiscAmount],[TotAmount],[MRP],[TotDiscAmtFromMRP],[BilledBy],[BilledDateTime])  
+	 SELECT @BILLNO,CAST(GETDATE() AS Date ),[ProductCode],[Qty],[Unit],[SellRate],[Amount],  
+	 [DiscPercent],[DiscAmount],[TotAmount],[MRP],[TotDiscAmtFromMRP],[BilledBy],GETDATE()  
+	 FROM @UDT_Sales  
+   
+  
+	 INSERT INTO [SalesTransaction]([BillNo],[BilledDate],[TotAmount],[DiscPercent],[DiscAmount],[GrossAmount],[RoundOffAmount],[NetAmount],  
+	 [BilledBy],[BilledDateTime], [PrintTotMRP], [PrintTotDiscMRP])  
+	 SELECT @BILLNO, CAST(GETDATE() AS Date ), [TotAmount],[DiscPercent],[DiscAmount],[GrossAmount],[RoundOffAmount],[NetAmount],  
+	 [BilledBy], GETDATE(), [PrintTotMRP], [PrintTotDiscMRP] FROM @UDT_Transaction  
+  
+
+	 INSERT INTO [PaymentDetails]([BillNo],[BilledDate],[PaymentType],[Amount],[BilledBy],[BilledDateTime])  
+	 SELECT @BILLNO, CAST(GETDATE() AS Date ), [PaymentType], [Amount], [BilledBy], GETDATE() FROM @UDT_PaymentDetails  
+	
+	
+	 DECLARE @TranNo INT;
+	 -- Generate new TranNo
+	 SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 FROM [CustomerCreditDebitNote]);
+	 
+	 -- Insert record
+	 INSERT INTO [CustomerCreditDebitNote] ([TranNo], [TranDate], [CustomerCode], [TransType], [BillNo], [BillDate], 
+	 [Amount], [PaymentType], [Remarks], [UpdatedBy], [UpdatedDate])
+	 SELECT @TranNo, GETDATE(), [CustomerCode], 'D' AS TransType, @BillNo, CAST(GETDATE() AS Date) AS BillDate, 
+	 [Amount], [PaymentType], 'RECORD FROM POS' AS Remarks, [BilledBy], GETDATE() FROM @UDT_PaymentDetails WHERE [PaymentType] = 'T' 
+  
+ COMMIT TRAN  
+  
+END TRY  
+BEGIN CATCH  
+  
+ ROLLBACK TRAN  
+  
+END CATCH
+
+--------------
+Go
+--------------
+
+ALTER PROC [dbo].[SpGetProductRate]    
+AS 
+BEGIN
+  
+	Select CAST(P.[Code] as VARCHAR) as ProductCode, P.[Name] as ProductName, P.[TamilName] as ProductTName, P.[AlternativeName] as ProductAltrName, P.[CatCode], P.[QtyTypeCode], P.[CalcBasedRateMast],    
+	Q.ShortName as Qty, CAST(P.[Code] AS VARCHAR) + ' - ' + P.[Name] + ' - ' + P.[TamilName] as SearchName,   
+	(Case When IsNull(P.BarCode, '') = '' Then 'B' + REPLICATE('0', 5 - LEN(RTRIM(CAST(P.[Code] as VARCHAR)))) +  RTRIM(CAST(P.[Code] as VARCHAR)) Else P.BarCode End ) as BarCode,  
+	'0.00' PurRate, '0.00' MRP, R.SellRate, '0.00' SellingMarginPer, '0.00' DiscPer, '0.00' DiscRate  
+	From [Product] as P    
+	Inner Join [RateMaster] as R ON P.Code = R.ProductCode    
+	Inner Join [Quantity] as Q ON P.QtyTypeCode = Q.Code    
+	Where ISNULL(P.CalcBasedRateMast,'') = 'Y' And ISNULL(P.Active,'') = 'Y'    
+   
+	Union    
+    
+	Select CAST(P.[Code] as VARCHAR) as ProductCode, P.[Name], P.[TamilName], P.[AlternativeName], P.[CatCode], P.[QtyTypeCode], P.[CalcBasedRateMast], Q.ShortName as Qty, 
+	CAST(P.[Code] as VARCHAR) + ' - ' 
+	+ P.[Name] 
+	--+ (Case When IsNull(P.BarCode, '') = '' Then ' - ' + P.[TamilName] Else '' End) 
+	+ ' - MRP: ' + CAST(S.[MRP] as VARCHAR) as SearchName,  
+
+	(Case When IsNull(P.BarCode, '') = '' Then 'B' + REPLICATE('0', 5 - LEN(RTRIM(CAST(P.[Code] as VARCHAR)))) +  RTRIM(CAST(P.[Code] as VARCHAR)) Else P.BarCode End ) as BarCode,  
+	S.PurRate, S.MRP, S.SellRate, S.SellingMarginPer, S.DiscPer, S.DiscRate  
+	From [Product] as P  
+	Inner Join [Stock] as S On P.[Code] = S.ProductCode  
+	Inner Join [Quantity] as Q ON P.QtyTypeCode = Q.Code    
+	Where ISNULL(P.CalcBasedRateMast,'') != 'Y' And ISNULL(P.Active,'') = 'Y'  
+   
+	Union    
+    
+	Select CAST(P.[Code] as VARCHAR) as ProductCode, P.[Name], P.[TamilName], P.[AlternativeName], P.[CatCode], P.[QtyTypeCode], P.[CalcBasedRateMast],    
+	Q.ShortName as Qty, CAST(P.[Code] as VARCHAR) + ' - ' + P.[Name]   
+	+ (Case When IsNull(P.BarCode, '') = '' Then ' - ' + P.[TamilName] Else '' End) as SearchName,    
+	(Case When IsNull(P.BarCode, '') = '' Then 'B' + REPLICATE('0', 5 - LEN(RTRIM(CAST(P.[Code] as VARCHAR)))) +  RTRIM(CAST(P.[Code] as VARCHAR)) Else P.BarCode End ) as BarCode,  
+	'0.00' PurRate, '0.00' MRP, '0.00' SellRate, '0.00' SellingMarginPer, '0.00' DiscPer, '0.00' DiscRate  
+	From [Product] as P  
+	Inner Join [Quantity] as Q ON P.QtyTypeCode = Q.Code    
+	Where ISNULL(P.CalcBasedRateMast,'') != 'Y' And ISNULL(P.Active,'') = 'Y'    
+	And Not Exists ( Select S.ProductCode From [Stock] as S Where P.[Code] = S.ProductCode )  
+	Order By P.[NAME]  
+
+END
 
 
 
-EXEC [SpGetUndiyalCreditDebitNote]
-
-
---Truncate Table [CashDailyAllClosingDetails]
---Truncate Table [CashDailySummary]
-
-SELECT * FROM [dbo].[CashDailyAllClosingDetails]
-SELECT * FROM [dbo].[CashDailySummary]
 

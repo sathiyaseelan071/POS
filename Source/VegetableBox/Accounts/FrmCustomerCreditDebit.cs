@@ -77,7 +77,11 @@ namespace VegetableBox
                 this.clsFrmCustomerCreditDebitNote = new ClsFrmCustomerCreditDebitNote();
                 this.clsFrmCustomerCreditDebitNote.GetMasterData();
 
-                FillControls.ComboBoxFill(this.CmbCustomerName, this.clsFrmCustomerCreditDebitNote.CustomerMaster, "Code", "Name", false, "");
+                if(this.clsFrmCustomerCreditDebitNote.CustomerMaster.IsDataTableValid())
+                {
+                    FillControls.ComboBoxFill(this.CmbCustomerName, this.clsFrmCustomerCreditDebitNote.CustomerMaster, "Code", "Name", false, "");
+                }
+                
                 FillControls.ComboBoxFill(this.CmbTransactionType, this.clsFrmCustomerCreditDebitNote.TransTypeMaster, "Code", "Name", false, "");
                 FillControls.ComboBoxFill(this.CmbPaymentType, this.clsFrmCustomerCreditDebitNote.PaymentTypeMaster, "Code", "Name", false, "");
 
@@ -104,6 +108,16 @@ namespace VegetableBox
 
                 this.ErrorProvider.Clear();
                 this.BtnSave.Text = "&Save";
+
+                if (Global.currentUserId == 1) //ADMIN
+                {
+                    this.BtnEdit.Enabled = true;
+                }
+                else
+                {
+                    this.BtnEdit.Enabled = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -115,12 +129,12 @@ namespace VegetableBox
         {
             try
             {
-                this.ChkFltrApplyDate.Checked = false;
                 this.CmbFilterTransactionType.SelectedIndex = 0;
                 this.TxtFilterCustomer.Text = string.Empty;
 
-                clsFrmCustomerCreditDebitNote.View();
-                DGView.DataSource = clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Copy();
+                this.clsFrmCustomerCreditDebitNote.View();
+                this.DGView.DataSource = clsFrmCustomerCreditDebitNote.CreditDebitNoteData.Copy();
+                this.ChkFltrApplyDate.Checked = true;
                 this.SetGridStyle();
                 this.ToCalcTotalAmount();
             }

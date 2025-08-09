@@ -69,7 +69,11 @@ namespace VegetableBox
                 this.clsFrmVendorInvoiceEntry = new ClsFrmVendorInvoiceEntry();
                 this.clsFrmVendorInvoiceEntry.GetMasterData();
 
-                FillControls.ComboBoxFill(this.CmbVendorName, this.clsFrmVendorInvoiceEntry.VendorMaster, "Code", "Name", false, "");
+                if (this.clsFrmVendorInvoiceEntry.VendorMaster.IsDataTableValid())
+                {
+                    FillControls.ComboBoxFill(this.CmbVendorName, this.clsFrmVendorInvoiceEntry.VendorMaster, "Code", "Name", false, "");
+                }
+
                 FillControls.ComboBoxFill(this.CmbIsItemMissing, this.clsFrmVendorInvoiceEntry.YesNoMaster, "Code", "Name", false, "");
 
                 FillControls.ComboBoxFill(this.CmbBillChecked, this.clsFrmVendorInvoiceEntry.YesNoMaster, "Code", "Name", false, "");
@@ -133,12 +137,13 @@ namespace VegetableBox
                 this.CmbFilterPurchaseEntryStatus.SelectedIndex = 0;
                 this.CmbFilterIsMissingItemReceived.SelectedIndex = 0;
                 this.ChkSearchLike.Checked = true;
-                this.ChkFltrApplyDate.Checked = false;
                 this.DtpFltrFromDate.Value = DateTime.Now.Date;
                 this.DtpFltrToDate.Value = DateTime.Now.Date; // To include the whole day
 
-                clsFrmVendorInvoiceEntry.View();
-                DGView.DataSource = clsFrmVendorInvoiceEntry.VendorBillData.Copy();
+                this.clsFrmVendorInvoiceEntry.View();
+                this.DGView.DataSource = clsFrmVendorInvoiceEntry.VendorBillData.Copy();
+                this.ChkFltrApplyDate.Checked = true;
+
                 this.SetGridStyle();
                 this.ToCalcTotalAmount();
             }

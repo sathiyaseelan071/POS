@@ -101,11 +101,11 @@ namespace VegetableBox
         {
             try
             {
-                this.ChkFltrApplyDate.Checked = false;
                 this.CmbFilterTransactionType.SelectedIndex = 0;
 
-                clsFrmUndiyalCreditDebit.View();
-                DGView.DataSource = clsFrmUndiyalCreditDebit.UndiyalDebitNoteData.Copy();
+                this.clsFrmUndiyalCreditDebit.View();
+                this.DGView.DataSource = clsFrmUndiyalCreditDebit.UndiyalDebitNoteData.Copy();
+                this.ChkFltrApplyDate.Checked = true;
 
                 this.SetGridStyle();
                 this.ToCalcTotalAmount();

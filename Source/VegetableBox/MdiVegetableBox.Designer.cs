@@ -53,8 +53,11 @@
             ToolStripMenuItem_CustomerCreditDebit = new ToolStripMenuItem();
             ToolStripMenuItem_VendorPayment = new ToolStripMenuItem();
             ToolStripMenuItem_UndiyalCreditDebit = new ToolStripMenuItem();
+            ToolStripMenuItem_DailyAccountClosing = new ToolStripMenuItem();
             ToolStripMenuItem_Reports = new ToolStripMenuItem();
             purchaseReportToolStripMenuItem = new ToolStripMenuItem();
+            ToolStripMenuItem_Settings = new ToolStripMenuItem();
+            ToolStripMenuItem_Backup = new ToolStripMenuItem();
             LblFormHeader = new Label();
             TlpClose = new TableLayoutPanel();
             PicBoxMinimize = new PictureBox();
@@ -66,7 +69,6 @@
             LblDate = new Label();
             LblTime = new Label();
             PicBoxCompanyLogo = new PictureBox();
-            ToolStripMenuItem_DailyAccountClosing_Click = new ToolStripMenuItem();
             TlpMdiVegitableBox.SuspendLayout();
             TlpMain.SuspendLayout();
             TlpHeader.SuspendLayout();
@@ -142,7 +144,7 @@
             // menuStrip
             // 
             menuStrip.Dock = DockStyle.Fill;
-            menuStrip.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_Master, ToolStripMenuItem_Billing, ToolStripMenuItem_Order, ToolStripMenuItem_Accounts, ToolStripMenuItem_Reports });
+            menuStrip.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_Master, ToolStripMenuItem_Billing, ToolStripMenuItem_Order, ToolStripMenuItem_Accounts, ToolStripMenuItem_Reports, ToolStripMenuItem_Settings });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(909, 44);
@@ -276,7 +278,7 @@
             // 
             // ToolStripMenuItem_Accounts
             // 
-            ToolStripMenuItem_Accounts.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_ExpenseEntry_Click, ToolStripMenuItem_CustomerCreditDebit, ToolStripMenuItem_VendorPayment, ToolStripMenuItem_UndiyalCreditDebit, ToolStripMenuItem_DailyAccountClosing_Click });
+            ToolStripMenuItem_Accounts.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_ExpenseEntry_Click, ToolStripMenuItem_CustomerCreditDebit, ToolStripMenuItem_VendorPayment, ToolStripMenuItem_UndiyalCreditDebit, ToolStripMenuItem_DailyAccountClosing });
             ToolStripMenuItem_Accounts.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_Accounts.ForeColor = Color.FromArgb(163, 0, 34);
             ToolStripMenuItem_Accounts.Name = "ToolStripMenuItem_Accounts";
@@ -319,6 +321,15 @@
             ToolStripMenuItem_UndiyalCreditDebit.Text = "Undiyal (Deposit/Withdraw)";
             ToolStripMenuItem_UndiyalCreditDebit.Click += ToolStripMenuItem_UndiyalCreditDebit_Click;
             // 
+            // ToolStripMenuItem_DailyAccountClosing
+            // 
+            ToolStripMenuItem_DailyAccountClosing.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_DailyAccountClosing.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_DailyAccountClosing.Name = "ToolStripMenuItem_DailyAccountClosing";
+            ToolStripMenuItem_DailyAccountClosing.Size = new Size(273, 24);
+            ToolStripMenuItem_DailyAccountClosing.Text = "Daily Cash Closing";
+            ToolStripMenuItem_DailyAccountClosing.Click += ToolStripMenuItem_DailyAccountClosing_Click_Click;
+            // 
             // ToolStripMenuItem_Reports
             // 
             ToolStripMenuItem_Reports.DropDownItems.AddRange(new ToolStripItem[] { purchaseReportToolStripMenuItem });
@@ -333,9 +344,27 @@
             purchaseReportToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             purchaseReportToolStripMenuItem.ForeColor = Color.DarkGreen;
             purchaseReportToolStripMenuItem.Name = "purchaseReportToolStripMenuItem";
-            purchaseReportToolStripMenuItem.Size = new Size(148, 24);
+            purchaseReportToolStripMenuItem.Size = new Size(180, 24);
             purchaseReportToolStripMenuItem.Text = "&All Report";
             purchaseReportToolStripMenuItem.Click += purchaseReportToolStripMenuItem_Click;
+            // 
+            // ToolStripMenuItem_Settings
+            // 
+            ToolStripMenuItem_Settings.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_Backup });
+            ToolStripMenuItem_Settings.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_Settings.ForeColor = Color.FromArgb(163, 0, 34);
+            ToolStripMenuItem_Settings.Name = "ToolStripMenuItem_Settings";
+            ToolStripMenuItem_Settings.Size = new Size(85, 40);
+            ToolStripMenuItem_Settings.Text = "&Settings";
+            // 
+            // ToolStripMenuItem_Backup
+            // 
+            ToolStripMenuItem_Backup.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_Backup.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_Backup.Name = "ToolStripMenuItem_Backup";
+            ToolStripMenuItem_Backup.Size = new Size(180, 24);
+            ToolStripMenuItem_Backup.Text = "&Backup";
+            ToolStripMenuItem_Backup.Click += ToolStripMenuItem_Backup_Click;
             // 
             // LblFormHeader
             // 
@@ -398,10 +427,10 @@
             LblUserName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblUserName.AutoSize = true;
             TlpClose.SetColumnSpan(LblUserName, 3);
-            LblUserName.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LblUserName.Location = new Point(3, 21);
+            LblUserName.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            LblUserName.Location = new Point(3, 19);
             LblUserName.Name = "LblUserName";
-            LblUserName.Size = new Size(166, 15);
+            LblUserName.Size = new Size(166, 19);
             LblUserName.TabIndex = 2;
             LblUserName.Text = "User : Admin";
             LblUserName.TextAlign = ContentAlignment.MiddleRight;
@@ -493,15 +522,6 @@
             PicBoxCompanyLogo.TabIndex = 2;
             PicBoxCompanyLogo.TabStop = false;
             // 
-            // ToolStripMenuItem_DailyAccountClosing_Click
-            // 
-            ToolStripMenuItem_DailyAccountClosing_Click.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ToolStripMenuItem_DailyAccountClosing_Click.ForeColor = Color.DarkGreen;
-            ToolStripMenuItem_DailyAccountClosing_Click.Name = "ToolStripMenuItem_DailyAccountClosing_Click";
-            ToolStripMenuItem_DailyAccountClosing_Click.Size = new Size(273, 24);
-            ToolStripMenuItem_DailyAccountClosing_Click.Text = "Daily Cash Closing";
-            ToolStripMenuItem_DailyAccountClosing_Click.Click += ToolStripMenuItem_DailyAccountClosing_Click_Click;
-            // 
             // MdiVegetableBox
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -574,6 +594,8 @@
         private ToolStripMenuItem ToolStripMenuItem_VendorInvoiceEntry;
         private ToolStripMenuItem ToolStripMenuItem_VendorPayment;
         private ToolStripMenuItem ToolStripMenuItem_UndiyalCreditDebit;
-        private ToolStripMenuItem ToolStripMenuItem_DailyAccountClosing_Click;
+        private ToolStripMenuItem ToolStripMenuItem_DailyAccountClosing;
+        private ToolStripMenuItem ToolStripMenuItem_Settings;
+        private ToolStripMenuItem ToolStripMenuItem_Backup;
     }
 }

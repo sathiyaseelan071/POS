@@ -241,8 +241,6 @@
             ChkFltrApplyDate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             ChkFltrApplyDate.AutoSize = true;
             ChkFltrApplyDate.CheckAlign = ContentAlignment.MiddleRight;
-            ChkFltrApplyDate.Checked = true;
-            ChkFltrApplyDate.CheckState = CheckState.Checked;
             ChkFltrApplyDate.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ChkFltrApplyDate.ForeColor = Color.Maroon;
             ChkFltrApplyDate.Location = new Point(408, 42);

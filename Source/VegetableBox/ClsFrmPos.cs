@@ -40,7 +40,7 @@ namespace VegetableBox
 
                 this._ProductRateData = new DataTable();
                 this._ProductRateData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
-            }
+                }
             catch
             {
                 throw;
@@ -62,12 +62,11 @@ namespace VegetableBox
 
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.SNo, typeof(int));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.ProCode, typeof(int));
-                this._CartData.Columns.Add(CartDataStruct.ColumnName.ProName, typeof(string));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.ProTamilName, typeof(string));
+                this._CartData.Columns.Add(CartDataStruct.ColumnName.MRP, typeof(decimal));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.Qty, typeof(decimal));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.Unit, typeof(string));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.Rate, typeof(decimal));
-                this._CartData.Columns.Add(CartDataStruct.ColumnName.MRP, typeof(decimal));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.Amount, typeof(decimal));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.DiscPer, typeof(decimal));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.DiscAmount, typeof(decimal));
@@ -153,6 +152,7 @@ namespace VegetableBox
                 DataTable PaymentDetData = new DataTable();
                 PaymentDetData.Columns.Add("PaymentType", typeof(string));
                 PaymentDetData.Columns.Add("Amount", typeof(decimal));
+                PaymentDetData.Columns.Add("CustomerCode", typeof(decimal));
                 PaymentDetData.Columns.Add("BilledBy", typeof(int));
 
                 foreach (ClsPaymentDetails clsPaymentDetails in listClsPaymentDetails)
@@ -160,6 +160,7 @@ namespace VegetableBox
                     DataRow rowPaymentDetData = PaymentDetData.NewRow();
                     rowPaymentDetData["PaymentType"] = clsPaymentDetails.PaymentType;
                     rowPaymentDetData["Amount"] = clsPaymentDetails.Amount;
+                    rowPaymentDetData["CustomerCode"] = clsPaymentDetails.CustomerCode;
                     rowPaymentDetData["BilledBy"] = Global.currentUserId;
                     PaymentDetData.Rows.Add(rowPaymentDetData);
                 }
@@ -209,6 +210,7 @@ namespace VegetableBox
     {
         public string PaymentType { get; set; }
         public decimal Amount { get; set; }
+        public int CustomerCode { get; set; } //Credit Customer Code
     }
 
     #region "Struct"
@@ -219,7 +221,6 @@ namespace VegetableBox
         {
             internal static string SNo = "SNo";
             internal static string ProCode = "PCode";
-            internal static string ProName = "Product-Name";
             internal static string ProTamilName = "Product-TamilName";
             internal static string Qty = "Qty";
             internal static string Unit = "Unit";
@@ -228,8 +229,8 @@ namespace VegetableBox
             internal static string TotDiscAmtFrmMrp = "TotDiscAmtFromMRP";
             internal static string Amount = "Amt";
             internal static string DiscPer = "DiscPerFromSellRate";
-            internal static string DiscAmount = "DiscAmt";
-            internal static string TotalAmount = "TotAmt";
+            internal static string DiscAmount = "DiscAmount";
+            internal static string TotalAmount = "TotalAmount";
             internal static string CalBORM = "CalBORM";
             internal static string TotMRP = "TotMRP";
         }

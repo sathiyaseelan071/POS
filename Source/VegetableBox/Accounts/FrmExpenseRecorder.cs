@@ -39,10 +39,10 @@ namespace VegetableBox
         {
             try
             {
-                FrmExpenseMaster frmFrmExpenseMaster = new FrmExpenseMaster();
-                frmFrmExpenseMaster.IsChildForm = true;
-                frmFrmExpenseMaster.WindowState = FormWindowState.Normal;
-                frmFrmExpenseMaster.ShowDialog();
+                FrmExpenseMaster frmExpenseMaster = new FrmExpenseMaster();
+                frmExpenseMaster.IsChildForm = true;
+                frmExpenseMaster.WindowState = FormWindowState.Normal;
+                frmExpenseMaster.ShowDialog();
                 this.LoadControls();
                 this.ClearEntry();
                 this.ClearAndLoadView();
@@ -76,7 +76,11 @@ namespace VegetableBox
                 this.clsFrmExpenseRecorder = new ClsFrmExpenseRecorder();
                 this.clsFrmExpenseRecorder.GetMasterData();
 
-                FillControls.ComboBoxFill(this.CmbExpenseName, this.clsFrmExpenseRecorder.ExpenseMaster, "Code", "Name", false, "");
+                if (this.clsFrmExpenseRecorder.ExpenseMaster.IsDataTableValid())
+                {
+                    FillControls.ComboBoxFill(this.CmbExpenseName, this.clsFrmExpenseRecorder.ExpenseMaster, "Code", "Name", false, "");
+                }
+
                 FillControls.ComboBoxFill(this.CmbTransactionType, this.clsFrmExpenseRecorder.TransTypeMaster, "Code", "Name", false, "");
                 FillControls.ComboBoxFill(this.CmbPaymentType, this.clsFrmExpenseRecorder.PaymentTypeMaster, "Code", "Name", false, "");
 
@@ -105,6 +109,16 @@ namespace VegetableBox
 
                 this.ErrorProvider.Clear();
                 this.BtnSave.Text = "&Save";
+
+                if (Global.currentUserId == 1) //ADMIN
+                {
+                    this.BtnEdit.Enabled = true;
+                }
+                else
+                {
+                    this.BtnEdit.Enabled = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -116,14 +130,14 @@ namespace VegetableBox
         {
             try
             {
-                this.ChkFltrApplyDate.Checked = false;
                 this.CmbFilterTransactionType.SelectedIndex = 0;
                 this.CmbFilterTransactionType.Enabled = false;
 
                 this.TxtFilterExpense.Text = string.Empty;
 
-                clsFrmExpenseRecorder.View();
-                DGView.DataSource = clsFrmExpenseRecorder.ExpensesData.Copy();
+                this.clsFrmExpenseRecorder.View();
+                this.DGView.DataSource = clsFrmExpenseRecorder.ExpensesData.Copy();
+                this.ChkFltrApplyDate.Checked = true;
                 this.SetGridStyle();
                 this.ToCalcTotalAmount();
             }

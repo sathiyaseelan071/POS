@@ -18,7 +18,7 @@ namespace VegetableBox
 
                 DataRow Dr = m_DataTable.NewRow();
 
-                    ComboBox.DataSource = m_DataTable;
+                ComboBox.DataSource = m_DataTable;
                 ComboBox.DisplayMember = displayMember;
                 ComboBox.ValueMember = valueMember;
 

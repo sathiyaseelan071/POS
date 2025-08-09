@@ -108,6 +108,12 @@ namespace VegetableBox
 
                 Global.mdiVegetableBox = this;
                 Global.applicationName = Application.ProductName;
+                LblUserName.Text = "User : " + Global.currentUserName;
+
+                if (Global.currentUserId == 1)
+                    ToolStripMenuItem_UserMaster.Visible = true;
+                else
+                    ToolStripMenuItem_UserMaster.Visible = false;
 
                 this.Timer.Start();
             }
@@ -377,6 +383,19 @@ namespace VegetableBox
             {
                 MessageBox.Show(ex.Message, "Vegetable Box");
             }
+        }
+
+        private void ToolStripMenuItem_Backup_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmBackup frmBackup = new FrmBackup();
+                this.ShowForm(frmBackup);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }           
         }
     }
 }

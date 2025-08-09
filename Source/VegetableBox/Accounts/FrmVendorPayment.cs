@@ -59,7 +59,12 @@ namespace VegetableBox
                 this.clsFrmVendorPayment.GetVendorBillDetails();
 
                 this.clsFrmVendorPayment.GetMasterData();
-                FillControls.ComboBoxFill(this.CmbVendorName, this.clsFrmVendorPayment.VendorMaster, "Code", "Name", false, "");
+
+                if (this.clsFrmVendorPayment.VendorMaster.IsDataTableValid())
+                {
+                    FillControls.ComboBoxFill(this.CmbVendorName, this.clsFrmVendorPayment.VendorMaster, "Code", "Name", false, "");
+                }
+
                 FillControls.ComboBoxFill(this.CmbTransactionType, this.clsFrmVendorPayment.TransTypeMaster, "Code", "Name", false, "");
                 FillControls.ComboBoxFill(this.CmbPaymentType, this.clsFrmVendorPayment.PaymentTypeMaster, "Code", "Name", false, "");
 
@@ -121,15 +126,15 @@ namespace VegetableBox
         {
             try
             {
-                this.ChkFltrApplyDate.Checked = false;
                 this.CmbFilterTransactionType.SelectedIndex = 0;
                 this.TxtFilterVendorSearch.Text = string.Empty;
 
                 this.DGView.DataSource = null;
                 this.DGView.ClearSelection();
 
-                clsFrmVendorPayment.View();
-                DGView.DataSource = clsFrmVendorPayment.VendorPaymentData.Copy();
+                this.clsFrmVendorPayment.View();
+                this.DGView.DataSource = clsFrmVendorPayment.VendorPaymentData.Copy();
+                this.ChkFltrApplyDate.Checked = true;
 
                 this.SetGridStyle();
                 this.ToCalcTotalAmount();

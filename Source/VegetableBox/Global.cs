@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,14 @@ namespace VegetableBox
         internal static string applicationName = "Vegetable Box";
         internal static int currentUserId = 1;
         internal static string currentUserName = "Admin";
-        internal static string sqlConnectionString = "Data Source=ATHIRATHAN;" +
-            "Initial Catalog=VBOX2324_LIVE;" +
-            "User id=sa;" +
-            "Password=athi@123;";
+
+        internal static string sqlConnectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
+        internal static string sqlMasterConnectionString = ConfigurationManager.ConnectionStrings["SqlMasterConnection"].ConnectionString;
+
+        internal static string sqlServerName = ConfigurationManager.AppSettings["SqlServerName"];
+        internal static string sqlDatabaseName = ConfigurationManager.AppSettings["SqlDatabaseName"];
+        internal static string sqlServerUserId = ConfigurationManager.AppSettings["SqlServerUserId"];
+        internal static string sqlServerPassword = ConfigurationManager.AppSettings["SqlServerPassword"];
     }
 
     public static class CommonUtils

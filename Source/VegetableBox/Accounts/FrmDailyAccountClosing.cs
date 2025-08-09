@@ -515,7 +515,10 @@ namespace VegetableBox
                 clsFrmDailyAccountClosing.Remarks = TxtMismatchExplanation.Text.Trim();
 
                 clsFrmDailyAccountClosing.Save();
+
                 MessageBox.Show("Cash account closed successfully. Don't forget to take a backup.", "Vegetable Box");
+
+                this.LoadGridControls();
             }
             catch (Exception ex)
             {

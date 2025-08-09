@@ -46,12 +46,29 @@ namespace VegetableBox
                 DGVCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 DGVCart.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 
+                DGVCart.Columns[CartDataStruct.ColumnName.CalBORM].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.TotMRP].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.DiscPer].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.DiscAmount].Visible = false;
+
+                DGVCart.Columns[CartDataStruct.ColumnName.ProCode].HeaderText = "Pro-Code";
+                DGVCart.Columns[CartDataStruct.ColumnName.ProTamilName].HeaderText = "Product Name";
+                DGVCart.Columns[CartDataStruct.ColumnName.TotDiscAmtFrmMrp].HeaderText = "Discount Amount";
+                DGVCart.Columns[CartDataStruct.ColumnName.Qty].HeaderText = "Quantity";
+                DGVCart.Columns[CartDataStruct.ColumnName.Amount].HeaderText = "Amount";
+                DGVCart.Columns[CartDataStruct.ColumnName.Rate].HeaderText = "Selling Rate";
+                DGVCart.Columns[CartDataStruct.ColumnName.TotalAmount].HeaderText = "Total Amount";
+                DGVCart.Columns[CartDataStruct.ColumnName.MRP].HeaderText = "Maximum Retail Price";
+                DGVCart.Columns[CartDataStruct.ColumnName.SNo].HeaderText = "S.No";
+
                 foreach (DataGridViewColumn DGVColumn in DGVCart.Columns)
                 {
                     DGVColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
 
-                    if (DGVColumn.Name == CartDataStruct.ColumnName.CalBORM || DGVColumn.Name == CartDataStruct.ColumnName.TotMRP)
-                        DGVColumn.Visible = false;
+                    if (DGVColumn.Name == CartDataStruct.ColumnName.ProTamilName)
+                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    else
+                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
                     if (DGVColumn.Name == CartDataStruct.ColumnName.Qty)
                     {
@@ -61,20 +78,13 @@ namespace VegetableBox
                     }
 
                     if (DGVColumn.Name == CartDataStruct.ColumnName.Rate || DGVColumn.Name == CartDataStruct.ColumnName.Amount
-                        || DGVColumn.Name == CartDataStruct.ColumnName.DiscPer || DGVColumn.Name == CartDataStruct.ColumnName.DiscAmount
+                        || DGVColumn.Name == CartDataStruct.ColumnName.MRP || DGVColumn.Name == CartDataStruct.ColumnName.TotDiscAmtFrmMrp
                         || DGVColumn.Name == CartDataStruct.ColumnName.TotalAmount)
                     {
                         DGVColumn.DefaultCellStyle.Format = "0.00";
                         DGVColumn.ValueType = typeof(decimal);
                         DGVColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     }
-
-                    if (DGVColumn.Name == CartDataStruct.ColumnName.ProName)
-                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-
-                    if (DGVColumn.Name == CartDataStruct.ColumnName.ProTamilName)
-                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-
                 }
             }
             catch (Exception ex)
@@ -252,7 +262,6 @@ namespace VegetableBox
                                     this.CurrentPCalcBORM = false;
 
                                 this.TxtProCode.Text = this.CurrentPCode;
-                                this.TxtProName.Text = this.CurrentPName;
                                 this.TxtProTName.Text = this.CurrentPTamilName;
                                 this.LblUnit.Text = this.CurrentPQtyShortName;
                                 this.TxtRate.Text = this.CurrentPSellRate.ToString();
@@ -358,7 +367,6 @@ namespace VegetableBox
             try
             {
                 this.TxtProCode.Text = string.Empty;
-                this.TxtProName.Text = string.Empty;
                 this.TxtProTName.Text = string.Empty;
                 this.TxtQty.Text = string.Empty;
                 this.LblUnit.Text = string.Empty;
@@ -579,8 +587,10 @@ namespace VegetableBox
                     decimal decCashAmt = this.ToConvertTextToDecimal(this.TxtPaymentDetCash.Text);
                     decimal decCashUpi = this.ToConvertTextToDecimal(this.TxtPaymentDetUpi.Text);
                     decimal decCashCard = this.ToConvertTextToDecimal(this.TxtPaymentDetCard.Text);
+                    decimal decCashGPay = this.ToConvertTextToDecimal(this.TxtPaymentDetGPay.Text);
+                    decimal decCashCredit = this.ToConvertTextToDecimal(this.TxtPaymentDetCredit.Text);
 
-                    decimal decAmtReceived = decCashAmt + decCashUpi + decCashCard;
+                    decimal decAmtReceived = decCashAmt + decCashUpi + decCashCard + decCashGPay + decCashCredit;
                     decimal decBalanceAmt = decNetAmt - decAmtReceived;
 
                     this.LblFinalAmtReceived.Text = this.ToConvertAmtFormat(decAmtReceived.ToString());
@@ -699,13 +709,12 @@ namespace VegetableBox
         private void BtnAddCart_Click(object sender, EventArgs e)
         {
             try
-            {
+            {                
                 if (this.ValidateAddCart())
                 {
                     DataRow dr = clsFrmPos.CartData.NewRow();
                     dr[CartDataStruct.ColumnName.SNo] = clsFrmPos.CartData.Rows.Count + 1;
                     dr[CartDataStruct.ColumnName.ProCode] = this.TxtProCode.Text.Trim();
-                    dr[CartDataStruct.ColumnName.ProName] = this.TxtProName.Text.Trim();
                     dr[CartDataStruct.ColumnName.ProTamilName] = this.TxtProTName.Text.Trim();
                     dr[CartDataStruct.ColumnName.Qty] = this.TxtQty.Text.Trim();
                     dr[CartDataStruct.ColumnName.Unit] = this.LblUnit.Text.Trim();
@@ -721,8 +730,6 @@ namespace VegetableBox
                     decimal _Qty = this.ToConvertTextToDecimal(this.TxtQty.Text);
                     decimal _Mrp = this.ToConvertTextToDecimal(this.TxtMrp.Text);
                     dr[CartDataStruct.ColumnName.TotMRP] = this.ToConvertAmtFormat(Convert.ToString(Math.Round(_Qty * _Mrp, 2)));
-
-
 
                     clsFrmPos.CartData.Rows.Add(dr);
                     DGVCart.DataSource = clsFrmPos.CartData.AsEnumerable().OrderByDescending(x => x.Field<int>(CartDataStruct.ColumnName.SNo)).CopyToDataTable();
@@ -829,6 +836,32 @@ namespace VegetableBox
             }
         }
 
+        private void TxtPaymentDetGPay_Validated(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clsFrmPos.CartData != null && clsFrmPos.CartData.Rows.Count > 0)
+                    TxtPaymentDetGPay.Text = ToConvertAmtFormat(TxtPaymentDetGPay.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void TxtPaymentDetCredit_Validated(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clsFrmPos.CartData != null && clsFrmPos.CartData.Rows.Count > 0)
+                    TxtPaymentDetCredit.Text = ToConvertAmtFormat(TxtPaymentDetCredit.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
         private void TxtFinalDiscPer_TextChanged(object sender, EventArgs e)
         {
             try
@@ -894,6 +927,32 @@ namespace VegetableBox
             }
         }
 
+        private void TxtPaymentDetGPay_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (TxtPaymentDetGPay.Focused && clsFrmPos.CartData != null && clsFrmPos.CartData.Rows.Count > 0)
+                    this.ToCalcTotalAmount();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void TxtPaymentDetCredit_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (TxtPaymentDetCredit.Focused && clsFrmPos.CartData != null && clsFrmPos.CartData.Rows.Count > 0)
+                    this.ToCalcTotalAmount();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
         private void BtnExit_Click(object sender, EventArgs e)
         {
             try
@@ -942,6 +1001,8 @@ namespace VegetableBox
                 this.TxtPaymentDetCash.Text = "0.00";
                 this.TxtPaymentDetUpi.Text = "0.00";
                 this.TxtPaymentDetCard.Text = "0.00";
+                this.TxtPaymentDetGPay.Text = "0.00";
+                this.TxtPaymentDetCredit.Text = "0.00";
                 this.LblFinalAmtReceived.Text = "0.00";
                 this.LblFinalBalanceAmount.Text = "0.00";
             }
@@ -1017,6 +1078,36 @@ namespace VegetableBox
             {
                 if (e.KeyCode == Keys.Enter)
                 {
+                    this.TxtPaymentDetGPay.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void TxtPaymentDetGPay_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    this.TxtPaymentDetCredit.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void TxtPaymentDetCredit_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
                     this.BtnSave.Focus();
                 }
             }
@@ -1032,6 +1123,37 @@ namespace VegetableBox
             {
                 if (DGVCart.Rows.Count <= 0)
                     throw new Exception("Add atleast one product to cart.");
+
+                CustomerUI:
+                int customerCode = 0;
+                if (this.TxtPaymentDetCredit.Text != string.Empty && Convert.ToDecimal(this.TxtPaymentDetCredit.Text) > 0)
+                {
+                    FrmPosCreditCustomer frmPosCreditCustomer = new FrmPosCreditCustomer();
+                    frmPosCreditCustomer.WindowState = FormWindowState.Normal;
+                    DialogResult result = frmPosCreditCustomer.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        customerCode = frmPosCreditCustomer.creditCustomerCode;
+                    }
+                }
+
+                if (customerCode <= 0 && Convert.ToDecimal(this.TxtPaymentDetCredit.Text) > 0)
+                {
+                    DialogResult result = MessageBox.Show("Please select a customer for credit payment." +
+                        "\nDo you want to select a customer? Click Yes, or No to change payment details.",
+                        "Vegetable Box", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        goto CustomerUI; // Go to select customer
+                    }
+                    else
+                    {
+                        this.TxtPaymentDetCredit.Focus();
+                        return;
+                    }
+                }
 
                 if (this.ValidateSaveData())
                 {
@@ -1073,6 +1195,24 @@ namespace VegetableBox
                         listClsPaymentDetails.Add(clsPaymentDetails);
                     }
 
+                    if (Convert.ToDecimal(this.TxtPaymentDetGPay.Text) > 0)
+                    {
+                        clsPaymentDetails = new ClsPaymentDetails();
+                        clsPaymentDetails.PaymentType = Account.PaymentTypeGPay;
+                        clsPaymentDetails.Amount = Convert.ToDecimal(this.TxtPaymentDetGPay.Text);
+                        listClsPaymentDetails.Add(clsPaymentDetails);
+                    }
+
+                    if (Convert.ToDecimal(this.TxtPaymentDetCredit.Text) > 0)
+                    {
+                        clsPaymentDetails = new ClsPaymentDetails();
+                        clsPaymentDetails.PaymentType = Account.PaymentTypeOnCredit;
+                        clsPaymentDetails.Amount = Convert.ToDecimal(this.TxtPaymentDetCredit.Text);
+                        clsPaymentDetails.CustomerCode = customerCode;
+
+                        listClsPaymentDetails.Add(clsPaymentDetails);
+                    }
+
                     int BillNo = this.clsFrmPos.SaveData(this.clsFrmPos.CartData, clsTransaction, listClsPaymentDetails);
 
                     MessageBox.Show("Saved Sucessfully..." + Environment.NewLine + "Bill No : " + BillNo.ToString(), "Vegetable Box");
@@ -1088,6 +1228,7 @@ namespace VegetableBox
                     this.LoadCardGrid();
                     this.ClearAmountDetails();
                     this.TxtProductSearch.Focus();
+
                 }
                 else
                 {
@@ -1148,7 +1289,6 @@ namespace VegetableBox
                         this.ClearProductDetails();
 
                         this.TxtProCode.Text = Convert.ToString(dr[CartDataStruct.ColumnName.ProCode]);
-                        this.TxtProName.Text = Convert.ToString(dr[CartDataStruct.ColumnName.ProName]);
                         this.TxtProTName.Text = Convert.ToString(dr[CartDataStruct.ColumnName.ProTamilName]);
                         this.TxtQty.Text = Convert.ToString(dr[CartDataStruct.ColumnName.Qty]);
                         this.LblUnit.Text = Convert.ToString(dr[CartDataStruct.ColumnName.Unit]);
@@ -1228,12 +1368,6 @@ namespace VegetableBox
                 if (string.IsNullOrEmpty(this.TxtProCode.Text.Trim()))
                 {
                     this.ErrorProvider.SetError(this.TxtProCode, errValueSpecified);
-                    IsValid = false;
-                }
-
-                if (string.IsNullOrEmpty(this.TxtProName.Text.Trim()))
-                {
-                    this.ErrorProvider.SetError(this.TxtProName, errValueSpecified);
                     IsValid = false;
                 }
 

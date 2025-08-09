@@ -42,35 +42,34 @@
             DgvProductSearch = new DataGridView();
             pnlCartEntry = new Panel();
             tlpProDetails = new TableLayoutPanel();
-            tableLayoutPanel7 = new TableLayoutPanel();
-            BtnAddCart = new Button();
-            BtnCancel = new Button();
-            LblMrp = new Label();
-            TxtMrp = new TextBox();
-            TxtTotAmt = new TextBox();
-            LblTotAmt = new Label();
-            LblDiscFromMRP = new Label();
-            LblPurchaseAmt = new Label();
-            TxtDiscFromMRP = new TextBox();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            LblQty = new Label();
-            LblUnit = new Label();
-            TxtQty = new TextBox();
-            TxtDiscAmt = new TextBox();
-            LblDiscAmt = new Label();
-            TxtDiscPercentage = new TextBox();
-            LblDiscPercentage = new Label();
-            LblRate = new Label();
-            TxtRate = new TextBox();
-            LblAmt = new Label();
-            TxtAmt = new TextBox();
             tableLayoutPanel3 = new TableLayoutPanel();
-            TxtProTName = new TextBox();
-            LblProTName = new Label();
-            TxtProName = new TextBox();
             LblProCode = new Label();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            TxtMrp = new TextBox();
+            LblMrp = new Label();
             TxtProCode = new TextBox();
-            LblProName = new Label();
+            LblProTName = new Label();
+            TxtProTName = new TextBox();
+            tableLayoutPanel7 = new TableLayoutPanel();
+            LblAmt = new Label();
+            TxtRate = new TextBox();
+            TxtAmt = new TextBox();
+            LblRate = new Label();
+            LblQty = new Label();
+            TxtQty = new TextBox();
+            LblUnit = new Label();
+            LblTotAmt = new Label();
+            TxtTotAmt = new TextBox();
+            LblDiscFromMRP = new Label();
+            TxtDiscFromMRP = new TextBox();
+            tableLayoutPanel8 = new TableLayoutPanel();
+            BtnCancel = new Button();
+            BtnAddCart = new Button();
+            LblDiscPercentage = new Label();
+            LblPurchaseAmt = new Label();
+            TxtDiscAmt = new TextBox();
+            TxtDiscPercentage = new TextBox();
+            LblDiscAmt = new Label();
             TLP_RateBasedWt = new TableLayoutPanel();
             TxtRBWRate = new TextBox();
             TxtRBWWeight = new TextBox();
@@ -104,6 +103,10 @@
             TxtPaymentDetCash = new TextBox();
             TxtPaymentDetUpi = new TextBox();
             TxtPaymentDetCard = new TextBox();
+            label8 = new Label();
+            TxtPaymentDetGPay = new TextBox();
+            label9 = new Label();
+            TxtPaymentDetCredit = new TextBox();
             tableLayoutPanel6 = new TableLayoutPanel();
             BtnCancelAll = new Button();
             BtnExit = new Button();
@@ -115,9 +118,10 @@
             ((System.ComponentModel.ISupportInitialize)DgvProductSearch).BeginInit();
             pnlCartEntry.SuspendLayout();
             tlpProDetails.SuspendLayout();
-            tableLayoutPanel7.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            tableLayoutPanel7.SuspendLayout();
+            tableLayoutPanel8.SuspendLayout();
             TLP_RateBasedWt.SuspendLayout();
             panel1.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
@@ -145,7 +149,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 72.3122253F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.80559635F));
-            tableLayoutPanel1.Size = new Size(1370, 679);
+            tableLayoutPanel1.Size = new Size(1395, 763);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // DGVCart
@@ -172,7 +176,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             DGVCart.DefaultCellStyle = dataGridViewCellStyle2;
             DGVCart.Dock = DockStyle.Fill;
-            DGVCart.Location = new Point(4, 140);
+            DGVCart.Location = new Point(4, 157);
             DGVCart.Margin = new Padding(4, 5, 4, 5);
             DGVCart.MultiSelect = false;
             DGVCart.Name = "DGVCart";
@@ -187,7 +191,7 @@
             DGVCart.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             DGVCart.RowHeadersVisible = false;
             DGVCart.RowTemplate.Height = 25;
-            DGVCart.Size = new Size(1041, 480);
+            DGVCart.Size = new Size(1060, 541);
             DGVCart.TabIndex = 1;
             DGVCart.CellClick += DGVCart_CellClick;
             DGVCart.CellDoubleClick += DGVCart_CellDoubleClick;
@@ -199,8 +203,8 @@
             TlpProductDetails.ColumnCount = 4;
             tableLayoutPanel1.SetColumnSpan(TlpProductDetails, 3);
             TlpProductDetails.ColumnStyles.Add(new ColumnStyle());
-            TlpProductDetails.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.3070869F));
-            TlpProductDetails.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48.4251976F));
+            TlpProductDetails.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.0940437F));
+            TlpProductDetails.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 41.61442F));
             TlpProductDetails.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 28.154604F));
             TlpProductDetails.Controls.Add(label1, 0, 0);
             TlpProductDetails.Controls.Add(TxtProductSearch, 1, 0);
@@ -214,19 +218,19 @@
             TlpProductDetails.RowCount = 2;
             TlpProductDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 24.8322144F));
             TlpProductDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 75.1677856F));
-            TlpProductDetails.Size = new Size(1362, 127);
+            TlpProductDetails.Size = new Size(1387, 144);
             TlpProductDetails.TabIndex = 0;
             // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.FromArgb(0, 64, 64);
-            label1.Location = new Point(4, 6);
+            label1.Location = new Point(4, 8);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(103, 18);
+            label1.Size = new Size(118, 19);
             label1.TabIndex = 0;
             label1.Text = "Product  Search";
             // 
@@ -235,11 +239,11 @@
             TxtProductSearch.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtProductSearch.BackColor = Color.WhiteSmoke;
             TxtProductSearch.ForeColor = Color.ForestGreen;
-            TxtProductSearch.Location = new Point(111, 0);
+            TxtProductSearch.Location = new Point(126, 2);
             TxtProductSearch.Margin = new Padding(0);
             TxtProductSearch.Name = "TxtProductSearch";
             TxtProductSearch.PlaceholderText = "Search for Product";
-            TxtProductSearch.Size = new Size(291, 31);
+            TxtProductSearch.Size = new Size(380, 31);
             TxtProductSearch.TabIndex = 2;
             TxtProductSearch.TextChanged += TxtProductSearch_TextChanged;
             TxtProductSearch.Enter += TextBox_Enter;
@@ -267,14 +271,14 @@
             DgvProductSearch.DefaultCellStyle = dataGridViewCellStyle4;
             DgvProductSearch.Dock = DockStyle.Fill;
             DgvProductSearch.GridColor = Color.White;
-            DgvProductSearch.Location = new Point(111, 31);
+            DgvProductSearch.Location = new Point(126, 35);
             DgvProductSearch.Margin = new Padding(0);
             DgvProductSearch.MultiSelect = false;
             DgvProductSearch.Name = "DgvProductSearch";
             DgvProductSearch.ReadOnly = true;
             DgvProductSearch.RowHeadersVisible = false;
             DgvProductSearch.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            DgvProductSearch.Size = new Size(291, 96);
+            DgvProductSearch.Size = new Size(380, 109);
             DgvProductSearch.TabIndex = 3;
             DgvProductSearch.KeyDown += DgvProductSearch_KeyDown;
             // 
@@ -285,11 +289,11 @@
             pnlCartEntry.Controls.Add(tlpProDetails);
             pnlCartEntry.Dock = DockStyle.Fill;
             pnlCartEntry.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            pnlCartEntry.Location = new Point(405, 0);
+            pnlCartEntry.Location = new Point(509, 0);
             pnlCartEntry.Margin = new Padding(3, 0, 3, 0);
             pnlCartEntry.Name = "pnlCartEntry";
             TlpProductDetails.SetRowSpan(pnlCartEntry, 2);
-            pnlCartEntry.Size = new Size(954, 127);
+            pnlCartEntry.Size = new Size(875, 144);
             pnlCartEntry.TabIndex = 3;
             // 
             // tlpProDetails
@@ -297,9 +301,9 @@
             tlpProDetails.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tlpProDetails.ColumnCount = 1;
             tlpProDetails.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tlpProDetails.Controls.Add(tableLayoutPanel7, 0, 2);
-            tlpProDetails.Controls.Add(tableLayoutPanel2, 0, 1);
             tlpProDetails.Controls.Add(tableLayoutPanel3, 0, 0);
+            tlpProDetails.Controls.Add(tableLayoutPanel7, 0, 1);
+            tlpProDetails.Controls.Add(tableLayoutPanel8, 0, 2);
             tlpProDetails.Dock = DockStyle.Fill;
             tlpProDetails.Location = new Point(0, 0);
             tlpProDetails.Margin = new Padding(0);
@@ -308,88 +312,74 @@
             tlpProDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tlpProDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tlpProDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tlpProDetails.Size = new Size(952, 125);
+            tlpProDetails.Size = new Size(873, 142);
             tlpProDetails.TabIndex = 0;
             // 
-            // tableLayoutPanel7
+            // tableLayoutPanel3
             // 
-            tableLayoutPanel7.ColumnCount = 11;
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.942965F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel7.Controls.Add(BtnAddCart, 9, 0);
-            tableLayoutPanel7.Controls.Add(BtnCancel, 10, 0);
-            tableLayoutPanel7.Controls.Add(LblMrp, 0, 0);
-            tableLayoutPanel7.Controls.Add(TxtMrp, 1, 0);
-            tableLayoutPanel7.Controls.Add(TxtTotAmt, 4, 0);
-            tableLayoutPanel7.Controls.Add(LblTotAmt, 3, 0);
-            tableLayoutPanel7.Controls.Add(LblDiscFromMRP, 5, 0);
-            tableLayoutPanel7.Controls.Add(LblPurchaseAmt, 8, 0);
-            tableLayoutPanel7.Controls.Add(TxtDiscFromMRP, 7, 0);
-            tableLayoutPanel7.Dock = DockStyle.Fill;
-            tableLayoutPanel7.Location = new Point(1, 83);
-            tableLayoutPanel7.Margin = new Padding(0);
-            tableLayoutPanel7.Name = "tableLayoutPanel7";
-            tableLayoutPanel7.RowCount = 1;
-            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel7.Size = new Size(950, 41);
-            tableLayoutPanel7.TabIndex = 2;
+            tableLayoutPanel3.ColumnCount = 6;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 1.96078432F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.946374F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.65858F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 56.4342575F));
+            tableLayoutPanel3.Controls.Add(LblProCode, 1, 0);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel2, 5, 0);
+            tableLayoutPanel3.Controls.Add(TxtProCode, 2, 0);
+            tableLayoutPanel3.Controls.Add(LblProTName, 3, 0);
+            tableLayoutPanel3.Controls.Add(TxtProTName, 4, 0);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(1, 1);
+            tableLayoutPanel3.Margin = new Padding(0);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new Size(871, 46);
+            tableLayoutPanel3.TabIndex = 0;
             // 
-            // BtnAddCart
+            // LblProCode
             // 
-            BtnAddCart.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            BtnAddCart.ForeColor = Color.DarkGreen;
-            BtnAddCart.Location = new Point(769, 4);
-            BtnAddCart.Name = "BtnAddCart";
-            BtnAddCart.Size = new Size(84, 32);
-            BtnAddCart.TabIndex = 7;
-            BtnAddCart.Text = "&Add Cart";
-            BtnAddCart.UseVisualStyleBackColor = true;
-            BtnAddCart.Click += BtnAddCart_Click;
+            LblProCode.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblProCode.AutoSize = true;
+            LblProCode.ForeColor = Color.FromArgb(0, 64, 64);
+            LblProCode.Location = new Point(15, 13);
+            LblProCode.Name = "LblProCode";
+            LblProCode.Size = new Size(102, 19);
+            LblProCode.TabIndex = 0;
+            LblProCode.Text = "Product Code";
+            LblProCode.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // BtnCancel
+            // tableLayoutPanel2
             // 
-            BtnCancel.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            BtnCancel.ForeColor = Color.Crimson;
-            BtnCancel.Location = new Point(859, 4);
-            BtnCancel.Name = "BtnCancel";
-            BtnCancel.Size = new Size(88, 32);
-            BtnCancel.TabIndex = 8;
-            BtnCancel.Text = "&Cancel";
-            BtnCancel.UseVisualStyleBackColor = true;
-            BtnCancel.Click += BtnCancel_Click;
-            // 
-            // LblMrp
-            // 
-            LblMrp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblMrp.AutoSize = true;
-            LblMrp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblMrp.Location = new Point(3, 11);
-            LblMrp.Name = "LblMrp";
-            LblMrp.Size = new Size(84, 19);
-            LblMrp.TabIndex = 0;
-            LblMrp.Text = "MRP";
-            LblMrp.TextAlign = ContentAlignment.TopRight;
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.858696F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.380434F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65.76087F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.Controls.Add(TxtMrp, 1, 0);
+            tableLayoutPanel2.Controls.Add(LblMrp, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(503, 0);
+            tableLayoutPanel2.Margin = new Padding(0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new Size(368, 46);
+            tableLayoutPanel2.TabIndex = 1;
             // 
             // TxtMrp
             // 
             TxtMrp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtMrp.BackColor = Color.WhiteSmoke;
             TxtMrp.ForeColor = Color.ForestGreen;
-            TxtMrp.Location = new Point(93, 7);
+            TxtMrp.Location = new Point(54, 9);
             TxtMrp.MaxLength = 12;
             TxtMrp.Name = "TxtMrp";
-            TxtMrp.Size = new Size(84, 27);
+            TxtMrp.Size = new Size(68, 27);
             TxtMrp.TabIndex = 1;
             TxtMrp.TextAlign = HorizontalAlignment.Right;
             TxtMrp.TextChanged += TxtAmt_TextChanged;
@@ -397,227 +387,117 @@
             TxtMrp.KeyPress += ReadOnlyTextBox_KeyPress;
             TxtMrp.Leave += TextBox_Leave;
             // 
-            // TxtTotAmt
+            // LblMrp
             // 
-            TxtTotAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtTotAmt.BackColor = Color.WhiteSmoke;
-            TxtTotAmt.ForeColor = Color.ForestGreen;
-            TxtTotAmt.Location = new Point(319, 7);
-            TxtTotAmt.MaxLength = 12;
-            TxtTotAmt.Name = "TxtTotAmt";
-            TxtTotAmt.Size = new Size(84, 27);
-            TxtTotAmt.TabIndex = 3;
-            TxtTotAmt.TextAlign = HorizontalAlignment.Right;
-            TxtTotAmt.Enter += TextBox_Enter;
-            TxtTotAmt.KeyPress += ReadOnlyTextBox_KeyPress;
-            TxtTotAmt.Leave += TextBox_Leave;
+            LblMrp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblMrp.AutoSize = true;
+            LblMrp.ForeColor = Color.FromArgb(0, 64, 64);
+            LblMrp.Location = new Point(3, 13);
+            LblMrp.Name = "LblMrp";
+            LblMrp.Size = new Size(45, 19);
+            LblMrp.TabIndex = 0;
+            LblMrp.Text = "MRP";
+            LblMrp.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // LblTotAmt
+            // TxtProCode
             // 
-            LblTotAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblTotAmt.AutoSize = true;
-            LblTotAmt.ForeColor = Color.FromArgb(0, 64, 64);
-            LblTotAmt.Location = new Point(229, 11);
-            LblTotAmt.Name = "LblTotAmt";
-            LblTotAmt.Size = new Size(84, 19);
-            LblTotAmt.TabIndex = 2;
-            LblTotAmt.Text = "Total Amt";
-            LblTotAmt.TextAlign = ContentAlignment.TopRight;
+            TxtProCode.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtProCode.BackColor = Color.WhiteSmoke;
+            TxtProCode.ForeColor = Color.ForestGreen;
+            TxtProCode.Location = new Point(123, 9);
+            TxtProCode.Name = "TxtProCode";
+            TxtProCode.Size = new Size(58, 27);
+            TxtProCode.TabIndex = 1;
+            TxtProCode.TextAlign = HorizontalAlignment.Center;
+            TxtProCode.Enter += TextBox_Enter;
+            TxtProCode.KeyPress += ReadOnlyTextBox_KeyPress;
+            TxtProCode.Leave += TextBox_Leave;
             // 
-            // LblDiscFromMRP
+            // LblProTName
             // 
-            LblDiscFromMRP.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblDiscFromMRP.AutoSize = true;
-            tableLayoutPanel7.SetColumnSpan(LblDiscFromMRP, 2);
-            LblDiscFromMRP.ForeColor = Color.FromArgb(0, 64, 64);
-            LblDiscFromMRP.Location = new Point(409, 11);
-            LblDiscFromMRP.Margin = new Padding(3, 0, 1, 0);
-            LblDiscFromMRP.Name = "LblDiscFromMRP";
-            LblDiscFromMRP.Size = new Size(176, 19);
-            LblDiscFromMRP.TabIndex = 4;
-            LblDiscFromMRP.Text = "Tot Disc Amt From MRP";
-            LblDiscFromMRP.TextAlign = ContentAlignment.TopRight;
+            LblProTName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblProTName.AutoSize = true;
+            LblProTName.ForeColor = Color.FromArgb(0, 64, 64);
+            LblProTName.Location = new Point(187, 13);
+            LblProTName.Name = "LblProTName";
+            LblProTName.Size = new Size(108, 19);
+            LblProTName.TabIndex = 4;
+            LblProTName.Text = "Product Name";
+            LblProTName.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // LblPurchaseAmt
+            // TxtProTName
             // 
-            LblPurchaseAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblPurchaseAmt.AutoSize = true;
-            LblPurchaseAmt.ForeColor = Color.Green;
-            LblPurchaseAmt.Location = new Point(679, 11);
-            LblPurchaseAmt.Name = "LblPurchaseAmt";
-            LblPurchaseAmt.Size = new Size(84, 19);
-            LblPurchaseAmt.TabIndex = 6;
-            LblPurchaseAmt.Text = "...";
-            LblPurchaseAmt.TextAlign = ContentAlignment.MiddleLeft;
+            TxtProTName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtProTName.BackColor = Color.WhiteSmoke;
+            TxtProTName.ForeColor = Color.ForestGreen;
+            TxtProTName.Location = new Point(301, 9);
+            TxtProTName.Margin = new Padding(3, 3, 8, 3);
+            TxtProTName.Name = "TxtProTName";
+            TxtProTName.Size = new Size(194, 27);
+            TxtProTName.TabIndex = 5;
+            TxtProTName.TextAlign = HorizontalAlignment.Center;
+            TxtProTName.Enter += TextBox_Enter;
+            TxtProTName.KeyPress += ReadOnlyTextBox_KeyPress;
+            TxtProTName.Leave += TextBox_Leave;
             // 
-            // TxtDiscFromMRP
+            // tableLayoutPanel7
             // 
-            TxtDiscFromMRP.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtDiscFromMRP.BackColor = Color.WhiteSmoke;
-            TxtDiscFromMRP.ForeColor = Color.ForestGreen;
-            TxtDiscFromMRP.Location = new Point(589, 7);
-            TxtDiscFromMRP.MaxLength = 12;
-            TxtDiscFromMRP.Name = "TxtDiscFromMRP";
-            TxtDiscFromMRP.Size = new Size(84, 27);
-            TxtDiscFromMRP.TabIndex = 5;
-            TxtDiscFromMRP.TextAlign = HorizontalAlignment.Right;
-            TxtDiscFromMRP.Enter += TextBox_Enter;
-            TxtDiscFromMRP.KeyPress += ReadOnlyTextBox_KeyPress;
-            TxtDiscFromMRP.Leave += TextBox_Leave;
+            tableLayoutPanel7.ColumnCount = 14;
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2.97088957F));
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15.1526966F));
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.588966F));
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15.1526966F));
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15.1526966F));
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15.1526966F));
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15.1526966F));
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.003459F));
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.6732092F));
+            tableLayoutPanel7.Controls.Add(LblAmt, 6, 0);
+            tableLayoutPanel7.Controls.Add(TxtRate, 5, 0);
+            tableLayoutPanel7.Controls.Add(TxtAmt, 7, 0);
+            tableLayoutPanel7.Controls.Add(LblRate, 4, 0);
+            tableLayoutPanel7.Controls.Add(LblQty, 1, 0);
+            tableLayoutPanel7.Controls.Add(TxtQty, 2, 0);
+            tableLayoutPanel7.Controls.Add(LblUnit, 3, 0);
+            tableLayoutPanel7.Controls.Add(LblTotAmt, 8, 0);
+            tableLayoutPanel7.Controls.Add(TxtTotAmt, 9, 0);
+            tableLayoutPanel7.Controls.Add(LblDiscFromMRP, 10, 0);
+            tableLayoutPanel7.Controls.Add(TxtDiscFromMRP, 11, 0);
+            tableLayoutPanel7.Dock = DockStyle.Fill;
+            tableLayoutPanel7.Location = new Point(1, 48);
+            tableLayoutPanel7.Margin = new Padding(0);
+            tableLayoutPanel7.Name = "tableLayoutPanel7";
+            tableLayoutPanel7.RowCount = 1;
+            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel7.Size = new Size(871, 46);
+            tableLayoutPanel7.TabIndex = 2;
             // 
-            // tableLayoutPanel2
+            // LblAmt
             // 
-            tableLayoutPanel2.ColumnCount = 11;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.942965F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.505702F));
-            tableLayoutPanel2.Controls.Add(LblQty, 0, 0);
-            tableLayoutPanel2.Controls.Add(LblUnit, 2, 0);
-            tableLayoutPanel2.Controls.Add(TxtQty, 1, 0);
-            tableLayoutPanel2.Controls.Add(TxtDiscAmt, 10, 0);
-            tableLayoutPanel2.Controls.Add(LblDiscAmt, 9, 0);
-            tableLayoutPanel2.Controls.Add(TxtDiscPercentage, 8, 0);
-            tableLayoutPanel2.Controls.Add(LblDiscPercentage, 7, 0);
-            tableLayoutPanel2.Controls.Add(LblRate, 3, 0);
-            tableLayoutPanel2.Controls.Add(TxtRate, 4, 0);
-            tableLayoutPanel2.Controls.Add(LblAmt, 5, 0);
-            tableLayoutPanel2.Controls.Add(TxtAmt, 6, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(1, 42);
-            tableLayoutPanel2.Margin = new Padding(0);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(950, 40);
-            tableLayoutPanel2.TabIndex = 1;
-            // 
-            // LblQty
-            // 
-            LblQty.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblQty.AutoSize = true;
-            LblQty.ForeColor = Color.FromArgb(0, 64, 64);
-            LblQty.Location = new Point(3, 10);
-            LblQty.Name = "LblQty";
-            LblQty.Size = new Size(84, 19);
-            LblQty.TabIndex = 0;
-            LblQty.Text = "Qty*";
-            LblQty.TextAlign = ContentAlignment.TopRight;
-            // 
-            // LblUnit
-            // 
-            LblUnit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblUnit.AutoSize = true;
-            LblUnit.ForeColor = Color.ForestGreen;
-            LblUnit.Location = new Point(180, 10);
-            LblUnit.Margin = new Padding(0, 0, 5, 0);
-            LblUnit.Name = "LblUnit";
-            LblUnit.Size = new Size(41, 19);
-            LblUnit.TabIndex = 2;
-            LblUnit.Text = "...";
-            // 
-            // TxtQty
-            // 
-            TxtQty.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtQty.BackColor = Color.WhiteSmoke;
-            TxtQty.ForeColor = Color.ForestGreen;
-            TxtQty.Location = new Point(93, 6);
-            TxtQty.Margin = new Padding(3, 3, 0, 3);
-            TxtQty.MaxLength = 10;
-            TxtQty.Name = "TxtQty";
-            TxtQty.Size = new Size(87, 27);
-            TxtQty.TabIndex = 1;
-            TxtQty.TextAlign = HorizontalAlignment.Right;
-            TxtQty.TextChanged += TxtQty_TextChanged;
-            TxtQty.Enter += TextBox_Enter;
-            TxtQty.KeyDown += TxtQty_KeyDown;
-            TxtQty.KeyPress += Decimal_KeyPress;
-            TxtQty.Leave += TextBox_Leave;
-            // 
-            // TxtDiscAmt
-            // 
-            TxtDiscAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtDiscAmt.BackColor = Color.WhiteSmoke;
-            TxtDiscAmt.ForeColor = Color.ForestGreen;
-            TxtDiscAmt.Location = new Point(859, 6);
-            TxtDiscAmt.MaxLength = 10;
-            TxtDiscAmt.Name = "TxtDiscAmt";
-            TxtDiscAmt.Size = new Size(88, 27);
-            TxtDiscAmt.TabIndex = 10;
-            TxtDiscAmt.TextAlign = HorizontalAlignment.Right;
-            TxtDiscAmt.Enter += TextBox_Enter;
-            TxtDiscAmt.KeyPress += ReadOnlyTextBox_KeyPress;
-            TxtDiscAmt.Leave += TextBox_Leave;
-            // 
-            // LblDiscAmt
-            // 
-            LblDiscAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblDiscAmt.AutoSize = true;
-            LblDiscAmt.ForeColor = Color.FromArgb(0, 64, 64);
-            LblDiscAmt.Location = new Point(769, 10);
-            LblDiscAmt.Name = "LblDiscAmt";
-            LblDiscAmt.Size = new Size(84, 19);
-            LblDiscAmt.TabIndex = 9;
-            LblDiscAmt.Text = "Disc Amt";
-            LblDiscAmt.TextAlign = ContentAlignment.TopRight;
-            // 
-            // TxtDiscPercentage
-            // 
-            TxtDiscPercentage.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtDiscPercentage.BackColor = Color.WhiteSmoke;
-            TxtDiscPercentage.ForeColor = Color.ForestGreen;
-            TxtDiscPercentage.Location = new Point(679, 6);
-            TxtDiscPercentage.MaxLength = 3;
-            TxtDiscPercentage.Name = "TxtDiscPercentage";
-            TxtDiscPercentage.Size = new Size(84, 27);
-            TxtDiscPercentage.TabIndex = 8;
-            TxtDiscPercentage.TextAlign = HorizontalAlignment.Right;
-            TxtDiscPercentage.TextChanged += TxtDiscPercentage_TextChanged;
-            TxtDiscPercentage.Enter += TextBox_Enter;
-            TxtDiscPercentage.KeyPress += ReadOnlyTextBox_KeyPress;
-            TxtDiscPercentage.Leave += TextBox_Leave;
-            TxtDiscPercentage.Validated += TxtDiscPercentage_Validated;
-            // 
-            // LblDiscPercentage
-            // 
-            LblDiscPercentage.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblDiscPercentage.AutoSize = true;
-            LblDiscPercentage.ForeColor = Color.FromArgb(0, 64, 64);
-            LblDiscPercentage.Location = new Point(589, 10);
-            LblDiscPercentage.Name = "LblDiscPercentage";
-            LblDiscPercentage.Size = new Size(84, 19);
-            LblDiscPercentage.TabIndex = 7;
-            LblDiscPercentage.Text = "Disc %*";
-            LblDiscPercentage.TextAlign = ContentAlignment.TopRight;
-            // 
-            // LblRate
-            // 
-            LblRate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblRate.AutoSize = true;
-            LblRate.ForeColor = Color.FromArgb(0, 64, 64);
-            LblRate.Location = new Point(229, 10);
-            LblRate.Name = "LblRate";
-            LblRate.Size = new Size(84, 19);
-            LblRate.TabIndex = 3;
-            LblRate.Text = "Sell Rate*";
-            LblRate.TextAlign = ContentAlignment.TopRight;
+            LblAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblAmt.AutoSize = true;
+            LblAmt.ForeColor = Color.FromArgb(0, 64, 64);
+            LblAmt.Location = new Point(326, 13);
+            LblAmt.Name = "LblAmt";
+            LblAmt.Size = new Size(65, 19);
+            LblAmt.TabIndex = 5;
+            LblAmt.Text = "Amount";
+            LblAmt.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TxtRate
             // 
             TxtRate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtRate.BackColor = Color.WhiteSmoke;
             TxtRate.ForeColor = Color.ForestGreen;
-            TxtRate.Location = new Point(319, 6);
+            TxtRate.Location = new Point(267, 9);
             TxtRate.MaxLength = 10;
             TxtRate.Name = "TxtRate";
-            TxtRate.Size = new Size(84, 27);
+            TxtRate.Size = new Size(53, 27);
             TxtRate.TabIndex = 4;
             TxtRate.TextAlign = HorizontalAlignment.Right;
             TxtRate.TextChanged += TxtRate_TextChanged;
@@ -627,27 +507,15 @@
             TxtRate.Leave += TextBox_Leave;
             TxtRate.Validated += TxtRate_Validated;
             // 
-            // LblAmt
-            // 
-            LblAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblAmt.AutoSize = true;
-            LblAmt.ForeColor = Color.FromArgb(0, 64, 64);
-            LblAmt.Location = new Point(409, 10);
-            LblAmt.Name = "LblAmt";
-            LblAmt.Size = new Size(84, 19);
-            LblAmt.TabIndex = 5;
-            LblAmt.Text = "Amount";
-            LblAmt.TextAlign = ContentAlignment.TopRight;
-            // 
             // TxtAmt
             // 
             TxtAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtAmt.BackColor = Color.WhiteSmoke;
             TxtAmt.ForeColor = Color.ForestGreen;
-            TxtAmt.Location = new Point(499, 6);
+            TxtAmt.Location = new Point(397, 9);
             TxtAmt.MaxLength = 12;
             TxtAmt.Name = "TxtAmt";
-            TxtAmt.Size = new Size(84, 27);
+            TxtAmt.Size = new Size(53, 27);
             TxtAmt.TabIndex = 6;
             TxtAmt.TextAlign = HorizontalAlignment.Right;
             TxtAmt.TextChanged += TxtAmt_TextChanged;
@@ -655,105 +523,239 @@
             TxtAmt.KeyPress += ReadOnlyTextBox_KeyPress;
             TxtAmt.Leave += TextBox_Leave;
             // 
-            // tableLayoutPanel3
+            // LblRate
             // 
-            tableLayoutPanel3.ColumnCount = 6;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Controls.Add(TxtProTName, 5, 0);
-            tableLayoutPanel3.Controls.Add(LblProTName, 4, 0);
-            tableLayoutPanel3.Controls.Add(TxtProName, 3, 0);
-            tableLayoutPanel3.Controls.Add(LblProCode, 0, 0);
-            tableLayoutPanel3.Controls.Add(TxtProCode, 1, 0);
-            tableLayoutPanel3.Controls.Add(LblProName, 2, 0);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(1, 1);
-            tableLayoutPanel3.Margin = new Padding(0);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 1;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(950, 40);
-            tableLayoutPanel3.TabIndex = 0;
+            LblRate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblRate.AutoSize = true;
+            LblRate.ForeColor = Color.FromArgb(0, 64, 64);
+            LblRate.Location = new Point(185, 13);
+            LblRate.Name = "LblRate";
+            LblRate.Size = new Size(76, 19);
+            LblRate.TabIndex = 3;
+            LblRate.Text = "Sell Rate*";
+            LblRate.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // TxtProTName
+            // LblQty
             // 
-            TxtProTName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtProTName.BackColor = Color.WhiteSmoke;
-            TxtProTName.ForeColor = Color.ForestGreen;
-            TxtProTName.Location = new Point(662, 6);
-            TxtProTName.Margin = new Padding(3, 3, 8, 3);
-            TxtProTName.Name = "TxtProTName";
-            TxtProTName.Size = new Size(280, 27);
-            TxtProTName.TabIndex = 5;
-            TxtProTName.TextAlign = HorizontalAlignment.Center;
-            TxtProTName.Enter += TextBox_Enter;
-            TxtProTName.KeyPress += ReadOnlyTextBox_KeyPress;
-            TxtProTName.Leave += TextBox_Leave;
+            LblQty.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblQty.AutoSize = true;
+            LblQty.ForeColor = Color.FromArgb(0, 64, 64);
+            LblQty.Location = new Point(14, 13);
+            LblQty.Name = "LblQty";
+            LblQty.Size = new Size(77, 19);
+            LblQty.TabIndex = 0;
+            LblQty.Text = "Quantity*";
+            LblQty.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // LblProTName
+            // TxtQty
             // 
-            LblProTName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblProTName.AutoSize = true;
-            LblProTName.ForeColor = Color.FromArgb(0, 64, 64);
-            LblProTName.Location = new Point(539, 10);
-            LblProTName.Name = "LblProTName";
-            LblProTName.Size = new Size(117, 19);
-            LblProTName.TabIndex = 4;
-            LblProTName.Text = "Pro Tamil Name";
+            TxtQty.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtQty.BackColor = Color.WhiteSmoke;
+            TxtQty.ForeColor = Color.ForestGreen;
+            TxtQty.Location = new Point(97, 9);
+            TxtQty.Margin = new Padding(3, 3, 0, 3);
+            TxtQty.MaxLength = 10;
+            TxtQty.Name = "TxtQty";
+            TxtQty.Size = new Size(56, 27);
+            TxtQty.TabIndex = 1;
+            TxtQty.TextAlign = HorizontalAlignment.Right;
+            TxtQty.TextChanged += TxtQty_TextChanged;
+            TxtQty.Enter += TextBox_Enter;
+            TxtQty.KeyDown += TxtQty_KeyDown;
+            TxtQty.KeyPress += Decimal_KeyPress;
+            TxtQty.Leave += TextBox_Leave;
             // 
-            // TxtProName
+            // LblUnit
             // 
-            TxtProName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtProName.BackColor = Color.WhiteSmoke;
-            TxtProName.ForeColor = Color.ForestGreen;
-            TxtProName.Location = new Point(249, 6);
-            TxtProName.Name = "TxtProName";
-            TxtProName.Size = new Size(284, 27);
-            TxtProName.TabIndex = 3;
-            TxtProName.TextAlign = HorizontalAlignment.Center;
-            TxtProName.Enter += TextBox_Enter;
-            TxtProName.KeyPress += ReadOnlyTextBox_KeyPress;
-            TxtProName.Leave += TextBox_Leave;
+            LblUnit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblUnit.AutoSize = true;
+            LblUnit.ForeColor = Color.ForestGreen;
+            LblUnit.Location = new Point(153, 13);
+            LblUnit.Margin = new Padding(0, 0, 5, 0);
+            LblUnit.Name = "LblUnit";
+            LblUnit.Size = new Size(24, 19);
+            LblUnit.TabIndex = 2;
+            LblUnit.Text = "...";
+            LblUnit.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // LblProCode
+            // LblTotAmt
             // 
-            LblProCode.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblProCode.AutoSize = true;
-            LblProCode.ForeColor = Color.FromArgb(0, 64, 64);
-            LblProCode.Location = new Point(3, 10);
-            LblProCode.Name = "LblProCode";
-            LblProCode.Size = new Size(71, 19);
-            LblProCode.TabIndex = 0;
-            LblProCode.Text = "Pro Code";
+            LblTotAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblTotAmt.AutoSize = true;
+            LblTotAmt.ForeColor = Color.FromArgb(0, 64, 64);
+            LblTotAmt.Location = new Point(456, 13);
+            LblTotAmt.Name = "LblTotAmt";
+            LblTotAmt.Size = new Size(103, 19);
+            LblTotAmt.TabIndex = 2;
+            LblTotAmt.Text = "Total Amount";
+            LblTotAmt.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // TxtProCode
+            // TxtTotAmt
             // 
-            TxtProCode.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtProCode.BackColor = Color.WhiteSmoke;
-            TxtProCode.ForeColor = Color.ForestGreen;
-            TxtProCode.Location = new Point(80, 6);
-            TxtProCode.Name = "TxtProCode";
-            TxtProCode.Size = new Size(80, 27);
-            TxtProCode.TabIndex = 1;
-            TxtProCode.TextAlign = HorizontalAlignment.Center;
-            TxtProCode.Enter += TextBox_Enter;
-            TxtProCode.KeyPress += ReadOnlyTextBox_KeyPress;
-            TxtProCode.Leave += TextBox_Leave;
+            TxtTotAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtTotAmt.BackColor = Color.WhiteSmoke;
+            TxtTotAmt.ForeColor = Color.ForestGreen;
+            TxtTotAmt.Location = new Point(565, 9);
+            TxtTotAmt.MaxLength = 12;
+            TxtTotAmt.Name = "TxtTotAmt";
+            TxtTotAmt.Size = new Size(53, 27);
+            TxtTotAmt.TabIndex = 3;
+            TxtTotAmt.TextAlign = HorizontalAlignment.Right;
+            TxtTotAmt.Enter += TextBox_Enter;
+            TxtTotAmt.KeyPress += ReadOnlyTextBox_KeyPress;
+            TxtTotAmt.Leave += TextBox_Leave;
             // 
-            // LblProName
+            // LblDiscFromMRP
             // 
-            LblProName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblProName.AutoSize = true;
-            LblProName.ForeColor = Color.FromArgb(0, 64, 64);
-            LblProName.Location = new Point(166, 10);
-            LblProName.Name = "LblProName";
-            LblProName.Size = new Size(77, 19);
-            LblProName.TabIndex = 2;
-            LblProName.Text = "Pro Name";
+            LblDiscFromMRP.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblDiscFromMRP.AutoSize = true;
+            LblDiscFromMRP.ForeColor = Color.FromArgb(0, 64, 64);
+            LblDiscFromMRP.Location = new Point(624, 13);
+            LblDiscFromMRP.Margin = new Padding(3, 0, 1, 0);
+            LblDiscFromMRP.Name = "LblDiscFromMRP";
+            LblDiscFromMRP.Size = new Size(129, 19);
+            LblDiscFromMRP.TabIndex = 4;
+            LblDiscFromMRP.Text = "Discount Amount";
+            LblDiscFromMRP.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // TxtDiscFromMRP
+            // 
+            TxtDiscFromMRP.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtDiscFromMRP.BackColor = Color.WhiteSmoke;
+            TxtDiscFromMRP.ForeColor = Color.ForestGreen;
+            TxtDiscFromMRP.Location = new Point(757, 9);
+            TxtDiscFromMRP.MaxLength = 12;
+            TxtDiscFromMRP.Name = "TxtDiscFromMRP";
+            TxtDiscFromMRP.Size = new Size(53, 27);
+            TxtDiscFromMRP.TabIndex = 5;
+            TxtDiscFromMRP.TextAlign = HorizontalAlignment.Right;
+            TxtDiscFromMRP.Enter += TextBox_Enter;
+            TxtDiscFromMRP.KeyPress += ReadOnlyTextBox_KeyPress;
+            TxtDiscFromMRP.Leave += TextBox_Leave;
+            // 
+            // tableLayoutPanel8
+            // 
+            tableLayoutPanel8.ColumnCount = 9;
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel8.Controls.Add(BtnCancel, 8, 0);
+            tableLayoutPanel8.Controls.Add(BtnAddCart, 7, 0);
+            tableLayoutPanel8.Controls.Add(LblDiscPercentage, 0, 0);
+            tableLayoutPanel8.Controls.Add(LblPurchaseAmt, 6, 0);
+            tableLayoutPanel8.Controls.Add(TxtDiscAmt, 3, 0);
+            tableLayoutPanel8.Controls.Add(TxtDiscPercentage, 1, 0);
+            tableLayoutPanel8.Controls.Add(LblDiscAmt, 2, 0);
+            tableLayoutPanel8.Dock = DockStyle.Fill;
+            tableLayoutPanel8.Location = new Point(1, 95);
+            tableLayoutPanel8.Margin = new Padding(0);
+            tableLayoutPanel8.Name = "tableLayoutPanel8";
+            tableLayoutPanel8.RowCount = 1;
+            tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel8.Size = new Size(871, 46);
+            tableLayoutPanel8.TabIndex = 3;
+            // 
+            // BtnCancel
+            // 
+            BtnCancel.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            BtnCancel.ForeColor = Color.Crimson;
+            BtnCancel.Location = new Point(771, 5);
+            BtnCancel.Name = "BtnCancel";
+            BtnCancel.Size = new Size(97, 36);
+            BtnCancel.TabIndex = 8;
+            BtnCancel.Text = "&Cancel";
+            BtnCancel.UseVisualStyleBackColor = true;
+            BtnCancel.Click += BtnCancel_Click;
+            // 
+            // BtnAddCart
+            // 
+            BtnAddCart.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            BtnAddCart.ForeColor = Color.DarkGreen;
+            BtnAddCart.Location = new Point(675, 5);
+            BtnAddCart.Name = "BtnAddCart";
+            BtnAddCart.Size = new Size(90, 36);
+            BtnAddCart.TabIndex = 7;
+            BtnAddCart.Text = "&Add Cart";
+            BtnAddCart.UseVisualStyleBackColor = true;
+            BtnAddCart.Click += BtnAddCart_Click;
+            // 
+            // LblDiscPercentage
+            // 
+            LblDiscPercentage.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblDiscPercentage.AutoSize = true;
+            LblDiscPercentage.ForeColor = Color.FromArgb(0, 64, 64);
+            LblDiscPercentage.Location = new Point(3, 13);
+            LblDiscPercentage.Name = "LblDiscPercentage";
+            LblDiscPercentage.Size = new Size(90, 19);
+            LblDiscPercentage.TabIndex = 7;
+            LblDiscPercentage.Text = "Disc %*";
+            LblDiscPercentage.TextAlign = ContentAlignment.TopRight;
+            LblDiscPercentage.Visible = false;
+            // 
+            // LblPurchaseAmt
+            // 
+            LblPurchaseAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblPurchaseAmt.AutoSize = true;
+            LblPurchaseAmt.ForeColor = Color.Green;
+            LblPurchaseAmt.Location = new Point(579, 13);
+            LblPurchaseAmt.Name = "LblPurchaseAmt";
+            LblPurchaseAmt.Size = new Size(90, 19);
+            LblPurchaseAmt.TabIndex = 6;
+            LblPurchaseAmt.Text = "...";
+            LblPurchaseAmt.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // TxtDiscAmt
+            // 
+            TxtDiscAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtDiscAmt.BackColor = Color.WhiteSmoke;
+            TxtDiscAmt.ForeColor = Color.ForestGreen;
+            TxtDiscAmt.Location = new Point(291, 9);
+            TxtDiscAmt.MaxLength = 10;
+            TxtDiscAmt.Name = "TxtDiscAmt";
+            TxtDiscAmt.Size = new Size(90, 27);
+            TxtDiscAmt.TabIndex = 10;
+            TxtDiscAmt.TextAlign = HorizontalAlignment.Right;
+            TxtDiscAmt.Visible = false;
+            TxtDiscAmt.Enter += TextBox_Enter;
+            TxtDiscAmt.KeyPress += ReadOnlyTextBox_KeyPress;
+            TxtDiscAmt.Leave += TextBox_Leave;
+            // 
+            // TxtDiscPercentage
+            // 
+            TxtDiscPercentage.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtDiscPercentage.BackColor = Color.WhiteSmoke;
+            TxtDiscPercentage.ForeColor = Color.ForestGreen;
+            TxtDiscPercentage.Location = new Point(99, 9);
+            TxtDiscPercentage.MaxLength = 3;
+            TxtDiscPercentage.Name = "TxtDiscPercentage";
+            TxtDiscPercentage.Size = new Size(90, 27);
+            TxtDiscPercentage.TabIndex = 8;
+            TxtDiscPercentage.TextAlign = HorizontalAlignment.Right;
+            TxtDiscPercentage.Visible = false;
+            TxtDiscPercentage.TextChanged += TxtDiscPercentage_TextChanged;
+            TxtDiscPercentage.Enter += TextBox_Enter;
+            TxtDiscPercentage.KeyPress += ReadOnlyTextBox_KeyPress;
+            TxtDiscPercentage.Leave += TextBox_Leave;
+            TxtDiscPercentage.Validated += TxtDiscPercentage_Validated;
+            // 
+            // LblDiscAmt
+            // 
+            LblDiscAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblDiscAmt.AutoSize = true;
+            LblDiscAmt.ForeColor = Color.FromArgb(0, 64, 64);
+            LblDiscAmt.Location = new Point(195, 13);
+            LblDiscAmt.Name = "LblDiscAmt";
+            LblDiscAmt.Size = new Size(90, 19);
+            LblDiscAmt.TabIndex = 9;
+            LblDiscAmt.Text = "Disc Amt";
+            LblDiscAmt.TextAlign = ContentAlignment.TopRight;
+            LblDiscAmt.Visible = false;
             // 
             // TLP_RateBasedWt
             // 
@@ -768,22 +770,22 @@
             TLP_RateBasedWt.Controls.Add(label7, 0, 2);
             TLP_RateBasedWt.Dock = DockStyle.Fill;
             TLP_RateBasedWt.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            TLP_RateBasedWt.Location = new Point(0, 31);
+            TLP_RateBasedWt.Location = new Point(0, 35);
             TLP_RateBasedWt.Margin = new Padding(0);
             TLP_RateBasedWt.Name = "TLP_RateBasedWt";
             TLP_RateBasedWt.RowCount = 3;
             TLP_RateBasedWt.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             TLP_RateBasedWt.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             TLP_RateBasedWt.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            TLP_RateBasedWt.Size = new Size(111, 96);
+            TLP_RateBasedWt.Size = new Size(126, 109);
             TLP_RateBasedWt.TabIndex = 1;
             // 
             // TxtRBWRate
             // 
             TxtRBWRate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtRBWRate.Location = new Point(59, 35);
+            TxtRBWRate.Location = new Point(66, 41);
             TxtRBWRate.Name = "TxtRBWRate";
-            TxtRBWRate.Size = new Size(48, 23);
+            TxtRBWRate.Size = new Size(56, 23);
             TxtRBWRate.TabIndex = 2;
             TxtRBWRate.TextAlign = HorizontalAlignment.Right;
             TxtRBWRate.TextChanged += TxtRBWRate_TextChanged;
@@ -792,9 +794,9 @@
             // TxtRBWWeight
             // 
             TxtRBWWeight.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtRBWWeight.Location = new Point(59, 67);
+            TxtRBWWeight.Location = new Point(66, 78);
             TxtRBWWeight.Name = "TxtRBWWeight";
-            TxtRBWWeight.Size = new Size(48, 23);
+            TxtRBWWeight.Size = new Size(56, 23);
             TxtRBWWeight.TabIndex = 4;
             TxtRBWWeight.TextAlign = HorizontalAlignment.Right;
             TxtRBWWeight.KeyPress += Decimal_KeyPress;
@@ -805,20 +807,21 @@
             label2.AutoSize = true;
             TLP_RateBasedWt.SetColumnSpan(label2, 2);
             label2.ForeColor = Color.ForestGreen;
-            label2.Location = new Point(4, 8);
+            label2.Location = new Point(4, 10);
             label2.Name = "label2";
-            label2.Size = new Size(103, 15);
+            label2.Size = new Size(118, 15);
             label2.TabIndex = 0;
             label2.Text = "Rate Based Wt";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
             label3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.ForeColor = Color.Green;
-            label3.Location = new Point(4, 39);
+            label3.Location = new Point(4, 45);
             label3.Name = "label3";
-            label3.Size = new Size(48, 15);
+            label3.Size = new Size(55, 15);
             label3.TabIndex = 1;
             label3.Text = "Rate";
             // 
@@ -827,9 +830,9 @@
             label7.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label7.AutoSize = true;
             label7.ForeColor = Color.Green;
-            label7.Location = new Point(4, 71);
+            label7.Location = new Point(4, 82);
             label7.Name = "label7";
-            label7.Size = new Size(48, 15);
+            label7.Size = new Size(55, 15);
             label7.TabIndex = 3;
             label7.Text = "Wt";
             // 
@@ -838,10 +841,10 @@
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(tableLayoutPanel4);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(1052, 140);
+            panel1.Location = new Point(1071, 157);
             panel1.Margin = new Padding(3, 5, 3, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(315, 480);
+            panel1.Size = new Size(321, 541);
             panel1.TabIndex = 3;
             // 
             // tableLayoutPanel4
@@ -875,17 +878,17 @@
             tableLayoutPanel4.Margin = new Padding(0);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 10;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 7.18580627F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 7.18580627F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 7.18580627F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 7.18580627F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 7.18580627F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 9.752166F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 28.9923439F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 8.368201F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 5.02092028F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 11.7400675F));
-            tableLayoutPanel4.Size = new Size(313, 478);
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 6.53175354F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 6.53175449F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 6.53175449F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 6.53175449F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 6.40839338F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 8.263454F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 36.3592F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 7.606528F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 4.563916F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 10.6714859F));
+            tableLayoutPanel4.Size = new Size(319, 539);
             tableLayoutPanel4.TabIndex = 0;
             // 
             // LblFinalTotAmtDisp
@@ -894,7 +897,7 @@
             LblFinalTotAmtDisp.AutoSize = true;
             LblFinalTotAmtDisp.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalTotAmtDisp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblFinalTotAmtDisp.Location = new Point(8, 7);
+            LblFinalTotAmtDisp.Location = new Point(8, 8);
             LblFinalTotAmtDisp.Name = "LblFinalTotAmtDisp";
             LblFinalTotAmtDisp.Size = new Size(130, 19);
             LblFinalTotAmtDisp.TabIndex = 0;
@@ -906,7 +909,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label5.ForeColor = Color.FromArgb(0, 64, 64);
-            label5.Location = new Point(8, 41);
+            label5.Location = new Point(8, 43);
             label5.Name = "label5";
             label5.Size = new Size(130, 19);
             label5.TabIndex = 2;
@@ -918,7 +921,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label6.ForeColor = Color.FromArgb(0, 64, 64);
-            label6.Location = new Point(8, 75);
+            label6.Location = new Point(8, 78);
             label6.Name = "label6";
             label6.Size = new Size(130, 19);
             label6.TabIndex = 4;
@@ -930,9 +933,9 @@
             LblFinalAmtReceived.AutoSize = true;
             LblFinalAmtReceived.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalAmtReceived.ForeColor = Color.Crimson;
-            LblFinalAmtReceived.Location = new Point(153, 362);
+            LblFinalAmtReceived.Location = new Point(153, 421);
             LblFinalAmtReceived.Name = "LblFinalAmtReceived";
-            LblFinalAmtReceived.Size = new Size(151, 23);
+            LblFinalAmtReceived.Size = new Size(156, 23);
             LblFinalAmtReceived.TabIndex = 14;
             LblFinalAmtReceived.Text = "0.00";
             LblFinalAmtReceived.TextAlign = ContentAlignment.MiddleRight;
@@ -943,7 +946,7 @@
             LblFinalAmtReceivedDisp.AutoSize = true;
             LblFinalAmtReceivedDisp.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalAmtReceivedDisp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblFinalAmtReceivedDisp.Location = new Point(8, 364);
+            LblFinalAmtReceivedDisp.Location = new Point(8, 423);
             LblFinalAmtReceivedDisp.Name = "LblFinalAmtReceivedDisp";
             LblFinalAmtReceivedDisp.Size = new Size(130, 19);
             LblFinalAmtReceivedDisp.TabIndex = 13;
@@ -955,7 +958,7 @@
             LblFinalGrossAmtDisp.AutoSize = true;
             LblFinalGrossAmtDisp.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalGrossAmtDisp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblFinalGrossAmtDisp.Location = new Point(8, 109);
+            LblFinalGrossAmtDisp.Location = new Point(8, 113);
             LblFinalGrossAmtDisp.Name = "LblFinalGrossAmtDisp";
             LblFinalGrossAmtDisp.Size = new Size(130, 19);
             LblFinalGrossAmtDisp.TabIndex = 6;
@@ -967,7 +970,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.FromArgb(0, 64, 64);
-            label4.Location = new Point(8, 143);
+            label4.Location = new Point(8, 147);
             label4.Name = "label4";
             label4.Size = new Size(130, 19);
             label4.TabIndex = 8;
@@ -978,7 +981,7 @@
             LblFinalNetAmtDisp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblFinalNetAmtDisp.AutoSize = true;
             LblFinalNetAmtDisp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblFinalNetAmtDisp.Location = new Point(8, 181);
+            LblFinalNetAmtDisp.Location = new Point(8, 184);
             LblFinalNetAmtDisp.Name = "LblFinalNetAmtDisp";
             LblFinalNetAmtDisp.Size = new Size(130, 23);
             LblFinalNetAmtDisp.TabIndex = 10;
@@ -990,7 +993,7 @@
             LblFinalBalanceAmountDisp.AutoSize = true;
             LblFinalBalanceAmountDisp.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalBalanceAmountDisp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblFinalBalanceAmountDisp.Location = new Point(8, 397);
+            LblFinalBalanceAmountDisp.Location = new Point(8, 456);
             LblFinalBalanceAmountDisp.Name = "LblFinalBalanceAmountDisp";
             LblFinalBalanceAmountDisp.Size = new Size(130, 18);
             LblFinalBalanceAmountDisp.TabIndex = 15;
@@ -1001,10 +1004,10 @@
             tableLayoutPanel4.SetColumnSpan(BtnSave, 3);
             BtnSave.Dock = DockStyle.Fill;
             BtnSave.ForeColor = Color.Maroon;
-            BtnSave.Location = new Point(5, 421);
+            BtnSave.Location = new Point(5, 480);
             BtnSave.Margin = new Padding(0, 3, 0, 3);
             BtnSave.Name = "BtnSave";
-            BtnSave.Size = new Size(302, 54);
+            BtnSave.Size = new Size(307, 56);
             BtnSave.TabIndex = 17;
             BtnSave.Text = "&Save && Print";
             BtnSave.UseVisualStyleBackColor = true;
@@ -1016,9 +1019,9 @@
             LblFinalBalanceAmount.AutoSize = true;
             LblFinalBalanceAmount.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalBalanceAmount.ForeColor = Color.Maroon;
-            LblFinalBalanceAmount.Location = new Point(153, 394);
+            LblFinalBalanceAmount.Location = new Point(153, 453);
             LblFinalBalanceAmount.Name = "LblFinalBalanceAmount";
-            LblFinalBalanceAmount.Size = new Size(151, 23);
+            LblFinalBalanceAmount.Size = new Size(156, 23);
             LblFinalBalanceAmount.TabIndex = 16;
             LblFinalBalanceAmount.Text = "0.00";
             LblFinalBalanceAmount.TextAlign = ContentAlignment.MiddleRight;
@@ -1029,9 +1032,9 @@
             LblFinalNetAmt.AutoSize = true;
             LblFinalNetAmt.Font = new Font("Calibri", 24F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalNetAmt.ForeColor = Color.Crimson;
-            LblFinalNetAmt.Location = new Point(153, 173);
+            LblFinalNetAmt.Location = new Point(153, 176);
             LblFinalNetAmt.Name = "LblFinalNetAmt";
-            LblFinalNetAmt.Size = new Size(151, 39);
+            LblFinalNetAmt.Size = new Size(156, 39);
             LblFinalNetAmt.TabIndex = 11;
             LblFinalNetAmt.Text = "0.00";
             LblFinalNetAmt.TextAlign = ContentAlignment.MiddleRight;
@@ -1041,9 +1044,9 @@
             LblFinalTotAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblFinalTotAmt.AutoSize = true;
             LblFinalTotAmt.ForeColor = Color.ForestGreen;
-            LblFinalTotAmt.Location = new Point(153, 5);
+            LblFinalTotAmt.Location = new Point(153, 6);
             LblFinalTotAmt.Name = "LblFinalTotAmt";
-            LblFinalTotAmt.Size = new Size(151, 23);
+            LblFinalTotAmt.Size = new Size(156, 23);
             LblFinalTotAmt.TabIndex = 1;
             LblFinalTotAmt.Text = "0.00";
             LblFinalTotAmt.TextAlign = ContentAlignment.MiddleRight;
@@ -1053,9 +1056,9 @@
             LblFinalGrossAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblFinalGrossAmt.AutoSize = true;
             LblFinalGrossAmt.ForeColor = Color.ForestGreen;
-            LblFinalGrossAmt.Location = new Point(153, 107);
+            LblFinalGrossAmt.Location = new Point(153, 111);
             LblFinalGrossAmt.Name = "LblFinalGrossAmt";
-            LblFinalGrossAmt.Size = new Size(151, 23);
+            LblFinalGrossAmt.Size = new Size(156, 23);
             LblFinalGrossAmt.TabIndex = 7;
             LblFinalGrossAmt.Text = "0.00";
             LblFinalGrossAmt.TextAlign = ContentAlignment.MiddleRight;
@@ -1065,9 +1068,9 @@
             LblFinalRoundOffAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblFinalRoundOffAmt.AutoSize = true;
             LblFinalRoundOffAmt.ForeColor = Color.ForestGreen;
-            LblFinalRoundOffAmt.Location = new Point(153, 141);
+            LblFinalRoundOffAmt.Location = new Point(153, 145);
             LblFinalRoundOffAmt.Name = "LblFinalRoundOffAmt";
-            LblFinalRoundOffAmt.Size = new Size(151, 23);
+            LblFinalRoundOffAmt.Size = new Size(156, 23);
             LblFinalRoundOffAmt.TabIndex = 9;
             LblFinalRoundOffAmt.Text = "0.00";
             LblFinalRoundOffAmt.TextAlign = ContentAlignment.MiddleRight;
@@ -1077,7 +1080,7 @@
             TxtFinalDiscPer.Anchor = AnchorStyles.Right;
             TxtFinalDiscPer.BackColor = Color.WhiteSmoke;
             TxtFinalDiscPer.ForeColor = Color.ForestGreen;
-            TxtFinalDiscPer.Location = new Point(216, 37);
+            TxtFinalDiscPer.Location = new Point(221, 38);
             TxtFinalDiscPer.Name = "TxtFinalDiscPer";
             TxtFinalDiscPer.Size = new Size(88, 31);
             TxtFinalDiscPer.TabIndex = 3;
@@ -1095,7 +1098,7 @@
             TxtFinalDiscAmt.Anchor = AnchorStyles.Right;
             TxtFinalDiscAmt.BackColor = Color.WhiteSmoke;
             TxtFinalDiscAmt.ForeColor = Color.ForestGreen;
-            TxtFinalDiscAmt.Location = new Point(216, 71);
+            TxtFinalDiscAmt.Location = new Point(221, 73);
             TxtFinalDiscAmt.Name = "TxtFinalDiscAmt";
             TxtFinalDiscAmt.Size = new Size(88, 31);
             TxtFinalDiscAmt.TabIndex = 5;
@@ -1115,10 +1118,10 @@
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             groupBox1.ForeColor = Color.FromArgb(0, 64, 64);
-            groupBox1.Location = new Point(6, 217);
+            groupBox1.Location = new Point(6, 219);
             groupBox1.Margin = new Padding(1);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(300, 136);
+            groupBox1.Size = new Size(305, 193);
             groupBox1.TabIndex = 12;
             groupBox1.TabStop = false;
             groupBox1.Text = "Payment Details";
@@ -1134,27 +1137,31 @@
             tableLayoutPanel5.Controls.Add(TxtPaymentDetCash, 1, 0);
             tableLayoutPanel5.Controls.Add(TxtPaymentDetUpi, 1, 1);
             tableLayoutPanel5.Controls.Add(TxtPaymentDetCard, 1, 2);
+            tableLayoutPanel5.Controls.Add(label8, 0, 3);
+            tableLayoutPanel5.Controls.Add(TxtPaymentDetGPay, 1, 3);
+            tableLayoutPanel5.Controls.Add(label9, 0, 4);
+            tableLayoutPanel5.Controls.Add(TxtPaymentDetCredit, 1, 4);
             tableLayoutPanel5.Dock = DockStyle.Fill;
             tableLayoutPanel5.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             tableLayoutPanel5.Location = new Point(3, 19);
             tableLayoutPanel5.Margin = new Padding(0);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
-            tableLayoutPanel5.RowCount = 3;
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333359F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333359F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel5.Size = new Size(294, 114);
+            tableLayoutPanel5.RowCount = 5;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel5.Size = new Size(299, 171);
             tableLayoutPanel5.TabIndex = 0;
             // 
             // label12
             // 
             label12.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label12.AutoSize = true;
-            label12.Location = new Point(3, 9);
+            label12.Location = new Point(3, 7);
             label12.Name = "label12";
-            label12.Size = new Size(141, 19);
+            label12.Size = new Size(143, 19);
             label12.TabIndex = 0;
             label12.Text = "Cash";
             // 
@@ -1162,19 +1169,19 @@
             // 
             label13.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label13.AutoSize = true;
-            label13.Location = new Point(3, 47);
+            label13.Location = new Point(3, 41);
             label13.Name = "label13";
-            label13.Size = new Size(141, 19);
+            label13.Size = new Size(143, 19);
             label13.TabIndex = 2;
-            label13.Text = "UPI";
+            label13.Text = "UPI/Paytm";
             // 
             // label14
             // 
             label14.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label14.AutoSize = true;
-            label14.Location = new Point(3, 85);
+            label14.Location = new Point(3, 75);
             label14.Name = "label14";
-            label14.Size = new Size(141, 19);
+            label14.Size = new Size(143, 19);
             label14.TabIndex = 4;
             label14.Text = "Card";
             // 
@@ -1184,9 +1191,10 @@
             TxtPaymentDetCash.BackColor = Color.WhiteSmoke;
             TxtPaymentDetCash.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             TxtPaymentDetCash.ForeColor = Color.ForestGreen;
-            TxtPaymentDetCash.Location = new Point(150, 3);
+            TxtPaymentDetCash.Location = new Point(152, 3);
+            TxtPaymentDetCash.MaxLength = 13;
             TxtPaymentDetCash.Name = "TxtPaymentDetCash";
-            TxtPaymentDetCash.Size = new Size(141, 31);
+            TxtPaymentDetCash.Size = new Size(144, 31);
             TxtPaymentDetCash.TabIndex = 1;
             TxtPaymentDetCash.Text = "0.00";
             TxtPaymentDetCash.TextAlign = HorizontalAlignment.Right;
@@ -1203,9 +1211,10 @@
             TxtPaymentDetUpi.BackColor = Color.WhiteSmoke;
             TxtPaymentDetUpi.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             TxtPaymentDetUpi.ForeColor = Color.ForestGreen;
-            TxtPaymentDetUpi.Location = new Point(150, 41);
+            TxtPaymentDetUpi.Location = new Point(152, 37);
+            TxtPaymentDetUpi.MaxLength = 13;
             TxtPaymentDetUpi.Name = "TxtPaymentDetUpi";
-            TxtPaymentDetUpi.Size = new Size(141, 31);
+            TxtPaymentDetUpi.Size = new Size(144, 31);
             TxtPaymentDetUpi.TabIndex = 3;
             TxtPaymentDetUpi.Text = "0.00";
             TxtPaymentDetUpi.TextAlign = HorizontalAlignment.Right;
@@ -1222,9 +1231,10 @@
             TxtPaymentDetCard.BackColor = Color.WhiteSmoke;
             TxtPaymentDetCard.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             TxtPaymentDetCard.ForeColor = Color.ForestGreen;
-            TxtPaymentDetCard.Location = new Point(150, 79);
+            TxtPaymentDetCard.Location = new Point(152, 71);
+            TxtPaymentDetCard.MaxLength = 13;
             TxtPaymentDetCard.Name = "TxtPaymentDetCard";
-            TxtPaymentDetCard.Size = new Size(141, 31);
+            TxtPaymentDetCard.Size = new Size(144, 31);
             TxtPaymentDetCard.TabIndex = 5;
             TxtPaymentDetCard.Text = "0.00";
             TxtPaymentDetCard.TextAlign = HorizontalAlignment.Right;
@@ -1234,6 +1244,66 @@
             TxtPaymentDetCard.KeyPress += Decimal_KeyPress;
             TxtPaymentDetCard.Leave += TextBox_Leave;
             TxtPaymentDetCard.Validated += TxtPaymentDetCard_Validated;
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label8.AutoSize = true;
+            label8.Location = new Point(3, 109);
+            label8.Name = "label8";
+            label8.Size = new Size(143, 19);
+            label8.TabIndex = 4;
+            label8.Text = "GPay";
+            // 
+            // TxtPaymentDetGPay
+            // 
+            TxtPaymentDetGPay.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtPaymentDetGPay.BackColor = Color.WhiteSmoke;
+            TxtPaymentDetGPay.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            TxtPaymentDetGPay.ForeColor = Color.ForestGreen;
+            TxtPaymentDetGPay.Location = new Point(152, 105);
+            TxtPaymentDetGPay.MaxLength = 13;
+            TxtPaymentDetGPay.Name = "TxtPaymentDetGPay";
+            TxtPaymentDetGPay.Size = new Size(144, 31);
+            TxtPaymentDetGPay.TabIndex = 5;
+            TxtPaymentDetGPay.Text = "0.00";
+            TxtPaymentDetGPay.TextAlign = HorizontalAlignment.Right;
+            TxtPaymentDetGPay.TextChanged += TxtPaymentDetGPay_TextChanged;
+            TxtPaymentDetGPay.Enter += TextBox_Enter;
+            TxtPaymentDetGPay.KeyDown += TxtPaymentDetGPay_KeyDown;
+            TxtPaymentDetGPay.KeyPress += Decimal_KeyPress;
+            TxtPaymentDetGPay.Leave += TextBox_Leave;
+            TxtPaymentDetGPay.Validated += TxtPaymentDetGPay_Validated;
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label9.AutoSize = true;
+            label9.Location = new Point(3, 144);
+            label9.Name = "label9";
+            label9.Size = new Size(143, 19);
+            label9.TabIndex = 4;
+            label9.Text = "Credit";
+            // 
+            // TxtPaymentDetCredit
+            // 
+            TxtPaymentDetCredit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtPaymentDetCredit.BackColor = Color.WhiteSmoke;
+            TxtPaymentDetCredit.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            TxtPaymentDetCredit.ForeColor = Color.ForestGreen;
+            TxtPaymentDetCredit.Location = new Point(152, 139);
+            TxtPaymentDetCredit.MaxLength = 13;
+            TxtPaymentDetCredit.Name = "TxtPaymentDetCredit";
+            TxtPaymentDetCredit.Size = new Size(144, 31);
+            TxtPaymentDetCredit.TabIndex = 5;
+            TxtPaymentDetCredit.Text = "0.00";
+            TxtPaymentDetCredit.TextAlign = HorizontalAlignment.Right;
+            TxtPaymentDetCredit.TextChanged += TxtPaymentDetCredit_TextChanged;
+            TxtPaymentDetCredit.Enter += TextBox_Enter;
+            TxtPaymentDetCredit.KeyDown += TxtPaymentDetCredit_KeyDown;
+            TxtPaymentDetCredit.KeyPress += Decimal_KeyPress;
+            TxtPaymentDetCredit.Leave += TextBox_Leave;
+            TxtPaymentDetCredit.Validated += TxtPaymentDetCredit_Validated;
             // 
             // tableLayoutPanel6
             // 
@@ -1247,20 +1317,20 @@
             tableLayoutPanel6.Controls.Add(BtnExit, 2, 0);
             tableLayoutPanel6.Controls.Add(label19, 0, 0);
             tableLayoutPanel6.Dock = DockStyle.Fill;
-            tableLayoutPanel6.Location = new Point(3, 628);
+            tableLayoutPanel6.Location = new Point(3, 706);
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel6.Size = new Size(1364, 48);
+            tableLayoutPanel6.Size = new Size(1389, 54);
             tableLayoutPanel6.TabIndex = 2;
             // 
             // BtnCancelAll
             // 
             BtnCancelAll.Dock = DockStyle.Fill;
             BtnCancelAll.ForeColor = Color.SaddleBrown;
-            BtnCancelAll.Location = new Point(1054, 4);
+            BtnCancelAll.Location = new Point(1073, 4);
             BtnCancelAll.Name = "BtnCancelAll";
-            BtnCancelAll.Size = new Size(149, 40);
+            BtnCancelAll.Size = new Size(152, 46);
             BtnCancelAll.TabIndex = 1;
             BtnCancelAll.Text = "Cance&l All";
             BtnCancelAll.UseVisualStyleBackColor = true;
@@ -1270,9 +1340,9 @@
             // 
             BtnExit.Dock = DockStyle.Fill;
             BtnExit.ForeColor = Color.Crimson;
-            BtnExit.Location = new Point(1210, 4);
+            BtnExit.Location = new Point(1232, 4);
             BtnExit.Name = "BtnExit";
-            BtnExit.Size = new Size(150, 40);
+            BtnExit.Size = new Size(153, 46);
             BtnExit.TabIndex = 2;
             BtnExit.Text = "E&xit";
             BtnExit.UseVisualStyleBackColor = true;
@@ -1284,9 +1354,9 @@
             label19.AutoSize = true;
             label19.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             label19.ForeColor = Color.FromArgb(0, 64, 64);
-            label19.Location = new Point(4, 1);
+            label19.Location = new Point(4, 4);
             label19.Name = "label19";
-            label19.Size = new Size(1043, 45);
+            label19.Size = new Size(1062, 45);
             label19.TabIndex = 0;
             label19.Text = resources.GetString("label19.Text");
             // 
@@ -1299,7 +1369,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1370, 679);
+            ClientSize = new Size(1395, 763);
             Controls.Add(tableLayoutPanel1);
             Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
@@ -1316,12 +1386,14 @@
             ((System.ComponentModel.ISupportInitialize)DgvProductSearch).EndInit();
             pnlCartEntry.ResumeLayout(false);
             tlpProDetails.ResumeLayout(false);
-            tableLayoutPanel7.ResumeLayout(false);
-            tableLayoutPanel7.PerformLayout();
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel2.PerformLayout();
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            tableLayoutPanel7.ResumeLayout(false);
+            tableLayoutPanel7.PerformLayout();
+            tableLayoutPanel8.ResumeLayout(false);
+            tableLayoutPanel8.PerformLayout();
             TLP_RateBasedWt.ResumeLayout(false);
             TLP_RateBasedWt.PerformLayout();
             panel1.ResumeLayout(false);
@@ -1347,9 +1419,7 @@
         private DataGridView DgvProductSearch;
         private Panel pnlCartEntry;
         private TableLayoutPanel tlpProDetails;
-        private Label LblProName;
         private TextBox TxtProCode;
-        private TextBox TxtProName;
         private Label LblProTName;
         private TextBox TxtProTName;
         private TableLayoutPanel tableLayoutPanel3;
@@ -1413,5 +1483,10 @@
         private Label LblDiscFromMRP;
         private Label LblPurchaseAmt;
         private TextBox TxtDiscFromMRP;
+        private Label label8;
+        private TextBox TxtPaymentDetGPay;
+        private Label label9;
+        private TextBox TxtPaymentDetCredit;
+        private TableLayoutPanel tableLayoutPanel8;
     }
 }
