@@ -392,6 +392,9 @@ namespace VegetableBox
 
                 if (e.KeyCode == Keys.F1)
                     CmbCustomerName.Focus();
+
+                if (e.KeyCode == Keys.Escape)
+                    BtnExit.PerformClick();
             }
             catch (Exception ex)
             {
@@ -439,6 +442,10 @@ namespace VegetableBox
 
                 this.ClearEntry();
                 this.ClearAndLoadView();
+
+                this.ChkFltrApplyDate.Checked = false;
+                this.ChkFltrApplyDate.Checked = true;
+
                 this.CmbCustomerName.Focus();
             }
             catch (Exception ex)

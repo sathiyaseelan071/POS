@@ -484,6 +484,8 @@ namespace VegetableBox
                     //SendKeys.Send("{TAB}");
                 }
 
+                if (e.KeyCode == Keys.Escape)
+                    BtnExit.PerformClick();
             }
             catch (Exception ex)
             {

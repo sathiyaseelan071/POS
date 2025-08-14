@@ -172,6 +172,7 @@
             Name = "FrmBackup";
             Text = "Backup";
             Load += FrmBackup_Load;
+            KeyDown += FrmBackup_KeyDown;
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);

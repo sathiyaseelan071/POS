@@ -194,6 +194,9 @@ namespace VegetableBox
 
                 if (e.KeyCode == Keys.F1)
                     TxtFilterVendor.Focus();
+
+                if (e.KeyCode == Keys.Escape)
+                    BtnExit.PerformClick();
             }
             catch (Exception ex)
             {
