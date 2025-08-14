@@ -117,5 +117,10 @@ namespace VegetableBox
             }
         }
 
+        private void FrmBackup_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                BtnExit.PerformClick();
+        }
     }
 }
