@@ -303,7 +303,7 @@ namespace VegetableBox
                 clsFrmCustomerMaster.Address = this.TxtAddress.Text.Trim();
                 clsFrmCustomerMaster.Active = (string)this.CmbActive.SelectedValue;
 
-                if(clsFrmCustomerMaster.GetRecordCount() >= 1)
+                if (clsFrmCustomerMaster.GetRecordCount() >= 1)
                 {
                     this.ErrorProvider.SetError(this.TxtCustomerName, "Customer Name already exists. Please enter a different name.");
                     throw new Exception("Customer Name already exists. Please enter a different name.");

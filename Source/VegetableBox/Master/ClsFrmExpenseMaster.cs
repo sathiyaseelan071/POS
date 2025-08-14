@@ -103,11 +103,11 @@ namespace VegetableBox
             }
         }
 
-        private DataTable _VendorMaster = new DataTable();
-        internal DataTable VendorMaster
+        private DataTable _ExpenseMaster = new DataTable();
+        internal DataTable ExpenseMaster
         {
-            get { return _VendorMaster; }
-            set { _VendorMaster = value; }
+            get { return _ExpenseMaster; }
+            set { _ExpenseMaster = value; }
         }
 
         internal void View()
@@ -119,8 +119,8 @@ namespace VegetableBox
 
                 String SqlQuery = "SpGetExpenseMaster";
 
-                _VendorMaster = new DataTable();
-                _VendorMaster = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
+                _ExpenseMaster = new DataTable();
+                _ExpenseMaster = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
             }
             catch
             {
@@ -134,10 +134,11 @@ namespace VegetableBox
             {
                 SqlIntract _SqlIntract = new SqlIntract();
 
-                String SqlQuery = "SELECT COUNT(*) AS RecordCount FROM [dbo].[ExpenseMaster] WHERE [Name] = @Name";
+                String SqlQuery = "SELECT COUNT(*) AS RecordCount FROM [dbo].[ExpenseMaster] WHERE [Name] = @Name AND [Code] != @Code";
 
                 List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
                 _ListSqlParameter.Add(new SqlParameter("@Name", this.Name));
+                _ListSqlParameter.Add(new SqlParameter("@Code", this.Code));
 
                 int Result = (int)_SqlIntract.ExecuteScalar(SqlQuery, CommandType.Text, _ListSqlParameter);
 

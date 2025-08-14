@@ -47,6 +47,10 @@ namespace VegetableBox
                 this.LoadControls();
                 this.ClearEntry();
                 this.ClearAndLoadView();
+
+                this.ChkFltrApplyDate.Checked = false;
+                this.ChkFltrApplyDate.Checked = true;
+
                 this.CmbCustomerName.Focus();
             }
             catch (Exception ex)

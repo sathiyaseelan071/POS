@@ -307,6 +307,12 @@ namespace VegetableBox
                 clsVendorMaster.Address = this.TxtAddress.Text.Trim();
                 clsVendorMaster.Active = (string)this.CmbActive.SelectedValue;
 
+                if (clsVendorMaster.GetRecordCount() > 1)
+                {
+                    this.ErrorProvider.SetError(this.TxtVendorName, "Vendor Name already exists. Please enter a different name.");
+                    throw new Exception("Vendor Name already exists. Please enter a different name.");
+                }
+
                 if (BtnSave.Text.ToUpper() == "&SAVE")
                 {
                     clsVendorMaster.Save();
@@ -502,7 +508,7 @@ namespace VegetableBox
             internal static string ShortName = "ShortName";
             internal static string MobileNo = "MobileNo";
             internal static string Address = "Address";
-            
+
             internal static string ActiveStatusCode = "ActiveStatusCode";
             internal static string Active = "Active";
             internal static string CreatedBy = "CreatedBy";

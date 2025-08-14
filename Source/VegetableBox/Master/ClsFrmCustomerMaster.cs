@@ -152,10 +152,11 @@ namespace VegetableBox
             {
                 SqlIntract _SqlIntract = new SqlIntract();
 
-                String SqlQuery = "SELECT COUNT(*) AS RecordCount FROM [dbo].[Customer] WHERE [Name] = @Name";
+                String SqlQuery = "SELECT COUNT(*) AS RecordCount FROM [dbo].[Customer] WHERE [Name] = @Name AND [Code] != @Code";
 
                 List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
                 _ListSqlParameter.Add(new SqlParameter("@Name", this.Name));
+                _ListSqlParameter.Add(new SqlParameter("@Code", this.Code));
 
                 int Result = (int)_SqlIntract.ExecuteScalar(SqlQuery, CommandType.Text, _ListSqlParameter);
 

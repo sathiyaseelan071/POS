@@ -170,7 +170,7 @@ namespace VegetableBox
             try
             {
                 //CashOnly
-                this.TxtCashOnlyOpeningBalance.Text = string.Empty;
+                //this.TxtCashOnlyOpeningBalance.Text = string.Empty;
                 this.TxtCashOnlySales.Text = string.Empty;
                 this.TxtCashOnlyCustomerCreditRepayment.Text = string.Empty;
                 this.TxtCashOnlyUndiyalWithdraw.Text = string.Empty;
@@ -859,7 +859,7 @@ namespace VegetableBox
             {
                 //Cash Only Calculations
 
-                this.TxtCashOnlyOpeningBalance.Text = "0.00";
+                //this.TxtCashOnlyOpeningBalance.Text = "0.00";
                 this.TxtCashOnlySales.Text = this.ToConvertDecimalFormatString(this.TxtSalesCash.Text);
                 this.TxtCashOnlyCustomerCreditRepayment.Text = this.ToConvertDecimalFormatString(this.TxtCustomerDebitCash.Text);
                 this.TxtCashOnlyUndiyalWithdraw.Text = this.ToConvertDecimalFormatString(this.TxtUndiyalWithdraw.Text);

@@ -176,7 +176,7 @@
             // 
             // BtnSave
             // 
-            BtnSave.BackColor = Color.SeaGreen;
+            BtnSave.BackColor = SystemColors.Control;
             BtnSave.Dock = DockStyle.Fill;
             BtnSave.ForeColor = Color.DarkGreen;
             BtnSave.Location = new Point(41, 3);
@@ -184,12 +184,12 @@
             BtnSave.Size = new Size(80, 30);
             BtnSave.TabIndex = 0;
             BtnSave.Text = "&Save";
-            BtnSave.UseVisualStyleBackColor = true;
+            BtnSave.UseVisualStyleBackColor = false;
             BtnSave.Click += BtnSave_Click;
             // 
             // BtnCancel
             // 
-            BtnCancel.BackColor = Color.SeaGreen;
+            BtnCancel.BackColor = SystemColors.Control;
             BtnCancel.Dock = DockStyle.Fill;
             BtnCancel.ForeColor = Color.Red;
             BtnCancel.Location = new Point(127, 3);
@@ -197,7 +197,7 @@
             BtnCancel.Size = new Size(81, 30);
             BtnCancel.TabIndex = 1;
             BtnCancel.Text = "&Cancel";
-            BtnCancel.UseVisualStyleBackColor = true;
+            BtnCancel.UseVisualStyleBackColor = false;
             BtnCancel.Click += BtnCancel_Click;
             // 
             // TxtVendorName
@@ -221,7 +221,7 @@
             CmbActive.FlatStyle = FlatStyle.Flat;
             CmbActive.ForeColor = Color.DarkGreen;
             CmbActive.FormattingEnabled = true;
-            CmbActive.Location = new Point(167, 154);
+            CmbActive.Location = new Point(167, 152);
             CmbActive.Name = "CmbActive";
             CmbActive.Size = new Size(121, 27);
             CmbActive.TabIndex = 9;
@@ -395,7 +395,7 @@
             // 
             // BtnExit
             // 
-            BtnExit.BackColor = Color.SeaGreen;
+            BtnExit.BackColor = SystemColors.Control;
             BtnExit.Dock = DockStyle.Fill;
             BtnExit.ForeColor = Color.Crimson;
             BtnExit.Location = new Point(636, 3);
@@ -403,12 +403,12 @@
             BtnExit.Size = new Size(71, 31);
             BtnExit.TabIndex = 3;
             BtnExit.Text = "E&xit";
-            BtnExit.UseVisualStyleBackColor = true;
+            BtnExit.UseVisualStyleBackColor = false;
             BtnExit.Click += BtnExit_Click;
             // 
             // BtnEdit
             // 
-            BtnEdit.BackColor = Color.SeaGreen;
+            BtnEdit.BackColor = SystemColors.Control;
             BtnEdit.Dock = DockStyle.Fill;
             BtnEdit.ForeColor = Color.Brown;
             BtnEdit.Location = new Point(561, 3);
@@ -416,20 +416,20 @@
             BtnEdit.Size = new Size(69, 31);
             BtnEdit.TabIndex = 2;
             BtnEdit.Text = "&Edit";
-            BtnEdit.UseVisualStyleBackColor = true;
+            BtnEdit.UseVisualStyleBackColor = false;
             BtnEdit.Click += BtnEdit_Click;
             // 
             // BtnDelete
             // 
-            BtnDelete.BackColor = Color.SeaGreen;
+            BtnDelete.BackColor = SystemColors.Control;
             BtnDelete.Dock = DockStyle.Fill;
             BtnDelete.ForeColor = Color.IndianRed;
             BtnDelete.Location = new Point(486, 3);
             BtnDelete.Name = "BtnDelete";
             BtnDelete.Size = new Size(69, 31);
             BtnDelete.TabIndex = 1;
-            BtnDelete.Text = "Delete";
-            BtnDelete.UseVisualStyleBackColor = true;
+            BtnDelete.Text = "&Delete";
+            BtnDelete.UseVisualStyleBackColor = false;
             BtnDelete.Visible = false;
             // 
             // LblHelp
@@ -527,7 +527,7 @@
             CmbFilterActive.FlatStyle = FlatStyle.Flat;
             CmbFilterActive.ForeColor = Color.DarkGreen;
             CmbFilterActive.FormattingEnabled = true;
-            CmbFilterActive.Location = new Point(507, 25);
+            CmbFilterActive.Location = new Point(507, 26);
             CmbFilterActive.Name = "CmbFilterActive";
             CmbFilterActive.Size = new Size(83, 27);
             CmbFilterActive.TabIndex = 4;

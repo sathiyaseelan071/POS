@@ -39,6 +39,10 @@ namespace VegetableBox
                 this.LoadControls();
                 this.ClearEntry();
                 this.ClearAndLoadView();
+
+                this.ChkFltrApplyDate.Checked = false;
+                this.ChkFltrApplyDate.Checked = true;
+
                 this.CmbVendorName.Focus();
             }
             catch (Exception ex)
@@ -422,11 +426,26 @@ namespace VegetableBox
         {
             try
             {
+                if (e.KeyCode == Keys.Enter && CmbVendorName.Focused)
+                {
+                    TxtBillNo.Focus();
+                    return;
+                }
+
+                if (e.KeyCode == Keys.Enter && CmbPurchaseEntryStatus.Focused)
+                {
+                    TxtRemarks.Focus();
+                    return;
+                }
+
+                if (e.KeyCode == Keys.Down && CmbPurchaseEntryStatus.Focused)
+                {
+                    CmbPurchaseEntryStatus.Focus();
+                    return;
+                }
+
                 if (e.KeyCode == Keys.Enter && !CmbVendorName.Focused)
                     SendKeys.Send("{TAB}");
-
-                if (e.KeyCode == Keys.Enter && CmbVendorName.Focused)
-                    TxtBillNo.Focus();
 
                 if (e.Control && e.KeyCode == Keys.G)
                     DGView.Focus();
@@ -945,7 +964,7 @@ namespace VegetableBox
             {
                 this.CmbBillCheckedBy.Enabled = false;
                 this.CmbMissingItemReceivedBy.Enabled = false;
-                this.CmbPurchaseEntryStatus.Enabled = false;
+                if(!this.CmbPurchaseEntryStatus.Focused) this.CmbPurchaseEntryStatus.Enabled = false;
 
                 if (this.CmbBillChecked.SelectedValue == null || (this.CmbBillChecked.SelectedValue != null && this.CmbBillChecked.SelectedValue.ToString() == YesNoValues.No))
                 {
@@ -976,6 +995,8 @@ namespace VegetableBox
 
                     this.TxtItemsCount.Enabled = true;
                     this.CmbIsItemMissing.Enabled = true;
+                    this.CmbPurchaseEntryStatus.Enabled = true;
+
 
                     if (this.CmbIsItemMissing.SelectedValue != null && this.CmbIsItemMissing.SelectedValue.ToString() == YesNoValues.Yes)
                     {
@@ -1000,8 +1021,6 @@ namespace VegetableBox
                     {
                         this.CmbMissingItemReceivedBy.SelectedIndex = -1;
                     }
-
-                    this.CmbPurchaseEntryStatus.Enabled = true;
 
                     if (this.CmbPurchaseEntryStatus.SelectedValue != null && this.CmbPurchaseEntryStatus.SelectedValue.ToString() != ProgressStatusValues.NotStarted)
                     {

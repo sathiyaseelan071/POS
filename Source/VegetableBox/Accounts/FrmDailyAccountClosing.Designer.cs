@@ -229,7 +229,7 @@
             TlpMain.Name = "TlpMain";
             TlpMain.RowCount = 1;
             TlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TlpMain.Size = new Size(1121, 739);
+            TlpMain.Size = new Size(1121, 700);
             TlpMain.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -246,7 +246,7 @@
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 41.84953F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 58.15047F));
-            tableLayoutPanel1.Size = new Size(1115, 733);
+            tableLayoutPanel1.Size = new Size(1115, 694);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel11
@@ -272,7 +272,7 @@
             tableLayoutPanel11.Name = "tableLayoutPanel11";
             tableLayoutPanel11.RowCount = 1;
             tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel11.Size = new Size(1109, 300);
+            tableLayoutPanel11.Size = new Size(1109, 284);
             tableLayoutPanel11.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -295,7 +295,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 80F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel2.Size = new Size(419, 300);
+            tableLayoutPanel2.Size = new Size(419, 284);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // PnlCash
@@ -303,9 +303,9 @@
             PnlCash.BorderStyle = BorderStyle.FixedSingle;
             PnlCash.Controls.Add(tableLayoutPanel3);
             PnlCash.Dock = DockStyle.Fill;
-            PnlCash.Location = new Point(3, 33);
+            PnlCash.Location = new Point(3, 31);
             PnlCash.Name = "PnlCash";
-            PnlCash.Size = new Size(203, 234);
+            PnlCash.Size = new Size(203, 221);
             PnlCash.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -354,14 +354,14 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
-            tableLayoutPanel3.Size = new Size(201, 232);
+            tableLayoutPanel3.Size = new Size(201, 219);
             tableLayoutPanel3.TabIndex = 0;
             // 
             // label3
             // 
             label3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new Point(8, 32);
+            label3.Location = new Point(8, 30);
             label3.Name = "label3";
             label3.Size = new Size(57, 18);
             label3.TabIndex = 3;
@@ -372,7 +372,7 @@
             // 
             label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Location = new Point(8, 56);
+            label4.Location = new Point(8, 53);
             label4.Name = "label4";
             label4.Size = new Size(57, 18);
             label4.TabIndex = 6;
@@ -383,7 +383,7 @@
             // 
             label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label5.AutoSize = true;
-            label5.Location = new Point(8, 80);
+            label5.Location = new Point(8, 76);
             label5.Name = "label5";
             label5.Size = new Size(57, 18);
             label5.TabIndex = 9;
@@ -394,7 +394,7 @@
             // 
             label6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label6.AutoSize = true;
-            label6.Location = new Point(8, 104);
+            label6.Location = new Point(8, 99);
             label6.Name = "label6";
             label6.Size = new Size(57, 18);
             label6.TabIndex = 12;
@@ -405,7 +405,7 @@
             // 
             label7.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label7.AutoSize = true;
-            label7.Location = new Point(8, 128);
+            label7.Location = new Point(8, 122);
             label7.Name = "label7";
             label7.Size = new Size(57, 18);
             label7.TabIndex = 15;
@@ -416,7 +416,7 @@
             // 
             label8.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label8.AutoSize = true;
-            label8.Location = new Point(8, 152);
+            label8.Location = new Point(8, 145);
             label8.Name = "label8";
             label8.Size = new Size(57, 18);
             label8.TabIndex = 18;
@@ -427,7 +427,7 @@
             // 
             label9.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label9.AutoSize = true;
-            label9.Location = new Point(8, 176);
+            label9.Location = new Point(8, 168);
             label9.Name = "label9";
             label9.Size = new Size(57, 18);
             label9.TabIndex = 21;
@@ -439,9 +439,9 @@
             label10.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label10.AutoSize = true;
             tableLayoutPanel3.SetColumnSpan(label10, 2);
-            label10.Location = new Point(8, 197);
+            label10.Location = new Point(8, 189);
             label10.Name = "label10";
-            label10.Size = new Size(120, 30);
+            label10.Size = new Size(120, 25);
             label10.TabIndex = 24;
             label10.Text = "Cash Total Amount :";
             label10.TextAlign = ContentAlignment.MiddleRight;
@@ -449,7 +449,7 @@
             // TxtCash500Amt
             // 
             TxtCash500Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash500Amt.Location = new Point(134, 32);
+            TxtCash500Amt.Location = new Point(134, 31);
             TxtCash500Amt.Name = "TxtCash500Amt";
             TxtCash500Amt.ReadOnly = true;
             TxtCash500Amt.Size = new Size(59, 26);
@@ -459,7 +459,7 @@
             // TxtCash100Count
             // 
             TxtCash100Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash100Count.Location = new Point(71, 80);
+            TxtCash100Count.Location = new Point(71, 77);
             TxtCash100Count.MaxLength = 3;
             TxtCash100Count.Name = "TxtCash100Count";
             TxtCash100Count.Size = new Size(57, 26);
@@ -473,7 +473,7 @@
             // TxtCash50Count
             // 
             TxtCash50Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash50Count.Location = new Point(71, 104);
+            TxtCash50Count.Location = new Point(71, 100);
             TxtCash50Count.MaxLength = 3;
             TxtCash50Count.Name = "TxtCash50Count";
             TxtCash50Count.Size = new Size(57, 26);
@@ -487,7 +487,7 @@
             // TxtCash20Count
             // 
             TxtCash20Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash20Count.Location = new Point(71, 128);
+            TxtCash20Count.Location = new Point(71, 123);
             TxtCash20Count.MaxLength = 3;
             TxtCash20Count.Name = "TxtCash20Count";
             TxtCash20Count.Size = new Size(57, 26);
@@ -501,7 +501,7 @@
             // TxtCash10Count
             // 
             TxtCash10Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash10Count.Location = new Point(71, 152);
+            TxtCash10Count.Location = new Point(71, 146);
             TxtCash10Count.MaxLength = 3;
             TxtCash10Count.Name = "TxtCash10Count";
             TxtCash10Count.Size = new Size(57, 26);
@@ -515,7 +515,7 @@
             // TxtCash5Count
             // 
             TxtCash5Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash5Count.Location = new Point(71, 176);
+            TxtCash5Count.Location = new Point(71, 169);
             TxtCash5Count.MaxLength = 3;
             TxtCash5Count.Name = "TxtCash5Count";
             TxtCash5Count.Size = new Size(57, 26);
@@ -529,7 +529,7 @@
             // TxtCash200Count
             // 
             TxtCash200Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash200Count.Location = new Point(71, 56);
+            TxtCash200Count.Location = new Point(71, 54);
             TxtCash200Count.MaxLength = 3;
             TxtCash200Count.Name = "TxtCash200Count";
             TxtCash200Count.Size = new Size(57, 26);
@@ -543,7 +543,7 @@
             // TxtCash200Amt
             // 
             TxtCash200Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash200Amt.Location = new Point(134, 56);
+            TxtCash200Amt.Location = new Point(134, 54);
             TxtCash200Amt.Name = "TxtCash200Amt";
             TxtCash200Amt.ReadOnly = true;
             TxtCash200Amt.Size = new Size(59, 26);
@@ -553,7 +553,7 @@
             // TxtCash100Amt
             // 
             TxtCash100Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash100Amt.Location = new Point(134, 80);
+            TxtCash100Amt.Location = new Point(134, 77);
             TxtCash100Amt.Name = "TxtCash100Amt";
             TxtCash100Amt.ReadOnly = true;
             TxtCash100Amt.Size = new Size(59, 26);
@@ -563,7 +563,7 @@
             // TxtCash50Amt
             // 
             TxtCash50Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash50Amt.Location = new Point(134, 104);
+            TxtCash50Amt.Location = new Point(134, 100);
             TxtCash50Amt.Name = "TxtCash50Amt";
             TxtCash50Amt.ReadOnly = true;
             TxtCash50Amt.Size = new Size(59, 26);
@@ -573,7 +573,7 @@
             // TxtCash20Amt
             // 
             TxtCash20Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash20Amt.Location = new Point(134, 128);
+            TxtCash20Amt.Location = new Point(134, 123);
             TxtCash20Amt.Name = "TxtCash20Amt";
             TxtCash20Amt.ReadOnly = true;
             TxtCash20Amt.Size = new Size(59, 26);
@@ -583,7 +583,7 @@
             // TxtCash10Amt
             // 
             TxtCash10Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash10Amt.Location = new Point(134, 152);
+            TxtCash10Amt.Location = new Point(134, 146);
             TxtCash10Amt.Name = "TxtCash10Amt";
             TxtCash10Amt.ReadOnly = true;
             TxtCash10Amt.Size = new Size(59, 26);
@@ -593,7 +593,7 @@
             // TxtCash5Amt
             // 
             TxtCash5Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash5Amt.Location = new Point(134, 176);
+            TxtCash5Amt.Location = new Point(134, 169);
             TxtCash5Amt.Name = "TxtCash5Amt";
             TxtCash5Amt.ReadOnly = true;
             TxtCash5Amt.Size = new Size(59, 26);
@@ -603,7 +603,7 @@
             // TxtCash500Count
             // 
             TxtCash500Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCash500Count.Location = new Point(71, 32);
+            TxtCash500Count.Location = new Point(71, 31);
             TxtCash500Count.MaxLength = 3;
             TxtCash500Count.Name = "TxtCash500Count";
             TxtCash500Count.Size = new Size(57, 26);
@@ -617,7 +617,7 @@
             // TxtCashTotalAmt
             // 
             TxtCashTotalAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashTotalAmt.Location = new Point(134, 200);
+            TxtCashTotalAmt.Location = new Point(134, 192);
             TxtCashTotalAmt.Name = "TxtCashTotalAmt";
             TxtCashTotalAmt.ReadOnly = true;
             TxtCashTotalAmt.Size = new Size(59, 26);
@@ -662,9 +662,9 @@
             PnlCoin.BorderStyle = BorderStyle.FixedSingle;
             PnlCoin.Controls.Add(tableLayoutPanel4);
             PnlCoin.Dock = DockStyle.Fill;
-            PnlCoin.Location = new Point(212, 33);
+            PnlCoin.Location = new Point(212, 31);
             PnlCoin.Name = "PnlCoin";
-            PnlCoin.Size = new Size(204, 234);
+            PnlCoin.Size = new Size(204, 221);
             PnlCoin.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -705,11 +705,11 @@
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 15.3110046F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 13.875598F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 3.82775116F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
-            tableLayoutPanel4.Size = new Size(202, 232);
+            tableLayoutPanel4.Size = new Size(202, 219);
             tableLayoutPanel4.TabIndex = 0;
             // 
             // label2
@@ -727,7 +727,7 @@
             // 
             label11.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label11.AutoSize = true;
-            label11.Location = new Point(8, 32);
+            label11.Location = new Point(8, 30);
             label11.Name = "label11";
             label11.Size = new Size(57, 18);
             label11.TabIndex = 3;
@@ -738,7 +738,7 @@
             // 
             label12.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label12.AutoSize = true;
-            label12.Location = new Point(8, 56);
+            label12.Location = new Point(8, 53);
             label12.Name = "label12";
             label12.Size = new Size(57, 18);
             label12.TabIndex = 6;
@@ -749,7 +749,7 @@
             // 
             label13.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label13.AutoSize = true;
-            label13.Location = new Point(8, 80);
+            label13.Location = new Point(8, 76);
             label13.Name = "label13";
             label13.Size = new Size(57, 18);
             label13.TabIndex = 9;
@@ -760,7 +760,7 @@
             // 
             label14.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label14.AutoSize = true;
-            label14.Location = new Point(8, 104);
+            label14.Location = new Point(8, 99);
             label14.Name = "label14";
             label14.Size = new Size(57, 18);
             label14.TabIndex = 12;
@@ -771,7 +771,7 @@
             // 
             label15.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label15.AutoSize = true;
-            label15.Location = new Point(8, 128);
+            label15.Location = new Point(8, 127);
             label15.Name = "label15";
             label15.Size = new Size(57, 18);
             label15.TabIndex = 15;
@@ -783,7 +783,7 @@
             label16.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label16.AutoSize = true;
             tableLayoutPanel4.SetColumnSpan(label16, 2);
-            label16.Location = new Point(8, 152);
+            label16.Location = new Point(8, 157);
             label16.Name = "label16";
             label16.Size = new Size(121, 18);
             label16.TabIndex = 18;
@@ -795,9 +795,9 @@
             label18.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label18.AutoSize = true;
             tableLayoutPanel4.SetColumnSpan(label18, 2);
-            label18.Location = new Point(8, 197);
+            label18.Location = new Point(8, 189);
             label18.Name = "label18";
-            label18.Size = new Size(121, 30);
+            label18.Size = new Size(121, 25);
             label18.TabIndex = 20;
             label18.Text = "Coin Total Amount";
             label18.TextAlign = ContentAlignment.MiddleRight;
@@ -805,7 +805,7 @@
             // TxtCoin20Count
             // 
             TxtCoin20Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoin20Count.Location = new Point(71, 32);
+            TxtCoin20Count.Location = new Point(71, 31);
             TxtCoin20Count.MaxLength = 3;
             TxtCoin20Count.Name = "TxtCoin20Count";
             TxtCoin20Count.Size = new Size(58, 26);
@@ -819,7 +819,7 @@
             // TxtCoin10Count
             // 
             TxtCoin10Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoin10Count.Location = new Point(71, 56);
+            TxtCoin10Count.Location = new Point(71, 54);
             TxtCoin10Count.MaxLength = 3;
             TxtCoin10Count.Name = "TxtCoin10Count";
             TxtCoin10Count.Size = new Size(58, 26);
@@ -833,7 +833,7 @@
             // TxtCoin5Count
             // 
             TxtCoin5Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoin5Count.Location = new Point(71, 80);
+            TxtCoin5Count.Location = new Point(71, 77);
             TxtCoin5Count.MaxLength = 3;
             TxtCoin5Count.Name = "TxtCoin5Count";
             TxtCoin5Count.Size = new Size(58, 26);
@@ -847,7 +847,7 @@
             // TxtCoin2Count
             // 
             TxtCoin2Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoin2Count.Location = new Point(71, 104);
+            TxtCoin2Count.Location = new Point(71, 100);
             TxtCoin2Count.MaxLength = 3;
             TxtCoin2Count.Name = "TxtCoin2Count";
             TxtCoin2Count.Size = new Size(58, 26);
@@ -861,7 +861,7 @@
             // TxtCoin1Count
             // 
             TxtCoin1Count.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoin1Count.Location = new Point(71, 128);
+            TxtCoin1Count.Location = new Point(71, 123);
             TxtCoin1Count.MaxLength = 3;
             TxtCoin1Count.Name = "TxtCoin1Count";
             TxtCoin1Count.Size = new Size(58, 26);
@@ -875,7 +875,7 @@
             // TxtCoin20Amt
             // 
             TxtCoin20Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoin20Amt.Location = new Point(135, 32);
+            TxtCoin20Amt.Location = new Point(135, 31);
             TxtCoin20Amt.Name = "TxtCoin20Amt";
             TxtCoin20Amt.ReadOnly = true;
             TxtCoin20Amt.Size = new Size(59, 26);
@@ -885,7 +885,7 @@
             // TxtCoin10Amt
             // 
             TxtCoin10Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoin10Amt.Location = new Point(135, 56);
+            TxtCoin10Amt.Location = new Point(135, 54);
             TxtCoin10Amt.Name = "TxtCoin10Amt";
             TxtCoin10Amt.ReadOnly = true;
             TxtCoin10Amt.Size = new Size(59, 26);
@@ -895,7 +895,7 @@
             // TxtCoin5Amt
             // 
             TxtCoin5Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoin5Amt.Location = new Point(135, 80);
+            TxtCoin5Amt.Location = new Point(135, 77);
             TxtCoin5Amt.Name = "TxtCoin5Amt";
             TxtCoin5Amt.ReadOnly = true;
             TxtCoin5Amt.Size = new Size(59, 26);
@@ -905,7 +905,7 @@
             // TxtCoin2Amt
             // 
             TxtCoin2Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoin2Amt.Location = new Point(135, 104);
+            TxtCoin2Amt.Location = new Point(135, 100);
             TxtCoin2Amt.Name = "TxtCoin2Amt";
             TxtCoin2Amt.ReadOnly = true;
             TxtCoin2Amt.Size = new Size(59, 26);
@@ -915,7 +915,7 @@
             // TxtCoin1Amt
             // 
             TxtCoin1Amt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoin1Amt.Location = new Point(135, 128);
+            TxtCoin1Amt.Location = new Point(135, 123);
             TxtCoin1Amt.Name = "TxtCoin1Amt";
             TxtCoin1Amt.ReadOnly = true;
             TxtCoin1Amt.Size = new Size(59, 26);
@@ -925,7 +925,7 @@
             // TxtCoinPktAmt
             // 
             TxtCoinPktAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoinPktAmt.Location = new Point(135, 152);
+            TxtCoinPktAmt.Location = new Point(135, 155);
             TxtCoinPktAmt.MaxLength = 13;
             TxtCoinPktAmt.Name = "TxtCoinPktAmt";
             TxtCoinPktAmt.Size = new Size(59, 26);
@@ -939,7 +939,7 @@
             // TxtCoinTotalAmt
             // 
             TxtCoinTotalAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoinTotalAmt.Location = new Point(135, 200);
+            TxtCoinTotalAmt.Location = new Point(135, 192);
             TxtCoinTotalAmt.Name = "TxtCoinTotalAmt";
             TxtCoinTotalAmt.ReadOnly = true;
             TxtCoinTotalAmt.Size = new Size(59, 26);
@@ -974,7 +974,7 @@
             label17.AutoSize = true;
             tableLayoutPanel2.SetColumnSpan(label17, 2);
             label17.Font = new Font("Calibri", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
-            label17.Location = new Point(3, 5);
+            label17.Location = new Point(3, 4);
             label17.Name = "label17";
             label17.Size = new Size(413, 19);
             label17.TabIndex = 0;
@@ -991,41 +991,41 @@
             tableLayoutPanel6.Controls.Add(BtnClear, 2, 0);
             tableLayoutPanel6.Controls.Add(BtnEditDenomEntry, 1, 0);
             tableLayoutPanel6.Dock = DockStyle.Fill;
-            tableLayoutPanel6.Location = new Point(209, 270);
+            tableLayoutPanel6.Location = new Point(209, 255);
             tableLayoutPanel6.Margin = new Padding(0);
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.Padding = new Padding(3, 0, 3, 0);
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel6.Size = new Size(210, 30);
+            tableLayoutPanel6.Size = new Size(210, 29);
             tableLayoutPanel6.TabIndex = 1;
             // 
             // BtnProceed
             // 
             BtnProceed.Dock = DockStyle.Fill;
-            BtnProceed.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            BtnProceed.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             BtnProceed.ForeColor = Color.Purple;
             BtnProceed.Location = new Point(3, 0);
             BtnProceed.Margin = new Padding(0);
             BtnProceed.Name = "BtnProceed";
-            BtnProceed.Size = new Size(67, 30);
+            BtnProceed.Size = new Size(67, 29);
             BtnProceed.TabIndex = 21;
             BtnProceed.Text = "&Proceed";
-            BtnProceed.UseVisualStyleBackColor = true;
+            BtnProceed.UseVisualStyleBackColor = false;
             BtnProceed.Click += BtnProceed_Click;
             // 
             // BtnClear
             // 
             BtnClear.Dock = DockStyle.Fill;
-            BtnClear.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            BtnClear.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             BtnClear.ForeColor = Color.Red;
             BtnClear.Location = new Point(137, 0);
             BtnClear.Margin = new Padding(0);
             BtnClear.Name = "BtnClear";
-            BtnClear.Size = new Size(70, 30);
+            BtnClear.Size = new Size(70, 29);
             BtnClear.TabIndex = 21;
             BtnClear.Text = "&Clear";
-            BtnClear.UseVisualStyleBackColor = true;
+            BtnClear.UseVisualStyleBackColor = false;
             BtnClear.Click += BtnClear_Click;
             // 
             // BtnEditDenomEntry
@@ -1036,10 +1036,10 @@
             BtnEditDenomEntry.Location = new Point(70, 0);
             BtnEditDenomEntry.Margin = new Padding(0);
             BtnEditDenomEntry.Name = "BtnEditDenomEntry";
-            BtnEditDenomEntry.Size = new Size(67, 30);
+            BtnEditDenomEntry.Size = new Size(67, 29);
             BtnEditDenomEntry.TabIndex = 21;
             BtnEditDenomEntry.Text = "&Edit Count";
-            BtnEditDenomEntry.UseVisualStyleBackColor = true;
+            BtnEditDenomEntry.UseVisualStyleBackColor = false;
             BtnEditDenomEntry.Click += BtnEditDenomEntry_Click;
             // 
             // tableLayoutPanel13
@@ -1050,12 +1050,12 @@
             tableLayoutPanel13.Controls.Add(TxtTotalCashCoinOnHand, 1, 0);
             tableLayoutPanel13.Controls.Add(label64, 0, 0);
             tableLayoutPanel13.Dock = DockStyle.Fill;
-            tableLayoutPanel13.Location = new Point(0, 270);
+            tableLayoutPanel13.Location = new Point(0, 255);
             tableLayoutPanel13.Margin = new Padding(0);
             tableLayoutPanel13.Name = "tableLayoutPanel13";
             tableLayoutPanel13.RowCount = 1;
             tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel13.Size = new Size(209, 30);
+            tableLayoutPanel13.Size = new Size(209, 29);
             tableLayoutPanel13.TabIndex = 2;
             // 
             // TxtTotalCashCoinOnHand
@@ -1072,7 +1072,7 @@
             // 
             label64.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label64.AutoSize = true;
-            label64.Location = new Point(3, 6);
+            label64.Location = new Point(3, 5);
             label64.Name = "label64";
             label64.Size = new Size(98, 18);
             label64.TabIndex = 8;
@@ -1086,7 +1086,7 @@
             panel7.Dock = DockStyle.Fill;
             panel7.Location = new Point(417, 3);
             panel7.Name = "panel7";
-            panel7.Size = new Size(132, 294);
+            panel7.Size = new Size(132, 278);
             panel7.TabIndex = 6;
             // 
             // tableLayoutPanel12
@@ -1118,16 +1118,16 @@
             tableLayoutPanel12.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
             tableLayoutPanel12.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
             tableLayoutPanel12.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel12.Size = new Size(130, 292);
+            tableLayoutPanel12.Size = new Size(130, 276);
             tableLayoutPanel12.TabIndex = 0;
             // 
             // TxtCustomerDebitCash
             // 
             TxtCustomerDebitCash.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCustomerDebitCash.Location = new Point(56, 52);
+            TxtCustomerDebitCash.Location = new Point(56, 49);
             TxtCustomerDebitCash.Name = "TxtCustomerDebitCash";
             TxtCustomerDebitCash.ReadOnly = true;
-            TxtCustomerDebitCash.Size = new Size(64, 27);
+            TxtCustomerDebitCash.Size = new Size(64, 26);
             TxtCustomerDebitCash.TabIndex = 2;
             TxtCustomerDebitCash.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1135,9 +1135,9 @@
             // 
             label57.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label57.AutoSize = true;
-            label57.Location = new Point(10, 56);
+            label57.Location = new Point(10, 53);
             label57.Name = "label57";
-            label57.Size = new Size(40, 19);
+            label57.Size = new Size(40, 18);
             label57.TabIndex = 1;
             label57.Text = "Cash";
             label57.TextAlign = ContentAlignment.MiddleLeft;
@@ -1146,9 +1146,9 @@
             // 
             label60.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label60.AutoSize = true;
-            label60.Location = new Point(10, 163);
+            label60.Location = new Point(10, 164);
             label60.Name = "label60";
-            label60.Size = new Size(40, 38);
+            label60.Size = new Size(40, 18);
             label60.TabIndex = 7;
             label60.Text = "GPay";
             label60.TextAlign = ContentAlignment.MiddleLeft;
@@ -1161,7 +1161,7 @@
             label61.Font = new Font("Calibri", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
             label61.Location = new Point(10, 7);
             label61.Name = "label61";
-            label61.Size = new Size(110, 39);
+            label61.Size = new Size(110, 37);
             label61.TabIndex = 0;
             label61.Text = "Customer Credit Repayment";
             label61.TextAlign = ContentAlignment.MiddleCenter;
@@ -1169,10 +1169,10 @@
             // TxtCustomerDebitGPay
             // 
             TxtCustomerDebitGPay.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCustomerDebitGPay.Location = new Point(56, 169);
+            TxtCustomerDebitGPay.Location = new Point(56, 160);
             TxtCustomerDebitGPay.Name = "TxtCustomerDebitGPay";
             TxtCustomerDebitGPay.ReadOnly = true;
-            TxtCustomerDebitGPay.Size = new Size(64, 27);
+            TxtCustomerDebitGPay.Size = new Size(64, 26);
             TxtCustomerDebitGPay.TabIndex = 8;
             TxtCustomerDebitGPay.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1180,9 +1180,9 @@
             // 
             label62.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label62.AutoSize = true;
-            label62.Location = new Point(10, 244);
+            label62.Location = new Point(10, 240);
             label62.Name = "label62";
-            label62.Size = new Size(40, 38);
+            label62.Size = new Size(40, 18);
             label62.TabIndex = 9;
             label62.Text = "Total ";
             label62.TextAlign = ContentAlignment.MiddleLeft;
@@ -1190,30 +1190,30 @@
             // TxtCustomerDebitTotal
             // 
             TxtCustomerDebitTotal.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCustomerDebitTotal.Location = new Point(56, 249);
+            TxtCustomerDebitTotal.Location = new Point(56, 236);
             TxtCustomerDebitTotal.Name = "TxtCustomerDebitTotal";
             TxtCustomerDebitTotal.ReadOnly = true;
-            TxtCustomerDebitTotal.Size = new Size(64, 27);
+            TxtCustomerDebitTotal.Size = new Size(64, 26);
             TxtCustomerDebitTotal.TabIndex = 10;
             TxtCustomerDebitTotal.TextAlign = HorizontalAlignment.Right;
             // 
             // TxtCustomerDebitCard
             // 
             TxtCustomerDebitCard.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCustomerDebitCard.Location = new Point(56, 91);
+            TxtCustomerDebitCard.Location = new Point(56, 86);
             TxtCustomerDebitCard.Name = "TxtCustomerDebitCard";
             TxtCustomerDebitCard.ReadOnly = true;
-            TxtCustomerDebitCard.Size = new Size(64, 27);
+            TxtCustomerDebitCard.Size = new Size(64, 26);
             TxtCustomerDebitCard.TabIndex = 6;
             TxtCustomerDebitCard.TextAlign = HorizontalAlignment.Right;
             // 
             // TxtCustomerDebitUpi
             // 
             TxtCustomerDebitUpi.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCustomerDebitUpi.Location = new Point(56, 130);
+            TxtCustomerDebitUpi.Location = new Point(56, 123);
             TxtCustomerDebitUpi.Name = "TxtCustomerDebitUpi";
             TxtCustomerDebitUpi.ReadOnly = true;
-            TxtCustomerDebitUpi.Size = new Size(64, 27);
+            TxtCustomerDebitUpi.Size = new Size(64, 26);
             TxtCustomerDebitUpi.TabIndex = 4;
             TxtCustomerDebitUpi.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1221,9 +1221,9 @@
             // 
             label58.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label58.AutoSize = true;
-            label58.Location = new Point(10, 95);
+            label58.Location = new Point(10, 90);
             label58.Name = "label58";
-            label58.Size = new Size(40, 19);
+            label58.Size = new Size(40, 18);
             label58.TabIndex = 5;
             label58.Text = "Card";
             label58.TextAlign = ContentAlignment.MiddleLeft;
@@ -1232,9 +1232,9 @@
             // 
             label59.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label59.AutoSize = true;
-            label59.Location = new Point(10, 134);
+            label59.Location = new Point(10, 127);
             label59.Name = "label59";
-            label59.Size = new Size(40, 19);
+            label59.Size = new Size(40, 18);
             label59.TabIndex = 3;
             label59.Text = "UPI";
             label59.TextAlign = ContentAlignment.MiddleLeft;
@@ -1246,7 +1246,7 @@
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(132, 294);
+            panel3.Size = new Size(132, 278);
             panel3.TabIndex = 1;
             // 
             // tableLayoutPanel7
@@ -1280,16 +1280,16 @@
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 13.7048187F));
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 14.307229F));
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 14.307229F));
-            tableLayoutPanel7.Size = new Size(130, 292);
+            tableLayoutPanel7.Size = new Size(130, 276);
             tableLayoutPanel7.TabIndex = 0;
             // 
             // TxtSalesCash
             // 
             TxtSalesCash.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtSalesCash.Location = new Point(56, 52);
+            TxtSalesCash.Location = new Point(56, 49);
             TxtSalesCash.Name = "TxtSalesCash";
             TxtSalesCash.ReadOnly = true;
-            TxtSalesCash.Size = new Size(64, 27);
+            TxtSalesCash.Size = new Size(64, 26);
             TxtSalesCash.TabIndex = 2;
             TxtSalesCash.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1301,7 +1301,7 @@
             label35.Font = new Font("Calibri", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
             label35.Location = new Point(10, 7);
             label35.Name = "label35";
-            label35.Size = new Size(110, 38);
+            label35.Size = new Size(110, 37);
             label35.TabIndex = 0;
             label35.Text = "Sales Billing Details";
             label35.TextAlign = ContentAlignment.MiddleCenter;
@@ -1310,9 +1310,9 @@
             // 
             label38.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label38.AutoSize = true;
-            label38.Location = new Point(10, 135);
+            label38.Location = new Point(10, 128);
             label38.Name = "label38";
-            label38.Size = new Size(40, 19);
+            label38.Size = new Size(40, 18);
             label38.TabIndex = 5;
             label38.Text = "UPI";
             label38.TextAlign = ContentAlignment.MiddleLeft;
@@ -1321,9 +1321,9 @@
             // 
             label36.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label36.AutoSize = true;
-            label36.Location = new Point(10, 56);
+            label36.Location = new Point(10, 53);
             label36.Name = "label36";
-            label36.Size = new Size(40, 19);
+            label36.Size = new Size(40, 18);
             label36.TabIndex = 1;
             label36.Text = "Cash";
             label36.TextAlign = ContentAlignment.MiddleLeft;
@@ -1332,9 +1332,9 @@
             // 
             label37.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label37.AutoSize = true;
-            label37.Location = new Point(10, 95);
+            label37.Location = new Point(10, 90);
             label37.Name = "label37";
-            label37.Size = new Size(40, 19);
+            label37.Size = new Size(40, 18);
             label37.TabIndex = 3;
             label37.Text = "Card";
             label37.TextAlign = ContentAlignment.MiddleLeft;
@@ -1343,9 +1343,9 @@
             // 
             label39.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label39.AutoSize = true;
-            label39.Location = new Point(10, 165);
+            label39.Location = new Point(10, 164);
             label39.Name = "label39";
-            label39.Size = new Size(40, 38);
+            label39.Size = new Size(40, 18);
             label39.TabIndex = 7;
             label39.Text = "GPay";
             label39.TextAlign = ContentAlignment.MiddleLeft;
@@ -1354,9 +1354,9 @@
             // 
             label40.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label40.AutoSize = true;
-            label40.Location = new Point(10, 203);
+            label40.Location = new Point(10, 191);
             label40.Name = "label40";
-            label40.Size = new Size(40, 38);
+            label40.Size = new Size(40, 36);
             label40.TabIndex = 9;
             label40.Text = "Credit";
             label40.TextAlign = ContentAlignment.MiddleLeft;
@@ -1365,9 +1365,9 @@
             // 
             label41.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label41.AutoSize = true;
-            label41.Location = new Point(10, 244);
+            label41.Location = new Point(10, 239);
             label41.Name = "label41";
-            label41.Size = new Size(40, 38);
+            label41.Size = new Size(40, 18);
             label41.TabIndex = 11;
             label41.Text = "Total ";
             label41.TextAlign = ContentAlignment.MiddleLeft;
@@ -1375,50 +1375,50 @@
             // TxtSalesCard
             // 
             TxtSalesCard.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtSalesCard.Location = new Point(56, 91);
+            TxtSalesCard.Location = new Point(56, 86);
             TxtSalesCard.Name = "TxtSalesCard";
             TxtSalesCard.ReadOnly = true;
-            TxtSalesCard.Size = new Size(64, 27);
+            TxtSalesCard.Size = new Size(64, 26);
             TxtSalesCard.TabIndex = 4;
             TxtSalesCard.TextAlign = HorizontalAlignment.Right;
             // 
             // TxtSalesUpi
             // 
             TxtSalesUpi.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtSalesUpi.Location = new Point(56, 131);
+            TxtSalesUpi.Location = new Point(56, 124);
             TxtSalesUpi.Name = "TxtSalesUpi";
             TxtSalesUpi.ReadOnly = true;
-            TxtSalesUpi.Size = new Size(64, 27);
+            TxtSalesUpi.Size = new Size(64, 26);
             TxtSalesUpi.TabIndex = 6;
             TxtSalesUpi.TextAlign = HorizontalAlignment.Right;
             // 
             // TxtSalesGPay
             // 
             TxtSalesGPay.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtSalesGPay.Location = new Point(56, 170);
+            TxtSalesGPay.Location = new Point(56, 160);
             TxtSalesGPay.Name = "TxtSalesGPay";
             TxtSalesGPay.ReadOnly = true;
-            TxtSalesGPay.Size = new Size(64, 27);
+            TxtSalesGPay.Size = new Size(64, 26);
             TxtSalesGPay.TabIndex = 8;
             TxtSalesGPay.TextAlign = HorizontalAlignment.Right;
             // 
             // TxtSalesCredit
             // 
             TxtSalesCredit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtSalesCredit.Location = new Point(56, 209);
+            TxtSalesCredit.Location = new Point(56, 196);
             TxtSalesCredit.Name = "TxtSalesCredit";
             TxtSalesCredit.ReadOnly = true;
-            TxtSalesCredit.Size = new Size(64, 27);
+            TxtSalesCredit.Size = new Size(64, 26);
             TxtSalesCredit.TabIndex = 10;
             TxtSalesCredit.TextAlign = HorizontalAlignment.Right;
             // 
             // TxtSalesTotal
             // 
             TxtSalesTotal.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtSalesTotal.Location = new Point(56, 250);
+            TxtSalesTotal.Location = new Point(56, 235);
             TxtSalesTotal.Name = "TxtSalesTotal";
             TxtSalesTotal.ReadOnly = true;
-            TxtSalesTotal.Size = new Size(64, 27);
+            TxtSalesTotal.Size = new Size(64, 26);
             TxtSalesTotal.TabIndex = 12;
             TxtSalesTotal.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1429,7 +1429,7 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(555, 3);
             panel5.Name = "panel5";
-            panel5.Size = new Size(132, 294);
+            panel5.Size = new Size(132, 278);
             panel5.TabIndex = 3;
             // 
             // tableLayoutPanel10
@@ -1459,16 +1459,16 @@
             tableLayoutPanel10.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
             tableLayoutPanel10.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
             tableLayoutPanel10.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel10.Size = new Size(130, 292);
+            tableLayoutPanel10.Size = new Size(130, 276);
             tableLayoutPanel10.TabIndex = 0;
             // 
             // TxtUndiyalOpeningBalance
             // 
             TxtUndiyalOpeningBalance.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtUndiyalOpeningBalance.Location = new Point(56, 52);
+            TxtUndiyalOpeningBalance.Location = new Point(56, 49);
             TxtUndiyalOpeningBalance.Name = "TxtUndiyalOpeningBalance";
             TxtUndiyalOpeningBalance.ReadOnly = true;
-            TxtUndiyalOpeningBalance.Size = new Size(64, 27);
+            TxtUndiyalOpeningBalance.Size = new Size(64, 26);
             TxtUndiyalOpeningBalance.TabIndex = 2;
             TxtUndiyalOpeningBalance.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1476,9 +1476,9 @@
             // 
             label53.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label53.AutoSize = true;
-            label53.Location = new Point(10, 46);
+            label53.Location = new Point(10, 44);
             label53.Name = "label53";
-            label53.Size = new Size(40, 38);
+            label53.Size = new Size(40, 36);
             label53.TabIndex = 1;
             label53.Text = "Opening";
             label53.TextAlign = ContentAlignment.MiddleLeft;
@@ -1487,9 +1487,9 @@
             // 
             label54.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label54.AutoSize = true;
-            label54.Location = new Point(10, 85);
+            label54.Location = new Point(10, 81);
             label54.Name = "label54";
-            label54.Size = new Size(40, 38);
+            label54.Size = new Size(40, 36);
             label54.TabIndex = 3;
             label54.Text = "Deposit";
             label54.TextAlign = ContentAlignment.MiddleLeft;
@@ -1498,9 +1498,10 @@
             // 
             label55.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label55.AutoSize = true;
-            label55.Location = new Point(10, 124);
+            label55.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label55.Location = new Point(10, 121);
             label55.Name = "label55";
-            label55.Size = new Size(40, 39);
+            label55.Size = new Size(40, 30);
             label55.TabIndex = 5;
             label55.Text = "Withdraw";
             label55.TextAlign = ContentAlignment.MiddleLeft;
@@ -1513,7 +1514,7 @@
             label52.Font = new Font("Calibri", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
             label52.Location = new Point(10, 7);
             label52.Name = "label52";
-            label52.Size = new Size(110, 38);
+            label52.Size = new Size(110, 37);
             label52.TabIndex = 0;
             label52.Text = "Undiyal Details";
             label52.TextAlign = ContentAlignment.MiddleCenter;
@@ -1521,20 +1522,20 @@
             // TxtUndiyalDeposit
             // 
             TxtUndiyalDeposit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtUndiyalDeposit.Location = new Point(56, 91);
+            TxtUndiyalDeposit.Location = new Point(56, 86);
             TxtUndiyalDeposit.Name = "TxtUndiyalDeposit";
             TxtUndiyalDeposit.ReadOnly = true;
-            TxtUndiyalDeposit.Size = new Size(64, 27);
+            TxtUndiyalDeposit.Size = new Size(64, 26);
             TxtUndiyalDeposit.TabIndex = 4;
             TxtUndiyalDeposit.TextAlign = HorizontalAlignment.Right;
             // 
             // TxtUndiyalWithdraw
             // 
             TxtUndiyalWithdraw.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtUndiyalWithdraw.Location = new Point(56, 130);
+            TxtUndiyalWithdraw.Location = new Point(56, 123);
             TxtUndiyalWithdraw.Name = "TxtUndiyalWithdraw";
             TxtUndiyalWithdraw.ReadOnly = true;
-            TxtUndiyalWithdraw.Size = new Size(64, 27);
+            TxtUndiyalWithdraw.Size = new Size(64, 26);
             TxtUndiyalWithdraw.TabIndex = 6;
             TxtUndiyalWithdraw.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1542,9 +1543,9 @@
             // 
             label56.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label56.AutoSize = true;
-            label56.Location = new Point(10, 244);
+            label56.Location = new Point(10, 231);
             label56.Name = "label56";
-            label56.Size = new Size(40, 38);
+            label56.Size = new Size(40, 36);
             label56.TabIndex = 7;
             label56.Text = "Closing";
             label56.TextAlign = ContentAlignment.MiddleLeft;
@@ -1552,10 +1553,10 @@
             // TxtUndiyalClosingBalance
             // 
             TxtUndiyalClosingBalance.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtUndiyalClosingBalance.Location = new Point(56, 249);
+            TxtUndiyalClosingBalance.Location = new Point(56, 236);
             TxtUndiyalClosingBalance.Name = "TxtUndiyalClosingBalance";
             TxtUndiyalClosingBalance.ReadOnly = true;
-            TxtUndiyalClosingBalance.Size = new Size(64, 27);
+            TxtUndiyalClosingBalance.Size = new Size(64, 26);
             TxtUndiyalClosingBalance.TabIndex = 8;
             TxtUndiyalClosingBalance.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1566,7 +1567,7 @@
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(141, 3);
             panel4.Name = "panel4";
-            panel4.Size = new Size(132, 294);
+            panel4.Size = new Size(132, 278);
             panel4.TabIndex = 2;
             // 
             // tableLayoutPanel8
@@ -1596,16 +1597,16 @@
             tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
             tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
             tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel8.Size = new Size(130, 292);
+            tableLayoutPanel8.Size = new Size(130, 276);
             tableLayoutPanel8.TabIndex = 0;
             // 
             // TxtVendorCash
             // 
             TxtVendorCash.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtVendorCash.Location = new Point(56, 52);
+            TxtVendorCash.Location = new Point(56, 49);
             TxtVendorCash.Name = "TxtVendorCash";
             TxtVendorCash.ReadOnly = true;
-            TxtVendorCash.Size = new Size(64, 27);
+            TxtVendorCash.Size = new Size(64, 26);
             TxtVendorCash.TabIndex = 2;
             TxtVendorCash.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1617,7 +1618,7 @@
             label42.Font = new Font("Calibri", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
             label42.Location = new Point(10, 7);
             label42.Name = "label42";
-            label42.Size = new Size(110, 39);
+            label42.Size = new Size(110, 37);
             label42.TabIndex = 0;
             label42.Text = "Vendors Payment Details";
             label42.TextAlign = ContentAlignment.MiddleCenter;
@@ -1626,9 +1627,9 @@
             // 
             label44.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label44.AutoSize = true;
-            label44.Location = new Point(10, 56);
+            label44.Location = new Point(10, 53);
             label44.Name = "label44";
-            label44.Size = new Size(40, 19);
+            label44.Size = new Size(40, 18);
             label44.TabIndex = 1;
             label44.Text = "Cash";
             label44.TextAlign = ContentAlignment.MiddleLeft;
@@ -1637,9 +1638,9 @@
             // 
             label45.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label45.AutoSize = true;
-            label45.Location = new Point(10, 95);
+            label45.Location = new Point(10, 90);
             label45.Name = "label45";
-            label45.Size = new Size(40, 19);
+            label45.Size = new Size(40, 18);
             label45.TabIndex = 3;
             label45.Text = "Card";
             label45.TextAlign = ContentAlignment.MiddleLeft;
@@ -1648,9 +1649,9 @@
             // 
             label46.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label46.AutoSize = true;
-            label46.Location = new Point(10, 124);
+            label46.Location = new Point(10, 127);
             label46.Name = "label46";
-            label46.Size = new Size(40, 38);
+            label46.Size = new Size(40, 18);
             label46.TabIndex = 5;
             label46.Text = "GPay";
             label46.TextAlign = ContentAlignment.MiddleLeft;
@@ -1658,20 +1659,20 @@
             // TxtVendorCard
             // 
             TxtVendorCard.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtVendorCard.Location = new Point(56, 91);
+            TxtVendorCard.Location = new Point(56, 86);
             TxtVendorCard.Name = "TxtVendorCard";
             TxtVendorCard.ReadOnly = true;
-            TxtVendorCard.Size = new Size(64, 27);
+            TxtVendorCard.Size = new Size(64, 26);
             TxtVendorCard.TabIndex = 4;
             TxtVendorCard.TextAlign = HorizontalAlignment.Right;
             // 
             // TxtVendorGPay
             // 
             TxtVendorGPay.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtVendorGPay.Location = new Point(56, 130);
+            TxtVendorGPay.Location = new Point(56, 123);
             TxtVendorGPay.Name = "TxtVendorGPay";
             TxtVendorGPay.ReadOnly = true;
-            TxtVendorGPay.Size = new Size(64, 27);
+            TxtVendorGPay.Size = new Size(64, 26);
             TxtVendorGPay.TabIndex = 6;
             TxtVendorGPay.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1679,9 +1680,9 @@
             // 
             label48.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label48.AutoSize = true;
-            label48.Location = new Point(10, 244);
+            label48.Location = new Point(10, 240);
             label48.Name = "label48";
-            label48.Size = new Size(40, 38);
+            label48.Size = new Size(40, 18);
             label48.TabIndex = 7;
             label48.Text = "Total ";
             label48.TextAlign = ContentAlignment.MiddleLeft;
@@ -1689,10 +1690,10 @@
             // TxtVendorTotal
             // 
             TxtVendorTotal.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtVendorTotal.Location = new Point(56, 249);
+            TxtVendorTotal.Location = new Point(56, 236);
             TxtVendorTotal.Name = "TxtVendorTotal";
             TxtVendorTotal.ReadOnly = true;
-            TxtVendorTotal.Size = new Size(64, 27);
+            TxtVendorTotal.Size = new Size(64, 26);
             TxtVendorTotal.TabIndex = 8;
             TxtVendorTotal.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1703,7 +1704,7 @@
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(279, 3);
             panel6.Name = "panel6";
-            panel6.Size = new Size(132, 294);
+            panel6.Size = new Size(132, 278);
             panel6.TabIndex = 5;
             // 
             // tableLayoutPanel9
@@ -1733,16 +1734,16 @@
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel9.Size = new Size(130, 292);
+            tableLayoutPanel9.Size = new Size(130, 276);
             tableLayoutPanel9.TabIndex = 0;
             // 
             // TxtExpenseCash
             // 
             TxtExpenseCash.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtExpenseCash.Location = new Point(56, 52);
+            TxtExpenseCash.Location = new Point(56, 49);
             TxtExpenseCash.Name = "TxtExpenseCash";
             TxtExpenseCash.ReadOnly = true;
-            TxtExpenseCash.Size = new Size(64, 27);
+            TxtExpenseCash.Size = new Size(64, 26);
             TxtExpenseCash.TabIndex = 2;
             TxtExpenseCash.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1754,7 +1755,7 @@
             label43.Font = new Font("Calibri", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
             label43.Location = new Point(10, 7);
             label43.Name = "label43";
-            label43.Size = new Size(110, 38);
+            label43.Size = new Size(110, 37);
             label43.TabIndex = 0;
             label43.Text = "Expense Details";
             label43.TextAlign = ContentAlignment.MiddleCenter;
@@ -1763,9 +1764,9 @@
             // 
             label47.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label47.AutoSize = true;
-            label47.Location = new Point(10, 56);
+            label47.Location = new Point(10, 53);
             label47.Name = "label47";
-            label47.Size = new Size(40, 19);
+            label47.Size = new Size(40, 18);
             label47.TabIndex = 1;
             label47.Text = "Cash";
             label47.TextAlign = ContentAlignment.MiddleLeft;
@@ -1774,9 +1775,9 @@
             // 
             label49.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label49.AutoSize = true;
-            label49.Location = new Point(10, 95);
+            label49.Location = new Point(10, 90);
             label49.Name = "label49";
-            label49.Size = new Size(40, 19);
+            label49.Size = new Size(40, 18);
             label49.TabIndex = 3;
             label49.Text = "Card";
             label49.TextAlign = ContentAlignment.MiddleLeft;
@@ -1785,9 +1786,9 @@
             // 
             label50.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label50.AutoSize = true;
-            label50.Location = new Point(10, 124);
+            label50.Location = new Point(10, 127);
             label50.Name = "label50";
-            label50.Size = new Size(40, 38);
+            label50.Size = new Size(40, 18);
             label50.TabIndex = 5;
             label50.Text = "GPay";
             label50.TextAlign = ContentAlignment.MiddleLeft;
@@ -1795,20 +1796,20 @@
             // TxtExpenseCard
             // 
             TxtExpenseCard.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtExpenseCard.Location = new Point(56, 91);
+            TxtExpenseCard.Location = new Point(56, 86);
             TxtExpenseCard.Name = "TxtExpenseCard";
             TxtExpenseCard.ReadOnly = true;
-            TxtExpenseCard.Size = new Size(64, 27);
+            TxtExpenseCard.Size = new Size(64, 26);
             TxtExpenseCard.TabIndex = 4;
             TxtExpenseCard.TextAlign = HorizontalAlignment.Right;
             // 
             // TxtExpenseGPay
             // 
             TxtExpenseGPay.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtExpenseGPay.Location = new Point(56, 130);
+            TxtExpenseGPay.Location = new Point(56, 123);
             TxtExpenseGPay.Name = "TxtExpenseGPay";
             TxtExpenseGPay.ReadOnly = true;
-            TxtExpenseGPay.Size = new Size(64, 27);
+            TxtExpenseGPay.Size = new Size(64, 26);
             TxtExpenseGPay.TabIndex = 6;
             TxtExpenseGPay.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1816,9 +1817,9 @@
             // 
             label51.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label51.AutoSize = true;
-            label51.Location = new Point(10, 244);
+            label51.Location = new Point(10, 240);
             label51.Name = "label51";
-            label51.Size = new Size(40, 38);
+            label51.Size = new Size(40, 18);
             label51.TabIndex = 7;
             label51.Text = "Total ";
             label51.TextAlign = ContentAlignment.MiddleLeft;
@@ -1826,10 +1827,10 @@
             // TxtExpenseTotal
             // 
             TxtExpenseTotal.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtExpenseTotal.Location = new Point(56, 249);
+            TxtExpenseTotal.Location = new Point(56, 236);
             TxtExpenseTotal.Name = "TxtExpenseTotal";
             TxtExpenseTotal.ReadOnly = true;
-            TxtExpenseTotal.Size = new Size(64, 27);
+            TxtExpenseTotal.Size = new Size(64, 26);
             TxtExpenseTotal.TabIndex = 8;
             TxtExpenseTotal.TextAlign = HorizontalAlignment.Right;
             // 
@@ -1838,10 +1839,10 @@
             panel8.BorderStyle = BorderStyle.FixedSingle;
             panel8.Controls.Add(tableLayoutPanel5);
             panel8.Dock = DockStyle.Fill;
-            panel8.Location = new Point(6, 312);
+            panel8.Location = new Point(6, 296);
             panel8.Margin = new Padding(6);
             panel8.Name = "panel8";
-            panel8.Size = new Size(269, 415);
+            panel8.Size = new Size(269, 392);
             panel8.TabIndex = 4;
             // 
             // tableLayoutPanel5
@@ -1891,14 +1892,14 @@
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 7.69230652F));
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 7.69230652F));
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 7.69230652F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel5.Size = new Size(267, 413);
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 19F));
+            tableLayoutPanel5.Size = new Size(267, 390);
             tableLayoutPanel5.TabIndex = 0;
             // 
             // TxtCashOnlySales
             // 
             TxtCashOnlySales.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnlySales.Location = new Point(136, 70);
+            TxtCashOnlySales.Location = new Point(136, 66);
             TxtCashOnlySales.MaxLength = 13;
             TxtCashOnlySales.Name = "TxtCashOnlySales";
             TxtCashOnlySales.ReadOnly = true;
@@ -1912,7 +1913,7 @@
             label25.AutoSize = true;
             tableLayoutPanel5.SetColumnSpan(label25, 2);
             label25.Font = new Font("Calibri", 15.75F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
-            label25.Location = new Point(10, 9);
+            label25.Location = new Point(10, 8);
             label25.Name = "label25";
             label25.Size = new Size(247, 26);
             label25.TabIndex = 0;
@@ -1924,7 +1925,7 @@
             label27.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label27.AutoSize = true;
             label27.ForeColor = Color.Green;
-            label27.Location = new Point(10, 70);
+            label27.Location = new Point(10, 65);
             label27.Name = "label27";
             label27.Size = new Size(120, 23);
             label27.TabIndex = 3;
@@ -1934,7 +1935,7 @@
             // TxtCashOnlyCustomerCreditRepayment
             // 
             TxtCashOnlyCustomerCreditRepayment.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnlyCustomerCreditRepayment.Location = new Point(136, 100);
+            TxtCashOnlyCustomerCreditRepayment.Location = new Point(136, 94);
             TxtCashOnlyCustomerCreditRepayment.MaxLength = 13;
             TxtCashOnlyCustomerCreditRepayment.Name = "TxtCashOnlyCustomerCreditRepayment";
             TxtCashOnlyCustomerCreditRepayment.ReadOnly = true;
@@ -1947,9 +1948,9 @@
             label32.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label32.AutoSize = true;
             label32.ForeColor = Color.Green;
-            label32.Location = new Point(10, 37);
+            label32.Location = new Point(10, 35);
             label32.Name = "label32";
-            label32.Size = new Size(120, 30);
+            label32.Size = new Size(120, 28);
             label32.TabIndex = 1;
             label32.Text = "Opening Balance";
             label32.TextAlign = ContentAlignment.MiddleLeft;
@@ -1957,7 +1958,7 @@
             // TxtCashOnlyOpeningBalance
             // 
             TxtCashOnlyOpeningBalance.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnlyOpeningBalance.Location = new Point(136, 40);
+            TxtCashOnlyOpeningBalance.Location = new Point(136, 38);
             TxtCashOnlyOpeningBalance.MaxLength = 13;
             TxtCashOnlyOpeningBalance.Name = "TxtCashOnlyOpeningBalance";
             TxtCashOnlyOpeningBalance.ReadOnly = true;
@@ -1971,9 +1972,9 @@
             label24.AutoSize = true;
             label24.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label24.ForeColor = Color.Green;
-            label24.Location = new Point(10, 97);
+            label24.Location = new Point(10, 91);
             label24.Name = "label24";
-            label24.Size = new Size(120, 30);
+            label24.Size = new Size(120, 28);
             label24.TabIndex = 5;
             label24.Text = "Cust CR Repayment";
             label24.TextAlign = ContentAlignment.MiddleLeft;
@@ -1981,7 +1982,7 @@
             // TxtCashOnlyUndiyalDeposit
             // 
             TxtCashOnlyUndiyalDeposit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnlyUndiyalDeposit.Location = new Point(136, 220);
+            TxtCashOnlyUndiyalDeposit.Location = new Point(136, 206);
             TxtCashOnlyUndiyalDeposit.MaxLength = 13;
             TxtCashOnlyUndiyalDeposit.Name = "TxtCashOnlyUndiyalDeposit";
             TxtCashOnlyUndiyalDeposit.ReadOnly = true;
@@ -1994,7 +1995,7 @@
             label29.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label29.AutoSize = true;
             label29.ForeColor = Color.Purple;
-            label29.Location = new Point(10, 250);
+            label29.Location = new Point(10, 233);
             label29.Name = "label29";
             label29.Size = new Size(120, 23);
             label29.TabIndex = 15;
@@ -2004,7 +2005,7 @@
             // TxtCashOnHand
             // 
             TxtCashOnHand.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnHand.Location = new Point(136, 250);
+            TxtCashOnHand.Location = new Point(136, 234);
             TxtCashOnHand.MaxLength = 13;
             TxtCashOnHand.Name = "TxtCashOnHand";
             TxtCashOnHand.ReadOnly = true;
@@ -2017,7 +2018,7 @@
             label30.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label30.AutoSize = true;
             label30.ForeColor = Color.Purple;
-            label30.Location = new Point(10, 280);
+            label30.Location = new Point(10, 261);
             label30.Name = "label30";
             label30.Size = new Size(120, 23);
             label30.TabIndex = 17;
@@ -2027,7 +2028,7 @@
             // TxtCoinOnHand
             // 
             TxtCoinOnHand.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCoinOnHand.Location = new Point(136, 280);
+            TxtCoinOnHand.Location = new Point(136, 262);
             TxtCoinOnHand.MaxLength = 13;
             TxtCoinOnHand.Name = "TxtCoinOnHand";
             TxtCoinOnHand.ReadOnly = true;
@@ -2039,7 +2040,7 @@
             // 
             label33.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label33.AutoSize = true;
-            label33.Location = new Point(10, 310);
+            label33.Location = new Point(10, 289);
             label33.Name = "label33";
             label33.Size = new Size(120, 23);
             label33.TabIndex = 19;
@@ -2049,7 +2050,7 @@
             // TxtCashOnlyTally
             // 
             TxtCashOnlyTally.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnlyTally.Location = new Point(136, 310);
+            TxtCashOnlyTally.Location = new Point(136, 290);
             TxtCashOnlyTally.MaxLength = 13;
             TxtCashOnlyTally.Name = "TxtCashOnlyTally";
             TxtCashOnlyTally.ReadOnly = true;
@@ -2061,9 +2062,9 @@
             // 
             label34.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label34.AutoSize = true;
-            label34.Location = new Point(10, 337);
+            label34.Location = new Point(10, 315);
             label34.Name = "label34";
-            label34.Size = new Size(120, 30);
+            label34.Size = new Size(120, 28);
             label34.TabIndex = 21;
             label34.Text = "Closing Balance";
             label34.TextAlign = ContentAlignment.MiddleLeft;
@@ -2071,7 +2072,7 @@
             // TxtCashOnlyClosingBalance
             // 
             TxtCashOnlyClosingBalance.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnlyClosingBalance.Location = new Point(136, 340);
+            TxtCashOnlyClosingBalance.Location = new Point(136, 318);
             TxtCashOnlyClosingBalance.MaxLength = 13;
             TxtCashOnlyClosingBalance.Name = "TxtCashOnlyClosingBalance";
             TxtCashOnlyClosingBalance.ReadOnly = true;
@@ -2082,7 +2083,7 @@
             // TxtCashOnlyUndiyalWithdraw
             // 
             TxtCashOnlyUndiyalWithdraw.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnlyUndiyalWithdraw.Location = new Point(136, 130);
+            TxtCashOnlyUndiyalWithdraw.Location = new Point(136, 122);
             TxtCashOnlyUndiyalWithdraw.MaxLength = 13;
             TxtCashOnlyUndiyalWithdraw.Name = "TxtCashOnlyUndiyalWithdraw";
             TxtCashOnlyUndiyalWithdraw.ReadOnly = true;
@@ -2095,7 +2096,7 @@
             label23.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label23.AutoSize = true;
             label23.ForeColor = Color.Purple;
-            label23.Location = new Point(10, 190);
+            label23.Location = new Point(10, 177);
             label23.Name = "label23";
             label23.Size = new Size(120, 23);
             label23.TabIndex = 9;
@@ -2107,9 +2108,9 @@
             label26.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label26.AutoSize = true;
             label26.ForeColor = Color.Purple;
-            label26.Location = new Point(10, 157);
+            label26.Location = new Point(10, 147);
             label26.Name = "label26";
-            label26.Size = new Size(120, 30);
+            label26.Size = new Size(120, 28);
             label26.TabIndex = 7;
             label26.Text = "Vendor Payment";
             label26.TextAlign = ContentAlignment.MiddleLeft;
@@ -2117,7 +2118,7 @@
             // TxtCashOnlyExpense
             // 
             TxtCashOnlyExpense.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnlyExpense.Location = new Point(136, 190);
+            TxtCashOnlyExpense.Location = new Point(136, 178);
             TxtCashOnlyExpense.MaxLength = 13;
             TxtCashOnlyExpense.Name = "TxtCashOnlyExpense";
             TxtCashOnlyExpense.ReadOnly = true;
@@ -2128,7 +2129,7 @@
             // TxtCashOnlyVendorPayment
             // 
             TxtCashOnlyVendorPayment.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCashOnlyVendorPayment.Location = new Point(136, 160);
+            TxtCashOnlyVendorPayment.Location = new Point(136, 150);
             TxtCashOnlyVendorPayment.MaxLength = 13;
             TxtCashOnlyVendorPayment.Name = "TxtCashOnlyVendorPayment";
             TxtCashOnlyVendorPayment.ReadOnly = true;
@@ -2141,9 +2142,9 @@
             label28.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label28.AutoSize = true;
             label28.ForeColor = Color.Purple;
-            label28.Location = new Point(10, 217);
+            label28.Location = new Point(10, 203);
             label28.Name = "label28";
-            label28.Size = new Size(120, 30);
+            label28.Size = new Size(120, 28);
             label28.TabIndex = 11;
             label28.Text = "Undiyal Deposit";
             label28.TextAlign = ContentAlignment.MiddleLeft;
@@ -2153,9 +2154,9 @@
             label63.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label63.AutoSize = true;
             label63.ForeColor = Color.Green;
-            label63.Location = new Point(10, 127);
+            label63.Location = new Point(10, 119);
             label63.Name = "label63";
-            label63.Size = new Size(120, 30);
+            label63.Size = new Size(120, 28);
             label63.TabIndex = 11;
             label63.Text = "Undiyal Withdraw";
             label63.TextAlign = ContentAlignment.MiddleLeft;
@@ -2170,13 +2171,13 @@
             tableLayoutPanel14.Controls.Add(tableLayoutPanel15, 0, 0);
             tableLayoutPanel14.Dock = DockStyle.Fill;
             tableLayoutPanel14.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            tableLayoutPanel14.Location = new Point(284, 309);
+            tableLayoutPanel14.Location = new Point(284, 293);
             tableLayoutPanel14.Name = "tableLayoutPanel14";
             tableLayoutPanel14.RowCount = 3;
             tableLayoutPanel14.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel14.RowStyles.Add(new RowStyle(SizeType.Percent, 80F));
             tableLayoutPanel14.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel14.Size = new Size(828, 421);
+            tableLayoutPanel14.Size = new Size(828, 398);
             tableLayoutPanel14.TabIndex = 5;
             // 
             // BtnExit
@@ -2184,12 +2185,13 @@
             BtnExit.Dock = DockStyle.Fill;
             BtnExit.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             BtnExit.ForeColor = Color.Red;
-            BtnExit.Location = new Point(715, 381);
+            BtnExit.Location = new Point(713, 358);
+            BtnExit.Margin = new Padding(1);
             BtnExit.Name = "BtnExit";
-            BtnExit.Size = new Size(110, 37);
+            BtnExit.Size = new Size(114, 39);
             BtnExit.TabIndex = 6;
             BtnExit.Text = "E&xit";
-            BtnExit.UseVisualStyleBackColor = true;
+            BtnExit.UseVisualStyleBackColor = false;
             BtnExit.Click += BtnExit_Click;
             // 
             // DGView
@@ -2209,12 +2211,12 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             DGView.DefaultCellStyle = dataGridViewCellStyle1;
             DGView.Dock = DockStyle.Fill;
-            DGView.Location = new Point(3, 45);
+            DGView.Location = new Point(3, 42);
             DGView.Name = "DGView";
             DGView.ReadOnly = true;
             DGView.RowHeadersVisible = false;
             DGView.RowTemplate.Height = 25;
-            DGView.Size = new Size(822, 330);
+            DGView.Size = new Size(822, 312);
             DGView.TabIndex = 0;
             DGView.CellEnter += DGView_CellEnter;
             // 
@@ -2239,20 +2241,21 @@
             tableLayoutPanel15.Name = "tableLayoutPanel15";
             tableLayoutPanel15.RowCount = 1;
             tableLayoutPanel15.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel15.Size = new Size(822, 36);
+            tableLayoutPanel15.Size = new Size(822, 33);
             tableLayoutPanel15.TabIndex = 1;
             // 
             // BtnSave
             // 
             BtnSave.Dock = DockStyle.Fill;
-            BtnSave.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            BtnSave.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             BtnSave.ForeColor = Color.Green;
-            BtnSave.Location = new Point(702, 3);
+            BtnSave.Location = new Point(699, 0);
+            BtnSave.Margin = new Padding(0);
             BtnSave.Name = "BtnSave";
-            BtnSave.Size = new Size(106, 30);
+            BtnSave.Size = new Size(112, 33);
             BtnSave.TabIndex = 5;
             BtnSave.Text = "Cash &Account Close";
-            BtnSave.UseVisualStyleBackColor = true;
+            BtnSave.UseVisualStyleBackColor = false;
             BtnSave.Click += BtnSave_Click;
             // 
             // label31
@@ -2261,7 +2264,7 @@
             label31.AutoSize = true;
             label31.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             label31.ForeColor = Color.Maroon;
-            label31.Location = new Point(3, 5);
+            label31.Location = new Point(3, 3);
             label31.Name = "label31";
             label31.Size = new Size(172, 26);
             label31.TabIndex = 6;
@@ -2273,7 +2276,7 @@
             label65.AutoSize = true;
             label65.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             label65.ForeColor = Color.Maroon;
-            label65.Location = new Point(242, 5);
+            label65.Location = new Point(242, 3);
             label65.Name = "label65";
             label65.Size = new Size(203, 26);
             label65.TabIndex = 6;
@@ -2313,11 +2316,11 @@
             // 
             // FrmDailyAccountClosing
             // 
-            AutoScaleDimensions = new SizeF(8F, 19F);
+            AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1121, 739);
+            ClientSize = new Size(1121, 700);
             Controls.Add(TlpMain);
-            Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             ForeColor = Color.FromArgb(0, 64, 64);
             KeyPreview = true;
             Margin = new Padding(3, 4, 3, 4);

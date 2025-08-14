@@ -36,6 +36,8 @@ namespace VegetableBox
         {
             try
             {
+                this.Cursor = Cursors.WaitCursor;
+
                 string folderPath = TxtBackupPath.Text.Trim();
                 if (string.IsNullOrEmpty(folderPath))
                 {
@@ -72,6 +74,10 @@ namespace VegetableBox
             catch (Exception ex)
             {
                 MessageBox.Show($"Backup failed: {ex.Message}", "Vegetable Box", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
             }
 
         }

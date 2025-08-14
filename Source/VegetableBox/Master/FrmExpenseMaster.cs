@@ -107,7 +107,7 @@ namespace VegetableBox
                 this.TxtFilterExpense.Text = string.Empty;
 
                 clsFrmExpenseMaster.View();
-                DGView.DataSource = clsFrmExpenseMaster.VendorMaster.Copy();
+                DGView.DataSource = clsFrmExpenseMaster.ExpenseMaster.Copy();
                 this.SetGridStyle();
             }
             catch (Exception ex)
@@ -124,7 +124,7 @@ namespace VegetableBox
                 string? FilterActiveStatus = Convert.ToString(CmbFilterActive.SelectedValue);
 
                 DataTable DtView = new DataTable();
-                DtView = clsFrmExpenseMaster.VendorMaster.Copy();
+                DtView = clsFrmExpenseMaster.ExpenseMaster.Copy();
 
                 if (!string.IsNullOrEmpty(FilterActiveStatus))
                 {
@@ -136,7 +136,7 @@ namespace VegetableBox
                     }
                     else
                     {
-                        DtView = clsFrmExpenseMaster.VendorMaster.Clone();
+                        DtView = clsFrmExpenseMaster.ExpenseMaster.Clone();
                     }
                 }
 
@@ -154,7 +154,7 @@ namespace VegetableBox
                     }
                     else
                     {
-                        DtView = clsFrmExpenseMaster.VendorMaster.Clone();
+                        DtView = clsFrmExpenseMaster.ExpenseMaster.Clone();
                     }
                 }
 
@@ -297,7 +297,7 @@ namespace VegetableBox
                 clsFrmExpenseMaster.Name = this.TxtExpenseName.Text.Trim();
                 clsFrmExpenseMaster.Active = (string)this.CmbActive.SelectedValue;
 
-                if (clsFrmExpenseMaster.GetRecordCount() >= 1)
+                if (clsFrmExpenseMaster.GetRecordCount() > 1)
                 {
                     this.ErrorProvider.SetError(this.TxtExpenseName, "Expense Name already exists. Please enter a different name.");
                     throw new Exception("Expense Name already exists. Please enter a different name.");
@@ -408,9 +408,9 @@ namespace VegetableBox
                 {
                     int _Code = Convert.ToInt32(DGView[ExpenseMasterTable.ColumnName.Code, DGSelectedRowIndex].Value);
 
-                    if (clsFrmExpenseMaster.VendorMaster.AsEnumerable().Where(x => x.Field<int>(ExpenseMasterTable.ColumnName.Code) == _Code).Count() > 0)
+                    if (clsFrmExpenseMaster.ExpenseMaster.AsEnumerable().Where(x => x.Field<int>(ExpenseMasterTable.ColumnName.Code) == _Code).Count() > 0)
                     {
-                        DataRow? _DataRow = clsFrmExpenseMaster.VendorMaster.AsEnumerable().Where(x => x.Field<int>(ExpenseMasterTable.ColumnName.Code) == _Code).FirstOrDefault();
+                        DataRow? _DataRow = clsFrmExpenseMaster.ExpenseMaster.AsEnumerable().Where(x => x.Field<int>(ExpenseMasterTable.ColumnName.Code) == _Code).FirstOrDefault();
 
                         this.TxtExpenseName.Tag = Convert.ToInt32(_DataRow[ExpenseMasterTable.ColumnName.Code]);
                         this.TxtExpenseName.Text = _DataRow[ExpenseMasterTable.ColumnName.Name].ToString();
@@ -444,7 +444,7 @@ namespace VegetableBox
         {
             try
             {
-                if (clsFrmExpenseMaster.VendorMaster.Rows.Count > 0)
+                if (clsFrmExpenseMaster.ExpenseMaster.Rows.Count > 0)
                 {
                     this.FilterGridData();
                     this.SetGridStyle();
@@ -460,7 +460,7 @@ namespace VegetableBox
         {
             try
             {
-                if (clsFrmExpenseMaster.VendorMaster.Rows.Count > 0)
+                if (clsFrmExpenseMaster.ExpenseMaster.Rows.Count > 0)
                 {
                     this.FilterGridData();
                     this.SetGridStyle();

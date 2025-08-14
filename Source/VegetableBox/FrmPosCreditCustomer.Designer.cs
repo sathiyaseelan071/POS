@@ -99,7 +99,7 @@
             CmbCustomerName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             CmbCustomerName.AutoCompleteSource = AutoCompleteSource.ListItems;
             CmbCustomerName.FormattingEnabled = true;
-            CmbCustomerName.Location = new Point(141, 22);
+            CmbCustomerName.Location = new Point(141, 20);
             CmbCustomerName.Margin = new Padding(2);
             CmbCustomerName.Name = "CmbCustomerName";
             CmbCustomerName.Size = new Size(253, 26);
@@ -144,7 +144,7 @@
             BtnExit.Size = new Size(55, 34);
             BtnExit.TabIndex = 2;
             BtnExit.Text = "E&xit";
-            BtnExit.UseVisualStyleBackColor = true;
+            BtnExit.UseVisualStyleBackColor = false;
             BtnExit.Click += BtnExit_Click;
             // 
             // BtnAdd
@@ -157,7 +157,7 @@
             BtnAdd.Size = new Size(53, 34);
             BtnAdd.TabIndex = 1;
             BtnAdd.Text = "&Add";
-            BtnAdd.UseVisualStyleBackColor = true;
+            BtnAdd.UseVisualStyleBackColor = false;
             BtnAdd.Click += BtnAdd_Click;
             // 
             // BtnOk
@@ -170,7 +170,7 @@
             BtnOk.Size = new Size(53, 34);
             BtnOk.TabIndex = 0;
             BtnOk.Text = "&Ok";
-            BtnOk.UseVisualStyleBackColor = true;
+            BtnOk.UseVisualStyleBackColor = false;
             BtnOk.Click += BtnOk_Click;
             // 
             // tableLayoutPanel2
