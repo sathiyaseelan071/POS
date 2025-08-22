@@ -3,16 +3,227 @@ USE [VBOX2526_LIVE]
 ---------------
 Go
 ---------------
+
+ALTER TABLE [Product] ADD [AllowRateChange] [varchar](1) NULL
+ALTER TABLE [Product] ADD [BarCode2] [varchar](50) NULL
+ALTER TABLE [Product] ADD [BarCode3] [varchar](50) NULL
+ALTER TABLE [Product] ADD [BarCode4] [varchar](50) NULL
+ALTER TABLE [RateMaster] ADD [MRP] [numeric](12,2) NULL
+
+---------------
+Go
+---------------
+
+ALTER TABLE [dbo].[Purchase] ADD [VendorBillRefNo] INT NULL;
+ALTER TABLE [dbo].[PurchaseTransaction] ADD [VendorBillRefNo] INT NULL;
+
+ALTER TABLE [dbo].[Purchase] ADD CONSTRAINT FK_Purchase_VendorBillDetails
+FOREIGN KEY ([VendorBillRefNo]) REFERENCES [dbo].[VendorBillDetails]([TranNo]);
+
+ALTER TABLE [dbo].[PurchaseTransaction] ADD CONSTRAINT FK_PurchaseTran_VendorBillDetails
+FOREIGN KEY ([VendorBillRefNo]) REFERENCES [dbo].[VendorBillDetails]([TranNo]);
+
+EXEC SP_RENAME 'dbo.Purchase.BillNo', 'TranNo', 'COLUMN'
+EXEC SP_RENAME 'dbo.Purchase.BillDate', 'TranDate', 'COLUMN'
+EXEC SP_RENAME 'dbo.Purchase.BilledBy', 'EnteredBy', 'COLUMN'
+EXEC SP_RENAME 'dbo.Purchase.BilledDateTime', 'EnteredDateTime', 'COLUMN'
+
+EXEC SP_RENAME 'dbo.PurchaseTransaction.BillNo', 'TranNo', 'COLUMN'
+EXEC SP_RENAME 'dbo.PurchaseTransaction.BilledDate', 'TranDate', 'COLUMN'
+EXEC SP_RENAME 'dbo.PurchaseTransaction.BilledBy', 'EnteredBy', 'COLUMN'
+EXEC SP_RENAME 'dbo.PurchaseTransaction.BilledDateTime', 'EnteredDateTime', 'COLUMN'
+
+EXEC SP_RENAME 'dbo.Stock.TotPurQty', 'LastPurQty', 'COLUMN'
+ALTER TABLE [Stock] ADD [StockQty] NUMERIC(12,2)
+ALTER TABLE [Stock] Drop column TotSellQty
+
+ALTER TABLE [Stock] ALTER COLUMN LastUpdatedDate DATE 
+
+ALTER TABLE dbo.Stock DROP CONSTRAINT UQ__Stock__2F4E024FC399C07A
+
+ALTER TABLE dbo.Stock ADD CONSTRAINT UQ_Stock_ProductCode_MRP UNIQUE (ProductCode, MRP)
+
+---------------
+Go
+---------------
+
+DROP PROCEDURE SpSavePurchase
+DROP TYPE UDT_Purchase
+
+CREATE TYPE [dbo].[UDT_Purchase] AS TABLE(
+	[ProductCode] [int] NOT NULL,
+	[TotPurQty] [numeric](12, 2) NOT NULL,
+	[Unit] [varchar](5) NOT NULL,
+	[TotPurAmount] [numeric](12, 2) NOT NULL,
+	[PurRatePerQty] [numeric](12, 2) NOT NULL,
+	[SellRatePerQty] [numeric](12, 2) NOT NULL,
+	[MRP] [numeric](12, 2) NULL,
+	[SellingMarginPer] [numeric](12, 2) NULL,
+	[DiscPer] [numeric](12, 2) NULL,
+	[DiscRate] [numeric](12, 2) NULL,
+	[BilledBy] [int] NULL
+)
+
+---------------
+Go
+---------------
+
+CREATE PROC [dbo].[SpSavePurchase] (@UDT_Purchase UDT_Purchase READONLY, @TotPurAmount AS NUMERIC(12,2), @VendorBillRefNo INT, @TranNo INT OUTPUT)  
+AS  
   
+BEGIN TRAN  
+
+SET NOCOUNT ON;
+
+BEGIN TRY  
+  
+ SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 AS BillNo FROM [Purchase])  
+  
+ INSERT INTO [Purchase]([TranNo], [TranDate], [ProductCode], [TotPurQty], [Unit], [TotPurAmount], [PurRatePerQty], [SellRatePerQty],  
+ [MRP], [SellingMarginPer], [DiscPer], [DiscRate], [EnteredBy], [EnteredDateTime], [VendorBillRefNo])  
+ SELECT @TranNo, CAST(GETDATE() AS DATE ), [ProductCode], [TotPurQty], [Unit], [TotPurAmount], [PurRatePerQty], [SellRatePerQty],  
+ [MRP], [SellingMarginPer], [DiscPer], [DiscRate], [BilledBy], GETDATE(), @VendorBillRefNo
+ FROM @UDT_Purchase  
+   
+ INSERT INTO [PurchaseTransaction]([TranNo], [TranDate], [TotPurAmount], [EnteredBy], [EnteredDateTime], [VendorBillRefNo])  
+ SELECT TOP 1 @TranNo, CAST(GETDATE() AS DATE ), @TotPurAmount, [BilledBy], GETDATE(), @VendorBillRefNo 
+ FROM @UDT_Purchase  
+  
+ UPDATE S SET S.LastPurQty = P.TotPurQty,   
+ S.[PurRate] = P.[PurRatePerQty],   
+ S.[MRP] = P.[MRP],   
+ S.[SellRate] = P.[SellRatePerQty],   
+ S.[SellingMarginPer] = P.[SellingMarginPer],   
+ S.[DiscPer] = P.[DiscPer],   
+ S.[DiscRate] = P.[DiscRate],   
+ S.[LastUpdatedBy] = P.[BilledBy],   
+ S.[LastUpdatedDate] = GETDATE(),   
+ S.[LastUpdatedDateTime] = GETDATE(),
+ S.[StockQty] = ISNULL(S.[StockQty], 0) + P.[TotPurQty]
+ FROM [Stock] AS S  
+ INNER JOIN @UDT_Purchase AS P ON S.ProductCode = P.ProductCode AND S.MRP = P.MRP
+  
+ INSERT INTO [Stock](ProductCode, LastPurQty, PurRate, MRP, SellRate, SellingMarginPer, DiscPer, DiscRate,
+ LastUpdatedBy, LastUpdatedDate, LastUpdatedDateTime, [StockQty])
+ SELECT [ProductCode], [TotPurQty], [PurRatePerQty], [MRP], [SellRatePerQty], [SellingMarginPer], [DiscPer], [DiscRate],   
+ [BilledBy], GETDATE(), GETDATE(), [TotPurQty] 
+ FROM @UDT_Purchase AS P  
+ INNER JOIN [Product] AS PR ON P.[ProductCode] = PR.CODE  
+ WHERE 1=1 
+ AND ISNULL(PR.CalcBasedRateMast,'') != 'Y' 
+ AND NOT EXISTS (SELECT ProductCode FROM [Stock] AS S WHERE S.ProductCode = P.ProductCode And S.MRP = P.MRP)  
+  
+ UPDATE R SET   
+ R.BuyRate = P.[PurRatePerQty],   
+ R.SellMarginPercentage = P.[SellingMarginPer],   
+ R.SellRate = P.[SellRatePerQty],   
+ R.CreatedBy = P.[BilledBy],   
+ R.CreatedDateTime = GETDATE(),
+ R.MRP = P.MRP
+ FROM [RateMaster] AS R  
+ INNER JOIN @UDT_Purchase AS P ON P.ProductCode = R.ProductCode  
+  
+ INSERT INTO [RateMaster](ProductCode, BuyRate, SellMarginPercentage, SellRate, CreatedBy, CreatedDateTime, MRP)  
+ SELECT ProductCode, P.[PurRatePerQty], P.[SellingMarginPer], P.[SellRatePerQty], P.[BilledBy], GETDATE(), MRP 
+ FROM @UDT_Purchase AS P  
+ INNER JOIN [Product] AS PR ON P.[ProductCode] = PR.CODE  
+ WHERE ISNULL(PR.CalcBasedRateMast,'') = 'Y' AND NOT EXISTS (SELECT ProductCode FROM RateMaster AS R2 WHERE P.ProductCode = R2.ProductCode)  
+ 
+ --IF OBJECT_ID('dbo.temps1', 'U') IS NOT NULL
+ --   DROP TABLE dbo.temps1;
+ 
+ --Select * into temps1 from @UDT_Purchase
+
+ COMMIT TRAN  
+  
+END TRY  
+BEGIN CATCH  
+  
+	IF @@TRANCOUNT > 0
+		ROLLBACK TRAN;  -- Rollback only if an open transaction exists
+
+	-- Rethrow the original error
+	THROW;
+
+END CATCH  
+
+---------------
+Go
+---------------
+
+UPDATE [Product] SET [AllowRateChange] = 'N'
+
+UPDATE [RateMaster] SET [BuyRate] = ROUND([SellRate] - ([SellRate] * 10/100.00), 2), [MRP] = ROUND(SellRate + (SellRate * 10/100.00),0)
+
+---------------
+Go
+---------------
+
+ALTER PROC [dbo].[SpSaveProduct] (@Name VARCHAR(50), @TamilName NVARCHAR(50), @AlternativeName VARCHAR(50),   
+@CatCode INT, @QtyTypeCode INT, @CalcBasedRateMast VARCHAR(1), @Active VARCHAR(50), @CreatedBy INT, @LastUpdatedBy INT, @BarCode VARCHAR(50),
+@AllowRateChange VARCHAR(50), @BarCode2 VARCHAR(50), @BarCode3 VARCHAR(50), @BarCode4 VARCHAR(50))  
+AS  
+  
+DECLARE @Code INT  
+SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [PRODUCT])  
+  
+INSERT INTO PRODUCT([Code],[Name],[TamilName],[AlternativeName],[CatCode],[QtyTypeCode],[CalcBasedRateMast],  
+[Active],[CreatedBy],[CreatedDateTime],[LastUpdatedBy],[LastUpdatedDateTime],[BarCode],[AllowRateChange],[BarCode2],[BarCode3],[BarCode4])
+VALUES (@Code, @Name, @TamilName, @AlternativeName, @CatCode, @QtyTypeCode, @CalcBasedRateMast, 
+@Active, @CreatedBy, GETDATE(), @LastUpdatedBy, GETDATE(), @BarCode, @AllowRateChange, @BarCode2, @BarCode3, @BarCode4)  
+
+---------------
+Go
+---------------
+
+ALTER PROC [dbo].[SpUpdateProduct] (@Code INT, @Name VARCHAR(50), @TamilName NVARCHAR(50), @AlternativeName VARCHAR(50),   
+@CatCode INT, @QtyTypeCode INT, @CalcBasedRateMast VARCHAR(1), @Active VARCHAR(50), @LastUpdatedBy INT, @BarCode VARCHAR(50),
+@AllowRateChange VARCHAR(50), @BarCode2 VARCHAR(50), @BarCode3 VARCHAR(50), @BarCode4 VARCHAR(50))  
+AS  
+UPDATE [Product] SET [Name]=@Name, [TamilName]=@TamilName, [AlternativeName]=@AlternativeName, [CatCode]=@CatCode, [QtyTypeCode]=@QtyTypeCode,  
+[CalcBasedRateMast]=@CalcBasedRateMast, [Active]=@Active, [LastUpdatedBy]=@LastUpdatedBy, [LastUpdatedDateTime]=GETDATE(), [BarCode]=@BarCode,
+[AllowRateChange]=@AllowRateChange, [BarCode2]=@BarCode2, [BarCode3]=@BarCode3, [BarCode4]=@BarCode4
+WHERE [Code] = @Code  
+
+---------------
+Go
+---------------
+
+ALTER PROC [dbo].[SpGetProduct]  
+AS  
+SELECT P.SNo, P.Code, P.[Name], TamilName, AlternativeName, CatCode, C.[NAME] AS CatName, QtyTypeCode, Q.[NAME] AS QtyTypeName,   
+P.CalcBasedRateMast AS CalcBORMCode, (CASE WHEN P.[CalcBasedRateMast] = 'Y' THEN 'Yes' ELSE 'No' END) AS CalcBORM, 
+P.[AllowRateChange] AS AllowRateChangeCode, (CASE WHEN P.[AllowRateChange] = 'Y' THEN 'Yes' ELSE 'No' END) AS AllowRateChange, 
+P.Active AS ActiveStatusCode, (CASE WHEN P.Active = 'Y' THEN 'Yes' ELSE 'No' END) AS ActiveStatus,  P.CreatedBy, P.CreatedDateTime, 
+P.LastUpdatedBy, P.LastUpdatedDateTime, CAST(P.Code AS VARCHAR) AS PCodeString, P.[BarCode], P.[BarCode2], P.[BarCode3], P.[BarCode4]
+FROM [Product] AS P  
+Left Join [Category] AS C ON P.CatCode = C.Code  
+Left Join [Quantity] AS Q ON P.QtyTypeCode = Q.Code  
+Left Join [User] AS CU ON P.CreatedBy = CU.Code  
+Left Join [User] AS UU ON P.LastUpdatedBy = UU.Code  
+ORDER BY P.SNo ASC
+
+---------------
+Go
+---------------
+
 Alter PROC [SpGetProductRate]      
 AS   
 BEGIN  
     
 	SELECT CAST(P.[Code] AS VARCHAR) AS ProductCode, P.[Name] AS ProductName, P.[TamilName] AS ProductTName, P.[AlternativeName] AS ProductAltrName, P.[CatCode], P.[QtyTypeCode], P.[CalcBasedRateMast],      
 	Q.ShortName AS Qty, CAST(P.[Code] AS VARCHAR) + ' - ' + P.[Name] + ' - ' + P.[TamilName] AS SearchName,     
-	(CASE WHEN IsNull(P.BarCode, '') = '' THEN 'B' + REPLICATE('0', 5 - LEN(RTRIM(CAST(P.[Code] AS VARCHAR)))) +  RTRIM(CAST(P.[Code] AS VARCHAR)) ELSE P.BarCode END ) AS BarCode,    
-	'0.00' PurRate, '0.00' MRP, R.SellRate, '0.00' SellingMarginPer, '0.00' DiscPer, '0.00' DiscRate, '0.00' AS ProfitAmt,
-	'0.00' AS EmpProfitAmt, R.SellRate AS EmpSellRate, '0.00' AS CustProfitAmt, R.SellRate AS  CustSellRate
+	(CASE WHEN ISNULL(P.BarCode, '') = '' THEN 'B' + REPLICATE('0', 5 - LEN(RTRIM(CAST(P.[Code] AS VARCHAR)))) +  RTRIM(CAST(P.[Code] AS VARCHAR)) ELSE P.BarCode END ) AS BarCode,  
+	
+	R.[BuyRate] AS PurRate, R.[MRP], R.[SellRate], '0.00' SellingMarginPer, '0.00' DiscPer, '0.00' DiscRate, 
+
+	CAST(ROUND((R.[SellRate] -  R.[BuyRate]), 2) AS NUMERIC(12,2)) AS ProfitAmt,
+	CAST(ROUND((R.[SellRate] - R.[BuyRate]) * 0.50, 2) AS NUMERIC(12,2)) AS EmpProfitAmt,
+	CAST(ROUND(R.[BuyRate] + ((R.[SellRate] - R.[BuyRate]) * 0.50), 2) AS NUMERIC(12,2)) AS EmpSellRate,
+	CAST(ROUND((R.[SellRate] - R.[BuyRate]) * 0.75, 2) AS NUMERIC(12,2)) AS CustProfitAmt,
+	CAST(ROUND(R.[BuyRate] + ((R.[SellRate] - R.[BuyRate]) * 0.75), 2) AS NUMERIC(12,2)) AS CustSellRate, 
+
+	P.[AllowRateChange], ISNULL(P.[BarCode2], '') AS BarCode2, ISNULL(P.[BarCode3], '') AS BarCode3, ISNULL(P.[BarCode4], '') AS BarCode4
 	FROM [Product] AS P      
 	INNER JOIN [RateMaster] AS R ON P.Code = R.ProductCode      
 	INNER JOIN [Quantity] AS Q ON P.QtyTypeCode = Q.Code      
@@ -25,13 +236,14 @@ BEGIN
 	+ P.[Name]   
 	--+ (CASE WHEN IsNull(P.BarCode, '') = '' THEN ' - ' + P.[TamilName] ELSE '' END)   
 	+ ' - MRP: ' + CAST(S.[MRP] AS VARCHAR) AS SearchName,  
-	(CASE WHEN IsNull(P.BarCode, '') = '' THEN 'B' + REPLICATE('0', 5 - LEN(RTRIM(CAST(P.[Code] AS VARCHAR)))) +  RTRIM(CAST(P.[Code] AS VARCHAR)) ELSE P.BarCode END ) AS BarCode,    
+	(CASE WHEN ISNULL(P.BarCode, '') = '' THEN 'B' + REPLICATE('0', 5 - LEN(RTRIM(CAST(P.[Code] AS VARCHAR)))) +  RTRIM(CAST(P.[Code] AS VARCHAR)) ELSE P.BarCode END ) AS BarCode,    
 	S.PurRate, S.MRP, S.SellRate, S.SellingMarginPer, S.DiscPer, S.DiscRate, 
 	CAST(ROUND((S.SellRate -  S.PurRate), 2) AS NUMERIC(12,2)) AS ProfitAmt,
 	CAST(ROUND((S.SellRate - S.PurRate) * 0.50, 2) AS NUMERIC(12,2)) AS EmpProfitAmt,
 	CAST(ROUND(S.PurRate + ((S.SellRate - S.PurRate) * 0.50), 2) AS NUMERIC(12,2)) AS EmpSellRate,
 	CAST(ROUND((S.SellRate - S.PurRate) * 0.75, 2) AS NUMERIC(12,2)) AS CustProfitAmt,
-	CAST(ROUND(S.PurRate + ((S.SellRate - S.PurRate) * 0.75), 2) AS NUMERIC(12,2)) AS CustSellRate
+	CAST(ROUND(S.PurRate + ((S.SellRate - S.PurRate) * 0.75), 2) AS NUMERIC(12,2)) AS CustSellRate, 
+	P.[AllowRateChange], ISNULL(P.[BarCode2], '') AS BarCode2, ISNULL(P.[BarCode3], '') AS BarCode3, ISNULL(P.[BarCode4], '') AS BarCode4
 	FROM [Product] AS P    
 	INNER JOIN [Stock] AS S On P.[Code] = S.ProductCode    
 	INNER JOIN [Quantity] AS Q ON P.QtyTypeCode = Q.Code      
@@ -41,10 +253,11 @@ BEGIN
       
 	SELECT CAST(P.[Code] AS VARCHAR) AS ProductCode, P.[Name], P.[TamilName], P.[AlternativeName], P.[CatCode], P.[QtyTypeCode], P.[CalcBasedRateMast],      
 	Q.ShortName AS Qty, CAST(P.[Code] AS VARCHAR) + ' - ' + P.[Name]     
-	+ (CASE WHEN IsNull(P.BarCode, '') = '' THEN ' - ' + P.[TamilName] ELSE '' END) AS SearchName,      
-	(CASE WHEN IsNull(P.BarCode, '') = '' THEN 'B' + REPLICATE('0', 5 - LEN(RTRIM(CAST(P.[Code] AS VARCHAR)))) +  RTRIM(CAST(P.[Code] AS VARCHAR)) ELSE P.BarCode END ) AS BarCode,    
+	+ (CASE WHEN ISNULL(P.BarCode, '') = '' THEN ' - ' + P.[TamilName] ELSE '' END) AS SearchName,      
+	(CASE WHEN ISNULL(P.BarCode, '') = '' THEN 'B' + REPLICATE('0', 5 - LEN(RTRIM(CAST(P.[Code] AS VARCHAR)))) +  RTRIM(CAST(P.[Code] AS VARCHAR)) ELSE P.BarCode END ) AS BarCode,    
 	'0.00' PurRate, '0.00' MRP, '0.00' SellRate, '0.00' SellingMarginPer, '0.00' DiscPer, '0.00' DiscRate, '0.00' AS ProfitAmt,
-	'0.00' AS EmpProfitAmt, '0.00' AS EmpSellRate, '0.00' AS CustProfitAmt, '0.00' AS  CustSellRate
+	'0.00' AS EmpProfitAmt, '0.00' AS EmpSellRate, '0.00' AS CustProfitAmt, '0.00' AS  CustSellRate, 
+	P.[AllowRateChange], ISNULL(P.[BarCode2], '') AS BarCode2, ISNULL(P.[BarCode3], '') AS BarCode3, ISNULL(P.[BarCode4], '') AS BarCode4
 	FROM [Product] AS P    
 	INNER JOIN [Quantity] AS Q ON P.QtyTypeCode = Q.Code      
 	WHERE ISNULL(P.CalcBasedRateMast,'') != 'Y' And ISNULL(P.Active,'') = 'Y'      
@@ -76,7 +289,8 @@ CREATE TYPE [dbo].[UDT_Sales] AS TABLE(
 	[PurAmount] [numeric](12, 2) NULL,
 	[ProfitAmount] [numeric](12, 2) NULL,
 	[DiscCustCode] [int] NULL,
-	[DiscEmpCode] [int] NULL
+	[DiscEmpCode] [int] NULL,
+	[IsDefective] [varchar](1) NULL
 )
 
 CREATE TYPE [dbo].[UDT_Transaction] AS TABLE(
@@ -96,6 +310,7 @@ ALTER TABLE [Sales] ADD [PurAmount] [numeric](12, 2) NULL
 ALTER TABLE [Sales] ADD [ProfitAmount] [numeric](12, 2) NULL
 ALTER TABLE [Sales] ADD [DiscCustCode] [int] NULL
 ALTER TABLE [Sales] ADD [DiscEmpCode] [int] NULL
+ALTER TABLE [Sales] ADD [IsDefective] [varchar](1) NULL
 
 ALTER TABLE [SalesTransaction] ADD [TotProfitAmount] [numeric](12, 2) NULL
 
@@ -105,8 +320,10 @@ Go
 
 CREATE PROC [dbo].[SpSaveSale] (@UDT_Sales UDT_Sales readonly, @UDT_Transaction UDT_Transaction readonly, @UDT_PaymentDetails UDT_PaymentDetails readonly, @BILLNO INT OUTPUT)    
 As    
-BEGIN TRAN    
-    
+BEGIN TRAN 
+
+SET NOCOUNT ON;
+
 BEGIN TRY    
     
   DECLARE @CNT AS INT    
@@ -123,10 +340,10 @@ BEGIN TRY
     
   INSERT INTO [Sales]([BillNo],[BilledDate],[ProductCode],[Qty],[Unit],[SellRate],[Amount],    
   [DiscPercent],[DiscAmount],[TotAmount],[MRP],[TotDiscAmtFROMMRP],[BilledBy],[BilledDateTime],
-  [PurAmount],[ProfitAmount],[DiscCustCode],[DiscEmpCode])    
+  [PurAmount],[ProfitAmount],[DiscCustCode],[DiscEmpCode],[IsDefective])    
   SELECT @BILLNO,CAST(GETDATE() AS Date ),[ProductCode],[Qty],[Unit],[SellRate],[Amount],    
   [DiscPercent],[DiscAmount],[TotAmount],[MRP],[TotDiscAmtFROMMRP],[BilledBy],GETDATE(),
-  [PurAmount],[ProfitAmount],[DiscCustCode],[DiscEmpCode]
+  [PurAmount],[ProfitAmount],[DiscCustCode],[DiscEmpCode],[IsDefective]
   FROM @UDT_Sales    
      
     
@@ -154,9 +371,15 @@ BEGIN TRY
     
 END TRY    
 BEGIN CATCH    
-    
- ROLLBACK TRAN    
-    
-END CATCH  
   
+	IF @@TRANCOUNT > 0
+		ROLLBACK TRAN;  -- Rollback only if an open transaction exists
+
+	-- Rethrow the original error
+	THROW;
+
+END CATCH  
+
+--------------  
+GO
 --------------  

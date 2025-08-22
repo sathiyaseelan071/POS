@@ -58,7 +58,11 @@ namespace VegetableBox
         private int _CategoryTypeCode = 0;
         private int _QuantityTypeCode = 0;
         private string _CalcBasedOnRateMaster = string.Empty;
+        private string _AllowRateChange = string.Empty;
         private string _BarCode = string.Empty;
+        private string _BarCode2 = string.Empty;
+        private string _BarCode3 = string.Empty;
+        private string _BarCode4 = string.Empty;
         private string _ActiveStatus = string.Empty;
 
         internal int ProductCode
@@ -102,11 +106,34 @@ namespace VegetableBox
             get { return _CalcBasedOnRateMaster; }
             set { _CalcBasedOnRateMaster = value; }
         }
+        internal string AllowRateChange
+        {
+            get { return _AllowRateChange; }
+            set { _AllowRateChange = value; }
+        }
 
         internal string BarCode
         {
             get { return _BarCode; }
             set { _BarCode = value; }
+        }
+
+        internal string BarCode2
+        {
+            get { return _BarCode2; }
+            set { _BarCode2 = value; }
+        }
+
+        internal string BarCode3
+        {
+            get { return _BarCode3; }
+            set { _BarCode3 = value; }
+        }
+
+        internal string BarCode4
+        {
+            get { return _BarCode4; }
+            set { _BarCode4 = value; }
         }
 
         internal string ActiveStatus
@@ -130,7 +157,11 @@ namespace VegetableBox
                 _ListSqlParameter.Add(new SqlParameter("@CatCode", this.CategoryTypeCode));
                 _ListSqlParameter.Add(new SqlParameter("@QtyTypeCode", this.QuantityTypeCode));
                 _ListSqlParameter.Add(new SqlParameter("@CalcBasedRateMast", this.CalcBasedOnRateMaster));
+                _ListSqlParameter.Add(new SqlParameter("@AllowRateChange", this.AllowRateChange));                
                 _ListSqlParameter.Add(new SqlParameter("@BarCode", this.BarCode));
+                _ListSqlParameter.Add(new SqlParameter("@BarCode2", this.BarCode2));
+                _ListSqlParameter.Add(new SqlParameter("@BarCode3", this.BarCode3));
+                _ListSqlParameter.Add(new SqlParameter("@BarCode4", this.BarCode4));
                 _ListSqlParameter.Add(new SqlParameter("@Active", this.ActiveStatus));
                 _ListSqlParameter.Add(new SqlParameter("@CreatedBy", Global.currentUserId));
                 _ListSqlParameter.Add(new SqlParameter("@LastUpdatedBy", Global.currentUserId));
@@ -159,7 +190,11 @@ namespace VegetableBox
                 _ListSqlParameter.Add(new SqlParameter("@CatCode", this.CategoryTypeCode));
                 _ListSqlParameter.Add(new SqlParameter("@QtyTypeCode", this.QuantityTypeCode));
                 _ListSqlParameter.Add(new SqlParameter("@CalcBasedRateMast", this.CalcBasedOnRateMaster));
+                _ListSqlParameter.Add(new SqlParameter("@AllowRateChange", this.AllowRateChange));
                 _ListSqlParameter.Add(new SqlParameter("@BarCode", this.BarCode));
+                _ListSqlParameter.Add(new SqlParameter("@BarCode2", this.BarCode2));
+                _ListSqlParameter.Add(new SqlParameter("@BarCode3", this.BarCode3));
+                _ListSqlParameter.Add(new SqlParameter("@BarCode4", this.BarCode4));
                 _ListSqlParameter.Add(new SqlParameter("@Active", this.ActiveStatus));
                 _ListSqlParameter.Add(new SqlParameter("@LastUpdatedBy", Global.currentUserId));
 
@@ -189,6 +224,28 @@ namespace VegetableBox
 
                 _ProductMaster = new DataTable();
                 _ProductMaster = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        internal int GetProductRecordCount()
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+
+                String SqlQuery = "SELECT COUNT(*) AS RecordCount FROM [dbo].[Product] WHERE [Name] = @Name AND [Code] != @Code";
+
+                List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
+                _ListSqlParameter.Add(new SqlParameter("@Name", this.ProductName));
+                _ListSqlParameter.Add(new SqlParameter("@Code", this.ProductCode));
+
+                int Result = (int)_SqlIntract.ExecuteScalar(SqlQuery, CommandType.Text, _ListSqlParameter);
+
+                return Result;
             }
             catch
             {

@@ -26,8 +26,10 @@ namespace VegetableBox
             try
             {
                 this.ClearProductDetails();
+                this.ClearDiscountOptions();
                 this.LoadCardGrid();
                 this.ClearAmountDetails();
+                this.GetMasterData();
                 SendKeys.Send("{TAB}");
                 this.TxtProductSearch.Focus();
             }
@@ -50,6 +52,14 @@ namespace VegetableBox
                 DGVCart.Columns[CartDataStruct.ColumnName.TotMRP].Visible = false;
                 DGVCart.Columns[CartDataStruct.ColumnName.DiscPer].Visible = false;
                 DGVCart.Columns[CartDataStruct.ColumnName.DiscAmount].Visible = false;
+                
+                DGVCart.Columns[CartDataStruct.ColumnName.PurAmount].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.ProfitAmount].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.DiscEmpCode].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.DiscCustCode].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.IsDefective].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.AllowRateChange].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.SellingRateZero].Visible = false;
 
                 DGVCart.Columns[CartDataStruct.ColumnName.ProCode].HeaderText = "Pro-Code";
                 DGVCart.Columns[CartDataStruct.ColumnName.ProTamilName].HeaderText = "Product Name";
@@ -104,6 +114,7 @@ namespace VegetableBox
                     {
                         _DtSearch.Columns.Add(ProductRateData.ColumnName.SearchName, typeof(string));
                         _DtSearch.Columns.Add(ProductRateData.ColumnName.ProductCode, typeof(string));
+                        _DtSearch.Columns.Add(ProductRateData.ColumnName.MRP, typeof(decimal));
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 
@@ -126,6 +137,7 @@ namespace VegetableBox
                                     var row = _DtSearch.NewRow();
                                     row[ProductRateData.ColumnName.SearchName] = g.Field<string>(ProductRateData.ColumnName.SearchName);
                                     row[ProductRateData.ColumnName.ProductCode] = g.Field<string>(ProductRateData.ColumnName.ProductCode);
+                                    row[ProductRateData.ColumnName.MRP] = g.Field<decimal>(ProductRateData.ColumnName.MRP);
                                     return row;
                                 }
                                 ).CopyToDataTable();
@@ -137,6 +149,9 @@ namespace VegetableBox
 
                         if (DgvProductSearch.Columns.Contains(ProductRateData.ColumnName.ProductCode))
                             DgvProductSearch.Columns[ProductRateData.ColumnName.ProductCode].Visible = false;
+
+                        if (DgvProductSearch.Columns.Contains(ProductRateData.ColumnName.MRP))
+                            DgvProductSearch.Columns[ProductRateData.ColumnName.MRP].Visible = false;
 
                     }
                 }
@@ -215,6 +230,9 @@ namespace VegetableBox
         private decimal? CurrentMRP { get; set; }
         private decimal? CurrentDiscFromMrp { get; set; }
         private decimal? CurrentPurRate { get; set; }
+        private decimal? CurrentProfitAmount { get; set; }
+        private bool? CurrentAllowRateChange { get; set; }
+        private bool? CurrentSellingRateZero { get; set; }
 
         private void LoadCurrentProduct()
         {
@@ -223,6 +241,7 @@ namespace VegetableBox
                 if (DgvProductSearch.Rows.Count > 0)
                 {
                     this.CurrentPCode = (string)DgvProductSearch.CurrentRow.Cells[ProductRateData.ColumnName.ProductCode].Value;
+                    this.CurrentMRP = (decimal)DgvProductSearch.CurrentRow.Cells[ProductRateData.ColumnName.MRP].Value;
 
                     if (clsFrmPos.ProductRateData != null && clsFrmPos.ProductRateData.Rows.Count > 0)
                     {
@@ -231,7 +250,8 @@ namespace VegetableBox
                         {
 
                             DataRow dataRow = clsFrmPos.ProductRateData
-                                .AsEnumerable().Where(x => x.Field<string>(ProductRateData.ColumnName.ProductCode) == this.CurrentPCode).FirstOrDefault();
+                                .AsEnumerable().Where(x => x.Field<string>(ProductRateData.ColumnName.ProductCode) == this.CurrentPCode
+                                && x.Field<decimal>(ProductRateData.ColumnName.MRP) == this.CurrentMRP).FirstOrDefault();
 
                             if (dataRow != null)
                             {
@@ -241,17 +261,41 @@ namespace VegetableBox
                                 this.CurrentPTamilName = (dataRow[ProductRateData.ColumnName.ProductTName] != null ?
                                                     (string)dataRow[ProductRateData.ColumnName.ProductTName] : string.Empty);
 
-                                this.CurrentPSellRate = (dataRow[ProductRateData.ColumnName.SellRate] != null ?
-                                                    (decimal)dataRow[ProductRateData.ColumnName.SellRate] : Convert.ToDecimal("0.00"));
+                                if (rdoDefaultDisc.Checked)
+                                {
+                                    this.CurrentPSellRate = (dataRow[ProductRateData.ColumnName.SellRate] != null ?
+                                                        (decimal)dataRow[ProductRateData.ColumnName.SellRate] : Convert.ToDecimal("0.00"));
+
+                                    this.CurrentProfitAmount = (dataRow[ProductRateData.ColumnName.ProfitAmt] != null ?
+                                                        (decimal)dataRow[ProductRateData.ColumnName.ProfitAmt] : Convert.ToDecimal("0.00"));
+                                }
+                                else if (rdoEmpPartnerDisc.Checked)
+                                {
+                                    this.CurrentPSellRate = (dataRow[ProductRateData.ColumnName.EmpSellRate] != null ?
+                                                        (decimal)dataRow[ProductRateData.ColumnName.EmpSellRate] : Convert.ToDecimal("0.00"));
+                                    this.CurrentProfitAmount = (dataRow[ProductRateData.ColumnName.EmpProfitAmt] != null ?
+                                                        (decimal)dataRow[ProductRateData.ColumnName.EmpProfitAmt] : Convert.ToDecimal("0.00"));
+                                }
+                                else if (rdoPrivilageDisc.Checked)
+                                {
+                                    this.CurrentPSellRate = (dataRow[ProductRateData.ColumnName.CustSellRate] != null ?
+                                                        (decimal)dataRow[ProductRateData.ColumnName.CustSellRate] : Convert.ToDecimal("0.00"));
+                                    this.CurrentProfitAmount = (dataRow[ProductRateData.ColumnName.CustProfitAmt] != null ?
+                                                        (decimal)dataRow[ProductRateData.ColumnName.CustProfitAmt] : Convert.ToDecimal("0.00"));
+                                }
 
                                 this.CurrentPurRate = (dataRow[ProductRateData.ColumnName.PurRate] != null ?
                                                     (decimal)dataRow[ProductRateData.ColumnName.PurRate] : Convert.ToDecimal("0.00"));
+
 
                                 this.CurrentMRP = (dataRow[ProductRateData.ColumnName.MRP] != null ?
                                                     (decimal)dataRow[ProductRateData.ColumnName.MRP] : Convert.ToDecimal("0.00"));
 
                                 this.CurrentPQtyShortName = (dataRow[ProductRateData.ColumnName.Qty] != null ?
                                                     (string)dataRow[ProductRateData.ColumnName.Qty] : string.Empty);
+
+                                this.CurrentAllowRateChange = (dataRow[ProductRateData.ColumnName.AllowRateChange] != null 
+                                                               && dataRow[ProductRateData.ColumnName.AllowRateChange].ToString() == "Y" ? true : false);
 
                                 string _Value = (dataRow[ProductRateData.ColumnName.CalcBasedRateMast] != null ?
                                                    (string)dataRow[ProductRateData.ColumnName.CalcBasedRateMast] : string.Empty);
@@ -267,6 +311,7 @@ namespace VegetableBox
                                 this.TxtRate.Text = this.CurrentPSellRate.ToString();
 
                                 this.LblPurchaseAmt.Text = this.CurrentPurRate.ToString();
+                                this.LblProfitAmt.Text = this.CurrentProfitAmount.ToString();
 
                                 if (this.CurrentMRP > 0)
                                     this.TxtMrp.Text = this.CurrentMRP.ToString();
@@ -275,6 +320,21 @@ namespace VegetableBox
 
                                 this.TxtDiscPercentage.Text = "0.00";
                                 this.TxtDiscAmt.Text = "0.00";
+
+                                if (this.TxtRate.Text == "0.00")
+                                    this.CurrentSellingRateZero = true;
+                                else
+                                    this.CurrentSellingRateZero = false;
+
+                                if (this.TxtRate.Text == "0.00" || this.CurrentAllowRateChange == true)
+                                    this.TxtRate.ReadOnly = false;                   
+                                else
+                                    this.TxtRate.ReadOnly = true;
+
+                                int _Val = (dataRow[ProductRateData.ColumnName.CatCode] != null ?
+                                                   (int)dataRow[ProductRateData.ColumnName.CatCode] : 0);
+                                int[] defectiveCategories = { 1, 2, 9 }; // Vegetables, Fruits, Banana
+                                this.chkIsDefective.Visible = defectiveCategories.Contains(_Val);
 
                                 this.TxtProductSearch.Text = string.Empty;
                                 this.TxtQty.Focus();
@@ -383,9 +443,32 @@ namespace VegetableBox
                 this.TxtRBWWeight.Text = string.Empty;
                 this.TLP_RateBasedWt.Visible = false;
                 this.TxtMrp.Text = string.Empty;
-                this.LblPurchaseAmt.Text = string.Empty;
-                this.LblPurchaseAmt.Visible = false;
                 this.TxtDiscFromMRP.Text = string.Empty;
+
+                this.LblPurchaseAmt.Text = string.Empty;
+                this.LblPurchaseAmt.Visible = true;
+
+                this.LblProfitAmt.Text = string.Empty;
+                this.LblProfitAmt.Visible = true;
+
+                this.TxtRate.ReadOnly = true;
+                this.chkIsDefective.Checked = false;
+                this.chkIsDefective.Visible = false;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void ClearDiscountOptions()
+        {
+            try
+            {
+                this.rdoDefaultDisc.Checked = true;
+                this.cmbName.SelectedIndex = -1;
+                this.lblName.Enabled = false;
+                this.cmbName.Enabled = false;
             }
             catch
             {
@@ -399,16 +482,21 @@ namespace VegetableBox
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    if (this.TxtQty.Text != string.Empty && Convert.ToDecimal(this.TxtQty.Text) > 0)
+                    if (!string.IsNullOrWhiteSpace(this.TxtQty.Text) &&
+                        this.TxtQty.Text != "." &&
+                        decimal.TryParse(this.TxtQty.Text.Trim(), out decimal qty) &&
+                        qty > 0)
                     {
-                        if (this.CurrentPCalcBORM == true)
-                        {
-                            this.BtnAddCart.Focus();
-                        }
-                        else
-                        {
+                        //if (this.CurrentPCalcBORM == true)
+                        //    this.BtnAddCart.Focus();
+                        //else
+                        //    this.TxtRate.Focus();
+
+                        if (string.IsNullOrWhiteSpace(this.TxtRate.Text) || (decimal.TryParse(this.TxtRate.Text.Trim(), out decimal rate)
+                            && rate <= 0) || this.CurrentAllowRateChange == true || this.CurrentSellingRateZero == true)
                             this.TxtRate.Focus();
-                        }
+                        else
+                            this.BtnAddCart.Focus();
                     }
                     else
                     {
@@ -426,71 +514,61 @@ namespace VegetableBox
         {
             try
             {
-                if (e.KeyCode == Keys.Escape && TxtPaymentDetCash.Focused && LblFinalAmtReceived.Text == LblFinalNetAmt.Text)
-                {
-                    BtnSave.Focus();
-                }
-
-                if (e.KeyCode == Keys.Escape)
-                {
-                    TxtPaymentDetCash.Focus();
-                }
-
-                if (e.Control & e.KeyCode == Keys.G)
+                // Handle modifier key shortcuts first
+                if (e.Control && e.KeyCode == Keys.G)
                 {
                     DGVCart.Focus();
+                    return;
                 }
-
-                if (e.KeyCode == Keys.Delete)
-                {
-                    if (DGVCart.Focused && DGVCart.SelectedRows.Count >= 1)
-                    {
-                        this.DeleteCartSelectedItem();
-                        this.TxtProductSearch.Focus();
-                    }
-                }
-
-                if ((e.Control & e.KeyCode == Keys.E))
+                else if (e.Control && e.KeyCode == Keys.E)
                 {
                     if (DGVCart.Focused && DGVCart.SelectedRows.Count >= 1)
                     {
                         this.EditAndDeleteCartSelectedItem();
                         this.TxtQty.Focus();
                     }
+                    return;
                 }
 
-                if (e.KeyCode == Keys.F12)
+                // Handle single key shortcuts
+                switch (e.KeyCode)
                 {
-                    if (this.TLP_RateBasedWt.Visible == false)
-                    {
-                        this.TLP_RateBasedWt.Visible = true;
-                        this.TxtRBWRate.Focus();
+                    case Keys.Escape:
+                        if (TxtPaymentDetCash.Focused && LblFinalAmtReceived.Text == LblFinalNetAmt.Text)
+                            BtnSave.Focus();
+                        else
+                            TxtPaymentDetCash.Focus();
+                        break;
+
+                    case Keys.Delete:
+                        if (DGVCart.Focused && DGVCart.SelectedRows.Count >= 1)
+                        {
+                            this.DeleteCartSelectedItem();
+                            this.TxtProductSearch.Focus();
+                        }
+                        break;
+
+                    case Keys.F1:
+                        this.TxtProductSearch.Focus();
+                        break;
+
+                    case Keys.F4:
+                        this.LblPurchaseAmt.Visible = !this.LblPurchaseAmt.Visible;
+                        break;
+
+                    case Keys.F5:
+                        this.clsFrmPos.GetProductRateDetails();
+                        this.GetMasterData();
+                        break;
+
+                    case Keys.F12:
+                        this.TLP_RateBasedWt.Visible = !this.TLP_RateBasedWt.Visible;
                         this.TxtRBWRate.Clear();
                         this.TxtRBWWeight.Clear();
-                    }
-                    else
-                    {
-                        this.TLP_RateBasedWt.Visible = false;
-                        this.TxtRBWRate.Clear();
-                        this.TxtRBWWeight.Clear();
-                    }
+                        if (this.TLP_RateBasedWt.Visible)
+                            this.TxtRBWRate.Focus();
+                        break;
                 }
-
-                if (e.KeyCode == Keys.F1)
-                {
-                    this.TxtProductSearch.Focus();
-                }
-
-                if (e.KeyCode == Keys.F5)
-                {
-                    this.clsFrmPos.GetProductRateDetails();
-                }
-
-                if (e.KeyCode == Keys.F4)
-                {
-                    this.LblPurchaseAmt.Visible = this.LblPurchaseAmt.Visible ? false : true;
-                }
-
             }
             catch (Exception ex)
             {
@@ -504,13 +582,15 @@ namespace VegetableBox
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    if (this.TxtRate.Text != string.Empty && Convert.ToDecimal(this.TxtRate.Text) > 0)
+                    if (!string.IsNullOrWhiteSpace(this.TxtRate.Text) &&
+                    decimal.TryParse(this.TxtRate.Text.Trim(), out decimal rate) &&
+                    rate > 0)
                     {
                         this.BtnAddCart.Focus();
                     }
                     else
                     {
-                        throw new Exception("Please enter the rate.");
+                        throw new Exception("Please enter a valid rate greater than zero.");
                     }
                 }
             }
@@ -527,8 +607,12 @@ namespace VegetableBox
                 decimal _Qty = this.ToConvertTextToDecimal(this.TxtQty.Text);
                 decimal _Rate = this.ToConvertTextToDecimal(this.TxtRate.Text);
                 decimal _DiscPer = this.ToConvertTextToDecimal(this.TxtDiscPercentage.Text);
+                decimal _PurRate = this.ToConvertTextToDecimal(this.LblPurchaseAmt.Text);
 
-                if (this.CurrentPSellRate <= 0)
+                if (this.CurrentPSellRate <= 0 || this.CurrentSellingRateZero == true)
+                    this.TxtMrp.Text = this.ToConvertTextToDecimal(this.TxtRate.Text).ToString("0.00");
+
+                if (this.CurrentAllowRateChange == true && _Rate > this.CurrentMRP)
                     this.TxtMrp.Text = this.ToConvertTextToDecimal(this.TxtRate.Text).ToString("0.00");
 
                 this.TxtAmt.Text = this.ToConvertAmtFormat(Convert.ToString(Math.Round(_Qty * _Rate, 2)));
@@ -546,6 +630,8 @@ namespace VegetableBox
                 decimal _TotMRP = _Qty * _MRP;
 
                 this.TxtDiscFromMRP.Text = this.ToConvertAmtFormat(Convert.ToString(Math.Round(_TotMRP - _TotAmt, 2)));
+
+                this.LblProfitAmt.Text = this.ToConvertAmtFormat(_PurRate == 0 ? "0.00" : Convert.ToString(_Rate - _PurRate));
             }
             catch
             {
@@ -562,6 +648,9 @@ namespace VegetableBox
             {
                 if (clsFrmPos.CartData != null && clsFrmPos.CartData.Rows.Count > 0)
                 {
+                    decimal decTotalProfitAmount = Math.Round(Convert.ToDecimal(clsFrmPos.CartData.Compute("SUM(" + CartDataStruct.ColumnName.ProfitAmount + ")", string.Empty)), 2);
+                    this.LblTotalProfitAmt.Text = this.ToConvertAmtFormat(decTotalProfitAmount.ToString());
+
                     decimal decTotalAmount = Math.Round(Convert.ToDecimal(clsFrmPos.CartData.Compute("SUM(" + CartDataStruct.ColumnName.TotalAmount + ")", string.Empty)), 2);
                     decimal decDiscPer = this.ToConvertTextToDecimal(this.TxtFinalDiscPer.Text);
                     decimal decDiscAmt = Math.Round(((decTotalAmount * decDiscPer) / 100), 2);
@@ -619,7 +708,7 @@ namespace VegetableBox
         {
             try
             {
-                if (TxtQty.Focused && TxtProCode.Text != string.Empty)
+                if (TxtQty.Focused && TxtProCode.Text != string.Empty && TxtQty.Text != ".")
                     this.ToCalcProductAmount();
             }
             catch (Exception ex)
@@ -709,7 +798,7 @@ namespace VegetableBox
         private void BtnAddCart_Click(object sender, EventArgs e)
         {
             try
-            {                
+            {
                 if (this.ValidateAddCart())
                 {
                     DataRow dr = clsFrmPos.CartData.NewRow();
@@ -726,6 +815,17 @@ namespace VegetableBox
                     dr[CartDataStruct.ColumnName.CalBORM] = this.CurrentPCalcBORM;
                     dr[CartDataStruct.ColumnName.TotDiscAmtFrmMrp] = this.TxtDiscFromMRP.Text.Trim();
                     dr[CartDataStruct.ColumnName.MRP] = this.TxtMrp.Text.Trim();
+                    dr[CartDataStruct.ColumnName.PurAmount] = this.LblPurchaseAmt.Text.Trim();
+                    dr[CartDataStruct.ColumnName.ProfitAmount] = this.LblProfitAmt.Text.Trim();
+                    dr[CartDataStruct.ColumnName.IsDefective] = this.chkIsDefective.Checked ? "Y" : null;
+                    dr[CartDataStruct.ColumnName.AllowRateChange] = this.CurrentAllowRateChange;
+                    dr[CartDataStruct.ColumnName.SellingRateZero] = this.CurrentSellingRateZero;
+
+                    if (rdoEmpPartnerDisc.Checked)
+                        dr[CartDataStruct.ColumnName.DiscEmpCode] = this.cmbName.SelectedValue;
+
+                    if (rdoPrivilageDisc.Checked)
+                        dr[CartDataStruct.ColumnName.DiscCustCode] = this.cmbName.SelectedValue;
 
                     decimal _Qty = this.ToConvertTextToDecimal(this.TxtQty.Text);
                     decimal _Mrp = this.ToConvertTextToDecimal(this.TxtMrp.Text);
@@ -977,6 +1077,7 @@ namespace VegetableBox
                 {
                     this.clsFrmPos = new ClsFrmPos();
                     this.ClearProductDetails();
+                    this.ClearDiscountOptions();
                     this.LoadCardGrid();
                     this.ClearAmountDetails();
                     this.TxtProductSearch.Focus();
@@ -1005,6 +1106,7 @@ namespace VegetableBox
                 this.TxtPaymentDetCredit.Text = "0.00";
                 this.LblFinalAmtReceived.Text = "0.00";
                 this.LblFinalBalanceAmount.Text = "0.00";
+                this.LblTotalProfitAmt.Text = "0.00";
             }
             catch
             {
@@ -1166,6 +1268,7 @@ namespace VegetableBox
                     clsTransaction.NetAmount = Convert.ToDecimal(this.LblFinalNetAmt.Text);
                     clsTransaction.PrintTotDiscMRP = this.PrintTotDiscMRP;
                     clsTransaction.PrintTotMRP = this.PrintTotMRP;
+                    clsTransaction.TotProfitAmount = Convert.ToDecimal(this.LblTotalProfitAmt.Text);
 
                     List<ClsPaymentDetails> listClsPaymentDetails = new List<ClsPaymentDetails>();
 
@@ -1225,6 +1328,7 @@ namespace VegetableBox
 
                     this.clsFrmPos = new ClsFrmPos();
                     this.ClearProductDetails();
+                    this.ClearDiscountOptions();
                     this.LoadCardGrid();
                     this.ClearAmountDetails();
                     this.TxtProductSearch.Focus();
@@ -1300,6 +1404,20 @@ namespace VegetableBox
                         this.CurrentPCalcBORM = Convert.ToBoolean(dr[CartDataStruct.ColumnName.CalBORM]);
                         this.TxtDiscFromMRP.Text = Convert.ToString(dr[CartDataStruct.ColumnName.TotDiscAmtFrmMrp]);
                         this.TxtMrp.Text = Convert.ToString(dr[CartDataStruct.ColumnName.MRP]);
+
+                        this.LblProfitAmt.Text = Convert.ToString(dr[CartDataStruct.ColumnName.ProfitAmount]);
+                        this.LblPurchaseAmt.Text = Convert.ToString(dr[CartDataStruct.ColumnName.PurAmount]);
+
+                        this.chkIsDefective.Checked = dr[CartDataStruct.ColumnName.IsDefective] != DBNull.Value &&
+                            Convert.ToString(dr[CartDataStruct.ColumnName.IsDefective]) == "Y";
+
+                        this.CurrentAllowRateChange = Convert.ToBoolean(dr[CartDataStruct.ColumnName.AllowRateChange]);
+                        this.CurrentSellingRateZero = Convert.ToBoolean(dr[CartDataStruct.ColumnName.SellingRateZero]);
+
+                        if (this.CurrentAllowRateChange == true || this.chkIsDefective.Checked || this.CurrentSellingRateZero == true)
+                            this.TxtRate.ReadOnly = false;
+                        else
+                            this.TxtRate.ReadOnly = true;
 
                         this.DeleteCartSelectedItem();
                     }
@@ -1377,47 +1495,87 @@ namespace VegetableBox
                     IsValid = false;
                 }
 
-                if (string.IsNullOrEmpty(this.TxtQty.Text.Trim()))
+                if (string.IsNullOrWhiteSpace(this.TxtQty.Text))
                 {
                     this.ErrorProvider.SetError(this.TxtQty, errValueSpecified);
                     IsValid = false;
                 }
-                else if (Convert.ToDecimal(this.TxtQty.Text.Trim()) <= 0)
+                else if (!decimal.TryParse(this.TxtQty.Text.Trim(), out decimal qty))
+                {
+                    this.ErrorProvider.SetError(this.TxtQty, "Please enter a valid number.");
+                    IsValid = false;
+                }
+                else if (qty <= 0)
                 {
                     this.ErrorProvider.SetError(this.TxtQty, errValueGreaterThenZero);
                     IsValid = false;
                 }
 
-                if (string.IsNullOrEmpty(this.TxtRate.Text.Trim()))
+                //Selling Rate
+                decimal purchaseAmt;
+                decimal sellingrate; // selling rate
+
+                // Validate TxtRate
+                if (string.IsNullOrWhiteSpace(this.TxtRate.Text))
                 {
                     this.ErrorProvider.SetError(this.TxtRate, errValueSpecified);
                     IsValid = false;
                 }
-                else if (Convert.ToDecimal(this.TxtRate.Text.Trim()) <= 0)
+                else if (!decimal.TryParse(this.TxtRate.Text.Trim(), out sellingrate))
+                {
+                    this.ErrorProvider.SetError(this.TxtRate, "Please enter a valid number.");
+                    IsValid = false;
+                }
+                else if (sellingrate <= 0)
                 {
                     this.ErrorProvider.SetError(this.TxtRate, errValueGreaterThenZero);
                     IsValid = false;
                 }
+                // Compare with purchase amount if valid number
+                else if (decimal.TryParse(this.LblPurchaseAmt.Text.Trim(), out purchaseAmt))
+                {
+                    if (!chkIsDefective.Checked && (purchaseAmt > 0 && sellingrate <= purchaseAmt))
+                    {
+                        this.ErrorProvider.SetError(this.TxtRate, "Selling rate should be greater than Purchase rate");
+                        IsValid = false;
+                    }
+                }
 
-                if (string.IsNullOrEmpty(this.TxtAmt.Text.Trim()))
+                if (string.IsNullOrWhiteSpace(this.TxtAmt.Text))
                 {
                     this.ErrorProvider.SetError(this.TxtAmt, errValueSpecified);
                     IsValid = false;
                 }
-                else if (Convert.ToDecimal(this.TxtAmt.Text.Trim()) <= 0)
+                else if (!decimal.TryParse(this.TxtAmt.Text.Trim(), out decimal amount))
+                {
+                    this.ErrorProvider.SetError(this.TxtAmt, "Please enter a valid number.");
+                    IsValid = false;
+                }
+                else if (amount <= 0)
                 {
                     this.ErrorProvider.SetError(this.TxtAmt, errValueGreaterThenZero);
                     IsValid = false;
                 }
 
-                if (string.IsNullOrEmpty(this.TxtTotAmt.Text.Trim()))
+                if (string.IsNullOrWhiteSpace(this.TxtTotAmt.Text))
                 {
                     this.ErrorProvider.SetError(this.TxtTotAmt, errValueSpecified);
                     IsValid = false;
                 }
-                else if (Convert.ToDecimal(this.TxtTotAmt.Text.Trim()) <= 0)
+                else if (!decimal.TryParse(this.TxtTotAmt.Text.Trim(), out decimal totalAmount))
+                {
+                    this.ErrorProvider.SetError(this.TxtTotAmt, "Please enter a valid number.");
+                    IsValid = false;
+                }
+                else if (totalAmount <= 0)
                 {
                     this.ErrorProvider.SetError(this.TxtTotAmt, errValueGreaterThenZero);
+                    IsValid = false;
+                }
+
+                if (!rdoDefaultDisc.Checked && cmbName.SelectedIndex == -1)
+                {
+                    this.ErrorProvider.SetError(this.cmbName, "Please select a name.");
                     IsValid = false;
                 }
 
@@ -1531,6 +1689,100 @@ namespace VegetableBox
             }
 
         }
+
+        private void rdoDefaultDisc_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (rdoDefaultDisc.Checked)
+                {
+                    this.cmbName.SelectedIndex = -1;
+                    this.lblName.Enabled = false;
+                    this.cmbName.Enabled = false;
+                    this.cmbName.DataSource = null;
+                    this.BtnCancel.PerformClick();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        DataTable _EmployeeMaster = new DataTable();
+        DataTable _CustomerMaster = new DataTable();
+        internal void GetMasterData()
+        {
+            try
+            {
+                Master _Master = new Master();
+                this._EmployeeMaster = _Master.GetUserMaster();
+                this._CustomerMaster = _Master.GetCustomerMaster();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void rdoEmpPartnerDisc_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (rdoEmpPartnerDisc.Checked)
+                {
+                    this.lblName.Enabled = true;
+                    this.cmbName.Enabled = true;
+                    this.BtnCancel.PerformClick();
+                    FillControls.ComboBoxFill(this.cmbName, this._EmployeeMaster, "Code", "Name", false, "");
+                    this.cmbName.SelectedIndex = -1;
+                    this.cmbName.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void rdoPrivilageDisc_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (rdoPrivilageDisc.Checked)
+                {
+                    this.lblName.Enabled = true;
+                    this.cmbName.Enabled = true;
+                    this.BtnCancel.PerformClick();
+                    FillControls.ComboBoxFill(this.cmbName, this._CustomerMaster, "Code", "Name", false, "");
+                    this.cmbName.SelectedIndex = -1;
+                    this.cmbName.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void chkIsDefective_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.chkIsDefective.Checked)
+                {
+                    this.TxtRate.ReadOnly = false;
+                }
+                else
+                {
+                    this.TxtRate.ReadOnly = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
     }
 
     #region "Struct"
@@ -1555,6 +1807,16 @@ namespace VegetableBox
             internal static string SellingMarginPer = "SellingMarginPer";
             internal static string DiscPer = "DiscPer";
             internal static string DiscRate = "DiscRate";
+            internal static string ProfitAmt = "ProfitAmt";
+            internal static string EmpProfitAmt = "EmpProfitAmt";
+            internal static string EmpSellRate = "EmpSellRate";
+            internal static string CustProfitAmt = "CustProfitAmt";
+            internal static string CustSellRate = "CustSellRate";
+
+            internal static string AllowRateChange = "AllowRateChange";
+            internal static string BarCode2 = "BarCode2";
+            internal static string BarCode3 = "BarCode3";
+            internal static string BarCode4 = "BarCode4";
         }
     }
 

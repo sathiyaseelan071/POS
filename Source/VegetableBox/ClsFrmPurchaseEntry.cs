@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace VegetableBox
 {
@@ -12,6 +13,8 @@ namespace VegetableBox
     {
         private DataTable _ProductData = new DataTable();
         private DataTable _CategoryMaster = new DataTable();
+        private DataTable _VendorMaster = new DataTable();
+
         internal DataTable ProductData
         {
             get { return _ProductData; }
@@ -22,6 +25,12 @@ namespace VegetableBox
         {
             get { return _CategoryMaster; }
             set { _CategoryMaster = value; }
+        }
+
+        internal DataTable VendorMaster
+        {
+            get { return _VendorMaster; }
+            set { _VendorMaster = value; }
         }
 
         public ClsFrmPurchaseEntry()
@@ -60,6 +69,7 @@ namespace VegetableBox
             {
                 Master _Master = new Master();
                 this._CategoryMaster = _Master.GetCategoryMaster();
+                this._VendorMaster = _Master.GetVendorMaster();
             }
             catch
             {
@@ -101,7 +111,7 @@ namespace VegetableBox
             }
         }
 
-        public int SaveData(DataTable purchaseCartData, decimal totalPurchaseAmount)
+        public int SaveData(DataTable purchaseCartData, decimal totalPurchaseAmount, int vendorBillRefNo)
         {
             try
             {
@@ -161,12 +171,13 @@ namespace VegetableBox
                 List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
                 _ListSqlParameter.Add(new SqlParameter("@UDT_Purchase", PurchaseTableData));
                 _ListSqlParameter.Add(new SqlParameter("@TotPurAmount", totalPurchaseAmount));
+                _ListSqlParameter.Add(new SqlParameter("@VendorBillRefNo", vendorBillRefNo));
 
-                SqlParameter sqlParameter = new SqlParameter("@BILLNO", SqlDbType.Int, 8);
+                SqlParameter sqlParameter = new SqlParameter("@TranNo", SqlDbType.Int, 8);
                 sqlParameter.Direction = ParameterDirection.Output;
                 _ListSqlParameter.Add(sqlParameter);
 
-                int Result = Convert.ToInt32(_SqlIntract.ExecuteNonQueryWithOutputParam(SqlQuery, CommandType.StoredProcedure, "@BILLNO", _ListSqlParameter));
+                int Result = Convert.ToInt32(_SqlIntract.ExecuteNonQueryWithOutputParam(SqlQuery, CommandType.StoredProcedure, "@TranNo", _ListSqlParameter));
 
                 return Result;
             }
@@ -176,6 +187,32 @@ namespace VegetableBox
             }
         }
 
+        private DataTable _VendorBillDetailsData = new DataTable();
+        internal DataTable VendorPurBillDetailsData
+        {
+            get { return _VendorBillDetailsData; }
+            set { _VendorBillDetailsData = value; }
+        }
+
+        internal void GetVendorBillDetails()
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+                
+                string SqlQuery = "SELECT TranNo, VendorCode, BillNo, BillDate, BillAmount, ItemsCount,";
+                SqlQuery += Environment.NewLine + "P.[Name] AS PurchaseEntryStatus, PurchaseEntryStatus AS PurchaseEntryStatusCode";
+                SqlQuery += Environment.NewLine + "FROM[VendorBillDetails] AS V";
+                SqlQuery += Environment.NewLine + "LEFT JOIN[ProgressStatusMaster] AS P ON P.Code = V.PurchaseEntryStatus";
+                SqlQuery += Environment.NewLine + "WHERE PurchaseEntryStatus != 'C'";
+
+                _VendorBillDetailsData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 
     #region "Struct"
@@ -198,6 +235,21 @@ namespace VegetableBox
             internal static string SellingMarginPer = "Selling Margin %";
             internal static string DiscPer = "Disc %";
             internal static string DiscRate = "Disc Rate";
+        }
+    }
+
+    internal struct VendorPurBillDetailsData
+    {
+        internal struct ColumnName
+        {
+            internal static string TranNo = "TranNo";
+            internal static string VendorCode = "VendorCode";
+            internal static string BillNo = "BillNo";
+            internal static string BillDate = "BillDate";
+            internal static string BillAmount = "BillAmount";
+            internal static string ItemsCount = "ItemsCount";
+            internal static string PurchaseEntryStatusCode = "PurchaseEntryStatusCode";
+            internal static string PurchaseEntryStatus = "PurchaseEntryStatus";
         }
     }
 

@@ -12,17 +12,35 @@ namespace VegetableBox
 {
     public partial class FrmPurchaseEntry : Form
     {
-        ClsFrmPurchaseEntry clsFrmPurchaseEnty;
+        private ClsFrmPurchaseEntry clsFrmPurchaseEnty = new ClsFrmPurchaseEntry();
         public FrmPurchaseEntry()
         {
             InitializeComponent();
+        }
+
+        private void ClearVendorDetails()
+        {
+            try
+            {
+                this.CmbVendorName.SelectedIndex = -1;
+                this.DgvVendorInvoiceDetails.DataSource = null;
+                this.DgvVendorInvoiceDetails.ClearSelection();
+
+                this.TxtBillNo.Text = string.Empty;
+                this.DtpBillDate.Value = DateTime.Now;
+                this.TxtBillAmount.Text = string.Empty;
+                this.TxtBillItemsCount.Text = string.Empty;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         private void ClearProductDetails()
         {
             try
             {
-                this.DtpPurchaseDate.Value = DateTime.Now;
                 this.TxtProductSearch.Text = string.Empty;
                 this.DgvProductSearch.DataSource = null;
                 this.TxtProductName.Text = string.Empty;
@@ -43,9 +61,6 @@ namespace VegetableBox
 
                 if (this.CmbProductCategory.Items.Count > 0)
                     this.CmbProductCategory.SelectedIndex = 0;
-
-                this.LblMrp.ForeColor = System.Drawing.Color.Crimson;
-                this.LblMrp.Text = "MRP*";
             }
             catch
             {
@@ -57,10 +72,15 @@ namespace VegetableBox
         {
             try
             {
-                this.clsFrmPurchaseEnty = new ClsFrmPurchaseEntry();
                 this.clsFrmPurchaseEnty.GetMasterData();
 
-                FillControls.ComboBoxFill(this.CmbProductCategory, this.clsFrmPurchaseEnty.CategoryMaster, "Code", "Name", true, "");
+                if (this.clsFrmPurchaseEnty.CategoryMaster.IsDataTableValid())
+                    FillControls.ComboBoxFill(this.CmbProductCategory, this.clsFrmPurchaseEnty.CategoryMaster, "Code", "Name", true, "");
+
+                if (this.clsFrmPurchaseEnty.VendorMaster.IsDataTableValid())
+                    FillControls.ComboBoxFill(this.CmbVendorName, this.clsFrmPurchaseEnty.VendorMaster, "Code", "Name", false, "");
+
+                this.clsFrmPurchaseEnty.GetVendorBillDetails();
             }
             catch
             {
@@ -148,13 +168,12 @@ namespace VegetableBox
         {
             try
             {
-                this.TxtProductSearch.Focus();
-                this.clsFrmPurchaseEnty = new ClsFrmPurchaseEntry();
                 this.ClearProductDetails();
                 this.LoadControls();
+                this.ClearVendorDetails();
                 this.LoadPurchaseCardGrid();
                 this.LblTotalAmt.Text = "0.00";
-                //SendKeys.Send("{TAB}");
+                this.CmbVendorName.Focus();
             }
             catch (Exception ex)
             {
@@ -253,6 +272,14 @@ namespace VegetableBox
         {
             try
             {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    if (this.CmbVendorName.Focused && this.DgvVendorInvoiceDetails.Rows.Count >= 1)
+                        this.DgvVendorInvoiceDetails.Focus();
+                    else if (this.DgvVendorInvoiceDetails.Focused)
+                        this.TxtProductSearch.Focus();
+                }
+
                 if (e.KeyCode == Keys.Escape)
                 {
                     BtnSave.Focus();
@@ -344,13 +371,8 @@ namespace VegetableBox
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    this.ErrorProvider.Clear();
-
-                    if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) <= 2)
-                        this.TxtSellingRate.Focus();
-                    else
-                        this.TxtMrp.Focus();
-
+                    this.ErrorProvider.Clear();                    
+                    this.TxtMrp.Focus();
                     e.Handled = true;
                 }
             }
@@ -366,13 +388,8 @@ namespace VegetableBox
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    this.ErrorProvider.Clear();
-
-                    if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) <= 2)
-                        this.TxtSellingRate.Focus();
-                    else
-                        this.TxtMrp.Focus();
-
+                    this.ErrorProvider.Clear();                    
+                    this.TxtMrp.Focus();
                     e.Handled = true;
                 }
             }
@@ -491,11 +508,11 @@ namespace VegetableBox
 
                                 this.TxtProductSearch.Text = string.Empty;
 
-                                if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) <= 2)
-                                {
-                                    this.LblMrp.ForeColor = System.Drawing.Color.FromArgb(0, 64, 64);
-                                    this.LblMrp.Text = "MRP";
-                                }
+                                //if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) <= 2)
+                                //{
+                                //    this.LblMrp.ForeColor = System.Drawing.Color.FromArgb(0, 64, 64);
+                                //    this.LblMrp.Text = "MRP";
+                                //}
 
                             }
                         }
@@ -589,8 +606,6 @@ namespace VegetableBox
             {
                 if (this.ValidateAddCart())
                 {
-                        
-
                     if (clsFrmPurchaseEnty.PurchaseCartData != null
                         && clsFrmPurchaseEnty.PurchaseCartData.AsEnumerable().Where(x => x.Field<int>("Pro-Code") == Convert.ToInt32(this.CurrentPCode.Trim())).Count() > 0)
                     {
@@ -598,7 +613,7 @@ namespace VegetableBox
                         {
                             if (dr["Pro-Code"].ToString() == this.CurrentPCode.Trim())
                             {
-                                dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount] 
+                                dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount]
                                     = Convert.ToDecimal(dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount]) + Convert.ToDecimal(this.TxtTotPurchaseRate.Text.Trim());
 
                                 dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseQty]
@@ -620,18 +635,11 @@ namespace VegetableBox
                         dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount] = this.TxtTotPurchaseRate.Text.Trim();
                         dr[PurchaseCartDataStruct.ColumnName.PurchaseRatePerQty] = this.TxtPurchaseRatePerQty.Text.Trim();
 
-                        if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) > 2)
-                        {
-                            dr[PurchaseCartDataStruct.ColumnName.MRP] = this.TxtMrp.Text.Trim();
-                            dr[PurchaseCartDataStruct.ColumnName.SellRatePerQty] = this.TxtSellingRate.Text.Trim();
-                            dr[PurchaseCartDataStruct.ColumnName.SellingMarginPer] = this.TxtSellingMarginPer.Text.Trim();
-                            dr[PurchaseCartDataStruct.ColumnName.DiscPer] = this.TxtDiscPerFromMRP.Text.Trim();
-                            dr[PurchaseCartDataStruct.ColumnName.DiscRate] = this.TxtDiscRateFromMRP.Text.Trim();
-                        }
-                        else
-                        {
-                            dr[PurchaseCartDataStruct.ColumnName.SellRatePerQty] = this.TxtSellingRate.Text.Trim();
-                        }
+                        dr[PurchaseCartDataStruct.ColumnName.MRP] = this.TxtMrp.Text.Trim();
+                        dr[PurchaseCartDataStruct.ColumnName.SellRatePerQty] = this.TxtSellingRate.Text.Trim();
+                        dr[PurchaseCartDataStruct.ColumnName.SellingMarginPer] = this.TxtSellingMarginPer.Text.Trim();
+                        dr[PurchaseCartDataStruct.ColumnName.DiscPer] = this.TxtDiscPerFromMRP.Text.Trim();
+                        dr[PurchaseCartDataStruct.ColumnName.DiscRate] = this.TxtDiscRateFromMRP.Text.Trim();
 
                         this.clsFrmPurchaseEnty.PurchaseCartData.Rows.Add(dr);
                     }
@@ -726,8 +734,6 @@ namespace VegetableBox
                     IsValid = false;
                 }
 
-                if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) > 2)
-                {
                     if (string.IsNullOrEmpty(this.TxtMrp.Text.Trim()))
                     {
                         this.ErrorProvider.SetError(this.TxtMrp, errValueSpecified);
@@ -738,7 +744,6 @@ namespace VegetableBox
                         this.ErrorProvider.SetError(this.TxtMrp, errValueGreaterThenZero);
                         IsValid = false;
                     }
-                }
 
                 if (string.IsNullOrEmpty(this.TxtSellingRate.Text.Trim()))
                 {
@@ -751,19 +756,7 @@ namespace VegetableBox
                     IsValid = false;
                 }
 
-                if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) <= 2
-                    && !string.IsNullOrEmpty(this.TxtPurchaseRatePerQty.Text.Trim())
-                    && !string.IsNullOrEmpty(this.TxtSellingRate.Text.Trim()))
-                {
-                    if (Convert.ToDecimal(this.TxtPurchaseRatePerQty.Text.Trim()) > Convert.ToDecimal(this.TxtSellingRate.Text.Trim()))
-                    {
-                        this.ErrorProvider.SetError(this.TxtPurchaseRatePerQty, "Purchase rate should be less than Selling rate...");
-                        this.ErrorProvider.SetError(this.TxtPurchaseRatePerQty, "Selling rate should be greater than Purchase rate...");
-                        IsValid = false;
-                    }
-                }
-
-                if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) > 2 && !string.IsNullOrEmpty(this.TxtPurchaseRatePerQty.Text.Trim()) &&
+                if (!string.IsNullOrEmpty(this.TxtPurchaseRatePerQty.Text.Trim()) &&
                     !string.IsNullOrEmpty(this.TxtMrp.Text.Trim()) && !string.IsNullOrEmpty(this.TxtSellingRate.Text.Trim()))
                 {
 
@@ -819,11 +812,19 @@ namespace VegetableBox
                 if (DGVPurchaseCart.Rows.Count <= 0)
                     throw new Exception("Add atleast one product to cart.");
 
-                int BillNo = this.clsFrmPurchaseEnty.SaveData(this.clsFrmPurchaseEnty.PurchaseCartData, Convert.ToDecimal(this.LblTotalAmt.Text));
+                int vendorBillRefNo = this.TxtBillNo.Tag != null ? Convert.ToInt32(this.TxtBillNo.Tag) : 0;
+                
+                if (vendorBillRefNo == 0)
+                {
+                    this.ErrorProvider.SetError(this.TxtBillNo, "Vendor Bill Reference Number is required");
+                    return;
+                }
+
+                int BillNo = this.clsFrmPurchaseEnty.SaveData(this.clsFrmPurchaseEnty.PurchaseCartData, Convert.ToDecimal(this.LblTotalAmt.Text), 
+                             vendorBillRefNo);
 
                 MessageBox.Show("Saved Sucessfully..." + Environment.NewLine + "Bill No : " + BillNo.ToString(), "Vegetable Box");
 
-                this.clsFrmPurchaseEnty = new ClsFrmPurchaseEntry();
                 this.ClearProductDetails();
                 this.LoadPurchaseCardGrid();
                 this.LblTotalAmt.Text = "0.00";
@@ -930,7 +931,7 @@ namespace VegetableBox
 
         private void FrmPurchaseEntry_Activated(object sender, EventArgs e)
         {
-            this.TxtProductSearch.Focus();
+            this.CmbVendorName.Focus();
         }
 
         private void TxtSellingRate_KeyDown(object sender, KeyEventArgs e)
@@ -1133,6 +1134,206 @@ namespace VegetableBox
 
                     e.Handled = true;
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void CmbVendorName_SelectedValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.CmbVendorName.Focused)
+                    this.ErrorProvider.Clear();
+
+                if (this.CmbVendorName.Focused && this.CmbVendorName.SelectedIndex >= 0)
+                {
+                    this.ClearLoadedBillDetails();
+                    this.DoFillVendorBillSearchGridControl(Convert.ToInt32(this.CmbVendorName.SelectedValue));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ClearLoadedBillDetails()
+        {
+            try
+            {
+                this.TxtBillNo.Tag = string.Empty;
+                this.TxtBillNo.Text = string.Empty;
+                this.DtpBillDate.Value = DateTime.Now;
+                this.TxtBillAmount.Text = string.Empty;
+                this.TxtBillItemsCount.Text = string.Empty;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void DoFillVendorBillSearchGridControl(int? FilterProduct)
+        {
+            try
+            {
+                DataTable _DtSearch = new DataTable();
+                if (FilterProduct != null && FilterProduct >= 0)
+                {
+                    if (clsFrmPurchaseEnty.VendorPurBillDetailsData != null && clsFrmPurchaseEnty.VendorPurBillDetailsData.Rows.Count > 0)
+                    {
+                        _DtSearch.Columns.Add(VendorPurBillDetailsData.ColumnName.TranNo, typeof(int));
+                        _DtSearch.Columns.Add(VendorPurBillDetailsData.ColumnName.VendorCode, typeof(int));
+                        _DtSearch.Columns.Add(VendorPurBillDetailsData.ColumnName.BillNo, typeof(string));
+                        _DtSearch.Columns.Add(VendorPurBillDetailsData.ColumnName.BillDate, typeof(DateTime));
+                        _DtSearch.Columns.Add(VendorPurBillDetailsData.ColumnName.BillAmount, typeof(decimal));
+                        _DtSearch.Columns.Add(VendorPurBillDetailsData.ColumnName.ItemsCount, typeof(int));
+                        _DtSearch.Columns.Add(VendorPurBillDetailsData.ColumnName.PurchaseEntryStatus, typeof(string));
+                        _DtSearch.Columns.Add(VendorPurBillDetailsData.ColumnName.PurchaseEntryStatusCode, typeof(string));
+
+                        if (clsFrmPurchaseEnty.VendorPurBillDetailsData.AsEnumerable().Where(x => x.Field<int>(VendorPurBillDetailsData.ColumnName.VendorCode) == FilterProduct).Count() > 0)
+                        {
+                            _DtSearch = clsFrmPurchaseEnty.VendorPurBillDetailsData.AsEnumerable()
+                                .Where(x => x.Field<int>(VendorPurBillDetailsData.ColumnName.VendorCode) == FilterProduct)
+                                .OrderBy(x => x.Field<DateTime>(VendorPurBillDetailsData.ColumnName.BillDate))
+                                .Select(g =>
+                                {
+                                    var row = _DtSearch.NewRow();
+                                    row[VendorPurBillDetailsData.ColumnName.TranNo] = g.Field<int>(VendorPurBillDetailsData.ColumnName.TranNo);
+                                    row[VendorPurBillDetailsData.ColumnName.VendorCode] = g.Field<int>(VendorPurBillDetailsData.ColumnName.VendorCode);
+                                    row[VendorPurBillDetailsData.ColumnName.BillNo] = g.Field<string>(VendorPurBillDetailsData.ColumnName.BillNo);
+                                    row[VendorPurBillDetailsData.ColumnName.BillDate] = g.Field<DateTime>(VendorPurBillDetailsData.ColumnName.BillDate);
+                                    row[VendorPurBillDetailsData.ColumnName.BillAmount] = g.Field<decimal>(VendorPurBillDetailsData.ColumnName.BillAmount);
+                                    row[VendorPurBillDetailsData.ColumnName.ItemsCount] = g.Field<int>(VendorPurBillDetailsData.ColumnName.ItemsCount);
+                                    row[VendorPurBillDetailsData.ColumnName.PurchaseEntryStatus] = g.Field<string>(VendorPurBillDetailsData.ColumnName.PurchaseEntryStatus);
+                                    row[VendorPurBillDetailsData.ColumnName.PurchaseEntryStatusCode] = g.Field<string>(VendorPurBillDetailsData.ColumnName.PurchaseEntryStatusCode);
+                                    return row;
+                                }
+                                ).CopyToDataTable();
+                        }
+
+                        DgvVendorInvoiceDetails.DataSource = _DtSearch;
+
+                        DgvVendorInvoiceDetails.Columns[VendorPurBillDetailsData.ColumnName.TranNo].Visible = false;
+                        DgvVendorInvoiceDetails.Columns[VendorPurBillDetailsData.ColumnName.VendorCode].Visible = false;
+                        DgvVendorInvoiceDetails.Columns[VendorPurBillDetailsData.ColumnName.PurchaseEntryStatusCode].Visible = false;
+
+                        DgvVendorInvoiceDetails.Columns[VendorPurBillDetailsData.ColumnName.BillNo].HeaderText = "Bill No";
+                        DgvVendorInvoiceDetails.Columns[VendorPurBillDetailsData.ColumnName.BillDate].HeaderText = "Bill Date";
+                        DgvVendorInvoiceDetails.Columns[VendorPurBillDetailsData.ColumnName.BillAmount].HeaderText = "Bill Amount";
+                        DgvVendorInvoiceDetails.Columns[VendorPurBillDetailsData.ColumnName.ItemsCount].HeaderText = "Items Count";
+                        DgvVendorInvoiceDetails.Columns[VendorPurBillDetailsData.ColumnName.PurchaseEntryStatus].HeaderText = "Entry Status";
+
+                        foreach (DataGridViewColumn DGVColumn in DgvVendorInvoiceDetails.Columns)
+                        {
+                            //if (DGVColumn.Name == VendorPurBillDetailsData.ColumnName.BillAmount)
+                            //    DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                            //else
+
+                            DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                            if (DGVColumn.Name == VendorPurBillDetailsData.ColumnName.BillAmount)
+                            {
+                                DGVColumn.DefaultCellStyle.Format = "0.00";
+                                DGVColumn.ValueType = typeof(decimal);
+                                DGVColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                            }
+                        }
+
+
+                    }
+                }
+                else
+                {
+                    DgvVendorInvoiceDetails.DataSource = _DtSearch;
+                }
+                this.DgvVendorInvoiceDetails.ClearSelection();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void DgvVendorInvoiceDetails_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (DgvVendorInvoiceDetails.Rows.Count > 0)
+                {
+                    this.ErrorProvider.Clear();
+                    this.LoadCurrentBillSelection();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+        private void LoadCurrentBillSelection()
+        {
+            try
+            {
+                this.ClearLoadedBillDetails();
+
+                if (DgvVendorInvoiceDetails.Rows.Count > 0)
+                {
+                    this.TxtBillNo.Tag = (int)DgvVendorInvoiceDetails.CurrentRow.Cells[VendorPurBillDetailsData.ColumnName.TranNo].Value;
+                    this.TxtBillNo.Text = Convert.ToString(DgvVendorInvoiceDetails.CurrentRow.Cells[VendorPurBillDetailsData.ColumnName.BillNo].Value);
+                    this.DtpBillDate.Value = (DateTime)DgvVendorInvoiceDetails.CurrentRow.Cells[VendorPurBillDetailsData.ColumnName.BillDate].Value;
+                    this.TxtBillAmount.Text = Convert.ToString(DgvVendorInvoiceDetails.CurrentRow.Cells[VendorPurBillDetailsData.ColumnName.BillAmount].Value);
+                    this.TxtBillItemsCount.Text = Convert.ToString(DgvVendorInvoiceDetails.CurrentRow.Cells[VendorPurBillDetailsData.ColumnName.ItemsCount].Value);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private int DGVendorSelectedRowIndex = 0;
+        private void DgvVendorInvoiceDetails_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DGVendorSelectedRowIndex = e.RowIndex;
+                if (e.RowIndex >= 0)
+                {
+                    DgvVendorInvoiceDetails.Rows[e.RowIndex].Selected = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void DgvVendorInvoiceDetails_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter && DgvVendorInvoiceDetails.Rows.Count > 0)
+                {
+                    this.ErrorProvider.Clear();
+                    this.LoadCurrentBillSelection();
+                    e.Handled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void CmbVendorName_Validating(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                this.ClearLoadedBillDetails();
+                this.DoFillVendorBillSearchGridControl(Convert.ToInt32(this.CmbVendorName.SelectedValue));
             }
             catch (Exception ex)
             {

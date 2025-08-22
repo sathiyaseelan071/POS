@@ -74,6 +74,14 @@ namespace VegetableBox
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.TotalAmount, typeof(decimal));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.CalBORM, typeof(string));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.TotMRP, typeof(decimal));
+
+                this._CartData.Columns.Add(CartDataStruct.ColumnName.PurAmount, typeof(decimal));
+                this._CartData.Columns.Add(CartDataStruct.ColumnName.ProfitAmount, typeof(decimal));
+                this._CartData.Columns.Add(CartDataStruct.ColumnName.DiscEmpCode, typeof(int));
+                this._CartData.Columns.Add(CartDataStruct.ColumnName.DiscCustCode, typeof(int));
+                this._CartData.Columns.Add(CartDataStruct.ColumnName.IsDefective, typeof(string));
+                this._CartData.Columns.Add(CartDataStruct.ColumnName.AllowRateChange, typeof(bool));
+                this._CartData.Columns.Add(CartDataStruct.ColumnName.SellingRateZero, typeof(bool));
             }
             catch
             {
@@ -98,6 +106,12 @@ namespace VegetableBox
                 SalesTableData.Columns.Add("TotDiscAmtFromMRP", typeof(decimal));
                 SalesTableData.Columns.Add("BilledBy", typeof(int));
 
+                SalesTableData.Columns.Add("PurAmount", typeof(decimal));
+                SalesTableData.Columns.Add("ProfitAmount", typeof(decimal));
+                SalesTableData.Columns.Add("DiscCustCode", typeof(int));
+                SalesTableData.Columns.Add("DiscEmpCode", typeof(int));
+                SalesTableData.Columns.Add("IsDefective", typeof(string));
+
                 foreach (DataRow rowCartData in cartData.Rows)
                 {
                     DataRow rowSales = SalesTableData.NewRow();
@@ -113,6 +127,12 @@ namespace VegetableBox
                     rowSales["BilledBy"] = Global.currentUserId;
                     rowSales["MRP"] = rowCartData[CartDataStruct.ColumnName.MRP];
                     rowSales["TotDiscAmtFromMRP"] = rowCartData[CartDataStruct.ColumnName.TotDiscAmtFrmMrp];
+
+                    rowSales["PurAmount"] = rowCartData[CartDataStruct.ColumnName.PurAmount];
+                    rowSales["ProfitAmount"] = rowCartData[CartDataStruct.ColumnName.ProfitAmount];
+                    rowSales["DiscCustCode"] = rowCartData[CartDataStruct.ColumnName.DiscCustCode];
+                    rowSales["DiscEmpCode"] = rowCartData[CartDataStruct.ColumnName.DiscEmpCode];
+                    rowSales["IsDefective"] = rowCartData[CartDataStruct.ColumnName.IsDefective];
 
                     SalesTableData.Rows.Add(rowSales);
                 }
@@ -132,6 +152,7 @@ namespace VegetableBox
                 TransactionData.Columns.Add("PrintTotMRP", typeof(decimal));
                 TransactionData.Columns.Add("PrintTotDiscMRP", typeof(decimal));
                 TransactionData.Columns.Add("BilledBy", typeof(int));
+                TransactionData.Columns.Add("TotProfitAmount", typeof(decimal));
 
                 DataRow rowTranData = TransactionData.NewRow();
                 rowTranData["TotAmount"] = clsTransaction.TotAmount;
@@ -143,6 +164,7 @@ namespace VegetableBox
                 rowTranData["PrintTotMRP"] = clsTransaction.PrintTotMRP;
                 rowTranData["PrintTotDiscMRP"] = clsTransaction.PrintTotDiscMRP;
                 rowTranData["BilledBy"] = Global.currentUserId;
+                rowTranData["TotProfitAmount"] = clsTransaction.TotProfitAmount;
 
                 TransactionData.Rows.Add(rowTranData);
                 TransactionData.AcceptChanges();
@@ -204,6 +226,7 @@ namespace VegetableBox
         public decimal NetAmount { get; set; }
         public decimal PrintTotMRP { get; set; }
         public decimal PrintTotDiscMRP { get; set; }
+        public decimal TotProfitAmount { get; set; }
     }
 
     public class ClsPaymentDetails
@@ -233,6 +256,15 @@ namespace VegetableBox
             internal static string TotalAmount = "TotalAmount";
             internal static string CalBORM = "CalBORM";
             internal static string TotMRP = "TotMRP";
+
+            internal static string PurAmount = "PurAmt";
+            internal static string ProfitAmount = "ProfitAmt";
+            internal static string DiscEmpCode = "DiscEmpCode";
+            internal static string DiscCustCode = "DiscCustCode";
+
+            internal static string IsDefective = "IsDefective";
+            internal static string AllowRateChange = "AllowRateChange";
+            internal static string SellingRateZero = "SellingRateZero";
         }
     }
 

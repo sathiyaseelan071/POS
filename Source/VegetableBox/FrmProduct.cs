@@ -57,6 +57,7 @@ namespace VegetableBox
                 FillControls.ComboBoxFill(this.CmbCategoryType, this.clsFrmProduct.CategoryMaster, "Code", "Name", false, "");
                 FillControls.ComboBoxFill(this.CmbQtyType, this.clsFrmProduct.QuantityMaster, "Code", "Name", false, "");
                 FillControls.ComboBoxFill(this.CmbCBORateMaster, this.clsFrmProduct.YesNoMaster, "Code", "Name", false, "");
+                FillControls.ComboBoxFill(this.CmbAllowRateChange, this.clsFrmProduct.YesNoMaster, "Code", "Name", false, "");
                 FillControls.ComboBoxFill(this.CmbActive, this.clsFrmProduct.YesNoMaster, "Code", "Name", false, "");
 
                 FillControls.ComboBoxFill(this.CmbFilterCategoryType, this.clsFrmProduct.CategoryMaster, "Code", "Name", true, "All");
@@ -80,7 +81,11 @@ namespace VegetableBox
                 this.CmbCategoryType.SelectedIndex = 0;
                 this.CmbQtyType.SelectedIndex = 0;
                 this.CmbCBORateMaster.SelectedIndex = 0;
+                this.CmbAllowRateChange.SelectedIndex = 1;
                 this.TxtBarcode.Text = string.Empty;
+                this.TxtBarcode2.Text = string.Empty;
+                this.TxtBarcode3.Text = string.Empty;
+                this.TxtBarcode4.Text = string.Empty;
                 this.CmbActive.SelectedIndex = 0;
                 this.ErrorProvider.Clear();
                 this.BtnSave.Text = "&Save";
@@ -340,8 +345,18 @@ namespace VegetableBox
                 clsFrmProduct.CategoryTypeCode = Convert.ToInt32(this.CmbCategoryType.SelectedValue);
                 clsFrmProduct.QuantityTypeCode = Convert.ToInt32(this.CmbQtyType.SelectedValue);
                 clsFrmProduct.CalcBasedOnRateMaster = (string)this.CmbCBORateMaster.SelectedValue;
+                clsFrmProduct.AllowRateChange = (string)this.CmbAllowRateChange.SelectedValue;
                 clsFrmProduct.BarCode = this.TxtBarcode.Text.Trim();
+                clsFrmProduct.BarCode2 = this.TxtBarcode2.Text.Trim();
+                clsFrmProduct.BarCode3 = this.TxtBarcode3.Text.Trim();
+                clsFrmProduct.BarCode4 = this.TxtBarcode4.Text.Trim();
                 clsFrmProduct.ActiveStatus = (string)this.CmbActive.SelectedValue;
+
+                if (clsFrmProduct.GetProductRecordCount() >= 1)
+                {
+                    this.ErrorProvider.SetError(this.TxtProductName, "Product Name already exists. Please enter a different name.");
+                    throw new Exception("Product Name already exists. Please enter a different name.");
+                }
 
                 if (BtnSave.Text.ToUpper() == "&SAVE")
                 {
@@ -428,6 +443,8 @@ namespace VegetableBox
         {
             try
             {
+                DGView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
                 DGView.Columns[ProductTable.ColumnName.CatCode].Visible = false;
                 DGView.Columns[ProductTable.ColumnName.QtyTypeCode].Visible = false;
                 DGView.Columns[ProductTable.ColumnName.ActiveStatusCode].Visible = false;
@@ -438,6 +455,7 @@ namespace VegetableBox
                 DGView.Columns[ProductTable.ColumnName.LastUpdatedDateTime].Visible = false;
                 DGView.Columns[ProductTable.ColumnName.PCodeString].Visible = false;
                 DGView.Columns[ProductTable.ColumnName.SNo].Visible = false;
+                DGView.Columns[ProductTable.ColumnName.AllowRateChangeCode].Visible = false;
 
                 DGView.Columns[ProductTable.ColumnName.SNo].HeaderText = "SNo";
                 DGView.Columns[ProductTable.ColumnName.Name].HeaderText = "Name";
@@ -447,13 +465,14 @@ namespace VegetableBox
                 DGView.Columns[ProductTable.ColumnName.QtyTypeName].HeaderText = "Quantity Type";
                 DGView.Columns[ProductTable.ColumnName.CalcBORM].HeaderText = "Calc BORM";
                 DGView.Columns[ProductTable.ColumnName.ActiveStatus].HeaderText = "Active";
+                DGView.Columns[ProductTable.ColumnName.AllowRateChange].HeaderText = "Allow Rate Change";
 
                 foreach (DataGridViewColumn DGVColumn in DGView.Columns)
                 {
                     if (DGVColumn.Name == ProductTable.ColumnName.Name || DGVColumn.Name == ProductTable.ColumnName.TamilName)
-                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     else
-                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                        DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 }
             }
             catch
@@ -498,7 +517,11 @@ namespace VegetableBox
                         this.CmbCategoryType.SelectedValue = _DataRow[ProductTable.ColumnName.CatCode].ToString();
                         this.CmbQtyType.SelectedValue = _DataRow[ProductTable.ColumnName.QtyTypeCode].ToString();
                         this.CmbCBORateMaster.SelectedValue = _DataRow[ProductTable.ColumnName.CalcBORMCode].ToString();
+                        this.CmbAllowRateChange.SelectedValue = _DataRow[ProductTable.ColumnName.AllowRateChangeCode].ToString();
                         this.TxtBarcode.Text = _DataRow[ProductTable.ColumnName.BarCode].ToString();
+                        this.TxtBarcode2.Text = _DataRow[ProductTable.ColumnName.BarCode2].ToString();
+                        this.TxtBarcode3.Text = _DataRow[ProductTable.ColumnName.BarCode3].ToString();
+                        this.TxtBarcode4.Text = _DataRow[ProductTable.ColumnName.BarCode4].ToString();
                         this.CmbActive.SelectedValue = _DataRow[ProductTable.ColumnName.ActiveStatusCode].ToString();
 
                         BtnSave.Text = "&Update";
@@ -594,6 +617,11 @@ namespace VegetableBox
             internal static string LastUpdatedDateTime = "LastUpdatedDateTime";
             internal static string PCodeString = "PCodeString";
             internal static string BarCode = "BarCode";
+            internal static string AllowRateChangeCode = "AllowRateChangeCode";
+            internal static string AllowRateChange = "AllowRateChange";
+            internal static string BarCode2 = "BarCode2";
+            internal static string BarCode3 = "BarCode3";
+            internal static string BarCode4 = "BarCode4";
         }
     }
 
