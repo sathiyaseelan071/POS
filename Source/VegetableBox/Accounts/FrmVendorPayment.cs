@@ -106,7 +106,7 @@ namespace VegetableBox
                 this.ErrorProvider.Clear();
                 this.BtnSave.Text = "&Save";
 
-                if(Global.currentUserId == 1) //ADMIN
+                if (Global.currentUserId == 1) //ADMIN
                 {
                     this.BtnEdit.Enabled = true;
                 }
@@ -586,7 +586,7 @@ namespace VegetableBox
 
                         this.CmbVendorName.Tag = Convert.ToInt32(_DataRow[VendorPaymentTable.ColumnName.TranNo]);
                         this.CmbVendorName.SelectedValue = _DataRow[VendorPaymentTable.ColumnName.VendorCode].ToString();
-                        
+
                         this.TxtBillNo.Text = _DataRow[VendorPaymentTable.ColumnName.BillNo].ToString();
                         this.TxtBillNo.Tag = _DataRow[VendorPaymentTable.ColumnName.RefTranNo].ToString();
                         this.DtpBillDate.Value = Convert.ToDateTime(_DataRow[VendorPaymentTable.ColumnName.BillDate]);
@@ -948,11 +948,6 @@ namespace VegetableBox
             }
         }
 
-        private void DgvVendorInvoiceDetails_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-           
-        }
-
         private void DgvVendorInvoiceDetails_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -962,6 +957,19 @@ namespace VegetableBox
                     this.ErrorProvider.Clear();
                     this.LoadCurrentBillSelection();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void CmbVendorName_Validating(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                this.ClearLoadedBillDetails();
+                this.DoFillVendorBillSearchGridControl(Convert.ToInt32(this.CmbVendorName.SelectedValue));
             }
             catch (Exception ex)
             {

@@ -38,7 +38,6 @@ namespace VegetableBox
             try
             {
                 this.GetProductDetails();
-                this.ToMakePurchaseCart();  
             }
             catch
             {
@@ -77,41 +76,7 @@ namespace VegetableBox
             }
         }
 
-        private DataTable _PurchaseCartData = new DataTable();
-        internal DataTable PurchaseCartData
-        {
-            get { return _PurchaseCartData; }
-            set { _PurchaseCartData = value; }
-        }
-
-        private void ToMakePurchaseCart()
-        {
-            try
-            {
-                this._PurchaseCartData = new DataTable();
-
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.SNo, typeof(int));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.ProCode, typeof(int));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.ProName, typeof(string));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.ProTamilName, typeof(string));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.TotalPurchaseQty, typeof(decimal));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.Unit, typeof(string));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount, typeof(decimal));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.PurchaseRatePerQty, typeof(decimal));
-
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.MRP, typeof(decimal));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.SellRatePerQty, typeof(decimal));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.SellingMarginPer, typeof(decimal));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.DiscPer, typeof(decimal));
-                this._PurchaseCartData.Columns.Add(PurchaseCartDataStruct.ColumnName.DiscRate, typeof(decimal));
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public int SaveData(DataTable purchaseCartData, decimal totalPurchaseAmount, int vendorBillRefNo)
+        public int SaveData(DataTable purchaseCartData, decimal totalPurchaseAmount, int vendorBillRefNo, int vendorCode, int oldTranNo)
         {
             try
             {
@@ -132,33 +97,37 @@ namespace VegetableBox
 
                 foreach (DataRow rowCartData in purchaseCartData.Rows)
                 {
-                    DataRow rowSales = PurchaseTableData.NewRow();
+                    var savedflag = rowCartData[PurchaseCartDataStruct.ColumnName.IsSaved]?.ToString();
+                    if (savedflag == "N")
+                    {
+                        DataRow rowSales = PurchaseTableData.NewRow();
 
-                    rowSales["ProductCode"] = rowCartData[PurchaseCartDataStruct.ColumnName.ProCode];
-                    rowSales["TotPurQty"] = rowCartData[PurchaseCartDataStruct.ColumnName.TotalPurchaseQty];
-                    rowSales["Unit"] = rowCartData[PurchaseCartDataStruct.ColumnName.Unit];
-                    rowSales["TotPurAmount"] = rowCartData[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount];
-                    rowSales["PurRatePerQty"] = rowCartData[PurchaseCartDataStruct.ColumnName.PurchaseRatePerQty];
-                    rowSales["SellRatePerQty"] = rowCartData[PurchaseCartDataStruct.ColumnName.SellRatePerQty];
+                        rowSales["ProductCode"] = rowCartData[PurchaseCartDataStruct.ColumnName.ProCode];
+                        rowSales["TotPurQty"] = rowCartData[PurchaseCartDataStruct.ColumnName.TotalPurchaseQty];
+                        rowSales["Unit"] = rowCartData[PurchaseCartDataStruct.ColumnName.Unit];
+                        rowSales["TotPurAmount"] = rowCartData[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount];
+                        rowSales["PurRatePerQty"] = rowCartData[PurchaseCartDataStruct.ColumnName.PurchaseRatePerQty];
+                        rowSales["SellRatePerQty"] = rowCartData[PurchaseCartDataStruct.ColumnName.SellRatePerQty];
 
-                    rowSales["MRP"] = (String.IsNullOrEmpty(rowCartData[PurchaseCartDataStruct.ColumnName.MRP].ToString())) ?
-                        "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.MRP].ToString();
+                        rowSales["MRP"] = (String.IsNullOrEmpty(rowCartData[PurchaseCartDataStruct.ColumnName.MRP].ToString())) ?
+                            "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.MRP].ToString();
 
-                    rowSales["SellingMarginPer"] = (String.IsNullOrEmpty(rowCartData[PurchaseCartDataStruct.ColumnName.SellingMarginPer].ToString())) ?
-                        "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.SellingMarginPer].ToString();
+                        rowSales["SellingMarginPer"] = (String.IsNullOrEmpty(rowCartData[PurchaseCartDataStruct.ColumnName.SellingMarginPer].ToString())) ?
+                            "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.SellingMarginPer].ToString();
 
-                    rowSales["SellingMarginPer"] = (String.IsNullOrEmpty(rowCartData[PurchaseCartDataStruct.ColumnName.SellingMarginPer].ToString())) ?
-                        "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.SellingMarginPer].ToString();
+                        rowSales["SellingMarginPer"] = (String.IsNullOrEmpty(rowCartData[PurchaseCartDataStruct.ColumnName.SellingMarginPer].ToString())) ?
+                            "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.SellingMarginPer].ToString();
 
-                    rowSales["DiscPer"] = (String.IsNullOrEmpty(rowCartData[PurchaseCartDataStruct.ColumnName.DiscPer].ToString())) ?
-                        "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.DiscPer].ToString();
+                        rowSales["DiscPer"] = (String.IsNullOrEmpty(rowCartData[PurchaseCartDataStruct.ColumnName.DiscPer].ToString())) ?
+                            "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.DiscPer].ToString();
 
-                    rowSales["DiscRate"] = (String.IsNullOrEmpty(rowCartData[PurchaseCartDataStruct.ColumnName.DiscRate].ToString())) ?
-                        "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.DiscRate].ToString();
+                        rowSales["DiscRate"] = (String.IsNullOrEmpty(rowCartData[PurchaseCartDataStruct.ColumnName.DiscRate].ToString())) ?
+                            "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.DiscRate].ToString();
 
-                    rowSales["BilledBy"] = Global.currentUserId;
+                        rowSales["BilledBy"] = Global.currentUserId;
 
-                    PurchaseTableData.Rows.Add(rowSales);
+                        PurchaseTableData.Rows.Add(rowSales);
+                    }
                 }
 
                 //SalesTableData = SalesTableData.AsEnumerable().OrderBy(x => x.Field<int>(CartDataStruct.ColumnName.SNo)).CopyToDataTable();
@@ -172,6 +141,8 @@ namespace VegetableBox
                 _ListSqlParameter.Add(new SqlParameter("@UDT_Purchase", PurchaseTableData));
                 _ListSqlParameter.Add(new SqlParameter("@TotPurAmount", totalPurchaseAmount));
                 _ListSqlParameter.Add(new SqlParameter("@VendorBillRefNo", vendorBillRefNo));
+                _ListSqlParameter.Add(new SqlParameter("@VendorCode", vendorCode));
+                _ListSqlParameter.Add(new SqlParameter("@OldTranNo", oldTranNo));
 
                 SqlParameter sqlParameter = new SqlParameter("@TranNo", SqlDbType.Int, 8);
                 sqlParameter.Direction = ParameterDirection.Output;
@@ -187,11 +158,11 @@ namespace VegetableBox
             }
         }
 
-        private DataTable _VendorBillDetailsData = new DataTable();
+        private DataTable _VendorPurBillDetailsData = new DataTable();
         internal DataTable VendorPurBillDetailsData
         {
-            get { return _VendorBillDetailsData; }
-            set { _VendorBillDetailsData = value; }
+            get { return _VendorPurBillDetailsData; }
+            set { _VendorPurBillDetailsData = value; }
         }
 
         internal void GetVendorBillDetails()
@@ -202,11 +173,61 @@ namespace VegetableBox
                 
                 string SqlQuery = "SELECT TranNo, VendorCode, BillNo, BillDate, BillAmount, ItemsCount,";
                 SqlQuery += Environment.NewLine + "P.[Name] AS PurchaseEntryStatus, PurchaseEntryStatus AS PurchaseEntryStatusCode";
-                SqlQuery += Environment.NewLine + "FROM[VendorBillDetails] AS V";
-                SqlQuery += Environment.NewLine + "LEFT JOIN[ProgressStatusMaster] AS P ON P.Code = V.PurchaseEntryStatus";
+                SqlQuery += Environment.NewLine + "FROM [VendorBillDetails] AS V";
+                SqlQuery += Environment.NewLine + "LEFT JOIN [ProgressStatusMaster] AS P ON P.Code = V.PurchaseEntryStatus";
                 SqlQuery += Environment.NewLine + "WHERE PurchaseEntryStatus != 'C'";
 
-                _VendorBillDetailsData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
+                _VendorPurBillDetailsData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private DataTable _PurchaseCartData = new DataTable();
+        internal DataTable PurchaseCartData
+        {
+            get { return _PurchaseCartData; }
+            set { _PurchaseCartData = value; }
+        }
+
+        internal void GetEnteredPurchaseItems(int vendorBillRefNo)
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+
+                string SqlQuery = "SELECT CAST(ROW_NUMBER() OVER (ORDER BY P.[SNo] DESC) AS INT) AS SNo, P.[ProductCode] AS ProCode,";
+                SqlQuery += Environment.NewLine + "PR.[Name] AS ProductName, PR.[TamilName] AS ProductTamilName, [TotPurQty], [Unit],";
+                SqlQuery += Environment.NewLine + "[PurRatePerQty], [MRP], [SellRatePerQty], [SellingMarginPer],";
+                SqlQuery += Environment.NewLine + "[DiscPer], [DiscRate], [TotPurAmount], [EnteredBy] AS BilledBy, 'Y' AS IsSaved, TranNo";
+                SqlQuery += Environment.NewLine + "FROM [Purchase] AS P";
+                SqlQuery += Environment.NewLine + "INNER JOIN [Product] AS PR ON PR.[Code] = P.[ProductCode]";
+                SqlQuery += Environment.NewLine + "WHERE ISNULL(VendorBillRefNo, 0) = " + vendorBillRefNo;
+                SqlQuery += Environment.NewLine + "ORDER BY SNo DESC";
+
+                _PurchaseCartData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        
+        internal void UpdateBillStatus(int vendorBillRefNo, string progressStatusCode)
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+
+                string SqlQuery = "UPDATE [VendorBillDetails] SET [PurchaseEntryStatus] = @PurchaseEntryStatus WHERE [TranNo] = @TranNo";
+
+                List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
+                _ListSqlParameter.Add(new SqlParameter("@TranNo", vendorBillRefNo));
+                _ListSqlParameter.Add(new SqlParameter("@PurchaseEntryStatus", progressStatusCode));
+
+                _PurchaseCartData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, _ListSqlParameter);
             }
             catch
             {
@@ -222,19 +243,22 @@ namespace VegetableBox
         internal struct ColumnName
         {
             internal static string SNo = "SNo";
-            internal static string ProCode = "Pro-Code";
-            internal static string ProName = "Product Name";
-            internal static string ProTamilName = "Product Tamil Name";
+            internal static string ProCode = "ProCode";
+            internal static string ProName = "ProductName";
+            internal static string ProTamilName = "ProductTamilName";
             internal static string Unit = "Unit";
-            internal static string TotalPurchaseQty = "Tot Pur Qty";
-            internal static string TotalPurchaseAmount = "Tot Pur Amount";
-            internal static string PurchaseRatePerQty = "Pur Rate Per Qty";
-            internal static string SellRatePerQty = "Sell Rate Per Qty";
+            internal static string TotalPurchaseQty = "TotPurQty";
+            internal static string TotalPurchaseAmount = "TotPurAmount";
+            internal static string PurchaseRatePerQty = "PurRatePerQty";
+            internal static string SellRatePerQty = "SellRatePerQty";
 
             internal static string MRP = "MRP";
-            internal static string SellingMarginPer = "Selling Margin %";
-            internal static string DiscPer = "Disc %";
-            internal static string DiscRate = "Disc Rate";
+            internal static string SellingMarginPer = "SellingMarginPer";
+            internal static string DiscPer = "DiscPer";
+            internal static string DiscRate = "DiscRate";
+            internal static string BilledBy = "BilledBy";
+            internal static string IsSaved = "IsSaved";
+            internal static string TranNo = "TranNo";
         }
     }
 

@@ -155,10 +155,9 @@
             // 
             // BtnExit
             // 
-            BtnExit.BackColor = Color.SeaGreen;
+            BtnExit.BackColor = SystemColors.Control;
             BtnExit.Dock = DockStyle.Fill;
-            BtnExit.FlatStyle = FlatStyle.Popup;
-            BtnExit.ForeColor = Color.White;
+            BtnExit.ForeColor = Color.Crimson;
             BtnExit.Location = new Point(1131, 3);
             BtnExit.Name = "BtnExit";
             BtnExit.Size = new Size(121, 35);
@@ -180,10 +179,9 @@
             // 
             // BtnCancel
             // 
-            BtnCancel.BackColor = Color.SeaGreen;
+            BtnCancel.BackColor = SystemColors.Control;
             BtnCancel.Dock = DockStyle.Fill;
-            BtnCancel.FlatStyle = FlatStyle.Popup;
-            BtnCancel.ForeColor = Color.White;
+            BtnCancel.ForeColor = Color.DarkRed;
             BtnCancel.Location = new Point(1006, 3);
             BtnCancel.Name = "BtnCancel";
             BtnCancel.Size = new Size(119, 35);
@@ -194,10 +192,9 @@
             // 
             // BtnSave
             // 
-            BtnSave.BackColor = Color.SeaGreen;
+            BtnSave.BackColor = SystemColors.Control;
             BtnSave.Dock = DockStyle.Fill;
-            BtnSave.FlatStyle = FlatStyle.Popup;
-            BtnSave.ForeColor = Color.White;
+            BtnSave.ForeColor = Color.ForestGreen;
             BtnSave.Location = new Point(756, 3);
             BtnSave.Name = "BtnSave";
             BtnSave.Size = new Size(119, 35);
@@ -208,10 +205,9 @@
             // 
             // BtnPrint
             // 
-            BtnPrint.BackColor = Color.SeaGreen;
+            BtnPrint.BackColor = SystemColors.Control;
             BtnPrint.Dock = DockStyle.Fill;
-            BtnPrint.FlatStyle = FlatStyle.Popup;
-            BtnPrint.ForeColor = Color.White;
+            BtnPrint.ForeColor = Color.IndianRed;
             BtnPrint.Location = new Point(881, 3);
             BtnPrint.Name = "BtnPrint";
             BtnPrint.Size = new Size(119, 35);
@@ -290,7 +286,7 @@
             CmbFilterCategoryType.FlatStyle = FlatStyle.Flat;
             CmbFilterCategoryType.ForeColor = Color.DarkGreen;
             CmbFilterCategoryType.FormattingEnabled = true;
-            CmbFilterCategoryType.Location = new Point(185, 30);
+            CmbFilterCategoryType.Location = new Point(185, 28);
             CmbFilterCategoryType.Name = "CmbFilterCategoryType";
             CmbFilterCategoryType.Size = new Size(146, 27);
             CmbFilterCategoryType.TabIndex = 2;
@@ -306,7 +302,7 @@
             CmbFilterQtyType.FlatStyle = FlatStyle.Flat;
             CmbFilterQtyType.ForeColor = Color.DarkGreen;
             CmbFilterQtyType.FormattingEnabled = true;
-            CmbFilterQtyType.Location = new Point(519, 30);
+            CmbFilterQtyType.Location = new Point(519, 28);
             CmbFilterQtyType.Name = "CmbFilterQtyType";
             CmbFilterQtyType.Size = new Size(146, 27);
             CmbFilterQtyType.TabIndex = 4;

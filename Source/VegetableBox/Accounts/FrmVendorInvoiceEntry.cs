@@ -992,7 +992,9 @@ namespace VegetableBox
                     this.CmbMissingItemReceivedBy.SelectedIndex = -1;
 
                     this.CmbPurchaseEntryStatus.Enabled = false;
-                    this.CmbPurchaseEntryStatus.SelectedIndex = -1;
+                    
+                    if (this.CmbPurchaseEntryStatus.Items.Count > 0)
+                        this.CmbPurchaseEntryStatus.SelectedIndex = 0;
 
                     this.CmbPurchaseEntryBy.SelectedIndex = -1;
                 }
@@ -1002,8 +1004,19 @@ namespace VegetableBox
 
                     this.TxtItemsCount.Enabled = true;
                     this.CmbIsItemMissing.Enabled = true;
-                    this.CmbPurchaseEntryStatus.Enabled = true;
-
+                    
+                    if (Global.currentUserId == 1) //ADMIN
+                    {
+                        this.CmbPurchaseEntryStatus.Enabled = true;
+                        if (this.CmbPurchaseEntryStatus.Items.Count > 0 && this.CmbPurchaseEntryStatus.SelectedIndex == -1)
+                            this.CmbPurchaseEntryStatus.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        this.CmbPurchaseEntryStatus.Enabled = false;
+                        if (this.CmbPurchaseEntryStatus.Items.Count > 0 && this.CmbPurchaseEntryStatus.SelectedIndex == -1)
+                            this.CmbPurchaseEntryStatus.SelectedIndex = 0;
+                    }
 
                     if (this.CmbIsItemMissing.SelectedValue != null && this.CmbIsItemMissing.SelectedValue.ToString() == YesNoValues.Yes)
                     {

@@ -61,6 +61,8 @@ namespace VegetableBox
 
                 if (this.CmbProductCategory.Items.Count > 0)
                     this.CmbProductCategory.SelectedIndex = 0;
+
+                this.TxtLastMRP.Text = string.Empty;
             }
             catch
             {
@@ -168,12 +170,32 @@ namespace VegetableBox
         {
             try
             {
+                this.ReLoad();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ReLoad()
+        {
+            try
+            {
                 this.ClearProductDetails();
                 this.LoadControls();
                 this.ClearVendorDetails();
+
+                this.clsFrmPurchaseEnty.GetEnteredPurchaseItems(9999999); //Vendor bill reference number - Empty Record                                                                                             
+                this.DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData;
+
                 this.LoadPurchaseCardGrid();
+                this.ReleaseControlsForVendorBill();
+
                 this.LblTotalAmt.Text = "0.00";
                 this.CmbVendorName.Focus();
+                this.ErrorProvider.Clear();
+                this.BtnBillCompleted.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -227,7 +249,7 @@ namespace VegetableBox
                             .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                             || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                             || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
-                            || (FilterProduct.Length >= 3 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
                             && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))).Count() > 0)
                         {
 
@@ -235,7 +257,7 @@ namespace VegetableBox
                                 .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                                 || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                                 || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
-                                || (FilterProduct.Length >= 3 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
                                 && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct)))
                                 .OrderBy(x => x.Field<Int32>(ProductRateData.ColumnName.CatCode))
                                 .Select(g =>
@@ -289,8 +311,16 @@ namespace VegetableBox
                 {
                     if (DGVPurchaseCart.Focused && DGVPurchaseCart.SelectedRows.Count >= 1)
                     {
-                        this.DeleteCartSelectedItem();
-                        this.TxtProductSearch.Focus();
+                        if (DGVPurchaseCart.Rows[DGSelectedRowIndex].Cells[PurchaseCartDataStruct.ColumnName.IsSaved].Value != null &&
+                            DGVPurchaseCart.Rows[DGSelectedRowIndex].Cells[PurchaseCartDataStruct.ColumnName.IsSaved].Value.ToString() != "Y")
+                        {
+                            this.DeleteCartSelectedItem();
+                            this.TxtProductSearch.Focus();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Once saved, item cannot be deleted.", "Vegetable Box");
+                        }
                     }
                 }
 
@@ -371,7 +401,7 @@ namespace VegetableBox
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    this.ErrorProvider.Clear();                    
+                    this.ErrorProvider.Clear();
                     this.TxtMrp.Focus();
                     e.Handled = true;
                 }
@@ -388,7 +418,7 @@ namespace VegetableBox
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    this.ErrorProvider.Clear();                    
+                    this.ErrorProvider.Clear();
                     this.TxtMrp.Focus();
                     e.Handled = true;
                 }
@@ -506,6 +536,9 @@ namespace VegetableBox
                                 this.TxtLastPurchaseRate.Text = (dataRow[ProductRateData.ColumnName.PurRate] != null ?
                                                                     Convert.ToString(dataRow[ProductRateData.ColumnName.PurRate]) : string.Empty);
 
+                                this.TxtLastMRP.Text = (dataRow[ProductRateData.ColumnName.MRP] != null ?
+                                                                    Convert.ToString(dataRow[ProductRateData.ColumnName.MRP]) : string.Empty);
+
                                 this.TxtProductSearch.Text = string.Empty;
 
                                 //if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) <= 2)
@@ -533,6 +566,13 @@ namespace VegetableBox
                 DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData;
                 DGVPurchaseCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
                 DGVPurchaseCart.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+                DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.SellingMarginPer].Visible = false;
+                DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.DiscPer].Visible = false;
+                DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.DiscRate].Visible = false;
+                DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.BilledBy].Visible = false;
+                DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.IsSaved].Visible = false;
+                DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.TranNo].Visible = false;
 
                 foreach (DataGridViewColumn DGVColumn in DGVPurchaseCart.Columns)
                 {
@@ -607,11 +647,13 @@ namespace VegetableBox
                 if (this.ValidateAddCart())
                 {
                     if (clsFrmPurchaseEnty.PurchaseCartData != null
-                        && clsFrmPurchaseEnty.PurchaseCartData.AsEnumerable().Where(x => x.Field<int>("Pro-Code") == Convert.ToInt32(this.CurrentPCode.Trim())).Count() > 0)
+                        && clsFrmPurchaseEnty.PurchaseCartData.AsEnumerable()
+                        .Any(x => x.Field<int>(PurchaseCartDataStruct.ColumnName.ProCode) == Convert.ToInt32(this.CurrentPCode.Trim())
+                        && x.Field<string>(PurchaseCartDataStruct.ColumnName.IsSaved) == "N"))
                     {
                         foreach (DataRow dr in clsFrmPurchaseEnty.PurchaseCartData.Rows)
                         {
-                            if (dr["Pro-Code"].ToString() == this.CurrentPCode.Trim())
+                            if (dr[PurchaseCartDataStruct.ColumnName.ProCode].ToString() == this.CurrentPCode.Trim())
                             {
                                 dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount]
                                     = Convert.ToDecimal(dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount]) + Convert.ToDecimal(this.TxtTotPurchaseRate.Text.Trim());
@@ -640,17 +682,46 @@ namespace VegetableBox
                         dr[PurchaseCartDataStruct.ColumnName.SellingMarginPer] = this.TxtSellingMarginPer.Text.Trim();
                         dr[PurchaseCartDataStruct.ColumnName.DiscPer] = this.TxtDiscPerFromMRP.Text.Trim();
                         dr[PurchaseCartDataStruct.ColumnName.DiscRate] = this.TxtDiscRateFromMRP.Text.Trim();
+                        dr[PurchaseCartDataStruct.ColumnName.IsSaved] = "N";
 
                         this.clsFrmPurchaseEnty.PurchaseCartData.Rows.Add(dr);
                     }
 
                     this.DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData.AsEnumerable().OrderByDescending(x => x.Field<int>(CartDataStruct.ColumnName.SNo)).CopyToDataTable();
 
+                    this.HighlightSavedRows();
+
                     this.ToCalcTotalAmount();
 
                     this.ClearProductDetails();
                     this.TxtProductSearch.Focus();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void FreezeControlsForVendorBill()
+        {
+            try
+            {
+                this.CmbVendorName.Enabled = false;
+                this.DgvVendorInvoiceDetails.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ReleaseControlsForVendorBill()
+        {
+            try
+            {
+                this.CmbVendorName.Enabled = true;
+                this.DgvVendorInvoiceDetails.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -734,16 +805,16 @@ namespace VegetableBox
                     IsValid = false;
                 }
 
-                    if (string.IsNullOrEmpty(this.TxtMrp.Text.Trim()))
-                    {
-                        this.ErrorProvider.SetError(this.TxtMrp, errValueSpecified);
-                        IsValid = false;
-                    }
-                    else if (Convert.ToDecimal(this.TxtMrp.Text.Trim()) <= 0)
-                    {
-                        this.ErrorProvider.SetError(this.TxtMrp, errValueGreaterThenZero);
-                        IsValid = false;
-                    }
+                if (string.IsNullOrEmpty(this.TxtMrp.Text.Trim()))
+                {
+                    this.ErrorProvider.SetError(this.TxtMrp, errValueSpecified);
+                    IsValid = false;
+                }
+                else if (Convert.ToDecimal(this.TxtMrp.Text.Trim()) <= 0)
+                {
+                    this.ErrorProvider.SetError(this.TxtMrp, errValueGreaterThenZero);
+                    IsValid = false;
+                }
 
                 if (string.IsNullOrEmpty(this.TxtSellingRate.Text.Trim()))
                 {
@@ -809,26 +880,70 @@ namespace VegetableBox
         {
             try
             {
-                if (DGVPurchaseCart.Rows.Count <= 0)
-                    throw new Exception("Add atleast one product to cart.");
+                if (!DGVPurchaseCart.Rows.Cast<DataGridViewRow>().Any(r => r.Cells["IsSaved"].Value?.ToString() == "N"))
+                {
+                    throw new Exception("Add at least one product to cart.");
+                }
 
                 int vendorBillRefNo = this.TxtBillNo.Tag != null ? Convert.ToInt32(this.TxtBillNo.Tag) : 0;
-                
+                int vendorCode = this.CmbVendorName.SelectedValue != null ? Convert.ToInt32(this.CmbVendorName.SelectedValue) : 0;
+                int oldTranNo = this.DGVPurchaseCart.Tag != null ? Convert.ToInt32(this.DGVPurchaseCart.Tag) : 0;
+
+                if (vendorCode == 0)
+                {
+                    this.ErrorProvider.SetError(this.CmbVendorName, "Vendor Name is required");
+                    return;
+                }
+
                 if (vendorBillRefNo == 0)
                 {
                     this.ErrorProvider.SetError(this.TxtBillNo, "Vendor Bill Reference Number is required");
                     return;
                 }
 
-                int BillNo = this.clsFrmPurchaseEnty.SaveData(this.clsFrmPurchaseEnty.PurchaseCartData, Convert.ToDecimal(this.LblTotalAmt.Text), 
-                             vendorBillRefNo);
+                int BillNo = this.clsFrmPurchaseEnty.SaveData(this.clsFrmPurchaseEnty.PurchaseCartData, Convert.ToDecimal(this.LblTotalAmt.Text),
+                             vendorBillRefNo, vendorCode, oldTranNo);
 
                 MessageBox.Show("Saved Sucessfully..." + Environment.NewLine + "Bill No : " + BillNo.ToString(), "Vegetable Box");
 
-                this.ClearProductDetails();
-                this.LoadPurchaseCardGrid();
-                this.LblTotalAmt.Text = "0.00";
-                this.TxtProductSearch.Focus();
+                this.ReLoad();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void BtnBillCompleted_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.DGVPurchaseCart.Rows.Count <= 0)
+                    return;
+
+                if (this.DGVPurchaseCart.Rows.Count != Convert.ToInt32(this.TxtBillItemsCount.Text))
+                {
+                    this.ErrorProvider.SetError(
+                        this.TxtBillItemsCount,
+                        "Entered item count does not match bill items. Please verify before updating."
+                    );
+                    return;
+                }
+
+                if (Convert.ToDecimal(this.LblTotalAmt.Text) != Convert.ToDecimal(this.TxtBillAmount.Text))
+                {
+                    this.ErrorProvider.SetError(
+                        this.TxtBillItemsCount,
+                        "Total amount mismatch. Please verify before updating bill status."
+                    );
+                    return;
+                }
+
+                this.clsFrmPurchaseEnty.UpdateBillStatus((int)this.TxtBillNo.Tag, ProgressStatusValues.Completed); //Vendor bill reference number    
+
+                MessageBox.Show("Saved Sucessfully...", "Vegetable Box");
+
+                this.ReLoad();
             }
             catch (Exception ex)
             {
@@ -908,16 +1023,20 @@ namespace VegetableBox
                         }
                         clsFrmPurchaseEnty.PurchaseCartData.AcceptChanges();
 
-                        if (clsFrmPurchaseEnty.PurchaseCartData.Rows.Count >= 1)
-                        {
-                            DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData.AsEnumerable().OrderByDescending(x => x.Field<int>(CartDataStruct.ColumnName.SNo)).CopyToDataTable();
-                            this.ToCalcTotalAmount();
-                        }
-                        else
-                        {
-                            DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData;
-                            this.ToCalcTotalAmount();
-                        }
+                        //if (clsFrmPurchaseEnty.PurchaseCartData.Rows.Count >= 1)
+                        //{
+                        //    DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData.AsEnumerable().OrderByDescending(x => x.Field<int>(CartDataStruct.ColumnName.SNo)).CopyToDataTable();
+                        //}
+                        //else
+                        //{
+                        //    DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData;
+                        //}
+
+                        DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData.AsEnumerable()
+                                                    .OrderByDescending(x => x.Field<int>(CartDataStruct.ColumnName.SNo)).CopyToDataTable();
+
+                        this.HighlightSavedRows();
+                        this.ToCalcTotalAmount();
                     }
 
                     DGVPurchaseCart.ClearSelection();
@@ -1266,6 +1385,8 @@ namespace VegetableBox
                 {
                     this.ErrorProvider.Clear();
                     this.LoadCurrentBillSelection();
+
+                    this.TxtProductSearch.Focus();
                 }
             }
             catch (Exception ex)
@@ -1273,6 +1394,7 @@ namespace VegetableBox
                 MessageBox.Show(ex.Message, "Vegetable Box");
             }
         }
+
         private void LoadCurrentBillSelection()
         {
             try
@@ -1287,6 +1409,32 @@ namespace VegetableBox
                     this.TxtBillAmount.Text = Convert.ToString(DgvVendorInvoiceDetails.CurrentRow.Cells[VendorPurBillDetailsData.ColumnName.BillAmount].Value);
                     this.TxtBillItemsCount.Text = Convert.ToString(DgvVendorInvoiceDetails.CurrentRow.Cells[VendorPurBillDetailsData.ColumnName.ItemsCount].Value);
                 }
+
+                this.clsFrmPurchaseEnty.GetEnteredPurchaseItems((int)this.TxtBillNo.Tag); //Vendor bill reference number                                                                                              
+                this.DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData;
+
+                if (clsFrmPurchaseEnty.PurchaseCartData.IsDataTableValid())
+                {
+                    this.DGVPurchaseCart.Tag = clsFrmPurchaseEnty.PurchaseCartData.AsEnumerable()
+                        .Select(x => x.Field<int?>(PurchaseCartDataStruct.ColumnName.TranNo)).FirstOrDefault() ?? 0;
+                }
+                else
+                {
+                    this.DGVPurchaseCart.Tag = 0;
+                }
+
+                this.HighlightSavedRows();
+                this.ToCalcTotalAmount();
+                this.FreezeControlsForVendorBill();
+
+                if (int.TryParse(TxtBillItemsCount.Text, out int billItemCount))
+                {
+                    this.BtnBillCompleted.Enabled = (DGVPurchaseCart.Rows.Count == billItemCount);
+                }
+                else
+                {
+                    this.BtnBillCompleted.Enabled = false; // or handle invalid input
+                }                
             }
             catch
             {
@@ -1319,8 +1467,30 @@ namespace VegetableBox
                 {
                     this.ErrorProvider.Clear();
                     this.LoadCurrentBillSelection();
+
                     e.Handled = true;
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void HighlightSavedRows()
+        {
+            try
+            {
+                foreach (DataGridViewRow row in this.DGVPurchaseCart.Rows)
+                {
+                    if (row.Cells[PurchaseCartDataStruct.ColumnName.IsSaved].Value != null && row.Cells[PurchaseCartDataStruct.ColumnName.IsSaved].Value.ToString() == "Y")
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Beige; // background
+                        row.DefaultCellStyle.ForeColor = Color.Black; // text color (optional)
+                    }
+                }
+
+                this.DGVPurchaseCart.ClearSelection();
             }
             catch (Exception ex)
             {
@@ -1334,6 +1504,18 @@ namespace VegetableBox
             {
                 this.ClearLoadedBillDetails();
                 this.DoFillVendorBillSearchGridControl(Convert.ToInt32(this.CmbVendorName.SelectedValue));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.ReLoad();
             }
             catch (Exception ex)
             {

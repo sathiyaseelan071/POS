@@ -10,6 +10,32 @@ ALTER TABLE [Product] ADD [BarCode3] [varchar](50) NULL
 ALTER TABLE [Product] ADD [BarCode4] [varchar](50) NULL
 ALTER TABLE [RateMaster] ADD [MRP] [numeric](12,2) NULL
 
+ALTER TABLE Product NOCHECK CONSTRAINT FK__Product__CatCode__60A75C0F
+
+-- Update Category
+UPDATE [dbo].[Category]
+SET Code = CASE 
+              WHEN Code = 9 THEN 3
+              WHEN Code = 3 THEN 9
+              WHEN Code = 10 THEN 5
+              WHEN Code = 5 THEN 10
+              ELSE Code
+           END
+WHERE Code IN (3, 5, 9, 10);
+
+-- Update Product (CatCode column)
+UPDATE [dbo].[Product]
+SET CatCode = CASE 
+                 WHEN CatCode = 9 THEN 3
+                 WHEN CatCode = 3 THEN 9
+                 WHEN CatCode = 10 THEN 5
+                 WHEN CatCode = 5 THEN 10
+                 ELSE CatCode
+              END
+WHERE CatCode IN (3, 5, 9, 10);
+
+ALTER TABLE Product CHECK CONSTRAINT FK__Product__CatCode__60A75C0F
+
 ---------------
 Go
 ---------------
@@ -68,7 +94,26 @@ CREATE TYPE [dbo].[UDT_Purchase] AS TABLE(
 Go
 ---------------
 
-CREATE PROC [dbo].[SpSavePurchase] (@UDT_Purchase UDT_Purchase READONLY, @TotPurAmount AS NUMERIC(12,2), @VendorBillRefNo INT, @TranNo INT OUTPUT)  
+CREATE TABLE [VendorProductLink](
+    [LinkID] INT IDENTITY(1,1) ,           
+    
+    [VendorCode] INT NULL,
+	[ProductCode] INT NULL,
+    
+    [Active] CHAR(1) DEFAULT 'Y',
+	[CreatedBy] INT NOT NULL,
+    [CreatedDate] DATETIME,
+	FOREIGN KEY ([VendorCode]) REFERENCES [Vendor]([Code]),
+	FOREIGN KEY ([ProductCode]) REFERENCES [Product]([Code]),
+    FOREIGN KEY ([CreatedBy]) REFERENCES [USER]([Code])
+)
+
+---------------
+Go
+---------------
+
+CREATE PROC [dbo].[SpSavePurchase] (@UDT_Purchase UDT_Purchase READONLY, @TotPurAmount AS NUMERIC(12,2), @VendorBillRefNo INT, 
+@VendorCode INT, @OldTranNo INT, @TranNo INT OUTPUT)  
 AS  
   
 BEGIN TRAN  
@@ -77,62 +122,69 @@ SET NOCOUNT ON;
 
 BEGIN TRY  
   
- SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 AS BillNo FROM [Purchase])  
+	IF(@OldTranNo <= 0)
+		SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 AS BillNo FROM [Purchase])  
+	ELSE
+		SET @TranNo = @OldTranNo
   
- INSERT INTO [Purchase]([TranNo], [TranDate], [ProductCode], [TotPurQty], [Unit], [TotPurAmount], [PurRatePerQty], [SellRatePerQty],  
- [MRP], [SellingMarginPer], [DiscPer], [DiscRate], [EnteredBy], [EnteredDateTime], [VendorBillRefNo])  
- SELECT @TranNo, CAST(GETDATE() AS DATE ), [ProductCode], [TotPurQty], [Unit], [TotPurAmount], [PurRatePerQty], [SellRatePerQty],  
- [MRP], [SellingMarginPer], [DiscPer], [DiscRate], [BilledBy], GETDATE(), @VendorBillRefNo
- FROM @UDT_Purchase  
-   
- INSERT INTO [PurchaseTransaction]([TranNo], [TranDate], [TotPurAmount], [EnteredBy], [EnteredDateTime], [VendorBillRefNo])  
- SELECT TOP 1 @TranNo, CAST(GETDATE() AS DATE ), @TotPurAmount, [BilledBy], GETDATE(), @VendorBillRefNo 
- FROM @UDT_Purchase  
-  
- UPDATE S SET S.LastPurQty = P.TotPurQty,   
- S.[PurRate] = P.[PurRatePerQty],   
- S.[MRP] = P.[MRP],   
- S.[SellRate] = P.[SellRatePerQty],   
- S.[SellingMarginPer] = P.[SellingMarginPer],   
- S.[DiscPer] = P.[DiscPer],   
- S.[DiscRate] = P.[DiscRate],   
- S.[LastUpdatedBy] = P.[BilledBy],   
- S.[LastUpdatedDate] = GETDATE(),   
- S.[LastUpdatedDateTime] = GETDATE(),
- S.[StockQty] = ISNULL(S.[StockQty], 0) + P.[TotPurQty]
- FROM [Stock] AS S  
- INNER JOIN @UDT_Purchase AS P ON S.ProductCode = P.ProductCode AND S.MRP = P.MRP
-  
- INSERT INTO [Stock](ProductCode, LastPurQty, PurRate, MRP, SellRate, SellingMarginPer, DiscPer, DiscRate,
- LastUpdatedBy, LastUpdatedDate, LastUpdatedDateTime, [StockQty])
- SELECT [ProductCode], [TotPurQty], [PurRatePerQty], [MRP], [SellRatePerQty], [SellingMarginPer], [DiscPer], [DiscRate],   
- [BilledBy], GETDATE(), GETDATE(), [TotPurQty] 
- FROM @UDT_Purchase AS P  
- INNER JOIN [Product] AS PR ON P.[ProductCode] = PR.CODE  
- WHERE 1=1 
- AND ISNULL(PR.CalcBasedRateMast,'') != 'Y' 
- AND NOT EXISTS (SELECT ProductCode FROM [Stock] AS S WHERE S.ProductCode = P.ProductCode And S.MRP = P.MRP)  
-  
- UPDATE R SET   
- R.BuyRate = P.[PurRatePerQty],   
- R.SellMarginPercentage = P.[SellingMarginPer],   
- R.SellRate = P.[SellRatePerQty],   
- R.CreatedBy = P.[BilledBy],   
- R.CreatedDateTime = GETDATE(),
- R.MRP = P.MRP
- FROM [RateMaster] AS R  
- INNER JOIN @UDT_Purchase AS P ON P.ProductCode = R.ProductCode  
-  
- INSERT INTO [RateMaster](ProductCode, BuyRate, SellMarginPercentage, SellRate, CreatedBy, CreatedDateTime, MRP)  
- SELECT ProductCode, P.[PurRatePerQty], P.[SellingMarginPer], P.[SellRatePerQty], P.[BilledBy], GETDATE(), MRP 
- FROM @UDT_Purchase AS P  
- INNER JOIN [Product] AS PR ON P.[ProductCode] = PR.CODE  
- WHERE ISNULL(PR.CalcBasedRateMast,'') = 'Y' AND NOT EXISTS (SELECT ProductCode FROM RateMaster AS R2 WHERE P.ProductCode = R2.ProductCode)  
+	 INSERT INTO [Purchase]([TranNo], [TranDate], [ProductCode], [TotPurQty], [Unit], [TotPurAmount], [PurRatePerQty], [SellRatePerQty],  
+	 [MRP], [SellingMarginPer], [DiscPer], [DiscRate], [EnteredBy], [EnteredDateTime], [VendorBillRefNo])  
+	 SELECT @TranNo, CAST(GETDATE() AS DATE ), [ProductCode], [TotPurQty], [Unit], [TotPurAmount], [PurRatePerQty], [SellRatePerQty],  
+	 [MRP], [SellingMarginPer], [DiscPer], [DiscRate], [BilledBy], GETDATE(), @VendorBillRefNo
+	 FROM @UDT_Purchase  
  
- --IF OBJECT_ID('dbo.temps1', 'U') IS NOT NULL
- --   DROP TABLE dbo.temps1;
+	 IF EXISTS(SELECT 1 FROM [PurchaseTransaction] WHERE [TranNo] =  @OldTranNo)
+		DELETE FROM [PurchaseTransaction] WHERE [TranNo] = @OldTranNo
  
- --Select * into temps1 from @UDT_Purchase
+	 INSERT INTO [PurchaseTransaction]([TranNo], [TranDate], [TotPurAmount], [EnteredBy], [EnteredDateTime], [VendorBillRefNo])  
+	 SELECT TOP 1 @TranNo, CAST(GETDATE() AS DATE ), @TotPurAmount, [BilledBy], GETDATE(), @VendorBillRefNo 
+	 FROM @UDT_Purchase  
+  
+	 UPDATE S SET S.LastPurQty = P.TotPurQty,   
+	 S.[PurRate] = P.[PurRatePerQty],   
+	 S.[MRP] = P.[MRP],   
+	 S.[SellRate] = P.[SellRatePerQty],   
+	 S.[SellingMarginPer] = P.[SellingMarginPer],   
+	 S.[DiscPer] = P.[DiscPer],   
+	 S.[DiscRate] = P.[DiscRate],   
+	 S.[LastUpdatedBy] = P.[BilledBy],   
+	 S.[LastUpdatedDate] = GETDATE(),   
+	 S.[LastUpdatedDateTime] = GETDATE(),
+	 S.[StockQty] = ISNULL(S.[StockQty], 0) + P.[TotPurQty]
+	 FROM [Stock] AS S  
+	 INNER JOIN @UDT_Purchase AS P ON S.ProductCode = P.ProductCode AND S.MRP = P.MRP
+  
+	 INSERT INTO [Stock](ProductCode, LastPurQty, PurRate, MRP, SellRate, SellingMarginPer, DiscPer, DiscRate,
+	 LastUpdatedBy, LastUpdatedDate, LastUpdatedDateTime, [StockQty])
+	 SELECT [ProductCode], [TotPurQty], [PurRatePerQty], [MRP], [SellRatePerQty], [SellingMarginPer], [DiscPer], [DiscRate],   
+	 [BilledBy], GETDATE(), GETDATE(), [TotPurQty] 
+	 FROM @UDT_Purchase AS P  
+	 INNER JOIN [Product] AS PR ON P.[ProductCode] = PR.CODE  
+	 WHERE 1=1 
+	 AND ISNULL(PR.CalcBasedRateMast,'') != 'Y' 
+	 AND NOT EXISTS (SELECT ProductCode FROM [Stock] AS S WHERE S.ProductCode = P.ProductCode And S.MRP = P.MRP)  
+  
+	 UPDATE R SET   
+	 R.BuyRate = P.[PurRatePerQty],   
+	 R.SellMarginPercentage = P.[SellingMarginPer],   
+	 R.SellRate = P.[SellRatePerQty],   
+	 R.CreatedBy = P.[BilledBy],   
+	 R.CreatedDateTime = GETDATE(),
+	 R.MRP = P.MRP
+	 FROM [RateMaster] AS R  
+	 INNER JOIN @UDT_Purchase AS P ON P.ProductCode = R.ProductCode  
+  
+	 INSERT INTO [RateMaster](ProductCode, BuyRate, SellMarginPercentage, SellRate, CreatedBy, CreatedDateTime, MRP)  
+	 SELECT ProductCode, P.[PurRatePerQty], P.[SellingMarginPer], P.[SellRatePerQty], P.[BilledBy], GETDATE(), MRP 
+	 FROM @UDT_Purchase AS P  
+	 INNER JOIN [Product] AS PR ON P.[ProductCode] = PR.CODE  
+	 WHERE ISNULL(PR.CalcBasedRateMast,'') = 'Y' AND NOT EXISTS (SELECT ProductCode FROM RateMaster AS R2 WHERE P.ProductCode = R2.ProductCode)  
+ 
+	 INSERT INTO [VendorProductLink]([VendorCode], [ProductCode], [Active], [CreatedBy], [CreatedDate])
+	 SELECT DISTINCT @VendorCode, [ProductCode], 'Y', [BilledBy], GETDATE() FROM @UDT_Purchase AS P WHERE
+	 NOT EXISTS (SELECT 1 FROM [VendorProductLink] AS V WHERE V.[VendorCode] = @VendorCode AND P.[ProductCode] = V.[ProductCode])
+
+	 UPDATE [VendorBillDetails] SET [PurchaseEntryStatus] = 'P' WHERE [TranNo] = @VendorBillRefNo AND [PurchaseEntryStatus] != 'P' --InProgress
 
  COMMIT TRAN  
   
@@ -148,6 +200,7 @@ BEGIN CATCH
 END CATCH  
 
 ---------------
+
 Go
 ---------------
 
@@ -383,3 +436,73 @@ END CATCH
 --------------  
 GO
 --------------  
+
+ALTER PROCEDURE [dbo].[SpSaveRateMaster] (@UDT_RateMaster UDT_RateMaster readonly)  
+As  
+BEGIN TRAN  
+  
+BEGIN TRY  
+  
+ INSERT INTO RateMaster(ProductCode, BuyRate, SellMarginPercentage, SellRate, CreatedBy, CreatedDateTime, MRP)
+ SELECT ProductCode, BuyRate, SellMarginPercentage, SellRate, CreatedBy, GETDATE(), SellRate + 5 FROM @UDT_RateMaster AS R1  
+ WHERE NOT EXISTS (SELECT ProductCode FROM RateMaster AS R2 WHERE R1.ProductCode = R2.ProductCode)  
+  
+ UPDATE R SET   
+ R.BuyRate = U.BuyRate,   
+ R.SellMarginPercentage = U.SellMarginPercentage,   
+ R.SellRate = U.SellRate,   
+ R.CreatedBy = U.CreatedBy,   
+ R.CreatedDateTime = GETDATE(),
+ R.MRP = U.SellRate + 5
+ FROM RateMaster AS R   
+ INNER JOIN @UDT_RateMaster AS U ON R.ProductCode = U.ProductCode  
+  
+COMMIT TRAN  
+  
+END TRY  
+BEGIN CATCH
+
+	ROLLBACK TRAN  
+  
+	-- Optional: Return error details
+	THROW;
+END CATCH  
+
+--------------  
+GO
+--------------  
+
+
+ALTER PROCEDURE SpGetRateMaster  
+AS  
+SELECT ProductCode, ProductName, ProductTamilName, CatCode, CatName, QtyTypeCode, QtyTypeName, Qty, BuyRate, SellMarginPercentage, MRP, SellRate,   
+ROW_NUMBER() OVER(ORDER BY CatCode, ProductCode) AS RateCode, CAST(ProductCode AS Varchar) AS PCodeString  
+FROM (  
+  
+SELECT P.Code AS ProductCode, P.[Name] AS ProductName, P.TamilName AS ProductTamilName, P.CatCode,   
+C.[Name] AS CatName, P.QtyTypeCode, Q.[Name] AS QtyTypeName, '1 ' + Q.ShortName AS Qty,   
+R.BuyRate, R.SellMarginPercentage, R.MRP, R.SellRate  
+FROM [RateMaster] AS R   
+INNER JOIN [Product] AS P On R.ProductCode = P.Code  
+LEFT JOIN [Category] AS C On P.CatCode = C.Code  
+LEFT JOIN [Quantity] AS Q On Q.Code = P.QtyTypeCode  
+WHERE ISNULL(P.CalcBasedRateMast,'') = 'Y' AND ISNULL(P.Active,'') = 'Y'  
+  
+UNION ALL  
+  
+SELECT P.Code AS ProductCode, P.[Name] AS ProductName, P.TamilName AS ProductTamilName, P.CatCode,   
+C.[Name] AS CatName, P.QtyTypeCode, Q.[Name] AS QtyTypeName, '1 ' + Q.ShortName AS Qty,   
+CAST(0.00 AS NUMERIC(12, 2)) AS BuyRate, CAST(0.00 AS NUMERIC(12, 2)) AS SellMarginPercentage, CAST(0.00 AS NUMERIC(12, 2)) AS MRP,
+CAST(0.00 AS NUMERIC(12, 2)) AS SellRate  
+From [Product] AS P  
+LEFT JOIN [Category] AS C On P.CatCode = C.Code  
+LEFT JOIN [Quantity] AS Q On Q.Code = P.QtyTypeCode  
+WHERE ISNULL(P.CalcBasedRateMast,'') = 'Y' AND ISNULL(P.Active,'') = 'Y'  
+AND NOT EXISTS (SELECT ProductCode FROM RateMaster AS R WHERE R.ProductCode = P.Code)  
+  
+) AS RateMasterData
+
+--------------  
+GO
+--------------  
+

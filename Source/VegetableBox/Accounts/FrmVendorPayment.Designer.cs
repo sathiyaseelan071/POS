@@ -607,6 +607,7 @@
             CmbVendorName.Size = new Size(256, 26);
             CmbVendorName.TabIndex = 1;
             CmbVendorName.SelectedValueChanged += CmbVendorName_SelectedValueChanged;
+            CmbVendorName.Validating += CmbVendorName_Validating;
             // 
             // label7
             // 

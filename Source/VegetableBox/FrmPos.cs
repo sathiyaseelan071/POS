@@ -122,16 +122,17 @@ namespace VegetableBox
                             .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                             || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                             || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
-                            || (FilterProduct.Length >= 3 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
                             && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))).Count() > 0)
                         {
                             _DtSearch = clsFrmPos.ProductRateData.AsEnumerable()
                                 .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                                 || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                                 || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
-                                || (FilterProduct.Length >= 3 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
                                 && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct)))
                                 .OrderBy(x => x.Field<Int32>(ProductRateData.ColumnName.CatCode))
+                                .ThenBy(x => x.Field<string>(ProductRateData.ColumnName.ProductName))
                                 .Select(g =>
                                 {
                                     var row = _DtSearch.NewRow();

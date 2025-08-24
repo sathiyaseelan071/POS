@@ -12,6 +12,13 @@
 
   <ItemGroup>
     <Compile Remove="Accounts\ClsFrmUndiyalCreditDebitt.cs" />
+    <Compile Remove="RepositoryUnUsed\ClsFrmProductRateCorrection.cs" />
+    <Compile Remove="RepositoryUnUsed\FrmProductRateCorrection.cs" />
+    <Compile Remove="RepositoryUnUsed\FrmProductRateCorrection.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="RepositoryUnUsed\FrmProductRateCorrection.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,9 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="FrmProductRateCorrection.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -39,6 +43,7 @@
   <ItemGroup>
     <Folder Include="ByUseNewFileCreation\" />
     <Folder Include="Font\" />
+    <Folder Include="RepositoryUnUsed\" />
   </ItemGroup>
 
   <ItemGroup>
