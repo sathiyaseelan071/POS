@@ -47,6 +47,30 @@ namespace VegetableBox
             }
         }
 
+        private DataTable _TodayBillsWithPaymentsData = new DataTable();
+        internal DataTable TodayBillsWithPaymentsData
+        {
+            get { return _TodayBillsWithPaymentsData; }
+            set { _TodayBillsWithPaymentsData = value; }
+        }
+
+        public void GetTodayBillsWithPayments()
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+
+                String SqlQuery = "SpGetTodayBillsWithPayments";
+
+                this._TodayBillsWithPaymentsData = new DataTable();
+                this._TodayBillsWithPaymentsData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         private DataTable _CartData = new DataTable();
         internal DataTable CartData
         {
@@ -82,6 +106,7 @@ namespace VegetableBox
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.IsDefective, typeof(string));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.AllowRateChange, typeof(bool));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.SellingRateZero, typeof(bool));
+                this._CartData.Columns.Add(CartDataStruct.ColumnName.CatCode, typeof(int));
             }
             catch
             {
@@ -265,6 +290,7 @@ namespace VegetableBox
             internal static string IsDefective = "IsDefective";
             internal static string AllowRateChange = "AllowRateChange";
             internal static string SellingRateZero = "SellingRateZero";
+            internal static string CatCode = "CatCode";
         }
     }
 
