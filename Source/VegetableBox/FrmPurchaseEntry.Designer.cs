@@ -414,7 +414,7 @@
             TxtPurchaseRatePerQty.MaxLength = 10;
             TxtPurchaseRatePerQty.Name = "TxtPurchaseRatePerQty";
             TxtPurchaseRatePerQty.Size = new Size(97, 26);
-            TxtPurchaseRatePerQty.TabIndex = 22;
+            TxtPurchaseRatePerQty.TabIndex = 23;
             TxtPurchaseRatePerQty.TextAlign = HorizontalAlignment.Right;
             TxtPurchaseRatePerQty.Enter += TextBox_Enter;
             TxtPurchaseRatePerQty.KeyDown += TxtPurchaseRatePerKg_KeyDown;
@@ -429,7 +429,7 @@
             LblPurchaseRatePerKgPcs.Location = new Point(3, 445);
             LblPurchaseRatePerKgPcs.Name = "LblPurchaseRatePerKgPcs";
             LblPurchaseRatePerKgPcs.Size = new Size(140, 29);
-            LblPurchaseRatePerKgPcs.TabIndex = 21;
+            LblPurchaseRatePerKgPcs.TabIndex = 22;
             LblPurchaseRatePerKgPcs.Text = "Purchase Rate Per Qty";
             LblPurchaseRatePerKgPcs.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -449,7 +449,7 @@
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel3.Size = new Size(293, 40);
-            tableLayoutPanel3.TabIndex = 28;
+            tableLayoutPanel3.TabIndex = 29;
             // 
             // BtnClear
             // 
@@ -543,7 +543,7 @@
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
             tableLayoutPanel9.Size = new Size(188, 174);
-            tableLayoutPanel9.TabIndex = 27;
+            tableLayoutPanel9.TabIndex = 28;
             // 
             // LblLastPurchaseRate
             // 
@@ -973,7 +973,7 @@
             tableLayoutPanel7.RowCount = 1;
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel7.Size = new Size(105, 29);
-            tableLayoutPanel7.TabIndex = 5;
+            tableLayoutPanel7.TabIndex = 19;
             // 
             // TxtTotPurchaseQty
             // 
@@ -1018,7 +1018,7 @@
             label4.Location = new Point(3, 416);
             label4.Name = "label4";
             label4.Size = new Size(140, 29);
-            label4.TabIndex = 19;
+            label4.TabIndex = 20;
             label4.Text = "Total Purchase Amount*";
             label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -1033,7 +1033,7 @@
             TxtTotPurchaseRate.MaxLength = 10;
             TxtTotPurchaseRate.Name = "TxtTotPurchaseRate";
             TxtTotPurchaseRate.Size = new Size(97, 26);
-            TxtTotPurchaseRate.TabIndex = 20;
+            TxtTotPurchaseRate.TabIndex = 21;
             TxtTotPurchaseRate.TextAlign = HorizontalAlignment.Right;
             TxtTotPurchaseRate.TextChanged += TxtPurchaseRate_TextChanged;
             TxtTotPurchaseRate.Enter += TextBox_Enter;
@@ -1051,7 +1051,7 @@
             LblMrp.Location = new Point(3, 479);
             LblMrp.Name = "LblMrp";
             LblMrp.Size = new Size(44, 18);
-            LblMrp.TabIndex = 23;
+            LblMrp.TabIndex = 24;
             LblMrp.Text = "MRP*";
             LblMrp.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -1066,7 +1066,7 @@
             TxtMrp.MaxLength = 10;
             TxtMrp.Name = "TxtMrp";
             TxtMrp.Size = new Size(97, 26);
-            TxtMrp.TabIndex = 24;
+            TxtMrp.TabIndex = 25;
             TxtMrp.TextAlign = HorizontalAlignment.Right;
             TxtMrp.EnabledChanged += TxtMrp_EnabledChanged;
             TxtMrp.Enter += TextBox_Enter;
@@ -1084,7 +1084,7 @@
             LblSellingRate.Location = new Point(3, 508);
             LblSellingRate.Name = "LblSellingRate";
             LblSellingRate.Size = new Size(88, 18);
-            LblSellingRate.TabIndex = 25;
+            LblSellingRate.TabIndex = 26;
             LblSellingRate.Text = "Selling Rate*";
             LblSellingRate.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -1099,7 +1099,7 @@
             TxtSellingRate.MaxLength = 10;
             TxtSellingRate.Name = "TxtSellingRate";
             TxtSellingRate.Size = new Size(97, 26);
-            TxtSellingRate.TabIndex = 26;
+            TxtSellingRate.TabIndex = 27;
             TxtSellingRate.TextAlign = HorizontalAlignment.Right;
             TxtSellingRate.TextChanged += TxtSellingRate_TextChanged;
             TxtSellingRate.Enter += TextBox_Enter;
