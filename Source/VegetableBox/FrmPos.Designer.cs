@@ -34,6 +34,9 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPos));
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             DGVCart = new DataGridView();
             TlpProductDetails = new TableLayoutPanel();
@@ -92,14 +95,10 @@
             LblFinalTotAmtDisp = new Label();
             label5 = new Label();
             label6 = new Label();
-            LblFinalAmtReceived = new Label();
-            LblFinalAmtReceivedDisp = new Label();
             LblFinalGrossAmtDisp = new Label();
             label4 = new Label();
             LblFinalNetAmtDisp = new Label();
-            LblFinalBalanceAmountDisp = new Label();
             BtnSave = new Button();
-            LblFinalBalanceAmount = new Label();
             LblFinalNetAmt = new Label();
             LblFinalTotAmt = new Label();
             LblFinalGrossAmt = new Label();
@@ -108,7 +107,6 @@
             TxtFinalDiscAmt = new TextBox();
             groupBox1 = new GroupBox();
             tableLayoutPanel5 = new TableLayoutPanel();
-            label12 = new Label();
             label13 = new Label();
             label14 = new Label();
             TxtPaymentDetCash = new TextBox();
@@ -118,10 +116,26 @@
             TxtPaymentDetGPay = new TextBox();
             label9 = new Label();
             TxtPaymentDetCredit = new TextBox();
+            label12 = new Label();
+            label11 = new Label();
+            TxtCashTendered = new TextBox();
+            LblFinalAmtReceivedDisp = new Label();
+            LblFinalBalanceAmountDisp = new Label();
+            LblFinalAmtReceived = new Label();
+            LblFinalBalanceAmount = new Label();
             tableLayoutPanel6 = new TableLayoutPanel();
             BtnCancelAll = new Button();
             BtnExit = new Button();
             label19 = new Label();
+            panel3 = new Panel();
+            tableLayoutPanel10 = new TableLayoutPanel();
+            DGVBillDetails = new DataGridView();
+            label15 = new Label();
+            tableLayoutPanel11 = new TableLayoutPanel();
+            button1 = new Button();
+            button2 = new Button();
+            button3 = new Button();
+            button4 = new Button();
             ErrorProvider = new ErrorProvider(components);
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGVCart).BeginInit();
@@ -141,27 +155,34 @@
             groupBox1.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
+            panel3.SuspendLayout();
+            tableLayoutPanel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DGVBillDetails).BeginInit();
+            tableLayoutPanel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ErrorProvider).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 56.72269F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.3193283F));
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 17.160265F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48.6688156F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.0082912F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.1626244F));
             tableLayoutPanel1.Controls.Add(DGVCart, 0, 1);
             tableLayoutPanel1.Controls.Add(TlpProductDetails, 0, 0);
             tableLayoutPanel1.Controls.Add(panel1, 2, 1);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel6, 0, 2);
+            tableLayoutPanel1.Controls.Add(panel3, 3, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Margin = new Padding(4, 5, 4, 5);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 72.3122253F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.80559635F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 19.9764633F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 72.22713F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.79641056F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(1245, 653);
             tableLayoutPanel1.TabIndex = 0;
             // 
@@ -204,7 +225,7 @@
             DGVCart.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             DGVCart.RowHeadersVisible = false;
             DGVCart.RowTemplate.Height = 25;
-            DGVCart.Size = new Size(945, 461);
+            DGVCart.Size = new Size(810, 461);
             DGVCart.TabIndex = 1;
             DGVCart.CellClick += DGVCart_CellClick;
             DGVCart.CellDoubleClick += DGVCart_CellDoubleClick;
@@ -214,7 +235,7 @@
             // TlpProductDetails
             // 
             TlpProductDetails.ColumnCount = 4;
-            tableLayoutPanel1.SetColumnSpan(TlpProductDetails, 3);
+            tableLayoutPanel1.SetColumnSpan(TlpProductDetails, 4);
             TlpProductDetails.ColumnStyles.Add(new ColumnStyle());
             TlpProductDetails.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.0940437F));
             TlpProductDetails.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 41.61442F));
@@ -335,8 +356,8 @@
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.0917435F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.65858F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 56.4342575F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.3853226F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45.87156F));
             tableLayoutPanel3.Controls.Add(LblProCode, 1, 0);
             tableLayoutPanel3.Controls.Add(tableLayoutPanel2, 5, 0);
             tableLayoutPanel3.Controls.Add(TxtProCode, 2, 0);
@@ -366,12 +387,12 @@
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 6;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.8588181F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.38061F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.44014F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.44014F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.44014F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.44014F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15.4331589F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 28.8310146F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.560208F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.560208F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.3077068F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.3077068F));
             tableLayoutPanel2.Controls.Add(TxtMrp, 1, 0);
             tableLayoutPanel2.Controls.Add(LblMrp, 0, 0);
             tableLayoutPanel2.Controls.Add(LblDiscPercentage, 2, 0);
@@ -379,12 +400,12 @@
             tableLayoutPanel2.Controls.Add(TxtDiscPercentage, 3, 0);
             tableLayoutPanel2.Controls.Add(LblProfitAmt, 4, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(458, 0);
+            tableLayoutPanel2.Location = new Point(517, 0);
             tableLayoutPanel2.Margin = new Padding(0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(309, 38);
+            tableLayoutPanel2.Size = new Size(250, 38);
             tableLayoutPanel2.TabIndex = 4;
             // 
             // TxtMrp
@@ -392,10 +413,10 @@
             TxtMrp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtMrp.BackColor = Color.WhiteSmoke;
             TxtMrp.ForeColor = Color.ForestGreen;
-            TxtMrp.Location = new Point(45, 5);
+            TxtMrp.Location = new Point(41, 5);
             TxtMrp.MaxLength = 12;
             TxtMrp.Name = "TxtMrp";
-            TxtMrp.Size = new Size(56, 27);
+            TxtMrp.Size = new Size(66, 27);
             TxtMrp.TabIndex = 1;
             TxtMrp.TextAlign = HorizontalAlignment.Right;
             TxtMrp.TextChanged += TxtAmt_TextChanged;
@@ -410,7 +431,7 @@
             LblMrp.ForeColor = Color.FromArgb(0, 64, 64);
             LblMrp.Location = new Point(3, 0);
             LblMrp.Name = "LblMrp";
-            LblMrp.Size = new Size(36, 38);
+            LblMrp.Size = new Size(32, 38);
             LblMrp.TabIndex = 0;
             LblMrp.Text = "MRP";
             LblMrp.TextAlign = ContentAlignment.MiddleRight;
@@ -419,10 +440,11 @@
             // 
             LblDiscPercentage.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblDiscPercentage.AutoSize = true;
+            LblDiscPercentage.Font = new Font("Calibri", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
             LblDiscPercentage.ForeColor = Color.FromArgb(0, 64, 64);
-            LblDiscPercentage.Location = new Point(107, 0);
+            LblDiscPercentage.Location = new Point(113, 0);
             LblDiscPercentage.Name = "LblDiscPercentage";
-            LblDiscPercentage.Size = new Size(44, 38);
+            LblDiscPercentage.Size = new Size(17, 38);
             LblDiscPercentage.TabIndex = 0;
             LblDiscPercentage.Text = "Disc %*";
             LblDiscPercentage.TextAlign = ContentAlignment.TopRight;
@@ -433,9 +455,9 @@
             LblPurchaseAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblPurchaseAmt.AutoSize = true;
             LblPurchaseAmt.ForeColor = Color.Green;
-            LblPurchaseAmt.Location = new Point(257, 9);
+            LblPurchaseAmt.Location = new Point(204, 9);
             LblPurchaseAmt.Name = "LblPurchaseAmt";
-            LblPurchaseAmt.Size = new Size(49, 19);
+            LblPurchaseAmt.Size = new Size(43, 19);
             LblPurchaseAmt.TabIndex = 4;
             LblPurchaseAmt.Text = "...";
             LblPurchaseAmt.TextAlign = ContentAlignment.MiddleLeft;
@@ -445,10 +467,10 @@
             TxtDiscPercentage.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtDiscPercentage.BackColor = Color.WhiteSmoke;
             TxtDiscPercentage.ForeColor = Color.ForestGreen;
-            TxtDiscPercentage.Location = new Point(157, 5);
+            TxtDiscPercentage.Location = new Point(136, 5);
             TxtDiscPercentage.MaxLength = 3;
             TxtDiscPercentage.Name = "TxtDiscPercentage";
-            TxtDiscPercentage.Size = new Size(44, 27);
+            TxtDiscPercentage.Size = new Size(17, 27);
             TxtDiscPercentage.TabIndex = 1;
             TxtDiscPercentage.TextAlign = HorizontalAlignment.Right;
             TxtDiscPercentage.Visible = false;
@@ -463,9 +485,9 @@
             LblProfitAmt.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblProfitAmt.AutoSize = true;
             LblProfitAmt.ForeColor = Color.Green;
-            LblProfitAmt.Location = new Point(207, 9);
+            LblProfitAmt.Location = new Point(159, 9);
             LblProfitAmt.Name = "LblProfitAmt";
-            LblProfitAmt.Size = new Size(44, 19);
+            LblProfitAmt.Size = new Size(39, 19);
             LblProfitAmt.TabIndex = 4;
             LblProfitAmt.Text = "...";
             LblProfitAmt.TextAlign = ContentAlignment.MiddleLeft;
@@ -504,7 +526,7 @@
             TxtProTName.Location = new Point(289, 5);
             TxtProTName.Margin = new Padding(3, 3, 8, 3);
             TxtProTName.Name = "TxtProTName";
-            TxtProTName.Size = new Size(161, 27);
+            TxtProTName.Size = new Size(220, 27);
             TxtProTName.TabIndex = 3;
             TxtProTName.TextAlign = HorizontalAlignment.Center;
             TxtProTName.Enter += TextBox_Enter;
@@ -1009,10 +1031,10 @@
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(tableLayoutPanel4);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(956, 135);
+            panel1.Location = new Point(821, 135);
             panel1.Margin = new Padding(3, 5, 3, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(286, 461);
+            panel1.Size = new Size(243, 461);
             panel1.TabIndex = 3;
             // 
             // tableLayoutPanel4
@@ -1026,14 +1048,10 @@
             tableLayoutPanel4.Controls.Add(LblFinalTotAmtDisp, 1, 0);
             tableLayoutPanel4.Controls.Add(label5, 1, 1);
             tableLayoutPanel4.Controls.Add(label6, 1, 2);
-            tableLayoutPanel4.Controls.Add(LblFinalAmtReceived, 3, 7);
-            tableLayoutPanel4.Controls.Add(LblFinalAmtReceivedDisp, 1, 7);
             tableLayoutPanel4.Controls.Add(LblFinalGrossAmtDisp, 1, 3);
             tableLayoutPanel4.Controls.Add(label4, 1, 4);
             tableLayoutPanel4.Controls.Add(LblFinalNetAmtDisp, 1, 5);
-            tableLayoutPanel4.Controls.Add(LblFinalBalanceAmountDisp, 1, 8);
             tableLayoutPanel4.Controls.Add(BtnSave, 1, 9);
-            tableLayoutPanel4.Controls.Add(LblFinalBalanceAmount, 3, 8);
             tableLayoutPanel4.Controls.Add(LblFinalNetAmt, 3, 5);
             tableLayoutPanel4.Controls.Add(LblFinalTotAmt, 3, 0);
             tableLayoutPanel4.Controls.Add(LblFinalGrossAmt, 3, 3);
@@ -1041,22 +1059,26 @@
             tableLayoutPanel4.Controls.Add(TxtFinalDiscPer, 3, 1);
             tableLayoutPanel4.Controls.Add(TxtFinalDiscAmt, 3, 2);
             tableLayoutPanel4.Controls.Add(groupBox1, 1, 6);
+            tableLayoutPanel4.Controls.Add(LblFinalAmtReceivedDisp, 1, 8);
+            tableLayoutPanel4.Controls.Add(LblFinalBalanceAmountDisp, 1, 7);
+            tableLayoutPanel4.Controls.Add(LblFinalAmtReceived, 3, 8);
+            tableLayoutPanel4.Controls.Add(LblFinalBalanceAmount, 3, 7);
             tableLayoutPanel4.Dock = DockStyle.Fill;
             tableLayoutPanel4.Location = new Point(0, 0);
             tableLayoutPanel4.Margin = new Padding(0);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 10;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 5.75139141F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 5.93692F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 5.93692F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 5.75139141F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 5.56586266F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 7.79220772F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 39.8886833F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 7.606528F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 4.563916F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 10.6714859F));
-            tableLayoutPanel4.Size = new Size(284, 459);
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 6.042239F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 6.042239F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 6.042239F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 6.042239F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 6.042239F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 7.78066158F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 42.2956734F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 5.484967F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 4.446092F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 9.781403F));
+            tableLayoutPanel4.Size = new Size(241, 459);
             tableLayoutPanel4.TabIndex = 0;
             // 
             // LblFinalTotAmtDisp
@@ -1065,9 +1087,9 @@
             LblFinalTotAmtDisp.AutoSize = true;
             LblFinalTotAmtDisp.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalTotAmtDisp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblFinalTotAmtDisp.Location = new Point(7, 3);
+            LblFinalTotAmtDisp.Location = new Point(5, 4);
             LblFinalTotAmtDisp.Name = "LblFinalTotAmtDisp";
-            LblFinalTotAmtDisp.Size = new Size(130, 19);
+            LblFinalTotAmtDisp.Size = new Size(135, 19);
             LblFinalTotAmtDisp.TabIndex = 0;
             LblFinalTotAmtDisp.Text = "Total Amount";
             // 
@@ -1077,9 +1099,9 @@
             label5.AutoSize = true;
             label5.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label5.ForeColor = Color.FromArgb(0, 64, 64);
-            label5.Location = new Point(7, 30);
+            label5.Location = new Point(5, 31);
             label5.Name = "label5";
-            label5.Size = new Size(130, 19);
+            label5.Size = new Size(135, 19);
             label5.TabIndex = 2;
             label5.Text = "Discount %";
             // 
@@ -1089,36 +1111,11 @@
             label6.AutoSize = true;
             label6.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label6.ForeColor = Color.FromArgb(0, 64, 64);
-            label6.Location = new Point(7, 57);
+            label6.Location = new Point(5, 58);
             label6.Name = "label6";
-            label6.Size = new Size(130, 19);
+            label6.Size = new Size(135, 19);
             label6.TabIndex = 4;
             label6.Text = "Discount";
-            // 
-            // LblFinalAmtReceived
-            // 
-            LblFinalAmtReceived.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblFinalAmtReceived.AutoSize = true;
-            LblFinalAmtReceived.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            LblFinalAmtReceived.ForeColor = Color.Crimson;
-            LblFinalAmtReceived.Location = new Point(150, 356);
-            LblFinalAmtReceived.Name = "LblFinalAmtReceived";
-            LblFinalAmtReceived.Size = new Size(125, 23);
-            LblFinalAmtReceived.TabIndex = 14;
-            LblFinalAmtReceived.Text = "0.00";
-            LblFinalAmtReceived.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // LblFinalAmtReceivedDisp
-            // 
-            LblFinalAmtReceivedDisp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblFinalAmtReceivedDisp.AutoSize = true;
-            LblFinalAmtReceivedDisp.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            LblFinalAmtReceivedDisp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblFinalAmtReceivedDisp.Location = new Point(7, 358);
-            LblFinalAmtReceivedDisp.Name = "LblFinalAmtReceivedDisp";
-            LblFinalAmtReceivedDisp.Size = new Size(130, 19);
-            LblFinalAmtReceivedDisp.TabIndex = 13;
-            LblFinalAmtReceivedDisp.Text = "Amount Received";
             // 
             // LblFinalGrossAmtDisp
             // 
@@ -1126,9 +1123,9 @@
             LblFinalGrossAmtDisp.AutoSize = true;
             LblFinalGrossAmtDisp.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalGrossAmtDisp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblFinalGrossAmtDisp.Location = new Point(7, 83);
+            LblFinalGrossAmtDisp.Location = new Point(5, 85);
             LblFinalGrossAmtDisp.Name = "LblFinalGrossAmtDisp";
-            LblFinalGrossAmtDisp.Size = new Size(130, 19);
+            LblFinalGrossAmtDisp.Size = new Size(135, 19);
             LblFinalGrossAmtDisp.TabIndex = 6;
             LblFinalGrossAmtDisp.Text = "Gross Amount";
             // 
@@ -1138,9 +1135,9 @@
             label4.AutoSize = true;
             label4.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.FromArgb(0, 64, 64);
-            label4.Location = new Point(7, 109);
+            label4.Location = new Point(5, 112);
             label4.Name = "label4";
-            label4.Size = new Size(130, 19);
+            label4.Size = new Size(135, 19);
             label4.TabIndex = 8;
             label4.Text = "Round Off";
             // 
@@ -1149,50 +1146,25 @@
             LblFinalNetAmtDisp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             LblFinalNetAmtDisp.AutoSize = true;
             LblFinalNetAmtDisp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblFinalNetAmtDisp.Location = new Point(7, 137);
+            LblFinalNetAmtDisp.Location = new Point(5, 141);
             LblFinalNetAmtDisp.Name = "LblFinalNetAmtDisp";
-            LblFinalNetAmtDisp.Size = new Size(130, 23);
+            LblFinalNetAmtDisp.Size = new Size(135, 23);
             LblFinalNetAmtDisp.TabIndex = 10;
             LblFinalNetAmtDisp.Text = "Net Amount";
-            // 
-            // LblFinalBalanceAmountDisp
-            // 
-            LblFinalBalanceAmountDisp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblFinalBalanceAmountDisp.AutoSize = true;
-            LblFinalBalanceAmountDisp.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            LblFinalBalanceAmountDisp.ForeColor = Color.FromArgb(0, 64, 64);
-            LblFinalBalanceAmountDisp.Location = new Point(7, 386);
-            LblFinalBalanceAmountDisp.Name = "LblFinalBalanceAmountDisp";
-            LblFinalBalanceAmountDisp.Size = new Size(130, 18);
-            LblFinalBalanceAmountDisp.TabIndex = 15;
-            LblFinalBalanceAmountDisp.Text = "Balance Amount";
             // 
             // BtnSave
             // 
             tableLayoutPanel4.SetColumnSpan(BtnSave, 3);
             BtnSave.Dock = DockStyle.Fill;
             BtnSave.ForeColor = Color.Maroon;
-            BtnSave.Location = new Point(4, 409);
+            BtnSave.Location = new Point(2, 412);
             BtnSave.Margin = new Padding(0, 3, 0, 3);
             BtnSave.Name = "BtnSave";
-            BtnSave.Size = new Size(274, 47);
+            BtnSave.Size = new Size(234, 44);
             BtnSave.TabIndex = 17;
             BtnSave.Text = "&Save && Print";
             BtnSave.UseVisualStyleBackColor = false;
             BtnSave.Click += BtnSave_Click;
-            // 
-            // LblFinalBalanceAmount
-            // 
-            LblFinalBalanceAmount.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LblFinalBalanceAmount.AutoSize = true;
-            LblFinalBalanceAmount.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            LblFinalBalanceAmount.ForeColor = Color.Maroon;
-            LblFinalBalanceAmount.Location = new Point(150, 385);
-            LblFinalBalanceAmount.Name = "LblFinalBalanceAmount";
-            LblFinalBalanceAmount.Size = new Size(125, 21);
-            LblFinalBalanceAmount.TabIndex = 16;
-            LblFinalBalanceAmount.Text = "0.00";
-            LblFinalBalanceAmount.TextAlign = ContentAlignment.MiddleRight;
             // 
             // LblFinalNetAmt
             // 
@@ -1200,9 +1172,9 @@
             LblFinalNetAmt.AutoSize = true;
             LblFinalNetAmt.Font = new Font("Calibri", 24F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalNetAmt.ForeColor = Color.Crimson;
-            LblFinalNetAmt.Location = new Point(150, 131);
+            LblFinalNetAmt.Location = new Point(151, 135);
             LblFinalNetAmt.Name = "LblFinalNetAmt";
-            LblFinalNetAmt.Size = new Size(125, 35);
+            LblFinalNetAmt.Size = new Size(82, 35);
             LblFinalNetAmt.TabIndex = 11;
             LblFinalNetAmt.Text = "0.00";
             LblFinalNetAmt.TextAlign = ContentAlignment.MiddleRight;
@@ -1213,9 +1185,9 @@
             LblFinalTotAmt.AutoSize = true;
             LblFinalTotAmt.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalTotAmt.ForeColor = Color.ForestGreen;
-            LblFinalTotAmt.Location = new Point(150, 3);
+            LblFinalTotAmt.Location = new Point(151, 4);
             LblFinalTotAmt.Name = "LblFinalTotAmt";
-            LblFinalTotAmt.Size = new Size(125, 19);
+            LblFinalTotAmt.Size = new Size(82, 19);
             LblFinalTotAmt.TabIndex = 1;
             LblFinalTotAmt.Text = "0.00";
             LblFinalTotAmt.TextAlign = ContentAlignment.MiddleRight;
@@ -1226,9 +1198,9 @@
             LblFinalGrossAmt.AutoSize = true;
             LblFinalGrossAmt.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalGrossAmt.ForeColor = Color.ForestGreen;
-            LblFinalGrossAmt.Location = new Point(150, 83);
+            LblFinalGrossAmt.Location = new Point(151, 85);
             LblFinalGrossAmt.Name = "LblFinalGrossAmt";
-            LblFinalGrossAmt.Size = new Size(125, 19);
+            LblFinalGrossAmt.Size = new Size(82, 19);
             LblFinalGrossAmt.TabIndex = 7;
             LblFinalGrossAmt.Text = "0.00";
             LblFinalGrossAmt.TextAlign = ContentAlignment.MiddleRight;
@@ -1239,9 +1211,9 @@
             LblFinalRoundOffAmt.AutoSize = true;
             LblFinalRoundOffAmt.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             LblFinalRoundOffAmt.ForeColor = Color.ForestGreen;
-            LblFinalRoundOffAmt.Location = new Point(150, 109);
+            LblFinalRoundOffAmt.Location = new Point(151, 112);
             LblFinalRoundOffAmt.Name = "LblFinalRoundOffAmt";
-            LblFinalRoundOffAmt.Size = new Size(125, 19);
+            LblFinalRoundOffAmt.Size = new Size(82, 19);
             LblFinalRoundOffAmt.TabIndex = 9;
             LblFinalRoundOffAmt.Text = "0.00";
             LblFinalRoundOffAmt.TextAlign = ContentAlignment.MiddleRight;
@@ -1252,9 +1224,9 @@
             TxtFinalDiscPer.BackColor = Color.WhiteSmoke;
             TxtFinalDiscPer.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             TxtFinalDiscPer.ForeColor = Color.ForestGreen;
-            TxtFinalDiscPer.Location = new Point(187, 29);
+            TxtFinalDiscPer.Location = new Point(151, 30);
             TxtFinalDiscPer.Name = "TxtFinalDiscPer";
-            TxtFinalDiscPer.Size = new Size(88, 27);
+            TxtFinalDiscPer.Size = new Size(82, 27);
             TxtFinalDiscPer.TabIndex = 3;
             TxtFinalDiscPer.Text = "0.00";
             TxtFinalDiscPer.TextAlign = HorizontalAlignment.Right;
@@ -1271,9 +1243,9 @@
             TxtFinalDiscAmt.BackColor = Color.WhiteSmoke;
             TxtFinalDiscAmt.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             TxtFinalDiscAmt.ForeColor = Color.ForestGreen;
-            TxtFinalDiscAmt.Location = new Point(187, 56);
+            TxtFinalDiscAmt.Location = new Point(151, 57);
             TxtFinalDiscAmt.Name = "TxtFinalDiscAmt";
-            TxtFinalDiscAmt.Size = new Size(88, 27);
+            TxtFinalDiscAmt.Size = new Size(82, 27);
             TxtFinalDiscAmt.TabIndex = 5;
             TxtFinalDiscAmt.Text = "0.00";
             TxtFinalDiscAmt.TextAlign = HorizontalAlignment.Right;
@@ -1291,10 +1263,10 @@
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             groupBox1.ForeColor = Color.FromArgb(0, 64, 64);
-            groupBox1.Location = new Point(5, 167);
+            groupBox1.Location = new Point(3, 171);
             groupBox1.Margin = new Padding(1);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(272, 182);
+            groupBox1.Size = new Size(232, 192);
             groupBox1.TabIndex = 12;
             groupBox1.TabStop = false;
             groupBox1.Text = "Payment Details";
@@ -1304,47 +1276,40 @@
             tableLayoutPanel5.ColumnCount = 2;
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel5.Controls.Add(label12, 0, 0);
-            tableLayoutPanel5.Controls.Add(label13, 0, 1);
-            tableLayoutPanel5.Controls.Add(label14, 0, 2);
-            tableLayoutPanel5.Controls.Add(TxtPaymentDetCash, 1, 0);
-            tableLayoutPanel5.Controls.Add(TxtPaymentDetUpi, 1, 1);
-            tableLayoutPanel5.Controls.Add(TxtPaymentDetCard, 1, 2);
-            tableLayoutPanel5.Controls.Add(label8, 0, 3);
-            tableLayoutPanel5.Controls.Add(TxtPaymentDetGPay, 1, 3);
-            tableLayoutPanel5.Controls.Add(label9, 0, 4);
-            tableLayoutPanel5.Controls.Add(TxtPaymentDetCredit, 1, 4);
+            tableLayoutPanel5.Controls.Add(label13, 0, 2);
+            tableLayoutPanel5.Controls.Add(label14, 0, 3);
+            tableLayoutPanel5.Controls.Add(TxtPaymentDetCash, 1, 1);
+            tableLayoutPanel5.Controls.Add(TxtPaymentDetUpi, 1, 2);
+            tableLayoutPanel5.Controls.Add(TxtPaymentDetCard, 1, 3);
+            tableLayoutPanel5.Controls.Add(label8, 0, 4);
+            tableLayoutPanel5.Controls.Add(TxtPaymentDetGPay, 1, 4);
+            tableLayoutPanel5.Controls.Add(label9, 0, 5);
+            tableLayoutPanel5.Controls.Add(TxtPaymentDetCredit, 1, 5);
+            tableLayoutPanel5.Controls.Add(label12, 0, 1);
+            tableLayoutPanel5.Controls.Add(label11, 0, 0);
+            tableLayoutPanel5.Controls.Add(TxtCashTendered, 1, 0);
             tableLayoutPanel5.Dock = DockStyle.Fill;
             tableLayoutPanel5.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             tableLayoutPanel5.Location = new Point(3, 19);
             tableLayoutPanel5.Margin = new Padding(0);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
-            tableLayoutPanel5.RowCount = 5;
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel5.Size = new Size(266, 160);
+            tableLayoutPanel5.RowCount = 6;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            tableLayoutPanel5.Size = new Size(226, 170);
             tableLayoutPanel5.TabIndex = 0;
-            // 
-            // label12
-            // 
-            label12.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label12.AutoSize = true;
-            label12.Location = new Point(3, 6);
-            label12.Name = "label12";
-            label12.Size = new Size(127, 19);
-            label12.TabIndex = 0;
-            label12.Text = "Cash";
             // 
             // label13
             // 
             label13.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label13.AutoSize = true;
-            label13.Location = new Point(3, 38);
+            label13.Location = new Point(3, 60);
             label13.Name = "label13";
-            label13.Size = new Size(127, 19);
+            label13.Size = new Size(107, 19);
             label13.TabIndex = 2;
             label13.Text = "UPI/Paytm";
             // 
@@ -1352,9 +1317,9 @@
             // 
             label14.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label14.AutoSize = true;
-            label14.Location = new Point(3, 70);
+            label14.Location = new Point(3, 88);
             label14.Name = "label14";
-            label14.Size = new Size(127, 19);
+            label14.Size = new Size(107, 19);
             label14.TabIndex = 4;
             label14.Text = "Card";
             // 
@@ -1362,12 +1327,13 @@
             // 
             TxtPaymentDetCash.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TxtPaymentDetCash.BackColor = Color.WhiteSmoke;
+            TxtPaymentDetCash.Enabled = false;
             TxtPaymentDetCash.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             TxtPaymentDetCash.ForeColor = Color.ForestGreen;
-            TxtPaymentDetCash.Location = new Point(136, 3);
+            TxtPaymentDetCash.Location = new Point(116, 31);
             TxtPaymentDetCash.MaxLength = 13;
             TxtPaymentDetCash.Name = "TxtPaymentDetCash";
-            TxtPaymentDetCash.Size = new Size(127, 31);
+            TxtPaymentDetCash.Size = new Size(107, 31);
             TxtPaymentDetCash.TabIndex = 1;
             TxtPaymentDetCash.Text = "0.00";
             TxtPaymentDetCash.TextAlign = HorizontalAlignment.Right;
@@ -1384,10 +1350,10 @@
             TxtPaymentDetUpi.BackColor = Color.WhiteSmoke;
             TxtPaymentDetUpi.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             TxtPaymentDetUpi.ForeColor = Color.ForestGreen;
-            TxtPaymentDetUpi.Location = new Point(136, 35);
+            TxtPaymentDetUpi.Location = new Point(116, 59);
             TxtPaymentDetUpi.MaxLength = 13;
             TxtPaymentDetUpi.Name = "TxtPaymentDetUpi";
-            TxtPaymentDetUpi.Size = new Size(127, 31);
+            TxtPaymentDetUpi.Size = new Size(107, 31);
             TxtPaymentDetUpi.TabIndex = 3;
             TxtPaymentDetUpi.Text = "0.00";
             TxtPaymentDetUpi.TextAlign = HorizontalAlignment.Right;
@@ -1404,10 +1370,10 @@
             TxtPaymentDetCard.BackColor = Color.WhiteSmoke;
             TxtPaymentDetCard.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             TxtPaymentDetCard.ForeColor = Color.ForestGreen;
-            TxtPaymentDetCard.Location = new Point(136, 67);
+            TxtPaymentDetCard.Location = new Point(116, 87);
             TxtPaymentDetCard.MaxLength = 13;
             TxtPaymentDetCard.Name = "TxtPaymentDetCard";
-            TxtPaymentDetCard.Size = new Size(127, 31);
+            TxtPaymentDetCard.Size = new Size(107, 31);
             TxtPaymentDetCard.TabIndex = 5;
             TxtPaymentDetCard.Text = "0.00";
             TxtPaymentDetCard.TextAlign = HorizontalAlignment.Right;
@@ -1422,9 +1388,9 @@
             // 
             label8.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label8.AutoSize = true;
-            label8.Location = new Point(3, 102);
+            label8.Location = new Point(3, 116);
             label8.Name = "label8";
-            label8.Size = new Size(127, 19);
+            label8.Size = new Size(107, 19);
             label8.TabIndex = 0;
             label8.Text = "GPay";
             // 
@@ -1434,10 +1400,10 @@
             TxtPaymentDetGPay.BackColor = Color.WhiteSmoke;
             TxtPaymentDetGPay.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             TxtPaymentDetGPay.ForeColor = Color.ForestGreen;
-            TxtPaymentDetGPay.Location = new Point(136, 99);
+            TxtPaymentDetGPay.Location = new Point(116, 115);
             TxtPaymentDetGPay.MaxLength = 13;
             TxtPaymentDetGPay.Name = "TxtPaymentDetGPay";
-            TxtPaymentDetGPay.Size = new Size(127, 31);
+            TxtPaymentDetGPay.Size = new Size(107, 31);
             TxtPaymentDetGPay.TabIndex = 7;
             TxtPaymentDetGPay.Text = "0.00";
             TxtPaymentDetGPay.TextAlign = HorizontalAlignment.Right;
@@ -1452,9 +1418,9 @@
             // 
             label9.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label9.AutoSize = true;
-            label9.Location = new Point(3, 134);
+            label9.Location = new Point(3, 145);
             label9.Name = "label9";
-            label9.Size = new Size(127, 19);
+            label9.Size = new Size(107, 19);
             label9.TabIndex = 8;
             label9.Text = "Credit";
             // 
@@ -1464,10 +1430,10 @@
             TxtPaymentDetCredit.BackColor = Color.WhiteSmoke;
             TxtPaymentDetCredit.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             TxtPaymentDetCredit.ForeColor = Color.ForestGreen;
-            TxtPaymentDetCredit.Location = new Point(136, 131);
+            TxtPaymentDetCredit.Location = new Point(116, 143);
             TxtPaymentDetCredit.MaxLength = 13;
             TxtPaymentDetCredit.Name = "TxtPaymentDetCredit";
-            TxtPaymentDetCredit.Size = new Size(127, 31);
+            TxtPaymentDetCredit.Size = new Size(107, 31);
             TxtPaymentDetCredit.TabIndex = 9;
             TxtPaymentDetCredit.Text = "0.00";
             TxtPaymentDetCredit.TextAlign = HorizontalAlignment.Right;
@@ -1477,6 +1443,97 @@
             TxtPaymentDetCredit.KeyPress += Decimal_KeyPress;
             TxtPaymentDetCredit.Leave += TextBox_Leave;
             TxtPaymentDetCredit.Validated += TxtPaymentDetCredit_Validated;
+            // 
+            // label12
+            // 
+            label12.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label12.AutoSize = true;
+            label12.Enabled = false;
+            label12.Location = new Point(3, 32);
+            label12.Name = "label12";
+            label12.Size = new Size(107, 19);
+            label12.TabIndex = 0;
+            label12.Text = "Cash";
+            // 
+            // label11
+            // 
+            label11.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label11.AutoSize = true;
+            label11.Location = new Point(3, 0);
+            label11.Name = "label11";
+            label11.Size = new Size(107, 28);
+            label11.TabIndex = 0;
+            label11.Text = "Cash Tendered";
+            // 
+            // TxtCashTendered
+            // 
+            TxtCashTendered.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtCashTendered.BackColor = Color.WhiteSmoke;
+            TxtCashTendered.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            TxtCashTendered.ForeColor = Color.ForestGreen;
+            TxtCashTendered.Location = new Point(116, 3);
+            TxtCashTendered.MaxLength = 13;
+            TxtCashTendered.Name = "TxtCashTendered";
+            TxtCashTendered.Size = new Size(107, 31);
+            TxtCashTendered.TabIndex = 1;
+            TxtCashTendered.Text = "0.00";
+            TxtCashTendered.TextAlign = HorizontalAlignment.Right;
+            TxtCashTendered.TextChanged += TxtCashTendered_TextChanged;
+            TxtCashTendered.Enter += TextBox_Enter;
+            TxtCashTendered.KeyDown += TxtCashTendered_KeyDown;
+            TxtCashTendered.KeyPress += Decimal_KeyPress;
+            TxtCashTendered.Leave += TextBox_Leave;
+            TxtCashTendered.Validated += TxtCashTendered_Validated;
+            // 
+            // LblFinalAmtReceivedDisp
+            // 
+            LblFinalAmtReceivedDisp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblFinalAmtReceivedDisp.AutoSize = true;
+            LblFinalAmtReceivedDisp.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            LblFinalAmtReceivedDisp.ForeColor = Color.FromArgb(0, 64, 64);
+            LblFinalAmtReceivedDisp.Location = new Point(5, 389);
+            LblFinalAmtReceivedDisp.Name = "LblFinalAmtReceivedDisp";
+            LblFinalAmtReceivedDisp.Size = new Size(135, 19);
+            LblFinalAmtReceivedDisp.TabIndex = 13;
+            LblFinalAmtReceivedDisp.Text = "Amount Received";
+            // 
+            // LblFinalBalanceAmountDisp
+            // 
+            LblFinalBalanceAmountDisp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblFinalBalanceAmountDisp.AutoSize = true;
+            LblFinalBalanceAmountDisp.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            LblFinalBalanceAmountDisp.ForeColor = Color.FromArgb(0, 64, 64);
+            LblFinalBalanceAmountDisp.Location = new Point(5, 367);
+            LblFinalBalanceAmountDisp.Name = "LblFinalBalanceAmountDisp";
+            LblFinalBalanceAmountDisp.Size = new Size(135, 18);
+            LblFinalBalanceAmountDisp.TabIndex = 15;
+            LblFinalBalanceAmountDisp.Text = "Balance to Customer";
+            // 
+            // LblFinalAmtReceived
+            // 
+            LblFinalAmtReceived.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblFinalAmtReceived.AutoSize = true;
+            LblFinalAmtReceived.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            LblFinalAmtReceived.ForeColor = Color.Crimson;
+            LblFinalAmtReceived.Location = new Point(151, 389);
+            LblFinalAmtReceived.Name = "LblFinalAmtReceived";
+            LblFinalAmtReceived.Size = new Size(82, 20);
+            LblFinalAmtReceived.TabIndex = 14;
+            LblFinalAmtReceived.Text = "0.00";
+            LblFinalAmtReceived.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // LblFinalBalanceAmount
+            // 
+            LblFinalBalanceAmount.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblFinalBalanceAmount.AutoSize = true;
+            LblFinalBalanceAmount.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            LblFinalBalanceAmount.ForeColor = Color.Maroon;
+            LblFinalBalanceAmount.Location = new Point(151, 365);
+            LblFinalBalanceAmount.Name = "LblFinalBalanceAmount";
+            LblFinalBalanceAmount.Size = new Size(82, 23);
+            LblFinalBalanceAmount.TabIndex = 16;
+            LblFinalBalanceAmount.Text = "0.00";
+            LblFinalBalanceAmount.TextAlign = ContentAlignment.MiddleRight;
             // 
             // tableLayoutPanel6
             // 
@@ -1494,16 +1551,16 @@
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel6.Size = new Size(1239, 46);
+            tableLayoutPanel6.Size = new Size(1061, 46);
             tableLayoutPanel6.TabIndex = 2;
             // 
             // BtnCancelAll
             // 
             BtnCancelAll.Dock = DockStyle.Fill;
             BtnCancelAll.ForeColor = Color.SaddleBrown;
-            BtnCancelAll.Location = new Point(957, 4);
+            BtnCancelAll.Location = new Point(820, 4);
             BtnCancelAll.Name = "BtnCancelAll";
-            BtnCancelAll.Size = new Size(135, 38);
+            BtnCancelAll.Size = new Size(114, 38);
             BtnCancelAll.TabIndex = 1;
             BtnCancelAll.Text = "Cance&l All";
             BtnCancelAll.UseVisualStyleBackColor = false;
@@ -1513,9 +1570,9 @@
             // 
             BtnExit.Dock = DockStyle.Fill;
             BtnExit.ForeColor = Color.Crimson;
-            BtnExit.Location = new Point(1099, 4);
+            BtnExit.Location = new Point(941, 4);
             BtnExit.Name = "BtnExit";
-            BtnExit.Size = new Size(136, 38);
+            BtnExit.Size = new Size(116, 38);
             BtnExit.TabIndex = 2;
             BtnExit.Text = "E&xit";
             BtnExit.UseVisualStyleBackColor = false;
@@ -1529,9 +1586,164 @@
             label19.ForeColor = Color.FromArgb(0, 64, 64);
             label19.Location = new Point(4, 1);
             label19.Name = "label19";
-            label19.Size = new Size(946, 44);
+            label19.Size = new Size(809, 44);
             label19.TabIndex = 0;
             label19.Text = resources.GetString("label19.Text");
+            // 
+            // panel3
+            // 
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(tableLayoutPanel10);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(1070, 133);
+            panel3.Name = "panel3";
+            tableLayoutPanel1.SetRowSpan(panel3, 2);
+            panel3.Size = new Size(172, 517);
+            panel3.TabIndex = 3;
+            // 
+            // tableLayoutPanel10
+            // 
+            tableLayoutPanel10.ColumnCount = 1;
+            tableLayoutPanel10.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel10.Controls.Add(DGVBillDetails, 0, 1);
+            tableLayoutPanel10.Controls.Add(label15, 0, 0);
+            tableLayoutPanel10.Controls.Add(tableLayoutPanel11, 0, 2);
+            tableLayoutPanel10.Dock = DockStyle.Fill;
+            tableLayoutPanel10.Location = new Point(0, 0);
+            tableLayoutPanel10.Margin = new Padding(0);
+            tableLayoutPanel10.Name = "tableLayoutPanel10";
+            tableLayoutPanel10.RowCount = 3;
+            tableLayoutPanel10.RowStyles.Add(new RowStyle(SizeType.Percent, 4.6601944F));
+            tableLayoutPanel10.RowStyles.Add(new RowStyle(SizeType.Percent, 81.16505F));
+            tableLayoutPanel10.RowStyles.Add(new RowStyle(SizeType.Percent, 14.174757F));
+            tableLayoutPanel10.Size = new Size(170, 515);
+            tableLayoutPanel10.TabIndex = 4;
+            // 
+            // DGVBillDetails
+            // 
+            DGVBillDetails.AllowUserToAddRows = false;
+            DGVBillDetails.AllowUserToDeleteRows = false;
+            DGVBillDetails.AllowUserToResizeRows = false;
+            DGVBillDetails.BackgroundColor = SystemColors.Control;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Control;
+            dataGridViewCellStyle5.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = Color.IndianRed;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle5.SelectionForeColor = Color.IndianRed;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            DGVBillDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            DGVBillDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tableLayoutPanel10.SetColumnSpan(DGVBillDetails, 2);
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = Color.DarkSlateGray;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle6.SelectionForeColor = Color.ForestGreen;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            DGVBillDetails.DefaultCellStyle = dataGridViewCellStyle6;
+            DGVBillDetails.Dock = DockStyle.Fill;
+            DGVBillDetails.Location = new Point(4, 29);
+            DGVBillDetails.Margin = new Padding(4, 5, 4, 5);
+            DGVBillDetails.MultiSelect = false;
+            DGVBillDetails.Name = "DGVBillDetails";
+            DGVBillDetails.ReadOnly = true;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = Color.Maroon;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            DGVBillDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            DGVBillDetails.RowHeadersVisible = false;
+            DGVBillDetails.RowTemplate.Height = 25;
+            DGVBillDetails.Size = new Size(162, 408);
+            DGVBillDetails.TabIndex = 2;
+            DGVBillDetails.CellClick += DGVBillDetails_CellClick;
+            DGVBillDetails.CellDoubleClick += DGVBillDetails_CellDoubleClick;
+            DGVBillDetails.CellEnter += DGVBillDetails_CellEnter;
+            DGVBillDetails.DataBindingComplete += DGVBillDetails_DataBindingComplete;
+            // 
+            // label15
+            // 
+            label15.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label15.AutoSize = true;
+            label15.Font = new Font("Calibri", 9.75F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
+            label15.ForeColor = Color.FromArgb(0, 64, 64);
+            label15.Location = new Point(3, 4);
+            label15.Name = "label15";
+            label15.Size = new Size(164, 15);
+            label15.TabIndex = 3;
+            label15.Text = "Bill Details";
+            label15.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel11
+            // 
+            tableLayoutPanel11.ColumnCount = 2;
+            tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel11.Controls.Add(button1, 0, 0);
+            tableLayoutPanel11.Controls.Add(button2, 1, 0);
+            tableLayoutPanel11.Controls.Add(button3, 0, 1);
+            tableLayoutPanel11.Controls.Add(button4, 1, 1);
+            tableLayoutPanel11.Dock = DockStyle.Fill;
+            tableLayoutPanel11.Location = new Point(3, 445);
+            tableLayoutPanel11.Name = "tableLayoutPanel11";
+            tableLayoutPanel11.RowCount = 2;
+            tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel11.Size = new Size(164, 67);
+            tableLayoutPanel11.TabIndex = 4;
+            // 
+            // button1
+            // 
+            button1.Dock = DockStyle.Fill;
+            button1.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            button1.ForeColor = Color.MediumVioletRed;
+            button1.Location = new Point(3, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(76, 27);
+            button1.TabIndex = 2;
+            button1.Text = "Bill Ed&it";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            button2.Dock = DockStyle.Fill;
+            button2.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            button2.ForeColor = Color.MediumVioletRed;
+            button2.Location = new Point(85, 3);
+            button2.Name = "button2";
+            button2.Size = new Size(76, 27);
+            button2.TabIndex = 2;
+            button2.Text = "Bill Ca&ncel";
+            button2.UseVisualStyleBackColor = false;
+            // 
+            // button3
+            // 
+            button3.Dock = DockStyle.Fill;
+            button3.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            button3.ForeColor = Color.MediumVioletRed;
+            button3.Location = new Point(3, 36);
+            button3.Name = "button3";
+            button3.Size = new Size(76, 28);
+            button3.TabIndex = 2;
+            button3.Text = "Bill &Print";
+            button3.UseVisualStyleBackColor = false;
+            // 
+            // button4
+            // 
+            button4.Dock = DockStyle.Fill;
+            button4.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            button4.ForeColor = Color.MediumVioletRed;
+            button4.Location = new Point(85, 36);
+            button4.Name = "button4";
+            button4.Size = new Size(76, 28);
+            button4.TabIndex = 2;
+            button4.Text = "&Reload";
+            button4.UseVisualStyleBackColor = false;
             // 
             // ErrorProvider
             // 
@@ -1580,6 +1792,11 @@
             tableLayoutPanel5.PerformLayout();
             tableLayoutPanel6.ResumeLayout(false);
             tableLayoutPanel6.PerformLayout();
+            panel3.ResumeLayout(false);
+            tableLayoutPanel10.ResumeLayout(false);
+            tableLayoutPanel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)DGVBillDetails).EndInit();
+            tableLayoutPanel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ErrorProvider).EndInit();
             ResumeLayout(false);
         }
@@ -1675,5 +1892,16 @@
         private ComboBox cmbName;
         private Label LblTotalProfitAmt;
         private CheckBox chkIsDefective;
+        private Label label11;
+        private TextBox TxtCashTendered;
+        private TableLayoutPanel tableLayoutPanel10;
+        private DataGridView DGVBillDetails;
+        private Panel panel3;
+        private Label label15;
+        private TableLayoutPanel tableLayoutPanel11;
+        private Button button1;
+        private Button button2;
+        private Button button3;
+        private Button button4;
     }
 }

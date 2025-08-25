@@ -15,6 +15,7 @@ namespace VegetableBox
 {
     public partial class FrmPos : Form
     {
+        int[] defectiveCategories = { 1, 2, 3 }; // Vegetables, Fruits, Banana
         ClsFrmPos clsFrmPos = new ClsFrmPos();
         public FrmPos()
         {
@@ -30,6 +31,7 @@ namespace VegetableBox
                 this.LoadCardGrid();
                 this.ClearAmountDetails();
                 this.GetMasterData();
+                this.LoadTodayBillsWithPaymentsData();
                 SendKeys.Send("{TAB}");
                 this.TxtProductSearch.Focus();
             }
@@ -52,7 +54,7 @@ namespace VegetableBox
                 DGVCart.Columns[CartDataStruct.ColumnName.TotMRP].Visible = false;
                 DGVCart.Columns[CartDataStruct.ColumnName.DiscPer].Visible = false;
                 DGVCart.Columns[CartDataStruct.ColumnName.DiscAmount].Visible = false;
-                
+
                 DGVCart.Columns[CartDataStruct.ColumnName.PurAmount].Visible = false;
                 DGVCart.Columns[CartDataStruct.ColumnName.ProfitAmount].Visible = false;
                 DGVCart.Columns[CartDataStruct.ColumnName.DiscEmpCode].Visible = false;
@@ -60,6 +62,7 @@ namespace VegetableBox
                 DGVCart.Columns[CartDataStruct.ColumnName.IsDefective].Visible = false;
                 DGVCart.Columns[CartDataStruct.ColumnName.AllowRateChange].Visible = false;
                 DGVCart.Columns[CartDataStruct.ColumnName.SellingRateZero].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.CatCode].Visible = false;
 
                 DGVCart.Columns[CartDataStruct.ColumnName.ProCode].HeaderText = "Pro-Code";
                 DGVCart.Columns[CartDataStruct.ColumnName.ProTamilName].HeaderText = "Product Name";
@@ -295,7 +298,7 @@ namespace VegetableBox
                                 this.CurrentPQtyShortName = (dataRow[ProductRateData.ColumnName.Qty] != null ?
                                                     (string)dataRow[ProductRateData.ColumnName.Qty] : string.Empty);
 
-                                this.CurrentAllowRateChange = (dataRow[ProductRateData.ColumnName.AllowRateChange] != null 
+                                this.CurrentAllowRateChange = (dataRow[ProductRateData.ColumnName.AllowRateChange] != null
                                                                && dataRow[ProductRateData.ColumnName.AllowRateChange].ToString() == "Y" ? true : false);
 
                                 string _Value = (dataRow[ProductRateData.ColumnName.CalcBasedRateMast] != null ?
@@ -328,14 +331,14 @@ namespace VegetableBox
                                     this.CurrentSellingRateZero = false;
 
                                 if (this.TxtRate.Text == "0.00" || this.CurrentAllowRateChange == true)
-                                    this.TxtRate.ReadOnly = false;                   
+                                    this.TxtRate.ReadOnly = false;
                                 else
                                     this.TxtRate.ReadOnly = true;
 
                                 int _Val = (dataRow[ProductRateData.ColumnName.CatCode] != null ?
                                                    (int)dataRow[ProductRateData.ColumnName.CatCode] : 0);
-                                int[] defectiveCategories = { 1, 2, 9 }; // Vegetables, Fruits, Banana
                                 this.chkIsDefective.Visible = defectiveCategories.Contains(_Val);
+                                this.chkIsDefective.Tag = _Val;
 
                                 this.TxtProductSearch.Text = string.Empty;
                                 this.TxtQty.Focus();
@@ -455,6 +458,7 @@ namespace VegetableBox
                 this.TxtRate.ReadOnly = true;
                 this.chkIsDefective.Checked = false;
                 this.chkIsDefective.Visible = false;
+                this.chkIsDefective.Tag = 0;
             }
             catch
             {
@@ -535,10 +539,10 @@ namespace VegetableBox
                 switch (e.KeyCode)
                 {
                     case Keys.Escape:
-                        if (TxtPaymentDetCash.Focused && LblFinalAmtReceived.Text == LblFinalNetAmt.Text)
+                        if (TxtCashTendered.Focused && LblFinalAmtReceived.Text == LblFinalNetAmt.Text)
                             BtnSave.Focus();
                         else
-                            TxtPaymentDetCash.Focus();
+                            TxtCashTendered.Focus();
                         break;
 
                     case Keys.Delete:
@@ -674,14 +678,15 @@ namespace VegetableBox
                     this.LblFinalRoundOffAmt.Text = this.ToConvertAmtFormat(decRoundOffAmt.ToString());
                     this.LblFinalNetAmt.Text = this.ToConvertAmtFormat(decNetAmt.ToString());
 
-                    decimal decCashAmt = this.ToConvertTextToDecimal(this.TxtPaymentDetCash.Text);
+                    //decimal decCashAmt = this.ToConvertTextToDecimal(this.TxtPaymentDetCash.Text);
+                    decimal decCashAmt = this.ToConvertTextToDecimal(this.TxtCashTendered.Text);
                     decimal decCashUpi = this.ToConvertTextToDecimal(this.TxtPaymentDetUpi.Text);
                     decimal decCashCard = this.ToConvertTextToDecimal(this.TxtPaymentDetCard.Text);
                     decimal decCashGPay = this.ToConvertTextToDecimal(this.TxtPaymentDetGPay.Text);
                     decimal decCashCredit = this.ToConvertTextToDecimal(this.TxtPaymentDetCredit.Text);
 
                     decimal decAmtReceived = decCashAmt + decCashUpi + decCashCard + decCashGPay + decCashCredit;
-                    decimal decBalanceAmt = decNetAmt - decAmtReceived;
+                    decimal decBalanceAmt = decAmtReceived - decNetAmt;
 
                     this.LblFinalAmtReceived.Text = this.ToConvertAmtFormat(decAmtReceived.ToString());
                     this.LblFinalBalanceAmount.Text = this.ToConvertAmtFormat(decBalanceAmt.ToString());
@@ -821,6 +826,7 @@ namespace VegetableBox
                     dr[CartDataStruct.ColumnName.IsDefective] = this.chkIsDefective.Checked ? "Y" : null;
                     dr[CartDataStruct.ColumnName.AllowRateChange] = this.CurrentAllowRateChange;
                     dr[CartDataStruct.ColumnName.SellingRateZero] = this.CurrentSellingRateZero;
+                    dr[CartDataStruct.ColumnName.CatCode] = (int)this.chkIsDefective.Tag;
 
                     if (rdoEmpPartnerDisc.Checked)
                         dr[CartDataStruct.ColumnName.DiscEmpCode] = this.cmbName.SelectedValue;
@@ -1100,6 +1106,7 @@ namespace VegetableBox
                 this.LblFinalGrossAmt.Text = "0.00";
                 this.LblFinalRoundOffAmt.Text = "0.00";
                 this.LblFinalNetAmt.Text = "0.00";
+                this.TxtCashTendered.Text = "0.00";
                 this.TxtPaymentDetCash.Text = "0.00";
                 this.TxtPaymentDetUpi.Text = "0.00";
                 this.TxtPaymentDetCard.Text = "0.00";
@@ -1332,8 +1339,8 @@ namespace VegetableBox
                     this.ClearDiscountOptions();
                     this.LoadCardGrid();
                     this.ClearAmountDetails();
+                    this.LoadTodayBillsWithPaymentsData();
                     this.TxtProductSearch.Focus();
-
                 }
                 else
                 {
@@ -1419,6 +1426,12 @@ namespace VegetableBox
                             this.TxtRate.ReadOnly = false;
                         else
                             this.TxtRate.ReadOnly = true;
+
+                        this.chkIsDefective.Tag = Convert.ToInt32(dr[CartDataStruct.ColumnName.CatCode]);
+
+                        int _Val = (dr[CartDataStruct.ColumnName.CatCode] != null ?
+                            (int)dr[CartDataStruct.ColumnName.CatCode] : 0);
+                        this.chkIsDefective.Visible = defectiveCategories.Contains(_Val);
 
                         this.DeleteCartSelectedItem();
                     }
@@ -1642,21 +1655,47 @@ namespace VegetableBox
                     IsValid = false;
                 }
 
-                if (string.IsNullOrEmpty(this.LblFinalBalanceAmount.Text.Trim()))
+                decimal decBalanceAmt = this.ToConvertTextToDecimal(this.LblFinalBalanceAmount.Text);
+                if (decBalanceAmt < 0)
                 {
-                    this.ErrorProvider.SetError(this.LblFinalBalanceAmountDisp, errValueSpecified);
-                    IsValid = false;
-                }
-                else if (Convert.ToDecimal(this.LblFinalBalanceAmount.Text.Trim()) != 0)
-                {
-                    this.ErrorProvider.SetError(this.LblFinalBalanceAmountDisp, "Balance amount must be zero.");
+                    this.ErrorProvider.SetError(this.LblFinalBalanceAmountDisp, "Customer needs to pay this amount.");
                     IsValid = false;
                 }
 
-                if (this.LblFinalAmtReceived.Text != this.LblFinalNetAmt.Text)
+                decimal decNetAmt = this.ToConvertTextToDecimal(this.LblFinalNetAmt.Text);
+                decimal decAmtReceived = this.ToConvertTextToDecimal(this.LblFinalAmtReceived.Text);
+
+                if (decAmtReceived < decNetAmt)
                 {
-                    this.ErrorProvider.SetError(this.LblFinalAmtReceived, "The received amount should be equal to the net amount.");
+                    MessageBox.Show("Payment not complete. Please collect full amount.",
+                    "Vegetable Box", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    this.ErrorProvider.SetError(this.LblFinalAmtReceivedDisp, "Payment not complete. Please collect full amount.");
                     IsValid = false;
+                }
+
+                decimal decCash = this.ToConvertTextToDecimal(this.TxtPaymentDetCash.Text);
+                decimal decUpi = this.ToConvertTextToDecimal(this.TxtPaymentDetUpi.Text);
+                decimal decCard = this.ToConvertTextToDecimal(this.TxtPaymentDetCard.Text);
+                decimal decGPay = this.ToConvertTextToDecimal(this.TxtPaymentDetGPay.Text);
+                decimal decCredit = this.ToConvertTextToDecimal(this.TxtPaymentDetCredit.Text);
+
+                if ((decCash + decUpi + decCard + decGPay + decCredit) > decNetAmt)
+                {
+                    MessageBox.Show("Full payment is already received in cash. Other payment modes are not allowed.",
+                        "Vegetable Box", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    this.ErrorProvider.SetError(this.LblFinalAmtReceivedDisp,
+                        "Full payment is already received in cash. Please remove other payment entries.");
+
+                    IsValid = false;
+                }
+
+                if (IsValid == true && decBalanceAmt > 0)
+                {
+                    string space = "                                     ";
+                    MessageBox.Show("Don’t forget to return the balance amount to the customer:\n\n" +
+                        space + " 👉 " + LblFinalBalanceAmount.Text + "          ", "Vegetable Box", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 return IsValid;
@@ -1726,6 +1765,29 @@ namespace VegetableBox
             }
         }
 
+        internal void LoadTodayBillsWithPaymentsData()
+        {
+            try
+            {
+                this.clsFrmPos.GetTodayBillsWithPayments();
+                this.DGVBillDetails.DataSource = this.clsFrmPos.TodayBillsWithPaymentsData;
+                this.DGVBillDetails.ClearSelection();
+
+                DGVBillDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+                DGVBillDetails.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+                foreach (DataGridViewColumn DGVColumn in DGVBillDetails.Columns)
+                {
+                    DGVColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                    DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         private void rdoEmpPartnerDisc_CheckedChanged(object sender, EventArgs e)
         {
             try
@@ -1782,6 +1844,124 @@ namespace VegetableBox
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void TxtCashTendered_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    this.TxtPaymentDetUpi.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void TxtCashTendered_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //this.TxtPaymentDetCash.Text = this.TxtCashTendered.Text;
+
+                if (TxtCashTendered.Focused && clsFrmPos.CartData != null && clsFrmPos.CartData.Rows.Count > 0)
+                    this.ToCalcTotalAmount();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void TxtCashTendered_Validated(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clsFrmPos.CartData != null && clsFrmPos.CartData.Rows.Count > 0)
+                {
+                    decimal netAmt = Convert.ToDecimal(this.LblFinalNetAmt.Text);
+                    decimal tenderedAmt = Convert.ToDecimal(this.TxtCashTendered.Text);
+
+                    // Always format tendered text
+                    this.TxtCashTendered.Text = ToConvertAmtFormat(tenderedAmt.ToString());
+
+                    // If tendered is less than or equal to net, customer still owes money
+                    if (tenderedAmt <= netAmt)
+                    {
+                        this.TxtPaymentDetCash.Text = ToConvertAmtFormat(tenderedAmt.ToString());
+                        //this.LblFinalBalanceAmount.Text = ToConvertAmtFormat((tenderedAmt - netAmt).ToString()); ;  // No balance
+                    }
+                    else
+                    {
+                        this.TxtPaymentDetCash.Text = ToConvertAmtFormat(netAmt.ToString());
+                        //this.LblFinalBalanceAmount.Text = ToConvertAmtFormat((tenderedAmt - netAmt).ToString()); // Return balance
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        int DGBillSelectedRowIndex = -1;
+        private void DGVBillDetails_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DGBillSelectedRowIndex = e.RowIndex;
+                if (DGVBillDetails.Focused && e.RowIndex >= 0)
+                {
+                    DGVBillDetails.Rows[e.RowIndex].Selected = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void DGVBillDetails_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DGBillSelectedRowIndex = e.RowIndex;
+                if (DGVBillDetails.Focused && e.RowIndex >= 0)
+                {
+                    DGVBillDetails.Rows[e.RowIndex].Selected = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void DGVBillDetails_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DGBillSelectedRowIndex = e.RowIndex;
+                if (DGVBillDetails.Focused && e.RowIndex >= 0)
+                {
+                    DGVBillDetails.Rows[e.RowIndex].Selected = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void DGVBillDetails_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (!DGVBillDetails.Focused && DGVBillDetails.Rows.Count > 0)
+            {
+                DGVBillDetails.ClearSelection();
             }
         }
     }
