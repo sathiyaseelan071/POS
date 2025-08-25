@@ -506,3 +506,24 @@ AND NOT EXISTS (SELECT ProductCode FROM RateMaster AS R WHERE R.ProductCode = P.
 GO
 --------------  
 
+CREATE PROCEDURE SpGetTodayBillsWithPayments
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        P.[BillNo], 
+        STRING_AGG(CASE WHEN PT.[Name] = 'ON CREDIT' THEN 'Credit' WHEN PT.[Name] = 'GPay/Phone Pay' THEN 'GPay' ELSE PT.[Name] END
+		+ ' = ' + CAST(CAST(P.[Amount] AS DECIMAL(12,2)) AS VARCHAR(20)), ', ') AS Payments
+    FROM [dbo].[PaymentDetails] AS P
+    INNER JOIN [dbo].[PaymentType] AS PT 
+        ON P.[PaymentType] = PT.[Code]
+    WHERE [BilledDate] = CAST(GETDATE() AS DATE)
+    GROUP BY P.[BillNo]
+    ORDER BY P.[BillNo] DESC;
+END
+
+--------------  
+GO
+--------------  
+
