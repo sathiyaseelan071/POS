@@ -355,6 +355,8 @@ namespace VegetableBox
                 if (clsFrmProduct.GetProductRecordCount() >= 1)
                 {
                     this.ErrorProvider.SetError(this.TxtProductName, "Product Name already exists. Please enter a different name.");
+                    this.ErrorProvider.SetError(this.TxtProductTamilName, "Product Name already exists. Please enter a different name.");
+
                     throw new Exception("Product Name already exists. Please enter a different name.");
                 }
 

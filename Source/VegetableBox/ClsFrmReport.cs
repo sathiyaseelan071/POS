@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace VegetableBox
@@ -32,7 +34,7 @@ namespace VegetableBox
                     SqlQuery += Environment.NewLine + "Inner Join Quantity AS Q ON PR.QtyTypeCode = Q.Code";
                     SqlQuery += Environment.NewLine + "Inner Join Category AS C ON PR.CatCode = C.Code";
                     SqlQuery += Environment.NewLine + "Where 1=1 and IsNull(BillStatus,'') = ''";
-                    SqlQuery += Environment.NewLine + "and PU.BillDate = '" + fromDateTime.ToString("dd/MMM/yyyy") + "'";
+                    SqlQuery += Environment.NewLine + "and PU.TranDate = '" + fromDateTime.ToString("dd/MMM/yyyy") + "'";
 
                     if (ProductCode > 0)
                         SqlQuery += Environment.NewLine + "and PU.[ProductCode] = " + ProductCode + "";
@@ -55,7 +57,7 @@ namespace VegetableBox
                     SqlQuery += Environment.NewLine + "Inner Join Quantity AS Q ON PR.QtyTypeCode = Q.Code";
                     SqlQuery += Environment.NewLine + "Inner Join Category AS C ON PR.CatCode = C.Code";
                     SqlQuery += Environment.NewLine + "WHERE 1 = 1 and IsNull(BillStatus,'') = ''";
-                    SqlQuery += Environment.NewLine + "and PU.BillDate >= '" + fromDateTime.ToString("dd/MMM/yyyy") + "' AND PU.BillDate <= '" + toDateTime.ToString("dd/MMM/yyyy") + "'";
+                    SqlQuery += Environment.NewLine + "and PU.TranDate >= '" + fromDateTime.ToString("dd/MMM/yyyy") + "' AND PU.TranDate <= '" + toDateTime.ToString("dd/MMM/yyyy") + "'";
 
                     if (ProductCode > 0)
                         SqlQuery += Environment.NewLine + "and PU.[ProductCode] = " + ProductCode + "";
@@ -107,7 +109,7 @@ namespace VegetableBox
                     SqlQuery += Environment.NewLine + "Inner Join Quantity AS Q ON PR.QtyTypeCode = Q.Code";
                     SqlQuery += Environment.NewLine + "Inner Join Category AS C ON PR.CatCode = C.Code";
                     SqlQuery += Environment.NewLine + "WHERE 1 = 1 and IsNull(BillStatus,'') = ''";
-                    SqlQuery += Environment.NewLine + "and PU.BillDate >= '" + fromDateTime.ToString("dd/MMM/yyyy") + "' AND PU.BillDate <= '" + toDateTime.ToString("dd/MMM/yyyy") + "'";
+                    SqlQuery += Environment.NewLine + "and PU.TranDate >= '" + fromDateTime.ToString("dd/MMM/yyyy") + "' AND PU.TranDate <= '" + toDateTime.ToString("dd/MMM/yyyy") + "'";
 
                     if (ProductCode > 0)
                         SqlQuery += Environment.NewLine + "and PU.[ProductCode] = " + ProductCode + "";
@@ -145,10 +147,25 @@ namespace VegetableBox
                     SqlQuery += Environment.NewLine + ") AS Y";
                     SqlQuery += Environment.NewLine + "GROUP BY[ProductCode], ProductName, TamilName, Unit, Category, CatCode";
                     SqlQuery += Environment.NewLine + "ORDER BY CatCode, ProductCode";
-
-
-
-
+                }
+                else if (ReportType == 5)
+                {
+                    SqlQuery = "SELECT [CDN].[CustomerCode], [C].[Name],";
+                    SqlQuery += Environment.NewLine + "SUM(CASE WHEN [CDN].[TransType] = 'D' THEN [CDN].[Amount] ELSE 0 END) AS [Debit],";
+                    SqlQuery += Environment.NewLine + "SUM(CASE WHEN [CDN].[TransType] = 'C' THEN [CDN].[Amount] ELSE 0 END) AS [Credit],";
+                    SqlQuery += Environment.NewLine + "SUM(CASE WHEN [CDN].[TransType] = 'D' THEN [CDN].[Amount] ELSE 0 END) -";
+                    SqlQuery += Environment.NewLine + "SUM(CASE WHEN [CDN].[TransType] = 'C' THEN [CDN].[Amount] ELSE 0 END) AS [BalanceDue]";
+                    SqlQuery += Environment.NewLine + "FROM [CustomerCreditDebitNote] AS [CDN]";
+                    SqlQuery += Environment.NewLine + "LEFT JOIN [Customer] AS [C] ON [C].[Code] = [CDN].[CustomerCode]";
+                    SqlQuery += Environment.NewLine + "GROUP BY [CDN].[CustomerCode], [C].[Name]";
+                    SqlQuery += Environment.NewLine + "ORDER BY [C].[Name]";
+                }
+                else if (ReportType == 6)
+                {
+                    SqlQuery = "SELECT SUM(TotProfitAmount) AS AproxAmount";
+                    SqlQuery += Environment.NewLine + "FROM SalesTransaction";
+                    SqlQuery += Environment.NewLine + "WHERE 1=1";
+                    SqlQuery += Environment.NewLine + "AND BilledDate >= '" + fromDateTime.ToString("dd/MMM/yyyy") + "' AND BilledDate <= '" + toDateTime.ToString("dd/MMM/yyyy") + "'";
                 }
 
                 SqlIntract _SqlIntract = new SqlIntract();
@@ -218,8 +235,18 @@ namespace VegetableBox
                 _DataRow["Code"] = "4"; _DataRow["Name"] = "Product Wise - Profit Loss Report";
                 _DataTable.Rows.Add(_DataRow);
 
-                this._ReportType = _DataTable;
+                _DataRow = _DataTable.NewRow();
+                _DataRow["Code"] = "5"; _DataRow["Name"] = "Customer Due - Report";
+                _DataTable.Rows.Add(_DataRow);
 
+                if (Global.currentUserId == 1) // Only Admin User can see this Report
+                {
+                    _DataRow = _DataTable.NewRow();
+                    _DataRow["Code"] = "6"; _DataRow["Name"] = "Aprox Profit - Report";
+                    _DataTable.Rows.Add(_DataRow);
+                }
+
+                this._ReportType = _DataTable;
             }
             catch
             {

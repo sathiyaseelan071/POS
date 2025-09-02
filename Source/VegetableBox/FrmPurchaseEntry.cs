@@ -242,6 +242,7 @@ namespace VegetableBox
                     {
                         _DtSearch.Columns.Add(ProductRateData.ColumnName.SearchName, typeof(string));
                         _DtSearch.Columns.Add(ProductRateData.ColumnName.ProductCode, typeof(string));
+                        _DtSearch.Columns.Add(ProductRateData.ColumnName.MRP, typeof(decimal));
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 
@@ -249,22 +250,44 @@ namespace VegetableBox
                             .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                             || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                             || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
+
                             || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
-                            && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))).Count() > 0)
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))
+
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode2))
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode2).Contains(FilterProduct))
+
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode3))
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode3).Contains(FilterProduct))
+
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode4))
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode4).Contains(FilterProduct))
+                            ).Count() > 0)
                         {
 
                             _DtSearch = clsFrmPurchaseEnty.ProductData.AsEnumerable()
                                 .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                                 || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                                 || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
+                                
                                 || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
-                                && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct)))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))
+                                
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode2))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode2).Contains(FilterProduct))
+                                
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode3))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode3).Contains(FilterProduct))
+                                
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode4))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode4).Contains(FilterProduct)))
                                 .OrderBy(x => x.Field<Int32>(ProductRateData.ColumnName.CatCode))
                                 .Select(g =>
                                 {
                                     var row = _DtSearch.NewRow();
                                     row[ProductRateData.ColumnName.SearchName] = g.Field<string>(ProductRateData.ColumnName.SearchName);
                                     row[ProductRateData.ColumnName.ProductCode] = g.Field<string>(ProductRateData.ColumnName.ProductCode);
+                                    row[ProductRateData.ColumnName.MRP] = g.Field<decimal>(ProductRateData.ColumnName.MRP);
                                     return row;
                                 }).CopyToDataTable();
                         }
@@ -276,6 +299,8 @@ namespace VegetableBox
                         if (DgvProductSearch.Columns.Contains(ProductRateData.ColumnName.ProductCode))
                             DgvProductSearch.Columns[ProductRateData.ColumnName.ProductCode].Visible = false;
 
+                        if (DgvProductSearch.Columns.Contains(ProductRateData.ColumnName.MRP))
+                            DgvProductSearch.Columns[ProductRateData.ColumnName.MRP].Visible = false;
                     }
                 }
                 else
@@ -495,6 +520,7 @@ namespace VegetableBox
         }
 
         private string? CurrentPCode { get; set; }
+        private decimal? CurrentMRP { get; set; }
         private string? CurrentProductQtyType { get; set; }
         private void LoadCurrentProduct()
         {
@@ -503,15 +529,18 @@ namespace VegetableBox
                 if (DgvProductSearch.Rows.Count > 0)
                 {
                     this.CurrentPCode = (string)DgvProductSearch.CurrentRow.Cells[ProductRateData.ColumnName.ProductCode].Value;
+                    this.CurrentMRP = (decimal)DgvProductSearch.CurrentRow.Cells[ProductRateData.ColumnName.MRP].Value;
 
                     if (clsFrmPurchaseEnty.ProductData != null && clsFrmPurchaseEnty.ProductData.Rows.Count > 0)
                     {
                         if (clsFrmPurchaseEnty.ProductData.AsEnumerable()
-                            .Where(x => x.Field<string>(ProductRateData.ColumnName.ProductCode) == this.CurrentPCode).Count() > 0)
+                            .Where(x => x.Field<string>(ProductRateData.ColumnName.ProductCode) == this.CurrentPCode
+                            && x.Field<decimal>(ProductRateData.ColumnName.MRP) == this.CurrentMRP).Count() > 0)
                         {
 
                             DataRow dataRow = clsFrmPurchaseEnty.ProductData
-                                .AsEnumerable().Where(x => x.Field<string>(ProductRateData.ColumnName.ProductCode) == this.CurrentPCode).FirstOrDefault();
+                                .AsEnumerable().Where(x => x.Field<string>(ProductRateData.ColumnName.ProductCode) == this.CurrentPCode
+                                && x.Field<decimal>(ProductRateData.ColumnName.MRP) == this.CurrentMRP).FirstOrDefault();
 
                             if (dataRow != null)
                             {
@@ -540,13 +569,6 @@ namespace VegetableBox
                                                                     Convert.ToString(dataRow[ProductRateData.ColumnName.MRP]) : string.Empty);
 
                                 this.TxtProductSearch.Text = string.Empty;
-
-                                //if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) <= 2)
-                                //{
-                                //    this.LblMrp.ForeColor = System.Drawing.Color.FromArgb(0, 64, 64);
-                                //    this.LblMrp.Text = "MRP";
-                                //}
-
                             }
                         }
                     }
@@ -653,7 +675,8 @@ namespace VegetableBox
                     {
                         foreach (DataRow dr in clsFrmPurchaseEnty.PurchaseCartData.Rows)
                         {
-                            if (dr[PurchaseCartDataStruct.ColumnName.ProCode].ToString() == this.CurrentPCode.Trim())
+                            if (Convert.ToString(dr[PurchaseCartDataStruct.ColumnName.IsSaved]) == "N" 
+                                && dr[PurchaseCartDataStruct.ColumnName.ProCode].ToString() == this.CurrentPCode.Trim())
                             {
                                 dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount]
                                     = Convert.ToDecimal(dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount]) + Convert.ToDecimal(this.TxtTotPurchaseRate.Text.Trim());
@@ -1410,8 +1433,13 @@ namespace VegetableBox
                     this.TxtBillItemsCount.Text = Convert.ToString(DgvVendorInvoiceDetails.CurrentRow.Cells[VendorPurBillDetailsData.ColumnName.ItemsCount].Value);
                 }
 
-                this.clsFrmPurchaseEnty.GetEnteredPurchaseItems((int)this.TxtBillNo.Tag); //Vendor bill reference number                                                                                              
-                this.DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData;
+                this.clsFrmPurchaseEnty.GetEnteredPurchaseItems((int)this.TxtBillNo.Tag); //Vendor bill reference number
+
+                if (clsFrmPurchaseEnty.PurchaseCartData.IsDataTableValid())
+                    this.DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData
+                                                  .AsEnumerable().OrderByDescending(x => x.Field<int>(CartDataStruct.ColumnName.SNo)).CopyToDataTable();
+                else
+                    this.DGVPurchaseCart.DataSource = clsFrmPurchaseEnty.PurchaseCartData;
 
                 if (clsFrmPurchaseEnty.PurchaseCartData.IsDataTableValid())
                 {

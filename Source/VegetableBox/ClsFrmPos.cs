@@ -40,7 +40,7 @@ namespace VegetableBox
 
                 this._ProductRateData = new DataTable();
                 this._ProductRateData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
-                }
+            }
             catch
             {
                 throw;
@@ -71,6 +71,89 @@ namespace VegetableBox
             }
         }
 
+        private DataTable _BillDetails = new DataTable();
+        internal DataTable BillDetails
+        {
+            get { return _BillDetails; }
+            set { _BillDetails = value; }
+        }
+
+        public void GetBillDetailsToEdit(int billNo)
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+
+                String SqlQuery = "SpGetBillInfo";
+
+                List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
+                _ListSqlParameter.Add(new SqlParameter("@BillNo", billNo));
+
+                this._BillDetails = new DataTable();
+                this._BillDetails = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.StoredProcedure, _ListSqlParameter);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public DataTable GetPosNetAmount()
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+
+                String SqlQuery = "SpGetPosAmount";
+
+                return _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.StoredProcedure, null);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public void GetPos(string PosId)
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+
+                String SqlQuery = "SpGetPos";
+
+                List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
+                _ListSqlParameter.Add(new SqlParameter("@PosId", PosId));
+
+                this._BillDetails = new DataTable();
+                this._BillDetails = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.StoredProcedure, _ListSqlParameter);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public void CancelSalesBill(int billNo, DateTime billDate)
+        {
+            try
+            {
+                SqlIntract _SqlIntract = new SqlIntract();
+
+                String SqlQuery = "SpSalesBillCancel";
+
+                List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
+                _ListSqlParameter.Add(new SqlParameter("@BillNo", billNo));
+                _ListSqlParameter.Add(new SqlParameter("@BilledDate", billDate));
+
+                int result = _SqlIntract.ExecuteNonQuery(SqlQuery, CommandType.StoredProcedure, _ListSqlParameter);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         private DataTable _CartData = new DataTable();
         internal DataTable CartData
         {
@@ -81,7 +164,7 @@ namespace VegetableBox
         private void ToMakeCart()
         {
             try
-            {                
+            {
                 this._CartData = new DataTable();
 
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.SNo, typeof(int));
@@ -107,6 +190,7 @@ namespace VegetableBox
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.AllowRateChange, typeof(bool));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.SellingRateZero, typeof(bool));
                 this._CartData.Columns.Add(CartDataStruct.ColumnName.CatCode, typeof(int));
+                this._CartData.Columns.Add(CartDataStruct.ColumnName.BillStatus, typeof(string));
             }
             catch
             {
@@ -114,7 +198,8 @@ namespace VegetableBox
             }
         }
 
-        public int SaveData(DataTable cartData, ClsTransaction clsTransaction, List<ClsPaymentDetails> listClsPaymentDetails)
+        public int SaveData(DataTable cartData, ClsTransaction clsTransaction, List<ClsPaymentDetails> listClsPaymentDetails,
+            bool isEditedRecord, int billNo)
         {
             try
             {
@@ -136,6 +221,7 @@ namespace VegetableBox
                 SalesTableData.Columns.Add("DiscCustCode", typeof(int));
                 SalesTableData.Columns.Add("DiscEmpCode", typeof(int));
                 SalesTableData.Columns.Add("IsDefective", typeof(string));
+                SalesTableData.Columns.Add("BillStatus", typeof(string));
 
                 foreach (DataRow rowCartData in cartData.Rows)
                 {
@@ -158,6 +244,7 @@ namespace VegetableBox
                     rowSales["DiscCustCode"] = rowCartData[CartDataStruct.ColumnName.DiscCustCode];
                     rowSales["DiscEmpCode"] = rowCartData[CartDataStruct.ColumnName.DiscEmpCode];
                     rowSales["IsDefective"] = rowCartData[CartDataStruct.ColumnName.IsDefective];
+                    rowSales["BillStatus"] = rowCartData[CartDataStruct.ColumnName.BillStatus];
 
                     SalesTableData.Rows.Add(rowSales);
                 }
@@ -216,20 +303,33 @@ namespace VegetableBox
 
                 // *************
 
+                int Result;
                 SqlIntract _SqlIntract = new SqlIntract();
-
-                String SqlQuery = "SpSaveSale";
 
                 List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
                 _ListSqlParameter.Add(new SqlParameter("@UDT_Sales", SalesTableData));
                 _ListSqlParameter.Add(new SqlParameter("@UDT_Transaction", TransactionData));
                 _ListSqlParameter.Add(new SqlParameter("@UDT_PaymentDetails", PaymentDetData));
 
-                SqlParameter sqlParameter = new SqlParameter("@BILLNO", SqlDbType.Int, 8);
-                sqlParameter.Direction = ParameterDirection.Output;
-                _ListSqlParameter.Add(sqlParameter);
+                String SqlQuery = "";
 
-                int Result = Convert.ToInt32(_SqlIntract.ExecuteNonQueryWithOutputParam(SqlQuery, CommandType.StoredProcedure, "@BILLNO", _ListSqlParameter));
+                if (!isEditedRecord)
+                {
+                    SqlQuery = "SpSaveSale";
+
+                    SqlParameter sqlParameter = new SqlParameter("@BILLNO", SqlDbType.Int, 8);
+                    sqlParameter.Direction = ParameterDirection.Output;
+                    _ListSqlParameter.Add(sqlParameter);
+
+                    Result = Convert.ToInt32(_SqlIntract.ExecuteNonQueryWithOutputParam(SqlQuery, CommandType.StoredProcedure, "@BILLNO", _ListSqlParameter));
+                }
+                else
+                {
+                    SqlQuery = "SpUpdateSale";
+
+                    _ListSqlParameter.Add(new SqlParameter("@BILLNO", billNo));
+                    Result = Convert.ToInt32(_SqlIntract.ExecuteNonQuery(SqlQuery, CommandType.StoredProcedure, _ListSqlParameter));
+                }
 
                 return Result;
             }
@@ -237,7 +337,75 @@ namespace VegetableBox
             {
                 throw;
             }
-        } 
+        }
+
+        public void SavePos(DataTable cartData, string posId)
+        {
+            try
+            {
+                DataTable SalesTableData = new DataTable();
+                SalesTableData.Columns.Add("ProductCode", typeof(int));
+                SalesTableData.Columns.Add("Qty", typeof(decimal));
+                SalesTableData.Columns.Add("Unit", typeof(string));
+                SalesTableData.Columns.Add("SellRate", typeof(decimal));
+                SalesTableData.Columns.Add("Amount", typeof(decimal));
+                SalesTableData.Columns.Add("DiscPercent", typeof(decimal));
+                SalesTableData.Columns.Add("DiscAmount", typeof(decimal));
+                SalesTableData.Columns.Add("TotAmount", typeof(decimal));
+                SalesTableData.Columns.Add("MRP", typeof(decimal));
+                SalesTableData.Columns.Add("TotDiscAmtFromMRP", typeof(decimal));
+                SalesTableData.Columns.Add("BilledBy", typeof(int));
+
+                SalesTableData.Columns.Add("PurAmount", typeof(decimal));
+                SalesTableData.Columns.Add("ProfitAmount", typeof(decimal));
+                SalesTableData.Columns.Add("DiscCustCode", typeof(int));
+                SalesTableData.Columns.Add("DiscEmpCode", typeof(int));
+                SalesTableData.Columns.Add("IsDefective", typeof(string));
+                SalesTableData.Columns.Add("BillStatus", typeof(string));
+
+                foreach (DataRow rowCartData in cartData.Rows)
+                {
+                    DataRow rowSales = SalesTableData.NewRow();
+
+                    rowSales["ProductCode"] = rowCartData[CartDataStruct.ColumnName.ProCode];
+                    rowSales["Qty"] = rowCartData[CartDataStruct.ColumnName.Qty];
+                    rowSales["Unit"] = rowCartData[CartDataStruct.ColumnName.Unit];
+                    rowSales["SellRate"] = rowCartData[CartDataStruct.ColumnName.Rate];
+                    rowSales["Amount"] = rowCartData[CartDataStruct.ColumnName.Amount];
+                    rowSales["DiscPercent"] = rowCartData[CartDataStruct.ColumnName.DiscPer];
+                    rowSales["DiscAmount"] = rowCartData[CartDataStruct.ColumnName.DiscAmount];
+                    rowSales["TotAmount"] = rowCartData[CartDataStruct.ColumnName.TotalAmount];
+                    rowSales["BilledBy"] = Global.currentUserId;
+                    rowSales["MRP"] = rowCartData[CartDataStruct.ColumnName.MRP];
+                    rowSales["TotDiscAmtFromMRP"] = rowCartData[CartDataStruct.ColumnName.TotDiscAmtFrmMrp];
+
+                    rowSales["PurAmount"] = rowCartData[CartDataStruct.ColumnName.PurAmount];
+                    rowSales["ProfitAmount"] = rowCartData[CartDataStruct.ColumnName.ProfitAmount];
+                    rowSales["DiscCustCode"] = rowCartData[CartDataStruct.ColumnName.DiscCustCode];
+                    rowSales["DiscEmpCode"] = rowCartData[CartDataStruct.ColumnName.DiscEmpCode];
+                    rowSales["IsDefective"] = rowCartData[CartDataStruct.ColumnName.IsDefective];
+                    rowSales["BillStatus"] = rowCartData[CartDataStruct.ColumnName.BillStatus];
+
+                    SalesTableData.Rows.Add(rowSales);
+                }
+
+                SalesTableData.AcceptChanges();
+
+                SqlIntract _SqlIntract = new SqlIntract();
+
+                List<SqlParameter>? _ListSqlParameter = new List<SqlParameter>();
+                _ListSqlParameter.Add(new SqlParameter("@UDT_Sales", SalesTableData));
+                _ListSqlParameter.Add(new SqlParameter("@PosId", posId));
+
+                String SqlQuery = "SpSavePos";
+
+                int Result = Convert.ToInt32(_SqlIntract.ExecuteNonQuery(SqlQuery, CommandType.StoredProcedure, _ListSqlParameter));
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
     }
 
@@ -291,6 +459,7 @@ namespace VegetableBox
             internal static string AllowRateChange = "AllowRateChange";
             internal static string SellingRateZero = "SellingRateZero";
             internal static string CatCode = "CatCode";
+            internal static string BillStatus = "BillStatus";
         }
     }
 
