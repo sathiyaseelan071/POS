@@ -32,8 +32,13 @@ namespace VegetableBox
                 this.ClearAmountDetails();
                 this.GetMasterData();
                 this.LoadTodayBillsWithPaymentsData();
+                this.DispPosNetAmount();
+                this.CallPos("POS1", "POS 1", false);
                 SendKeys.Send("{TAB}");
                 this.TxtProductSearch.Focus();
+
+                this.LblTotalProfitAmt.Visible = false;
+                this.LblProfitAmt.Visible = false;
             }
             catch (Exception ex)
             {
@@ -125,15 +130,37 @@ namespace VegetableBox
                             .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                             || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                             || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
+                            
                             || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
-                            && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))).Count() > 0)
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))
+
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode2))
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode2).Contains(FilterProduct))
+
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode3))
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode3).Contains(FilterProduct))
+
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode4))
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode4).Contains(FilterProduct))
+
+                            ).Count() > 0)
                         {
                             _DtSearch = clsFrmPos.ProductRateData.AsEnumerable()
                                 .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                                 || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                                 || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
+                                
                                 || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
-                                && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct)))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))
+                                
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode2))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode2).Contains(FilterProduct))
+                                
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode3))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode3).Contains(FilterProduct))
+                                
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode4))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode4).Contains(FilterProduct)))
                                 .OrderBy(x => x.Field<Int32>(ProductRateData.ColumnName.CatCode))
                                 .ThenBy(x => x.Field<string>(ProductRateData.ColumnName.ProductName))
                                 .Select(g =>
@@ -250,7 +277,8 @@ namespace VegetableBox
                     if (clsFrmPos.ProductRateData != null && clsFrmPos.ProductRateData.Rows.Count > 0)
                     {
                         if (clsFrmPos.ProductRateData.AsEnumerable()
-                            .Where(x => x.Field<string>(ProductRateData.ColumnName.ProductCode) == this.CurrentPCode).Count() > 0)
+                            .Where(x => x.Field<string>(ProductRateData.ColumnName.ProductCode) == this.CurrentPCode
+                            && x.Field<decimal>(ProductRateData.ColumnName.MRP) == this.CurrentMRP).Count() > 0)
                         {
 
                             DataRow dataRow = clsFrmPos.ProductRateData
@@ -450,7 +478,7 @@ namespace VegetableBox
                 this.TxtDiscFromMRP.Text = string.Empty;
 
                 this.LblPurchaseAmt.Text = string.Empty;
-                this.LblPurchaseAmt.Visible = true;
+                this.LblPurchaseAmt.Visible = false;
 
                 this.LblProfitAmt.Text = string.Empty;
                 this.LblProfitAmt.Visible = true;
@@ -532,6 +560,12 @@ namespace VegetableBox
                         this.EditAndDeleteCartSelectedItem();
                         this.TxtQty.Focus();
                     }
+                    return;
+                }
+                else if (e.Control && e.KeyCode == Keys.F1)
+                {
+                    this.LblProfitAmt.Visible = !this.LblProfitAmt.Visible;
+                    this.LblTotalProfitAmt.Visible = !this.LblTotalProfitAmt.Visible;
                     return;
                 }
 
@@ -807,42 +841,106 @@ namespace VegetableBox
             {
                 if (this.ValidateAddCart())
                 {
-                    DataRow dr = clsFrmPos.CartData.NewRow();
-                    dr[CartDataStruct.ColumnName.SNo] = clsFrmPos.CartData.Rows.Count + 1;
-                    dr[CartDataStruct.ColumnName.ProCode] = this.TxtProCode.Text.Trim();
-                    dr[CartDataStruct.ColumnName.ProTamilName] = this.TxtProTName.Text.Trim();
-                    dr[CartDataStruct.ColumnName.Qty] = this.TxtQty.Text.Trim();
-                    dr[CartDataStruct.ColumnName.Unit] = this.LblUnit.Text.Trim();
-                    dr[CartDataStruct.ColumnName.Rate] = this.TxtRate.Text.Trim();
-                    dr[CartDataStruct.ColumnName.Amount] = this.TxtAmt.Text.Trim();
-                    dr[CartDataStruct.ColumnName.DiscPer] = this.TxtDiscPercentage.Text.Trim();
-                    dr[CartDataStruct.ColumnName.DiscAmount] = this.TxtDiscAmt.Text.Trim();
-                    dr[CartDataStruct.ColumnName.TotalAmount] = this.TxtTotAmt.Text.Trim();
-                    dr[CartDataStruct.ColumnName.CalBORM] = this.CurrentPCalcBORM;
-                    dr[CartDataStruct.ColumnName.TotDiscAmtFrmMrp] = this.TxtDiscFromMRP.Text.Trim();
-                    dr[CartDataStruct.ColumnName.MRP] = this.TxtMrp.Text.Trim();
-                    dr[CartDataStruct.ColumnName.PurAmount] = this.LblPurchaseAmt.Text.Trim();
-                    dr[CartDataStruct.ColumnName.ProfitAmount] = this.LblProfitAmt.Text.Trim();
-                    dr[CartDataStruct.ColumnName.IsDefective] = this.chkIsDefective.Checked ? "Y" : null;
-                    dr[CartDataStruct.ColumnName.AllowRateChange] = this.CurrentAllowRateChange;
-                    dr[CartDataStruct.ColumnName.SellingRateZero] = this.CurrentSellingRateZero;
-                    dr[CartDataStruct.ColumnName.CatCode] = (int)this.chkIsDefective.Tag;
+                    int proCode = Convert.ToInt32(this.TxtProCode.Text);
+                    decimal mrp = this.ToConvertTextToDecimal(this.TxtMrp.Text);
 
-                    if (rdoEmpPartnerDisc.Checked)
-                        dr[CartDataStruct.ColumnName.DiscEmpCode] = this.cmbName.SelectedValue;
+                    // 🔎 check if product already exists in Cart with same ProCode & MRP
+                    DataRow existingRow = clsFrmPos.CartData.AsEnumerable()
+                        .FirstOrDefault(r => r.Field<int>(CartDataStruct.ColumnName.ProCode) == proCode
+                                          && r.Field<decimal>(CartDataStruct.ColumnName.MRP) == mrp);
 
-                    if (rdoPrivilageDisc.Checked)
-                        dr[CartDataStruct.ColumnName.DiscCustCode] = this.cmbName.SelectedValue;
+                    if (existingRow != null)
+                    {
+                        string unit = this.LblUnit.Text.Trim();
+                        decimal qtyE = this.ToConvertTextToDecimal(this.TxtQty.Text);
+                        decimal rate = this.ToConvertTextToDecimal(this.TxtRate.Text);
+                        decimal amount = this.ToConvertTextToDecimal(this.TxtAmt.Text);
+                        decimal totalAmount = this.ToConvertTextToDecimal(this.TxtTotAmt.Text);
+                        decimal totDiscAmtFrmMrp = this.ToConvertTextToDecimal(this.TxtDiscFromMRP.Text);
 
-                    decimal _Qty = this.ToConvertTextToDecimal(this.TxtQty.Text);
-                    decimal _Mrp = this.ToConvertTextToDecimal(this.TxtMrp.Text);
-                    dr[CartDataStruct.ColumnName.TotMRP] = this.ToConvertAmtFormat(Convert.ToString(Math.Round(_Qty * _Mrp, 2)));
+                        // Update existing row (Add Qty + Recalculate Amounts)
+                        decimal existingQty = this.ToConvertTextToDecimal(existingRow[CartDataStruct.ColumnName.Qty].ToString());
+                        decimal newQty = existingQty + qtyE;
 
-                    clsFrmPos.CartData.Rows.Add(dr);
+                        existingRow[CartDataStruct.ColumnName.Qty] = newQty.ToString(unit == "Pcs" ? "0" : "0.00");
+                        existingRow[CartDataStruct.ColumnName.Amount] = (newQty * rate).ToString("0.00");
+                        existingRow[CartDataStruct.ColumnName.TotalAmount] = (newQty * rate).ToString("0.00");
+                        existingRow[CartDataStruct.ColumnName.TotMRP] = (newQty * mrp).ToString("0.00");
+
+                        decimal existingTotDiscAmtFrmMrp = this.ToConvertTextToDecimal(existingRow[CartDataStruct.ColumnName.TotDiscAmtFrmMrp].ToString());
+                        existingRow[CartDataStruct.ColumnName.TotDiscAmtFrmMrp] = existingTotDiscAmtFrmMrp + totDiscAmtFrmMrp;
+
+                        // Profit calc
+                        decimal profitAmt = this.ToConvertTextToDecimal(this.LblProfitAmt.Text);
+                        existingRow[CartDataStruct.ColumnName.ProfitAmount] = (newQty * profitAmt).ToString("0.00");
+
+                        if (this.IsEdited == true && Convert.ToString(existingRow[CartDataStruct.ColumnName.BillStatus]) != "N")
+                        {
+                            existingRow[CartDataStruct.ColumnName.BillStatus] = "E"; // Edit
+                            this.BillStatus = null;
+                        }
+                    }
+                    else
+                    {
+                        DataRow dr = clsFrmPos.CartData.NewRow();
+                        dr[CartDataStruct.ColumnName.SNo] = clsFrmPos.CartData.Rows.Count + 1;
+                        dr[CartDataStruct.ColumnName.ProCode] = this.TxtProCode.Text.Trim();
+                        dr[CartDataStruct.ColumnName.ProTamilName] = this.TxtProTName.Text.Trim();
+                        dr[CartDataStruct.ColumnName.Qty] = this.TxtQty.Text.Trim();
+                        dr[CartDataStruct.ColumnName.Unit] = this.LblUnit.Text.Trim();
+                        dr[CartDataStruct.ColumnName.Rate] = this.TxtRate.Text.Trim();
+                        dr[CartDataStruct.ColumnName.Amount] = this.TxtAmt.Text.Trim();
+                        dr[CartDataStruct.ColumnName.DiscPer] = this.TxtDiscPercentage.Text.Trim();
+                        dr[CartDataStruct.ColumnName.DiscAmount] = this.TxtDiscAmt.Text.Trim();
+                        dr[CartDataStruct.ColumnName.TotalAmount] = this.TxtTotAmt.Text.Trim();
+                        dr[CartDataStruct.ColumnName.CalBORM] = this.CurrentPCalcBORM;
+                        dr[CartDataStruct.ColumnName.TotDiscAmtFrmMrp] = this.TxtDiscFromMRP.Text.Trim();
+                        dr[CartDataStruct.ColumnName.MRP] = this.TxtMrp.Text.Trim();
+                        dr[CartDataStruct.ColumnName.PurAmount] = this.LblPurchaseAmt.Text.Trim();
+
+                        decimal qty = 0, profitAmt = 0;
+                        decimal.TryParse(this.TxtQty.Text.Trim(), out qty);
+                        decimal.TryParse(this.LblProfitAmt.Text.Trim(), out profitAmt);
+                        dr[CartDataStruct.ColumnName.ProfitAmount] = this.ToConvertAmtFormat((qty * profitAmt).ToString());
+
+                        dr[CartDataStruct.ColumnName.IsDefective] = this.chkIsDefective.Checked ? "Y" : null;
+                        dr[CartDataStruct.ColumnName.AllowRateChange] = this.CurrentAllowRateChange;
+                        dr[CartDataStruct.ColumnName.SellingRateZero] = this.CurrentSellingRateZero;
+                        dr[CartDataStruct.ColumnName.CatCode] = (int)this.chkIsDefective.Tag;
+
+                        if (rdoEmpPartnerDisc.Checked)
+                            dr[CartDataStruct.ColumnName.DiscEmpCode] = this.cmbName.SelectedValue;
+
+                        if (rdoPrivilageDisc.Checked)
+                            dr[CartDataStruct.ColumnName.DiscCustCode] = this.cmbName.SelectedValue;
+
+                        decimal _Qty = this.ToConvertTextToDecimal(this.TxtQty.Text);
+                        decimal _Mrp = this.ToConvertTextToDecimal(this.TxtMrp.Text);
+                        dr[CartDataStruct.ColumnName.TotMRP] = this.ToConvertAmtFormat(Convert.ToString(Math.Round(_Qty * _Mrp, 2)));
+
+                        if (this.IsEdited == true && this.BillStatus == "F")
+                        {
+                            dr[CartDataStruct.ColumnName.BillStatus] = "E"; // Edit
+                            this.BillStatus = null;
+                        }
+                        else if (this.IsEdited == true && this.BillStatus != "F")
+                        {
+                            dr[CartDataStruct.ColumnName.BillStatus] = "N"; // New Entry
+                            this.BillStatus = null;
+                        }
+
+                        clsFrmPos.CartData.Rows.Add(dr);
+                    }
+
                     DGVCart.DataSource = clsFrmPos.CartData.AsEnumerable().OrderByDescending(x => x.Field<int>(CartDataStruct.ColumnName.SNo)).CopyToDataTable();
 
-                    this.ToCalcTotalAmount();
+                    if (this.IsEdited == false)
+                    {
+                        this.clsFrmPos.SavePos(this.clsFrmPos.CartData, this.LblCurrentPosName.Text.Replace(" ", ""));
+                        this.DispPosNetAmount();
+                    }
 
+                    this.ToCalcTotalAmount();
                     this.ClearProductDetails();
                     this.TxtProductSearch.Focus();
                 }
@@ -1080,13 +1178,31 @@ namespace VegetableBox
         {
             try
             {
-                if (MessageBox.Show("Are you want to cancel ?", "Vegetable Box", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                string message = $"Are you sure you want to cancel? If you cancel, {this.LblCurrentPosName.Text} will be deleted.";
+
+                if (this.IsEdited)
+                    message = "Are you sure you want to cancel?";
+
+                if (MessageBox.Show(message, "Vegetable Box", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
                     this.clsFrmPos = new ClsFrmPos();
                     this.ClearProductDetails();
                     this.ClearDiscountOptions();
                     this.LoadCardGrid();
                     this.ClearAmountDetails();
+
+                    if (this.IsEdited == false)
+                    {
+                        this.clsFrmPos.SavePos(this.clsFrmPos.CartData.Clone(), this.LblCurrentPosName.Text.Replace(" ", ""));
+                        this.DispPosNetAmount();
+                    }
+                    else
+                    {
+                        this.CallPos("POS1", "POS 1", false);
+                    }
+
+                    this.LoadTodayBillsWithPaymentsData();
+                    
                     this.TxtProductSearch.Focus();
                 }
             }
@@ -1231,6 +1347,8 @@ namespace VegetableBox
         {
             try
             {
+                this.Cursor = Cursors.WaitCursor;
+
                 if (DGVCart.Rows.Count <= 0)
                     throw new Exception("Add atleast one product to cart.");
 
@@ -1324,9 +1442,17 @@ namespace VegetableBox
                         listClsPaymentDetails.Add(clsPaymentDetails);
                     }
 
-                    int BillNo = this.clsFrmPos.SaveData(this.clsFrmPos.CartData, clsTransaction, listClsPaymentDetails);
+                    int BillNo = this.clsFrmPos.SaveData(this.clsFrmPos.CartData, clsTransaction, listClsPaymentDetails, this.IsEdited, this.EditedBillNo);
 
-                    MessageBox.Show("Saved Sucessfully..." + Environment.NewLine + "Bill No : " + BillNo.ToString(), "Vegetable Box");
+                    if (!IsEdited)
+                    {
+                        MessageBox.Show("Saved Sucessfully..." + Environment.NewLine + "Bill No : " + BillNo.ToString(), "Vegetable Box");
+                    }
+                    else
+                    {
+                        BillNo = this.EditedBillNo;
+                        MessageBox.Show("Updated Sucessfully..." + Environment.NewLine + "Bill No : " + BillNo.ToString(), "Vegetable Box");
+                    }
 
                     if (MessageBox.Show("Are you want to print ?", "Vegetable Box", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
@@ -1339,7 +1465,16 @@ namespace VegetableBox
                     this.ClearDiscountOptions();
                     this.LoadCardGrid();
                     this.ClearAmountDetails();
+
+                    //Delete the saved POS
+                    if (this.IsEdited == false)
+                    {
+                        this.clsFrmPos.SavePos(this.clsFrmPos.CartData.Clone(), this.LblCurrentPosName.Text.Replace(" ", ""));                        
+                    }
+                    
                     this.LoadTodayBillsWithPaymentsData();
+                    this.DispPosNetAmount();
+                    this.CallPos("POS1", "POS 1", false);
                     this.TxtProductSearch.Focus();
                 }
                 else
@@ -1350,6 +1485,10 @@ namespace VegetableBox
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
             }
         }
 
@@ -1432,6 +1571,8 @@ namespace VegetableBox
                         int _Val = (dr[CartDataStruct.ColumnName.CatCode] != null ?
                             (int)dr[CartDataStruct.ColumnName.CatCode] : 0);
                         this.chkIsDefective.Visible = defectiveCategories.Contains(_Val);
+
+                        this.BillStatus = Convert.ToString(dr[CartDataStruct.ColumnName.BillStatus]);
 
                         this.DeleteCartSelectedItem();
                     }
@@ -1781,6 +1922,11 @@ namespace VegetableBox
                     DGVColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
                     DGVColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 }
+
+                this.IsEdited = false;
+                this.EditedBillNo = 0;
+                this.BillStatus = null;
+                this.DGBillSelectedRowIndex = -1;
             }
             catch
             {
@@ -1913,9 +2059,9 @@ namespace VegetableBox
         {
             try
             {
-                DGBillSelectedRowIndex = e.RowIndex;
                 if (DGVBillDetails.Focused && e.RowIndex >= 0)
                 {
+                    DGBillSelectedRowIndex = e.RowIndex;
                     DGVBillDetails.Rows[e.RowIndex].Selected = true;
                 }
             }
@@ -1929,9 +2075,9 @@ namespace VegetableBox
         {
             try
             {
-                DGBillSelectedRowIndex = e.RowIndex;
                 if (DGVBillDetails.Focused && e.RowIndex >= 0)
                 {
+                    DGBillSelectedRowIndex = e.RowIndex;
                     DGVBillDetails.Rows[e.RowIndex].Selected = true;
                 }
             }
@@ -1945,9 +2091,9 @@ namespace VegetableBox
         {
             try
             {
-                DGBillSelectedRowIndex = e.RowIndex;
                 if (DGVBillDetails.Focused && e.RowIndex >= 0)
                 {
+                    DGBillSelectedRowIndex = e.RowIndex;
                     DGVBillDetails.Rows[e.RowIndex].Selected = true;
                 }
             }
@@ -1962,6 +2108,352 @@ namespace VegetableBox
             if (!DGVBillDetails.Focused && DGVBillDetails.Rows.Count > 0)
             {
                 DGVBillDetails.ClearSelection();
+            }
+        }
+
+        bool IsEdited = false;
+        int EditedBillNo = 0;
+        string? BillStatus = null;
+
+        private void BtnBillEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (DGBillSelectedRowIndex >= 0)
+                {
+                    int BillNo = Convert.ToInt32(this.DGVBillDetails.Rows[DGBillSelectedRowIndex].Cells[BillsWithPaymentsData.ColumnName.BillNo].Value);
+
+                    if (MessageBox.Show("Are you sure want to edit the selected bill?", "Vegetable Box",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        return;
+                    }
+
+                    this.clsFrmPos.GetBillDetailsToEdit(BillNo);
+
+                    if (this.clsFrmPos.BillDetails.IsDataTableValid())
+                    {
+                        this.clsFrmPos.CartData = this.clsFrmPos.BillDetails.Copy();
+                        this.DGVCart.DataSource = clsFrmPos.CartData.AsEnumerable().OrderByDescending(x => x.Field<int>(CartDataStruct.ColumnName.SNo)).CopyToDataTable();
+                        this.IsEdited = true;
+                        this.EditedBillNo = BillNo;
+                        this.ToCalcTotalAmount();
+                        this.DGVBillDetails.ClearSelection();
+                    }
+
+                    this.LblCurrentPosName.Text = "Edit Mode";
+                    this.TxtProductSearch.Focus();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a bill to edit.", "Vegetable Box");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void TxtQty_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                // allows 0-9, backspace, and decimal
+                if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+                {
+                    e.Handled = true;
+                    return;
+                }
+
+                if (LblUnit.Text.ToUpper() == "PCS" && e.KeyChar == 46)
+                {
+                    e.Handled = true;
+                    return;
+                }
+
+                // checks to make sure only 1 decimal is allowed
+                if (e.KeyChar == 46)
+                {
+                    if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                        e.Handled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+
+        }
+
+        private void BtnBillCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (DGBillSelectedRowIndex >= 0)
+                {
+                    int BillNo = Convert.ToInt32(this.DGVBillDetails.Rows[DGBillSelectedRowIndex].Cells[BillsWithPaymentsData.ColumnName.BillNo].Value);
+
+                    if (MessageBox.Show("Are you sure want to cancel the selected bill?", "Vegetable Box",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        return;
+                    }
+
+                    this.clsFrmPos.CancelSalesBill(BillNo, DateTime.Now.Date);
+
+                    MessageBox.Show("Bill Cancelled Successfully.", "Vegetable Box");
+
+                    this.LoadTodayBillsWithPaymentsData();
+                    this.DGVBillDetails.ClearSelection();
+
+                    this.TxtProductSearch.Focus();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a bill to cancel.", "Vegetable Box");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void BtnBillPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (DGBillSelectedRowIndex >= 0)
+                {
+                    int BillNo = Convert.ToInt32(this.DGVBillDetails.Rows[DGBillSelectedRowIndex].Cells[BillsWithPaymentsData.ColumnName.BillNo].Value);
+
+                    if (MessageBox.Show("Are you sure want to print the selected bill?", "Vegetable Box",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        return;
+                    }
+
+                    ClsPrint clsPrint = new ClsPrint();
+                    clsPrint.PrintSalesBill(BillNo, DateTime.Now.Date);
+
+                    this.TxtProductSearch.Focus();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a bill to cancel.", "Vegetable Box");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void BtnBillReload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                this.LoadTodayBillsWithPaymentsData();
+                this.TxtProductSearch.Focus();
+                MessageBox.Show("Reloaded Successfully.", "Vegetable Box");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void DispPosNetAmount()
+        {
+            try
+            {
+                this.LblPos1.Text = "0.00";
+                this.LblPos2.Text = "0.00";
+                this.LblPos3.Text = "0.00";
+                this.LblPos4.Text = "0.00";
+                this.LblPos5.Text = "0.00";
+
+                string colPosId = "PosId";
+                string colNetAmount = "NetAmount";
+
+                DataTable dt = this.clsFrmPos.GetPosNetAmount();
+
+                if(dt.IsDataTableValid())
+                {
+                    foreach(DataRow dr in dt.Rows)
+                    {
+                        if(Convert.ToString(dr[colPosId]) == "POS1")
+                        {
+                            this.LblPos1.Text = Convert.ToDecimal(dr[colNetAmount]).ToString("0.00");                            
+                        }
+                        else if (Convert.ToString(dr[colPosId]) == "POS2")
+                        {
+                            this.LblPos2.Text = Convert.ToDecimal(dr[colNetAmount]).ToString("0.00");
+                        }
+                        else if (Convert.ToString(dr[colPosId]) == "POS3")
+                        {
+                            this.LblPos3.Text = Convert.ToDecimal(dr[colNetAmount]).ToString("0.00");
+                        }
+                        else if (Convert.ToString(dr[colPosId]) == "POS4")
+                        {
+                            this.LblPos4.Text = Convert.ToDecimal(dr[colNetAmount]).ToString("0.00");
+                        }
+                        else if (Convert.ToString(dr[colPosId]) == "POS5")
+                        {
+                            this.LblPos5.Text = Convert.ToDecimal(dr[colNetAmount]).ToString("0.00");
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void CallPos(string PosId, string PosName, bool NeedValidate = true)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (NeedValidate)
+                {
+                    if (this.IsEdited)
+                    {
+                        MessageBox.Show(
+                            "Please complete the bill editing before selecting a POS.", "Vegetable Box",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Stop
+                        );
+                        return;
+                    }
+
+                    if (this.LblCurrentPosName.Text == PosName)
+                    {
+                        MessageBox.Show($"{PosName} is already selected. Please choose another POS.", "Vegetable Box",
+                            MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
+                    if (MessageBox.Show($"Are you sure want to load {PosName} ?", "Vegetable Box",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                this.ClearAmountDetails();
+                this.clsFrmPos.GetPos(PosId);
+
+                if (this.clsFrmPos.BillDetails.IsDataTableValid())
+                {
+                    this.clsFrmPos.CartData = this.clsFrmPos.BillDetails.Copy();
+                    this.DGVCart.DataSource = clsFrmPos.CartData.AsEnumerable().OrderByDescending(x => x.Field<int>(CartDataStruct.ColumnName.SNo)).CopyToDataTable();
+                }
+                else if (this.clsFrmPos.BillDetails != null)
+                {
+                    this.clsFrmPos.CartData = this.clsFrmPos.BillDetails.Copy();
+                    this.DGVCart.DataSource = clsFrmPos.CartData;
+                }
+
+                this.IsEdited = false;
+                this.EditedBillNo = 0;
+                this.ToCalcTotalAmount();
+                this.LblCurrentPosName.Text = PosName;
+                this.TxtProductSearch.Focus();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void BtnPos1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.CallPos("POS1", "POS 1");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void BtnPos2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.CallPos("POS2", "POS 2");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void BtnPos3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.CallPos("POS3", "POS 3");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void BtnPos4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.CallPos("POS4", "POS 4");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void BtnPos5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.CallPos("POS5", "POS 5");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
             }
         }
     }
@@ -1998,6 +2490,15 @@ namespace VegetableBox
             internal static string BarCode2 = "BarCode2";
             internal static string BarCode3 = "BarCode3";
             internal static string BarCode4 = "BarCode4";
+        }
+    }
+
+    internal struct BillsWithPaymentsData
+    {
+        internal struct ColumnName
+        {
+            internal static string BillNo = "BillNo";
+            internal static string ProductCode = "Payments";
         }
     }
 

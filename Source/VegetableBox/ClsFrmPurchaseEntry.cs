@@ -198,14 +198,14 @@ namespace VegetableBox
             {
                 SqlIntract _SqlIntract = new SqlIntract();
 
-                string SqlQuery = "SELECT CAST(ROW_NUMBER() OVER (ORDER BY P.[SNo] DESC) AS INT) AS SNo, P.[ProductCode] AS ProCode,";
+                string SqlQuery = "SELECT CAST(ROW_NUMBER() OVER (ORDER BY P.[SNo] ASC) AS INT) AS SNo, P.[ProductCode] AS ProCode,";
                 SqlQuery += Environment.NewLine + "PR.[Name] AS ProductName, PR.[TamilName] AS ProductTamilName, [TotPurQty], [Unit],";
                 SqlQuery += Environment.NewLine + "[PurRatePerQty], [MRP], [SellRatePerQty], [SellingMarginPer],";
                 SqlQuery += Environment.NewLine + "[DiscPer], [DiscRate], [TotPurAmount], [EnteredBy] AS BilledBy, 'Y' AS IsSaved, TranNo";
                 SqlQuery += Environment.NewLine + "FROM [Purchase] AS P";
                 SqlQuery += Environment.NewLine + "INNER JOIN [Product] AS PR ON PR.[Code] = P.[ProductCode]";
                 SqlQuery += Environment.NewLine + "WHERE ISNULL(VendorBillRefNo, 0) = " + vendorBillRefNo;
-                SqlQuery += Environment.NewLine + "ORDER BY SNo DESC";
+                SqlQuery += Environment.NewLine + "ORDER BY SNo ASC";
 
                 _PurchaseCartData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);
             }

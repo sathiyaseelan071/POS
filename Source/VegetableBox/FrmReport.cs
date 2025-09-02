@@ -99,6 +99,22 @@ namespace VegetableBox
                             this.LblTotalDispName2.Visible = true;
                             this.LblTotalDispValue2.Visible = true;
                         }
+                        else if (ReportType == 4)
+                        {
+                            this.LblTotalDispName1.Visible = false;
+                            this.LblTotalDispValue1.Visible = false;
+
+                            this.LblTotalDispName2.Visible = false;
+                            this.LblTotalDispValue2.Visible = false;
+                        }
+                        else if (ReportType == 4)
+                        {
+                            this.LblTotalDispName1.Visible = false;
+                            this.LblTotalDispValue1.Visible = false;
+
+                            this.LblTotalDispName2.Visible = false;
+                            this.LblTotalDispValue2.Visible = false;
+                        }
                     }
                 }
             }
