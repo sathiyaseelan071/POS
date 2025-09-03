@@ -1,4 +1,4 @@
-USE [VBOX2526_LIVE]
+USE [VBOX2526_PHASE2]
 
 ---------------
 Go
@@ -1053,3 +1053,20 @@ SET p.Active = 'N'
 FROM dbo.Product p
 JOIN CTE c ON p.SNo = c.SNo
 WHERE c.rn > 1
+
+--------------  
+GO
+--------------  
+
+ALTER PROCEDURE [dbo].[SpUpdateVendorBillDetails](@TranNo INT, @VendorCode INT, @BillNo VARCHAR(20), @BillDate DATE, @BillAmount NUMERIC(12, 2), @BillChecked CHAR(1), @BillCheckedBy INT,   
+    @ItemsCount INT, @IsItemMissing CHAR(1), @MissingItemDetails VARCHAR(100), @IsMissingItemReceived CHAR(1), @MissingItemReceivedBy INT,   
+    @PurchaseEntryStatus VARCHAR(20),@PurchaseEntryBy INT, @Remarks VARCHAR(100), @UpdatedBy INT)  
+AS  
+BEGIN  
+    SET NOCOUNT ON;  
+  
+	UPDATE [VendorBillDetails] SET  [VendorCode] = @VendorCode, [BillNo] = @BillNo, [BillDate] = @BillDate, [BillAmount] = @BillAmount, [BillChecked] = @BillChecked, [BillCheckedBy] = @BillCheckedBy,  
+	[ItemsCount] = @ItemsCount, [IsItemMissing] = @IsItemMissing, [MissingItemDetails] = @MissingItemDetails, [IsMissingItemReceived] = @IsMissingItemReceived,  [MissingItemReceivedBy] = @MissingItemReceivedBy,   
+	[PurchaseEntryStatus] = @PurchaseEntryStatus, [PurchaseEntryBy] = @PurchaseEntryBy, [Remarks] = @Remarks, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = GETDATE()  
+	WHERE [TranNo] = @TranNo;  
+END  

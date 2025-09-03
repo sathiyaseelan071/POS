@@ -99,7 +99,20 @@ namespace VegetableBox
                             this.LblTotalDispName2.Visible = true;
                             this.LblTotalDispValue2.Visible = true;
                         }
-                        else if (ReportType == 4)
+                        else if (ReportType == 5)
+                        {
+                            decTotalAmount = Math.Round(Convert.ToDecimal(clsFrmReport.ReportData.Compute("SUM([BalanceDue])", string.Empty)), 2);
+
+                            this.LblTotalDispName1.Text = "Total Due Amount : ";
+                            this.LblTotalDispValue1.Text = this.ToConvertDecimalFormatString(decTotalAmount.ToString());
+
+                            this.LblTotalDispName1.Visible = true;
+                            this.LblTotalDispValue1.Visible = true;
+
+                            this.LblTotalDispName2.Visible = false;
+                            this.LblTotalDispValue2.Visible = false;
+                        }
+                        else if (ReportType == 6)
                         {
                             this.LblTotalDispName1.Visible = false;
                             this.LblTotalDispValue1.Visible = false;
@@ -107,10 +120,15 @@ namespace VegetableBox
                             this.LblTotalDispName2.Visible = false;
                             this.LblTotalDispValue2.Visible = false;
                         }
-                        else if (ReportType == 4)
+                        else if (ReportType == 7)
                         {
-                            this.LblTotalDispName1.Visible = false;
-                            this.LblTotalDispValue1.Visible = false;
+                            decTotalAmount = Math.Round(Convert.ToDecimal(clsFrmReport.ReportData.Compute("SUM([AproxProfitAmount])", string.Empty)), 2);
+
+                            this.LblTotalDispName1.Text = "Tot - Aprox Profit Amount : ";
+                            this.LblTotalDispValue1.Text = this.ToConvertDecimalFormatString(decTotalAmount.ToString());
+
+                            this.LblTotalDispName1.Visible = true;
+                            this.LblTotalDispValue1.Visible = true;
 
                             this.LblTotalDispName2.Visible = false;
                             this.LblTotalDispValue2.Visible = false;

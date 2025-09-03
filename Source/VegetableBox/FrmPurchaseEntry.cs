@@ -758,7 +758,7 @@ namespace VegetableBox
             {
                 if (clsFrmPurchaseEnty.PurchaseCartData != null && clsFrmPurchaseEnty.PurchaseCartData.Rows.Count > 0)
                 {
-                    decimal decTotalAmount = Math.Round(Convert.ToDecimal(clsFrmPurchaseEnty.PurchaseCartData.Compute("SUM([" + PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount + "])", string.Empty)), 2);
+                    decimal decTotalAmount = Math.Round(Convert.ToDecimal(clsFrmPurchaseEnty.PurchaseCartData.Compute("SUM([" + PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount + "])", string.Empty)), 0);
 
                     this.LblTotalAmt.Text = this.ToConvertDecimalFormatString(decTotalAmount.ToString());
                 }

@@ -68,6 +68,7 @@ namespace VegetableBox
                 DGVCart.Columns[CartDataStruct.ColumnName.AllowRateChange].Visible = false;
                 DGVCart.Columns[CartDataStruct.ColumnName.SellingRateZero].Visible = false;
                 DGVCart.Columns[CartDataStruct.ColumnName.CatCode].Visible = false;
+                DGVCart.Columns[CartDataStruct.ColumnName.BillStatus].Visible = false;
 
                 DGVCart.Columns[CartDataStruct.ColumnName.ProCode].HeaderText = "Pro-Code";
                 DGVCart.Columns[CartDataStruct.ColumnName.ProTamilName].HeaderText = "Product Name";
@@ -478,10 +479,14 @@ namespace VegetableBox
                 this.TxtDiscFromMRP.Text = string.Empty;
 
                 this.LblPurchaseAmt.Text = string.Empty;
-                this.LblPurchaseAmt.Visible = false;
+
+                if(this.LblTotalProfitAmt.Visible)
+                    this.LblPurchaseAmt.Visible = true;
+                else
+                    this.LblPurchaseAmt.Visible = false;
 
                 this.LblProfitAmt.Text = string.Empty;
-                this.LblProfitAmt.Visible = true;
+                this.LblProfitAmt.Visible = this.LblTotalProfitAmt.Visible;
 
                 this.TxtRate.ReadOnly = true;
                 this.chkIsDefective.Checked = false;
@@ -688,7 +693,7 @@ namespace VegetableBox
                 if (clsFrmPos.CartData != null && clsFrmPos.CartData.Rows.Count > 0)
                 {
                     decimal decTotalProfitAmount = Math.Round(Convert.ToDecimal(clsFrmPos.CartData.Compute("SUM(" + CartDataStruct.ColumnName.ProfitAmount + ")", string.Empty)), 2);
-                    this.LblTotalProfitAmt.Text = this.ToConvertAmtFormat(decTotalProfitAmount.ToString());
+                            this.LblTotalProfitAmt.Text = this.ToConvertAmtFormat(decTotalProfitAmount.ToString());
 
                     decimal decTotalAmount = Math.Round(Convert.ToDecimal(clsFrmPos.CartData.Compute("SUM(" + CartDataStruct.ColumnName.TotalAmount + ")", string.Empty)), 2);
                     decimal decDiscPer = this.ToConvertTextToDecimal(this.TxtFinalDiscPer.Text);
@@ -1552,7 +1557,15 @@ namespace VegetableBox
                         this.TxtDiscFromMRP.Text = Convert.ToString(dr[CartDataStruct.ColumnName.TotDiscAmtFrmMrp]);
                         this.TxtMrp.Text = Convert.ToString(dr[CartDataStruct.ColumnName.MRP]);
 
-                        this.LblProfitAmt.Text = Convert.ToString(dr[CartDataStruct.ColumnName.ProfitAmount]);
+                        decimal qty = Convert.ToDecimal(dr[CartDataStruct.ColumnName.Qty]);
+                        decimal totalProfitAmount = Convert.ToDecimal(dr[CartDataStruct.ColumnName.ProfitAmount]);
+                        decimal profitPerItem = 0;
+                        if (qty > 0)
+                        {
+                            profitPerItem = totalProfitAmount / qty;
+                        }
+                        this.LblProfitAmt.Text = this.ToConvertAmtFormat(profitPerItem.ToString());
+
                         this.LblPurchaseAmt.Text = Convert.ToString(dr[CartDataStruct.ColumnName.PurAmount]);
 
                         this.chkIsDefective.Checked = dr[CartDataStruct.ColumnName.IsDefective] != DBNull.Value &&

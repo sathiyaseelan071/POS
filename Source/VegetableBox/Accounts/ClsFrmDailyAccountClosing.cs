@@ -257,7 +257,7 @@ namespace VegetableBox
 
                 string SqlQuery = "SELECT [PaymentType], SUM([Amount]) AS Amount";
                 SqlQuery += Environment.NewLine + "FROM [PaymentDetails]";
-                SqlQuery += Environment.NewLine + "WHERE [BilledDate] = CAST(GETDATE() AS DATE)";
+                SqlQuery += Environment.NewLine + "WHERE [BilledDate] = CAST(GETDATE() AS DATE) AND ISNULL([BillStatus], '') != 'C'";
                 SqlQuery += Environment.NewLine + "GROUP BY [PaymentType]";
 
                 this._SalesPaymentData = _SqlIntract.ExecuteDataTable(SqlQuery, CommandType.Text, null);

@@ -227,7 +227,7 @@
             pOSToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             pOSToolStripMenuItem.ForeColor = Color.DarkGreen;
             pOSToolStripMenuItem.Name = "pOSToolStripMenuItem";
-            pOSToolStripMenuItem.Size = new Size(135, 24);
+            pOSToolStripMenuItem.Size = new Size(180, 24);
             pOSToolStripMenuItem.Text = "POS";
             pOSToolStripMenuItem.Click += pOSToolStripMenuItem_Click;
             // 
@@ -236,8 +236,8 @@
             rePrintToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             rePrintToolStripMenuItem.ForeColor = Color.DarkGreen;
             rePrintToolStripMenuItem.Name = "rePrintToolStripMenuItem";
-            rePrintToolStripMenuItem.Size = new Size(135, 24);
-            rePrintToolStripMenuItem.Text = "Re-Print";
+            rePrintToolStripMenuItem.Size = new Size(180, 24);
+            rePrintToolStripMenuItem.Text = "Duplicate Bill";
             rePrintToolStripMenuItem.Click += rePrintToolStripMenuItem_Click;
             // 
             // ToolStripMenuItem_Order
@@ -344,7 +344,7 @@
             purchaseReportToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             purchaseReportToolStripMenuItem.ForeColor = Color.DarkGreen;
             purchaseReportToolStripMenuItem.Name = "purchaseReportToolStripMenuItem";
-            purchaseReportToolStripMenuItem.Size = new Size(180, 24);
+            purchaseReportToolStripMenuItem.Size = new Size(148, 24);
             purchaseReportToolStripMenuItem.Text = "&All Report";
             purchaseReportToolStripMenuItem.Click += purchaseReportToolStripMenuItem_Click;
             // 
@@ -362,7 +362,7 @@
             ToolStripMenuItem_Backup.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_Backup.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_Backup.Name = "ToolStripMenuItem_Backup";
-            ToolStripMenuItem_Backup.Size = new Size(180, 24);
+            ToolStripMenuItem_Backup.Size = new Size(129, 24);
             ToolStripMenuItem_Backup.Text = "&Backup";
             ToolStripMenuItem_Backup.Click += ToolStripMenuItem_Backup_Click;
             // 

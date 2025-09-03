@@ -521,16 +521,16 @@ namespace VegetableBox
                     clsFrmVendorInvoiceEntry.PurchaseEntryStatus = (string)this.CmbPurchaseEntryStatus.SelectedValue;
                     if (clsFrmVendorInvoiceEntry.PurchaseEntryStatus == ProgressStatusValues.Completed
                         || clsFrmVendorInvoiceEntry.PurchaseEntryStatus == ProgressStatusValues.InProgress)
-                        clsFrmVendorInvoiceEntry.PurchaseEntryBy = (int)this.CmbPurchaseEntryBy.SelectedValue;
+                        clsFrmVendorInvoiceEntry.PurchaseEntryBy = Global.currentUserId;
                     else
                         clsFrmVendorInvoiceEntry.PurchaseEntryBy = null;
                 }
 
                 clsFrmVendorInvoiceEntry.Remarks = (string)this.TxtRemarks.Text.Trim().ToUpper();
-                clsFrmVendorInvoiceEntry.AmountPaid = 0.00m;
-
+                
                 if (BtnSave.Text.ToUpper() == "&SAVE")
                 {
+                    clsFrmVendorInvoiceEntry.AmountPaid = 0.00m;
                     clsFrmVendorInvoiceEntry.Save();
                     MessageBox.Show("Saved Successfully...");
                 }

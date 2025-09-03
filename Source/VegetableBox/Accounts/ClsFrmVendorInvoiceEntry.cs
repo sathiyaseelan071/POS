@@ -241,7 +241,6 @@ namespace VegetableBox
                     new SqlParameter("@PurchaseEntryBy", this.PurchaseEntryBy.HasValue ? this.PurchaseEntryBy.Value : DBNull.Value),
 
                     new SqlParameter("@Remarks", this.Remarks),
-                    new SqlParameter("@AmountPaid", this.AmountPaid),
                     new SqlParameter("@UpdatedBy", Global.currentUserId)
                 };
 

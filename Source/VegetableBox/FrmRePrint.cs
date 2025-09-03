@@ -24,15 +24,9 @@ namespace VegetableBox
             try
             {
                 this.TxtBillNo.Text = string.Empty;
-
-                ClsFrmRePrint clsFrmRePrint = new ClsFrmRePrint();
-                DataTable dataTable = clsFrmRePrint.GetDataTable();
-
-                DgvBillData.DataSource = dataTable;
-
-                DgvBillData.AllowUserToResizeColumns = true;
-
-                TxtBillNo.Focus();
+                this.DtpBillDate.Value = DateTime.Now.Date;
+                this.DgvBillData.DataSource = null;
+                this.DtpBillDate.Focus();
             }
             catch (Exception ex)
             {
@@ -44,8 +38,15 @@ namespace VegetableBox
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(this.TxtBillNo.Text))
+                {
+                    MessageBox.Show("Please Enter Bill No", "Vegetable Box");
+                    this.TxtBillNo.Focus();
+                    return;
+                }
+
                 ClsPrint clsPrint = new ClsPrint();
-                clsPrint.PrintSalesBill(Convert.ToInt32(this.TxtBillNo.Text), DateTime.Now.Date);
+                clsPrint.PrintSalesBill(Convert.ToInt32(this.TxtBillNo.Text), this.DtpBillDate.Value.Date);
             }
             catch (Exception ex)
             {
@@ -63,6 +64,31 @@ namespace VegetableBox
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void BtnView_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ClsFrmRePrint clsFrmRePrint = new ClsFrmRePrint();
+                DataTable dataTable = clsFrmRePrint.GetDataTable(this.DtpBillDate.Value.Date);
+
+                this.DgvBillData.DataSource = dataTable;
+                this.DgvBillData.AllowUserToResizeColumns = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void FrmRePrint_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+                e.SuppressKeyPress = true; // prevents ding sound
             }
         }
     }

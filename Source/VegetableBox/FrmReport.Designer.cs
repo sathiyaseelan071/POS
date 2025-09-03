@@ -161,7 +161,7 @@
             CmbReportType.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbReportType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbReportType.FormattingEnabled = true;
-            CmbReportType.Location = new Point(97, 6);
+            CmbReportType.Location = new Point(97, 8);
             CmbReportType.Name = "CmbReportType";
             CmbReportType.Size = new Size(396, 27);
             CmbReportType.TabIndex = 1;
@@ -217,7 +217,7 @@
             // 
             CmbProductFilter.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbProductFilter.FormattingEnabled = true;
-            CmbProductFilter.Location = new Point(96, 9);
+            CmbProductFilter.Location = new Point(96, 7);
             CmbProductFilter.Name = "CmbProductFilter";
             CmbProductFilter.Size = new Size(394, 27);
             CmbProductFilter.TabIndex = 1;
@@ -292,7 +292,7 @@
             CmbQuantity.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbQuantity.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbQuantity.FormattingEnabled = true;
-            CmbQuantity.Location = new Point(820, 8);
+            CmbQuantity.Location = new Point(820, 6);
             CmbQuantity.Name = "CmbQuantity";
             CmbQuantity.Size = new Size(128, 27);
             CmbQuantity.TabIndex = 7;
@@ -313,7 +313,7 @@
             CmbCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbCategory.FormattingEnabled = true;
-            CmbCategory.Location = new Point(579, 8);
+            CmbCategory.Location = new Point(579, 6);
             CmbCategory.Name = "CmbCategory";
             CmbCategory.Size = new Size(128, 27);
             CmbCategory.TabIndex = 5;
@@ -354,14 +354,14 @@
             // 
             // tableLayoutPanel4
             // 
-            tableLayoutPanel4.ColumnCount = 6;
+            tableLayoutPanel4.ColumnCount = 5;
             tlpMain.SetColumnSpan(tableLayoutPanel4, 2);
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.2429161F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.2186241F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.2429161F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.2186241F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.5384617F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.5384617F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.3138123F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.2092056F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.3138123F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.2092056F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.953975F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel4.Controls.Add(LblTotalDispName1, 0, 0);
             tableLayoutPanel4.Controls.Add(LblTotalDispValue1, 1, 0);
             tableLayoutPanel4.Controls.Add(LblTotalDispName2, 2, 0);
@@ -380,7 +380,7 @@
             LblTotalDispName1.AutoSize = true;
             LblTotalDispName1.Font = new Font("Calibri", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             LblTotalDispName1.ForeColor = Color.DarkRed;
-            LblTotalDispName1.Location = new Point(181, 4);
+            LblTotalDispName1.Location = new Point(258, 4);
             LblTotalDispName1.Name = "LblTotalDispName1";
             LblTotalDispName1.Size = new Size(36, 33);
             LblTotalDispName1.TabIndex = 2;
@@ -392,7 +392,7 @@
             LblTotalDispValue1.AutoSize = true;
             LblTotalDispValue1.Font = new Font("Calibri", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             LblTotalDispValue1.ForeColor = Color.DarkGreen;
-            LblTotalDispValue1.Location = new Point(223, 4);
+            LblTotalDispValue1.Location = new Point(300, 4);
             LblTotalDispValue1.Name = "LblTotalDispValue1";
             LblTotalDispValue1.Size = new Size(36, 33);
             LblTotalDispValue1.TabIndex = 3;
@@ -404,7 +404,7 @@
             LblTotalDispName2.AutoSize = true;
             LblTotalDispName2.Font = new Font("Calibri", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             LblTotalDispName2.ForeColor = Color.DarkRed;
-            LblTotalDispName2.Location = new Point(599, 4);
+            LblTotalDispName2.Location = new Point(753, 4);
             LblTotalDispName2.Name = "LblTotalDispName2";
             LblTotalDispName2.Size = new Size(36, 33);
             LblTotalDispName2.TabIndex = 2;
@@ -416,7 +416,7 @@
             LblTotalDispValue2.AutoSize = true;
             LblTotalDispValue2.Font = new Font("Calibri", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             LblTotalDispValue2.ForeColor = Color.DarkGreen;
-            LblTotalDispValue2.Location = new Point(641, 4);
+            LblTotalDispValue2.Location = new Point(795, 4);
             LblTotalDispValue2.Name = "LblTotalDispValue2";
             LblTotalDispValue2.Size = new Size(36, 33);
             LblTotalDispValue2.TabIndex = 3;
