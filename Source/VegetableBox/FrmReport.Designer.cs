@@ -86,6 +86,7 @@
             // 
             DGVReport.AllowUserToAddRows = false;
             DGVReport.AllowUserToDeleteRows = false;
+            DGVReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             DGVReport.BackgroundColor = SystemColors.Control;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
@@ -118,6 +119,7 @@
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             DGVReport.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            DGVReport.RowHeadersVisible = false;
             DGVReport.RowTemplate.Height = 25;
             DGVReport.Size = new Size(1088, 343);
             DGVReport.TabIndex = 1;
@@ -161,7 +163,7 @@
             CmbReportType.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbReportType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbReportType.FormattingEnabled = true;
-            CmbReportType.Location = new Point(97, 8);
+            CmbReportType.Location = new Point(97, 6);
             CmbReportType.Name = "CmbReportType";
             CmbReportType.Size = new Size(396, 27);
             CmbReportType.TabIndex = 1;
@@ -198,7 +200,7 @@
             BtnExit.Size = new Size(101, 36);
             BtnExit.TabIndex = 3;
             BtnExit.Text = "E&xit";
-            BtnExit.UseVisualStyleBackColor = true;
+            BtnExit.UseVisualStyleBackColor = false;
             BtnExit.Click += BtnExit_Click;
             // 
             // BtnView
@@ -210,14 +212,14 @@
             BtnView.Size = new Size(101, 36);
             BtnView.TabIndex = 2;
             BtnView.Text = "&View";
-            BtnView.UseVisualStyleBackColor = true;
+            BtnView.UseVisualStyleBackColor = false;
             BtnView.Click += BtnView_Click;
             // 
             // CmbProductFilter
             // 
             CmbProductFilter.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbProductFilter.FormattingEnabled = true;
-            CmbProductFilter.Location = new Point(96, 7);
+            CmbProductFilter.Location = new Point(96, 9);
             CmbProductFilter.Name = "CmbProductFilter";
             CmbProductFilter.Size = new Size(394, 27);
             CmbProductFilter.TabIndex = 1;
@@ -292,7 +294,7 @@
             CmbQuantity.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbQuantity.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbQuantity.FormattingEnabled = true;
-            CmbQuantity.Location = new Point(820, 6);
+            CmbQuantity.Location = new Point(820, 8);
             CmbQuantity.Name = "CmbQuantity";
             CmbQuantity.Size = new Size(128, 27);
             CmbQuantity.TabIndex = 7;
@@ -313,7 +315,7 @@
             CmbCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbCategory.FormattingEnabled = true;
-            CmbCategory.Location = new Point(579, 6);
+            CmbCategory.Location = new Point(579, 8);
             CmbCategory.Name = "CmbCategory";
             CmbCategory.Size = new Size(128, 27);
             CmbCategory.TabIndex = 5;

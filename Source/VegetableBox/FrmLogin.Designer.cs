@@ -145,7 +145,7 @@
             BtnExit.Size = new Size(112, 39);
             BtnExit.TabIndex = 1;
             BtnExit.Text = "E&xit";
-            BtnExit.UseVisualStyleBackColor = true;
+            BtnExit.UseVisualStyleBackColor = false;
             BtnExit.Click += BtnExit_Click;
             // 
             // BtnLogin
@@ -158,7 +158,7 @@
             BtnLogin.Size = new Size(111, 39);
             BtnLogin.TabIndex = 0;
             BtnLogin.Text = "&Login";
-            BtnLogin.UseVisualStyleBackColor = true;
+            BtnLogin.UseVisualStyleBackColor = false;
             BtnLogin.Click += BtnLogin_Click;
             // 
             // tableLayoutPanel3
@@ -186,7 +186,7 @@
             CmbUserName.AutoCompleteSource = AutoCompleteSource.ListItems;
             CmbUserName.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbUserName.FormattingEnabled = true;
-            CmbUserName.Location = new Point(91, 11);
+            CmbUserName.Location = new Point(91, 9);
             CmbUserName.Margin = new Padding(2);
             CmbUserName.Name = "CmbUserName";
             CmbUserName.Size = new Size(234, 27);

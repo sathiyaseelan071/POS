@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             TlpMain = new TableLayoutPanel();
             panel1 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -357,7 +357,7 @@
             CmbCategoryType.FlatStyle = FlatStyle.Flat;
             CmbCategoryType.ForeColor = Color.DarkGreen;
             CmbCategoryType.FormattingEnabled = true;
-            CmbCategoryType.Location = new Point(161, 103);
+            CmbCategoryType.Location = new Point(161, 105);
             CmbCategoryType.Margin = new Padding(3, 2, 3, 2);
             CmbCategoryType.Name = "CmbCategoryType";
             CmbCategoryType.Size = new Size(106, 27);
@@ -373,7 +373,7 @@
             CmbQtyType.FlatStyle = FlatStyle.Flat;
             CmbQtyType.ForeColor = Color.DarkGreen;
             CmbQtyType.FormattingEnabled = true;
-            CmbQtyType.Location = new Point(161, 136);
+            CmbQtyType.Location = new Point(161, 138);
             CmbQtyType.Margin = new Padding(3, 2, 3, 2);
             CmbQtyType.Name = "CmbQtyType";
             CmbQtyType.Size = new Size(106, 27);
@@ -389,7 +389,7 @@
             CmbCBORateMaster.FlatStyle = FlatStyle.Flat;
             CmbCBORateMaster.ForeColor = Color.DarkGreen;
             CmbCBORateMaster.FormattingEnabled = true;
-            CmbCBORateMaster.Location = new Point(161, 169);
+            CmbCBORateMaster.Location = new Point(161, 171);
             CmbCBORateMaster.Margin = new Padding(3, 2, 3, 2);
             CmbCBORateMaster.Name = "CmbCBORateMaster";
             CmbCBORateMaster.Size = new Size(106, 27);
@@ -405,7 +405,7 @@
             CmbActive.FlatStyle = FlatStyle.Flat;
             CmbActive.ForeColor = Color.DarkGreen;
             CmbActive.FormattingEnabled = true;
-            CmbActive.Location = new Point(161, 367);
+            CmbActive.Location = new Point(161, 369);
             CmbActive.Margin = new Padding(3, 2, 3, 2);
             CmbActive.Name = "CmbActive";
             CmbActive.Size = new Size(106, 27);
@@ -446,7 +446,7 @@
             CmbAllowRateChange.FlatStyle = FlatStyle.Flat;
             CmbAllowRateChange.ForeColor = Color.DarkGreen;
             CmbAllowRateChange.FormattingEnabled = true;
-            CmbAllowRateChange.Location = new Point(161, 202);
+            CmbAllowRateChange.Location = new Point(161, 204);
             CmbAllowRateChange.Margin = new Padding(3, 2, 3, 2);
             CmbAllowRateChange.Name = "CmbAllowRateChange";
             CmbAllowRateChange.Size = new Size(106, 27);
@@ -575,23 +575,23 @@
             DGView.AllowUserToAddRows = false;
             DGView.AllowUserToDeleteRows = false;
             DGView.BackgroundColor = SystemColors.Control;
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = SystemColors.Control;
-            dataGridViewCellStyle11.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle11.ForeColor = Color.Black;
-            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle11.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
-            DGView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            DGView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             DGView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = SystemColors.Window;
-            dataGridViewCellStyle12.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle12.ForeColor = Color.Black;
-            dataGridViewCellStyle12.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle12.SelectionForeColor = Color.ForestGreen;
-            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.False;
-            DGView.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle2.SelectionForeColor = Color.ForestGreen;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            DGView.DefaultCellStyle = dataGridViewCellStyle2;
             DGView.Dock = DockStyle.Fill;
             DGView.Location = new Point(4, 92);
             DGView.Margin = new Padding(4, 2, 3, 2);
@@ -628,7 +628,6 @@
             // 
             BtnExit.BackColor = SystemColors.Control;
             BtnExit.Dock = DockStyle.Fill;
-            BtnExit.FlatStyle = FlatStyle.Popup;
             BtnExit.ForeColor = Color.Crimson;
             BtnExit.Location = new Point(645, 2);
             BtnExit.Margin = new Padding(3, 2, 3, 2);
@@ -643,7 +642,6 @@
             // 
             BtnEdit.BackColor = SystemColors.Control;
             BtnEdit.Dock = DockStyle.Fill;
-            BtnEdit.FlatStyle = FlatStyle.Popup;
             BtnEdit.ForeColor = Color.Brown;
             BtnEdit.Location = new Point(569, 2);
             BtnEdit.Margin = new Padding(3, 2, 3, 2);
@@ -658,7 +656,6 @@
             // 
             BtnDelete.BackColor = SystemColors.Control;
             BtnDelete.Dock = DockStyle.Fill;
-            BtnDelete.FlatStyle = FlatStyle.Popup;
             BtnDelete.ForeColor = Color.IndianRed;
             BtnDelete.Location = new Point(493, 2);
             BtnDelete.Margin = new Padding(3, 2, 3, 2);
@@ -753,7 +750,7 @@
             CmbFilterCategoryType.FlatStyle = FlatStyle.Flat;
             CmbFilterCategoryType.ForeColor = Color.DarkGreen;
             CmbFilterCategoryType.FormattingEnabled = true;
-            CmbFilterCategoryType.Location = new Point(153, 19);
+            CmbFilterCategoryType.Location = new Point(153, 21);
             CmbFilterCategoryType.Margin = new Padding(3, 2, 3, 2);
             CmbFilterCategoryType.Name = "CmbFilterCategoryType";
             CmbFilterCategoryType.Size = new Size(125, 27);
@@ -770,7 +767,7 @@
             CmbFilterQtyType.FlatStyle = FlatStyle.Flat;
             CmbFilterQtyType.ForeColor = Color.DarkGreen;
             CmbFilterQtyType.FormattingEnabled = true;
-            CmbFilterQtyType.Location = new Point(434, 19);
+            CmbFilterQtyType.Location = new Point(434, 21);
             CmbFilterQtyType.Margin = new Padding(3, 2, 3, 2);
             CmbFilterQtyType.Name = "CmbFilterQtyType";
             CmbFilterQtyType.Size = new Size(125, 27);
@@ -798,7 +795,7 @@
             CmbFilterActive.FlatStyle = FlatStyle.Flat;
             CmbFilterActive.ForeColor = Color.DarkGreen;
             CmbFilterActive.FormattingEnabled = true;
-            CmbFilterActive.Location = new Point(153, 53);
+            CmbFilterActive.Location = new Point(153, 55);
             CmbFilterActive.Margin = new Padding(3, 2, 3, 2);
             CmbFilterActive.Name = "CmbFilterActive";
             CmbFilterActive.Size = new Size(125, 27);

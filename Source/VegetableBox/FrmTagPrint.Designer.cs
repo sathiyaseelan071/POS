@@ -235,7 +235,7 @@
             BtnPrint.Size = new Size(102, 33);
             BtnPrint.TabIndex = 0;
             BtnPrint.Text = "&Print";
-            BtnPrint.UseVisualStyleBackColor = true;
+            BtnPrint.UseVisualStyleBackColor = false;
             BtnPrint.Click += BtnPrint_Click;
             // 
             // BtnClear
@@ -247,7 +247,7 @@
             BtnClear.Size = new Size(102, 33);
             BtnClear.TabIndex = 1;
             BtnClear.Text = "&Clear";
-            BtnClear.UseVisualStyleBackColor = true;
+            BtnClear.UseVisualStyleBackColor = false;
             BtnClear.Click += BtnClear_Click;
             // 
             // BtnExit
@@ -259,7 +259,7 @@
             BtnExit.Size = new Size(104, 33);
             BtnExit.TabIndex = 2;
             BtnExit.Text = "E&xit";
-            BtnExit.UseVisualStyleBackColor = true;
+            BtnExit.UseVisualStyleBackColor = false;
             BtnExit.Click += BtnExit_Click;
             // 
             // label6
@@ -415,7 +415,7 @@
             CmbLabelType.Enabled = false;
             CmbLabelType.FormattingEnabled = true;
             CmbLabelType.Items.AddRange(new object[] { "2 - Label" });
-            CmbLabelType.Location = new Point(135, 435);
+            CmbLabelType.Location = new Point(135, 433);
             CmbLabelType.Margin = new Padding(2);
             CmbLabelType.Name = "CmbLabelType";
             CmbLabelType.Size = new Size(120, 27);

@@ -164,8 +164,8 @@
             ToolStripMenuItem_ProductMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_ProductMaster.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_ProductMaster.Name = "ToolStripMenuItem_ProductMaster";
-            ToolStripMenuItem_ProductMaster.Size = new Size(196, 24);
-            ToolStripMenuItem_ProductMaster.Text = "Product Master";
+            ToolStripMenuItem_ProductMaster.Size = new Size(180, 24);
+            ToolStripMenuItem_ProductMaster.Text = "&Product";
             ToolStripMenuItem_ProductMaster.Click += ToolStripMenuItem_ProductMaster_Click;
             // 
             // ToolStripMenuItem_RateMaster
@@ -173,8 +173,8 @@
             ToolStripMenuItem_RateMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_RateMaster.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_RateMaster.Name = "ToolStripMenuItem_RateMaster";
-            ToolStripMenuItem_RateMaster.Size = new Size(196, 24);
-            ToolStripMenuItem_RateMaster.Text = "Rate Master";
+            ToolStripMenuItem_RateMaster.Size = new Size(180, 24);
+            ToolStripMenuItem_RateMaster.Text = "&Rate";
             ToolStripMenuItem_RateMaster.Click += ToolStripMenuItem_RateMaster_Click;
             // 
             // ToolStripMenuItem_UserMaster
@@ -182,8 +182,8 @@
             ToolStripMenuItem_UserMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_UserMaster.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_UserMaster.Name = "ToolStripMenuItem_UserMaster";
-            ToolStripMenuItem_UserMaster.Size = new Size(196, 24);
-            ToolStripMenuItem_UserMaster.Text = "User Master";
+            ToolStripMenuItem_UserMaster.Size = new Size(180, 24);
+            ToolStripMenuItem_UserMaster.Text = "&User";
             ToolStripMenuItem_UserMaster.Click += ToolStripMenuItem_UserMaster_Click;
             // 
             // ToolStripMenuItem_VendorMaster
@@ -191,8 +191,8 @@
             ToolStripMenuItem_VendorMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_VendorMaster.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_VendorMaster.Name = "ToolStripMenuItem_VendorMaster";
-            ToolStripMenuItem_VendorMaster.Size = new Size(196, 24);
-            ToolStripMenuItem_VendorMaster.Text = "Vendor Master";
+            ToolStripMenuItem_VendorMaster.Size = new Size(180, 24);
+            ToolStripMenuItem_VendorMaster.Text = "&Vendor";
             ToolStripMenuItem_VendorMaster.Click += ToolStripMenuItem_VendorMaster_Click;
             // 
             // ToolStripMenuItem_CustomerMaster
@@ -200,8 +200,8 @@
             ToolStripMenuItem_CustomerMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_CustomerMaster.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_CustomerMaster.Name = "ToolStripMenuItem_CustomerMaster";
-            ToolStripMenuItem_CustomerMaster.Size = new Size(196, 24);
-            ToolStripMenuItem_CustomerMaster.Text = "Customer Master";
+            ToolStripMenuItem_CustomerMaster.Size = new Size(180, 24);
+            ToolStripMenuItem_CustomerMaster.Text = "&Customer";
             ToolStripMenuItem_CustomerMaster.Click += ToolStripMenuItem_CustomerMaster_Click;
             // 
             // ToolStripMenuItem_ExpenseMaster
@@ -209,8 +209,8 @@
             ToolStripMenuItem_ExpenseMaster.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_ExpenseMaster.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_ExpenseMaster.Name = "ToolStripMenuItem_ExpenseMaster";
-            ToolStripMenuItem_ExpenseMaster.Size = new Size(196, 24);
-            ToolStripMenuItem_ExpenseMaster.Text = "Expense Master";
+            ToolStripMenuItem_ExpenseMaster.Size = new Size(180, 24);
+            ToolStripMenuItem_ExpenseMaster.Text = "&Expense";
             ToolStripMenuItem_ExpenseMaster.Click += ToolStripMenuItem_ExpenseMaster_Click;
             // 
             // ToolStripMenuItem_Billing
@@ -227,8 +227,8 @@
             pOSToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             pOSToolStripMenuItem.ForeColor = Color.DarkGreen;
             pOSToolStripMenuItem.Name = "pOSToolStripMenuItem";
-            pOSToolStripMenuItem.Size = new Size(180, 24);
-            pOSToolStripMenuItem.Text = "POS";
+            pOSToolStripMenuItem.Size = new Size(210, 24);
+            pOSToolStripMenuItem.Text = "&Point Of Sale (POS)";
             pOSToolStripMenuItem.Click += pOSToolStripMenuItem_Click;
             // 
             // rePrintToolStripMenuItem
@@ -236,8 +236,8 @@
             rePrintToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             rePrintToolStripMenuItem.ForeColor = Color.DarkGreen;
             rePrintToolStripMenuItem.Name = "rePrintToolStripMenuItem";
-            rePrintToolStripMenuItem.Size = new Size(180, 24);
-            rePrintToolStripMenuItem.Text = "Duplicate Bill";
+            rePrintToolStripMenuItem.Size = new Size(210, 24);
+            rePrintToolStripMenuItem.Text = "&Duplicate Bill";
             rePrintToolStripMenuItem.Click += rePrintToolStripMenuItem_Click;
             // 
             // ToolStripMenuItem_Order
@@ -291,7 +291,7 @@
             ToolStripMenuItem_ExpenseEntry_Click.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_ExpenseEntry_Click.Name = "ToolStripMenuItem_ExpenseEntry_Click";
             ToolStripMenuItem_ExpenseEntry_Click.Size = new Size(273, 24);
-            ToolStripMenuItem_ExpenseEntry_Click.Text = "Expense Recorder";
+            ToolStripMenuItem_ExpenseEntry_Click.Text = "&Expense Recorder";
             ToolStripMenuItem_ExpenseEntry_Click.Click += expensesEntryToolStripMenuItem_Click;
             // 
             // ToolStripMenuItem_CustomerCreditDebit
@@ -300,7 +300,7 @@
             ToolStripMenuItem_CustomerCreditDebit.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_CustomerCreditDebit.Name = "ToolStripMenuItem_CustomerCreditDebit";
             ToolStripMenuItem_CustomerCreditDebit.Size = new Size(273, 24);
-            ToolStripMenuItem_CustomerCreditDebit.Text = "Customer (Credit/Debit)";
+            ToolStripMenuItem_CustomerCreditDebit.Text = "&Customer (Credit/Debit)";
             ToolStripMenuItem_CustomerCreditDebit.Click += ToolStripMenuItem_CustomerCreditDebit_Click;
             // 
             // ToolStripMenuItem_VendorPayment
@@ -309,7 +309,7 @@
             ToolStripMenuItem_VendorPayment.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_VendorPayment.Name = "ToolStripMenuItem_VendorPayment";
             ToolStripMenuItem_VendorPayment.Size = new Size(273, 24);
-            ToolStripMenuItem_VendorPayment.Text = "Vendor Bill Payment";
+            ToolStripMenuItem_VendorPayment.Text = "&Vendor Bill Payment";
             ToolStripMenuItem_VendorPayment.Click += ToolStripMenuItem_VendorPayment_Click;
             // 
             // ToolStripMenuItem_UndiyalCreditDebit
@@ -318,7 +318,7 @@
             ToolStripMenuItem_UndiyalCreditDebit.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_UndiyalCreditDebit.Name = "ToolStripMenuItem_UndiyalCreditDebit";
             ToolStripMenuItem_UndiyalCreditDebit.Size = new Size(273, 24);
-            ToolStripMenuItem_UndiyalCreditDebit.Text = "Undiyal (Deposit/Withdraw)";
+            ToolStripMenuItem_UndiyalCreditDebit.Text = "&Undiyal (Deposit/Withdraw)";
             ToolStripMenuItem_UndiyalCreditDebit.Click += ToolStripMenuItem_UndiyalCreditDebit_Click;
             // 
             // ToolStripMenuItem_DailyAccountClosing
@@ -327,7 +327,7 @@
             ToolStripMenuItem_DailyAccountClosing.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_DailyAccountClosing.Name = "ToolStripMenuItem_DailyAccountClosing";
             ToolStripMenuItem_DailyAccountClosing.Size = new Size(273, 24);
-            ToolStripMenuItem_DailyAccountClosing.Text = "Daily Cash Closing";
+            ToolStripMenuItem_DailyAccountClosing.Text = "&Daily Cash Closing";
             ToolStripMenuItem_DailyAccountClosing.Click += ToolStripMenuItem_DailyAccountClosing_Click_Click;
             // 
             // ToolStripMenuItem_Reports
@@ -344,7 +344,7 @@
             purchaseReportToolStripMenuItem.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             purchaseReportToolStripMenuItem.ForeColor = Color.DarkGreen;
             purchaseReportToolStripMenuItem.Name = "purchaseReportToolStripMenuItem";
-            purchaseReportToolStripMenuItem.Size = new Size(148, 24);
+            purchaseReportToolStripMenuItem.Size = new Size(180, 24);
             purchaseReportToolStripMenuItem.Text = "&All Report";
             purchaseReportToolStripMenuItem.Click += purchaseReportToolStripMenuItem_Click;
             // 
@@ -362,7 +362,7 @@
             ToolStripMenuItem_Backup.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_Backup.ForeColor = Color.DarkGreen;
             ToolStripMenuItem_Backup.Name = "ToolStripMenuItem_Backup";
-            ToolStripMenuItem_Backup.Size = new Size(129, 24);
+            ToolStripMenuItem_Backup.Size = new Size(180, 24);
             ToolStripMenuItem_Backup.Text = "&Backup";
             ToolStripMenuItem_Backup.Click += ToolStripMenuItem_Backup_Click;
             // 

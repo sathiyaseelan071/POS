@@ -116,7 +116,7 @@
             BtnBrowse.Size = new Size(88, 26);
             BtnBrowse.TabIndex = 2;
             BtnBrowse.Text = "B&rowse";
-            BtnBrowse.UseVisualStyleBackColor = true;
+            BtnBrowse.UseVisualStyleBackColor = false;
             BtnBrowse.Click += BtnBrowse_Click;
             // 
             // BtnBackup
@@ -128,7 +128,7 @@
             BtnBackup.Size = new Size(88, 26);
             BtnBackup.TabIndex = 3;
             BtnBackup.Text = "&Backup";
-            BtnBackup.UseVisualStyleBackColor = true;
+            BtnBackup.UseVisualStyleBackColor = false;
             BtnBackup.Click += BtnBackup_Click;
             // 
             // BtnExit
@@ -140,7 +140,7 @@
             BtnExit.Size = new Size(88, 26);
             BtnExit.TabIndex = 4;
             BtnExit.Text = "E&xit";
-            BtnExit.UseVisualStyleBackColor = true;
+            BtnExit.UseVisualStyleBackColor = false;
             BtnExit.Click += BtnExit_Click;
             // 
             // label1

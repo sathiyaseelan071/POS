@@ -286,7 +286,7 @@
             CmbFilterCategoryType.FlatStyle = FlatStyle.Flat;
             CmbFilterCategoryType.ForeColor = Color.DarkGreen;
             CmbFilterCategoryType.FormattingEnabled = true;
-            CmbFilterCategoryType.Location = new Point(185, 28);
+            CmbFilterCategoryType.Location = new Point(185, 30);
             CmbFilterCategoryType.Name = "CmbFilterCategoryType";
             CmbFilterCategoryType.Size = new Size(146, 27);
             CmbFilterCategoryType.TabIndex = 2;
@@ -302,7 +302,7 @@
             CmbFilterQtyType.FlatStyle = FlatStyle.Flat;
             CmbFilterQtyType.ForeColor = Color.DarkGreen;
             CmbFilterQtyType.FormattingEnabled = true;
-            CmbFilterQtyType.Location = new Point(519, 28);
+            CmbFilterQtyType.Location = new Point(519, 30);
             CmbFilterQtyType.Name = "CmbFilterQtyType";
             CmbFilterQtyType.Size = new Size(146, 27);
             CmbFilterQtyType.TabIndex = 4;

@@ -124,7 +124,46 @@ namespace VegetableBox
                         {
                             decTotalAmount = Math.Round(Convert.ToDecimal(clsFrmReport.ReportData.Compute("SUM([AproxProfitAmount])", string.Empty)), 2);
 
-                            this.LblTotalDispName1.Text = "Tot - Aprox Profit Amount : ";
+                            this.LblTotalDispName1.Text = "Total Aprox Profit Amount : ";
+                            this.LblTotalDispValue1.Text = this.ToConvertDecimalFormatString(decTotalAmount.ToString());
+
+                            this.LblTotalDispName1.Visible = true;
+                            this.LblTotalDispValue1.Visible = true;
+
+                            this.LblTotalDispName2.Visible = false;
+                            this.LblTotalDispValue2.Visible = false;
+                        }
+                        else if (ReportType == 8)
+                        {
+                            decTotalAmount = Math.Round(Convert.ToDecimal(clsFrmReport.ReportData.Compute("SUM([AproxProfitAmount])", string.Empty)), 2);
+
+                            this.LblTotalDispName1.Text = "Total Aprox Profit Amount : ";
+                            this.LblTotalDispValue1.Text = this.ToConvertDecimalFormatString(decTotalAmount.ToString());
+
+                            this.LblTotalDispName1.Visible = true;
+                            this.LblTotalDispValue1.Visible = true;
+
+                            this.LblTotalDispName2.Visible = false;
+                            this.LblTotalDispValue2.Visible = false;
+                        }
+                        else if (ReportType == 9)
+                        {
+                            decTotalAmount = Math.Round(Convert.ToDecimal(clsFrmReport.ReportData.Compute("SUM([PendingAmount])", string.Empty)), 2);
+
+                            this.LblTotalDispName1.Text = "Total Pending Amount : ";
+                            this.LblTotalDispValue1.Text = this.ToConvertDecimalFormatString(decTotalAmount.ToString());
+
+                            this.LblTotalDispName1.Visible = true;
+                            this.LblTotalDispValue1.Visible = true;
+
+                            this.LblTotalDispName2.Visible = false;
+                            this.LblTotalDispValue2.Visible = false;
+                        }
+                        else if (ReportType == 10)
+                        {
+                            decTotalAmount = Math.Round(Convert.ToDecimal(clsFrmReport.ReportData.Compute("SUM([TotalAmount])", string.Empty)), 2);
+
+                            this.LblTotalDispName1.Text = "Total Expenses Amount : ";
                             this.LblTotalDispValue1.Text = this.ToConvertDecimalFormatString(decTotalAmount.ToString());
 
                             this.LblTotalDispName1.Visible = true;

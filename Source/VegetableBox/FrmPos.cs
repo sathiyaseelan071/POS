@@ -320,7 +320,6 @@ namespace VegetableBox
                                 this.CurrentPurRate = (dataRow[ProductRateData.ColumnName.PurRate] != null ?
                                                     (decimal)dataRow[ProductRateData.ColumnName.PurRate] : Convert.ToDecimal("0.00"));
 
-
                                 this.CurrentMRP = (dataRow[ProductRateData.ColumnName.MRP] != null ?
                                                     (decimal)dataRow[ProductRateData.ColumnName.MRP] : Convert.ToDecimal("0.00"));
 
@@ -347,9 +346,15 @@ namespace VegetableBox
                                 this.LblProfitAmt.Text = this.CurrentProfitAmount.ToString();
 
                                 if (this.CurrentMRP > 0)
+                                {
                                     this.TxtMrp.Text = this.CurrentMRP.ToString();
+                                    this.TxtMrp.Tag = this.CurrentMRP.ToString();
+                                }
                                 else
+                                {
                                     this.TxtMrp.Text = this.CurrentPSellRate.ToString();
+                                    this.TxtMrp.Tag = this.CurrentPSellRate.ToString();
+                                }
 
                                 this.TxtDiscPercentage.Text = "0.00";
                                 this.TxtDiscAmt.Text = "0.00";
@@ -480,10 +485,10 @@ namespace VegetableBox
 
                 this.LblPurchaseAmt.Text = string.Empty;
 
-                if(this.LblTotalProfitAmt.Visible)
-                    this.LblPurchaseAmt.Visible = true;
-                else
-                    this.LblPurchaseAmt.Visible = false;
+                //if(this.LblTotalProfitAmt.Visible)
+                //    this.LblPurchaseAmt.Visible = true;
+                //else
+                //    this.LblPurchaseAmt.Visible = false;
 
                 this.LblProfitAmt.Text = string.Empty;
                 this.LblProfitAmt.Visible = this.LblTotalProfitAmt.Visible;
@@ -571,6 +576,7 @@ namespace VegetableBox
                 {
                     this.LblProfitAmt.Visible = !this.LblProfitAmt.Visible;
                     this.LblTotalProfitAmt.Visible = !this.LblTotalProfitAmt.Visible;
+                    this.LblPurchaseAmt.Visible = this.LblTotalProfitAmt.Visible;
                     return;
                 }
 
@@ -656,8 +662,16 @@ namespace VegetableBox
                 if (this.CurrentPSellRate <= 0 || this.CurrentSellingRateZero == true)
                     this.TxtMrp.Text = this.ToConvertTextToDecimal(this.TxtRate.Text).ToString("0.00");
 
-                if (this.CurrentAllowRateChange == true && _Rate > this.CurrentMRP)
-                    this.TxtMrp.Text = this.ToConvertTextToDecimal(this.TxtRate.Text).ToString("0.00");
+                if (this.CurrentAllowRateChange == true)
+                {                    
+                    decimal mrpText = this.ToConvertTextToDecimal(this.TxtMrp.Text);
+                    decimal mrpTag = this.ToConvertTextToDecimal(Convert.ToString(this.TxtMrp.Tag));
+
+                    if(mrpTag < mrpText && _Rate <= mrpTag)
+                        this.TxtMrp.Text = this.ToConvertTextToDecimal(mrpTag.ToString()).ToString("0.00");
+                    else if (_Rate > this.CurrentMRP)
+                        this.TxtMrp.Text = this.ToConvertTextToDecimal(this.TxtRate.Text).ToString("0.00");
+                }
 
                 this.TxtAmt.Text = this.ToConvertAmtFormat(Convert.ToString(Math.Round(_Qty * _Rate, 2)));
 
@@ -877,6 +891,10 @@ namespace VegetableBox
 
                         // Profit calc
                         decimal profitAmt = this.ToConvertTextToDecimal(this.LblProfitAmt.Text);
+
+                        if(profitAmt < 0)
+                            profitAmt = 0;
+
                         existingRow[CartDataStruct.ColumnName.ProfitAmount] = (newQty * profitAmt).ToString("0.00");
 
                         if (this.IsEdited == true && Convert.ToString(existingRow[CartDataStruct.ColumnName.BillStatus]) != "N")
@@ -906,6 +924,10 @@ namespace VegetableBox
                         decimal qty = 0, profitAmt = 0;
                         decimal.TryParse(this.TxtQty.Text.Trim(), out qty);
                         decimal.TryParse(this.LblProfitAmt.Text.Trim(), out profitAmt);
+
+                        if (profitAmt < 0)
+                            profitAmt = 0;
+
                         dr[CartDataStruct.ColumnName.ProfitAmount] = this.ToConvertAmtFormat((qty * profitAmt).ToString());
 
                         dr[CartDataStruct.ColumnName.IsDefective] = this.chkIsDefective.Checked ? "Y" : null;
@@ -1704,8 +1726,20 @@ namespace VegetableBox
                 {
                     if (!chkIsDefective.Checked && (purchaseAmt > 0 && sellingrate <= purchaseAmt))
                     {
-                        this.ErrorProvider.SetError(this.TxtRate, "Selling rate should be greater than Purchase rate");
-                        IsValid = false;
+                        if (this.CurrentAllowRateChange == false)
+                        {
+                            this.ErrorProvider.SetError(this.TxtRate, "Selling rate should be greater than Purchase rate");
+                            IsValid = false;
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("The selling rate is lower than the purchase rate. Do you still want to add this item to the cart?",
+                                "Vegetable Box", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                            {
+                                this.TxtRate.Focus();
+                                IsValid = false;
+                            }
+                        }
                     }
                 }
 

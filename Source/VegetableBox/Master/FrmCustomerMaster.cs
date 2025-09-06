@@ -311,7 +311,7 @@ namespace VegetableBox
                     this.ErrorProvider.SetError(this.TxtCustomerName, "Customer Name already exists. Please enter a different name.");
                     throw new Exception("Customer Name already exists. Please enter a different name.");
                 }
-
+                
                 if (BtnSave.Text.ToUpper() == "&SAVE")
                 {
                     clsFrmCustomerMaster.Save();
@@ -342,7 +342,18 @@ namespace VegetableBox
 
                 if (string.IsNullOrEmpty(this.TxtCustomerName.Text.Trim()))
                 {
-                    this.ErrorProvider.SetError(this.TxtCustomerName, "Please enter the customer name...");
+                    this.ErrorProvider.SetError(this.TxtCustomerName, "Please enter the customer name.");
+                    IsValid = false;
+                }
+
+                if (string.IsNullOrEmpty(this.TxtMobileNo.Text.Trim()))
+                {
+                    this.ErrorProvider.SetError(this.TxtMobileNo, "Please enter the mobile no.");
+                    IsValid = false;
+                }
+                else if (this.TxtMobileNo.Text.Trim().Length != 10)
+                {
+                    this.ErrorProvider.SetError(this.TxtMobileNo, "Please enter the valid mobile no.");
                     IsValid = false;
                 }
 

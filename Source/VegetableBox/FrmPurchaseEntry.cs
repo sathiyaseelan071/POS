@@ -195,7 +195,12 @@ namespace VegetableBox
                 this.LblTotalAmt.Text = "0.00";
                 this.CmbVendorName.Focus();
                 this.ErrorProvider.Clear();
-                this.BtnBillCompleted.Enabled = false;
+
+                if(Global.currentUserId == 1)
+                    this.BtnBillCompleted.Enabled = true;
+                else
+                    this.BtnBillCompleted.Enabled = false;
+
             }
             catch (Exception ex)
             {

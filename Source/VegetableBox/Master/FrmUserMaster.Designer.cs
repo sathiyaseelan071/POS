@@ -246,7 +246,7 @@
             CmbActive.FlatStyle = FlatStyle.Flat;
             CmbActive.ForeColor = Color.DarkGreen;
             CmbActive.FormattingEnabled = true;
-            CmbActive.Location = new Point(100, 86);
+            CmbActive.Location = new Point(100, 87);
             CmbActive.Name = "CmbActive";
             CmbActive.Size = new Size(121, 26);
             CmbActive.TabIndex = 9;
@@ -468,7 +468,7 @@
             CmbFilterActive.FlatStyle = FlatStyle.Flat;
             CmbFilterActive.ForeColor = Color.DarkGreen;
             CmbFilterActive.FormattingEnabled = true;
-            CmbFilterActive.Location = new Point(430, 30);
+            CmbFilterActive.Location = new Point(430, 32);
             CmbFilterActive.Name = "CmbFilterActive";
             CmbFilterActive.Size = new Size(70, 26);
             CmbFilterActive.TabIndex = 4;

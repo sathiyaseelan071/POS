@@ -496,6 +496,7 @@
             LblProfitAmt.TabIndex = 5;
             LblProfitAmt.Text = "...";
             LblProfitAmt.TextAlign = ContentAlignment.MiddleLeft;
+            LblProfitAmt.Visible = false;
             // 
             // LblPurchaseAmt
             // 
@@ -508,6 +509,7 @@
             LblPurchaseAmt.TabIndex = 4;
             LblPurchaseAmt.Text = "...";
             LblPurchaseAmt.TextAlign = ContentAlignment.MiddleLeft;
+            LblPurchaseAmt.Visible = false;
             // 
             // TxtProCode
             // 
@@ -950,6 +952,7 @@
             LblTotalProfitAmt.TabIndex = 1;
             LblTotalProfitAmt.Text = "...";
             LblTotalProfitAmt.TextAlign = ContentAlignment.MiddleLeft;
+            LblTotalProfitAmt.Visible = false;
             // 
             // chkIsDefective
             // 

@@ -99,7 +99,7 @@
             CmbCustomerName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             CmbCustomerName.AutoCompleteSource = AutoCompleteSource.ListItems;
             CmbCustomerName.FormattingEnabled = true;
-            CmbCustomerName.Location = new Point(141, 20);
+            CmbCustomerName.Location = new Point(141, 22);
             CmbCustomerName.Margin = new Padding(2);
             CmbCustomerName.Name = "CmbCustomerName";
             CmbCustomerName.Size = new Size(253, 26);

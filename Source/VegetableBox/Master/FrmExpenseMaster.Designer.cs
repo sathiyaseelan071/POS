@@ -220,7 +220,7 @@
             CmbActive.FlatStyle = FlatStyle.Flat;
             CmbActive.ForeColor = Color.DarkGreen;
             CmbActive.FormattingEnabled = true;
-            CmbActive.Location = new Point(124, 42);
+            CmbActive.Location = new Point(124, 40);
             CmbActive.Name = "CmbActive";
             CmbActive.Size = new Size(121, 26);
             CmbActive.TabIndex = 3;

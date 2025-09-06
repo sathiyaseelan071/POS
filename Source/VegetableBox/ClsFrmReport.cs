@@ -152,7 +152,7 @@ namespace VegetableBox
                 }
                 else if (ReportType == 5)
                 {
-                    SqlQuery = "SELECT [CDN].[CustomerCode], [C].[Name],";
+                    SqlQuery = "SELECT ROW_NUMBER() OVER (ORDER BY [CDN].[CustomerCode]) AS SNo, [CDN].[CustomerCode], [C].[Name],";
                     SqlQuery += Environment.NewLine + "SUM(CASE WHEN [CDN].[TransType] = 'D' THEN [CDN].[Amount] ELSE 0 END) AS [Debit],";
                     SqlQuery += Environment.NewLine + "SUM(CASE WHEN [CDN].[TransType] = 'C' THEN [CDN].[Amount] ELSE 0 END) AS [Credit],";
                     SqlQuery += Environment.NewLine + "SUM(CASE WHEN [CDN].[TransType] = 'D' THEN [CDN].[Amount] ELSE 0 END) -";
@@ -169,20 +169,73 @@ namespace VegetableBox
                     SqlQuery += Environment.NewLine + "WHERE 1=1";
                     SqlQuery += Environment.NewLine + "AND BilledDate >= '" + fromDateTime.ToString("dd/MMM/yyyy") + "' AND BilledDate <= '" + toDateTime.ToString("dd/MMM/yyyy") + "'";
                     SqlQuery += Environment.NewLine + "AND ISNULL(BillStatus, '') NOT IN ('C', 'D')";
+                    if (ProductCode > 0)
+                        SqlQuery += Environment.NewLine + "and S.[ProductCode] = " + ProductCode + "";
+
+                    if (CategoryCode > 0)
+                        SqlQuery += Environment.NewLine + "and P.[CatCode] = " + CategoryCode + "";
                 }
                 else if (ReportType == 7)
                 {
-                    SqlQuery = "SELECT C.[Code], C.[Name], CAST(ROUND(SUM(Qty * PurAmount), 2) AS NUMERIC(12,2)) AS PurchaseAmount, SUM(TotAmount) AS SellingAmount, SUM(ProfitAmount) AS AproxProfitAmount";
+                    SqlQuery = "SELECT ROW_NUMBER() OVER (ORDER BY C.[Code]) AS SNo, C.[Code], C.[Name], CAST(ROUND(SUM(Qty * PurAmount), 2) AS NUMERIC(12,2)) AS PurchaseAmount, SUM(TotAmount) AS SellingAmount, SUM(ProfitAmount) AS AproxProfitAmount";
                     SqlQuery += Environment.NewLine + "FROM [Sales] AS S";
                     SqlQuery += Environment.NewLine + "LEFT JOIN [Product] AS P ON P.[Code] = S.[ProductCode]";
                     SqlQuery += Environment.NewLine + "LEFT JOIN [Category] AS C ON C.[Code] = P.[CatCode]";
                     SqlQuery += Environment.NewLine + "WHERE 1=1";
                     SqlQuery += Environment.NewLine + "AND BilledDate >= '" + fromDateTime.ToString("dd/MMM/yyyy") + "' AND BilledDate <= '" + toDateTime.ToString("dd/MMM/yyyy") + "'";
                     SqlQuery += Environment.NewLine + "AND ISNULL(BillStatus, '') NOT IN ('C', 'D')";
+                    if (ProductCode > 0)
+                        SqlQuery += Environment.NewLine + "and S.[ProductCode] = " + ProductCode + "";
+
+                    if (CategoryCode > 0)
+                        SqlQuery += Environment.NewLine + "and P.[CatCode] = " + CategoryCode + "";
                     SqlQuery += Environment.NewLine + "GROUP BY C.[Code], C.[Name]";
                     SqlQuery += Environment.NewLine + "ORDER BY C.[Code]";
                 }
+                else if (ReportType == 8)
+                {
+                    SqlQuery = "SELECT ROW_NUMBER() OVER (ORDER BY S.[ProductCode]) AS SNo, S.[ProductCode], P.[Name] AS ProductName,";
+                    SqlQuery += Environment.NewLine + "CASE";
+                    SqlQuery += Environment.NewLine + "    WHEN P.[QtyTypeCode] = 2 --Pcs";
+                    SqlQuery += Environment.NewLine + "        THEN FORMAT(SUM(Qty), '0')        --no decimals";
+                    SqlQuery += Environment.NewLine + "    ELSE";
+                    SqlQuery += Environment.NewLine + "        FORMAT(SUM(Qty), '0.00')-- 2 decimals";
+                    SqlQuery += Environment.NewLine + "END AS Qty,";
+                    SqlQuery += Environment.NewLine + "CAST(ROUND(SUM([Qty] * [PurAmount]), 2) AS NUMERIC(12,2)) AS PurchaseAmount, SUM([TotAmount]) AS SellingAmount, SUM([ProfitAmount]) AS AproxProfitAmount";
+                    SqlQuery += Environment.NewLine + "FROM [Sales] AS S";
+                    SqlQuery += Environment.NewLine + "LEFT JOIN [Product] AS P ON P.[Code] = S.[ProductCode]";
+                    SqlQuery += Environment.NewLine + "LEFT JOIN [Category] AS C ON C.[Code] = P.[CatCode]";
+                    SqlQuery += Environment.NewLine + "WHERE 1=1";
+                    SqlQuery += Environment.NewLine + "AND BilledDate >= '" + fromDateTime.ToString("dd/MMM/yyyy") + "' AND BilledDate <= '" + toDateTime.ToString("dd/MMM/yyyy") + "'";
+                    SqlQuery += Environment.NewLine + "AND ISNULL(BillStatus, '') NOT IN ('C', 'D')";
+                    if (ProductCode > 0)
+                        SqlQuery += Environment.NewLine + "and S.[ProductCode] = " + ProductCode + "";
 
+                    if (CategoryCode > 0)
+                        SqlQuery += Environment.NewLine + "and P.[CatCode] = " + CategoryCode + "";
+                    SqlQuery += Environment.NewLine + "GROUP BY S.ProductCode, P.[Name], P.[QtyTypeCode]";
+                    SqlQuery += Environment.NewLine + "ORDER BY S.ProductCode, P.[Name]";
+                }
+                else if (ReportType == 9)
+                {
+                    SqlQuery = "SELECT ROW_NUMBER() OVER (ORDER BY B.[VendorCode]) AS SNo, B.[VendorCode], V.[Name] AS VendorName, SUM(B.[BillAmount]) AS BillAmount, SUM(B.[AmountPaid]) AS AmountPaid,";
+                    SqlQuery += Environment.NewLine + "SUM(B.[BillAmount]) - SUM(B.[AmountPaid]) AS PendingAmount";
+                    SqlQuery += Environment.NewLine + "FROM [VendorBillDetails] AS B";
+                    SqlQuery += Environment.NewLine + "LEFT JOIN [Vendor] AS V ON V.[Code] = B.[VendorCode]";
+                    SqlQuery += Environment.NewLine + "WHERE BillAmount > AmountPaid";
+                    SqlQuery += Environment.NewLine + "GROUP BY B.[VendorCode], V.[Name]";
+                }
+                else if (ReportType == 10)
+                {
+                    SqlQuery = "SELECT ROW_NUMBER() OVER (ORDER BY EM.[Name]) AS SNo, EM.[Name] AS ExpenseDetails, SUM(E.[Amount]) AS TotalAmount";
+                    SqlQuery += Environment.NewLine + "FROM [Expenses] AS E";
+                    SqlQuery += Environment.NewLine + "LEFT JOIN [ExpenseMaster] AS EM ON E.[ExpenseCode] = EM.[Code]";
+                    SqlQuery += Environment.NewLine + "WHERE 1=1";
+                    SqlQuery += Environment.NewLine + "AND E.[TranDate] >= '" + fromDateTime.ToString("dd/MMM/yyyy") + "' AND E.[TranDate] <= '" + toDateTime.ToString("dd/MMM/yyyy") + "'";
+                    SqlQuery += Environment.NewLine + "GROUP BY EM.[Name]";
+                    SqlQuery += Environment.NewLine + "ORDER BY EM.[Name]";
+                }
+                
                 SqlIntract _SqlIntract = new SqlIntract();
 
                 this.ReportData = new DataTable();
@@ -263,7 +316,19 @@ namespace VegetableBox
                     _DataRow = _DataTable.NewRow();
                     _DataRow["Code"] = "7"; _DataRow["Name"] = "Category Wise - Aprox Profit - Report";
                     _DataTable.Rows.Add(_DataRow);
+
+                    _DataRow = _DataTable.NewRow();
+                    _DataRow["Code"] = "8"; _DataRow["Name"] = "Product Wise - Aprox Profit - Report";
+                    _DataTable.Rows.Add(_DataRow);
                 }
+
+                _DataRow = _DataTable.NewRow();
+                _DataRow["Code"] = "9"; _DataRow["Name"] = "Vendor - Amount Pending - Report";
+                _DataTable.Rows.Add(_DataRow);
+
+                _DataRow = _DataTable.NewRow();
+                _DataRow["Code"] = "10"; _DataRow["Name"] = "Expenses - Report";
+                _DataTable.Rows.Add(_DataRow);
 
                 this._ReportType = _DataTable;
             }
