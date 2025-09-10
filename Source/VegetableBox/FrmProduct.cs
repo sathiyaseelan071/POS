@@ -58,10 +58,12 @@ namespace VegetableBox
                 FillControls.ComboBoxFill(this.CmbQtyType, this.clsFrmProduct.QuantityMaster, "Code", "Name", false, "");
                 FillControls.ComboBoxFill(this.CmbCBORateMaster, this.clsFrmProduct.YesNoMaster, "Code", "Name", false, "");
                 FillControls.ComboBoxFill(this.CmbAllowRateChange, this.clsFrmProduct.YesNoMaster, "Code", "Name", false, "");
+                FillControls.ComboBoxFill(this.CmbMaintainStock, this.clsFrmProduct.YesNoMaster, "Code", "Name", true, "");
                 FillControls.ComboBoxFill(this.CmbActive, this.clsFrmProduct.YesNoMaster, "Code", "Name", false, "");
 
                 FillControls.ComboBoxFill(this.CmbFilterCategoryType, this.clsFrmProduct.CategoryMaster, "Code", "Name", true, "All");
                 FillControls.ComboBoxFill(this.CmbFilterQtyType, this.clsFrmProduct.QuantityMaster, "Code", "Name", true, "All");
+                FillControls.ComboBoxFill(this.CmbFilterMaintainStock, this.clsFrmProduct.YesNoMaster, "Code", "Name", true, "All");
                 FillControls.ComboBoxFill(this.CmbFilterActive, this.clsFrmProduct.YesNoMaster, "Code", "Name", true, "All");
             }
             catch
@@ -87,6 +89,9 @@ namespace VegetableBox
                 this.TxtBarcode3.Text = string.Empty;
                 this.TxtBarcode4.Text = string.Empty;
                 this.CmbActive.SelectedIndex = 0;
+                this.CmbMaintainStock.SelectedIndex = 0;
+                this.TxtMaximumStock.Text = string.Empty;
+                this.TxtMinimumStock.Text = string.Empty;
                 this.ErrorProvider.Clear();
                 this.BtnSave.Text = "&Save";
             }
@@ -103,6 +108,7 @@ namespace VegetableBox
                 this.CmbFilterCategoryType.SelectedIndex = 0;
                 this.CmbFilterQtyType.SelectedIndex = 0;
                 this.CmbFilterActive.SelectedIndex = 0;
+                this.CmbFilterMaintainStock.SelectedIndex = 0;
                 this.TxtFilterProduct.Text = string.Empty;
 
                 clsFrmProduct.View();
@@ -123,6 +129,7 @@ namespace VegetableBox
                 int FilterCategoryType = Convert.ToInt32(CmbFilterCategoryType.SelectedValue);
                 int FilterQtyType = Convert.ToInt32(CmbFilterQtyType.SelectedValue);
                 string? FilterActiveStatus = Convert.ToString(CmbFilterActive.SelectedValue);
+                string? FilterMaintainStock = Convert.ToString(CmbFilterMaintainStock.SelectedValue);
 
                 DataTable DtView = new DataTable();
                 DtView = clsFrmProduct.ProductMaster.Copy();
@@ -162,6 +169,20 @@ namespace VegetableBox
                     {
                         DtView = DtView.AsEnumerable()
                             .Where(x => x.Field<string>(ProductTable.ColumnName.ActiveStatusCode) == FilterActiveStatus).CopyToDataTable();
+                    }
+                    else
+                    {
+                        DtView = clsFrmProduct.ProductMaster.Clone();
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(FilterMaintainStock))
+                {
+                    if (DtView.AsEnumerable()
+                    .Where(x => x.Field<string>(ProductTable.ColumnName.MaintainStockCode) == FilterMaintainStock).Count() > 0)
+                    {
+                        DtView = DtView.AsEnumerable()
+                            .Where(x => x.Field<string>(ProductTable.ColumnName.MaintainStockCode) == FilterMaintainStock).CopyToDataTable();
                     }
                     else
                     {
@@ -352,6 +373,14 @@ namespace VegetableBox
                 clsFrmProduct.BarCode4 = this.TxtBarcode4.Text.Trim();
                 clsFrmProduct.ActiveStatus = (string)this.CmbActive.SelectedValue;
 
+                if (this.CmbMaintainStock.SelectedIndex == -1)
+                    clsFrmProduct.MaintainStock = "N";
+                else
+                    clsFrmProduct.MaintainStock = (string)this.CmbMaintainStock.SelectedValue;
+
+                clsFrmProduct.MinStock = Convert.ToInt32(this.TxtMinimumStock.Text.Trim());
+                clsFrmProduct.MaxStock = Convert.ToInt32(this.TxtMaximumStock.Text.Trim());
+
                 if (clsFrmProduct.GetProductRecordCount() >= 1)
                 {
                     this.ErrorProvider.SetError(this.TxtProductName, "Product Name already exists. Please enter a different name.");
@@ -424,6 +453,35 @@ namespace VegetableBox
                     IsValid = false;
                 }
 
+                if (this.CmbMaintainStock.Enabled &&  (this.CmbMaintainStock.SelectedValue == null || this.CmbMaintainStock.SelectedValue.ToString() == string.Empty))
+                {
+                    this.ErrorProvider.SetError(this.CmbMaintainStock, "Please select maintain stock...");
+                    IsValid = false;
+                }
+
+                if (this.CmbMaintainStock.Enabled &&
+                    this.CmbMaintainStock.SelectedValue?.ToString() == "Y")
+                {
+                    if (!int.TryParse(this.TxtMinimumStock.Text, out int minStock) || minStock <= 0)
+                    {
+                        this.ErrorProvider.SetError(this.TxtMinimumStock, "Minimum stock must be greater than 0.");
+                        IsValid = false;
+                    }
+
+                    if (!int.TryParse(this.TxtMaximumStock.Text, out int maxStock) || maxStock <= 0)
+                    {
+                        this.ErrorProvider.SetError(this.TxtMaximumStock, "Maximum stock must be greater than 0.");
+                        IsValid = false;
+                    }       
+
+                    // Extra logical check: Min should not be greater than Max
+                    if (minStock > 0 && maxStock > 0 && minStock > maxStock)
+                    {
+                        this.ErrorProvider.SetError(this.TxtMaximumStock, "Maximum stock must be greater than or equal to minimum stock.");
+                        IsValid = false;
+                    }
+                }
+
                 if (this.CmbActive.SelectedValue == null || this.CmbActive.SelectedValue.ToString() == string.Empty)
                 {
                     this.ErrorProvider.SetError(this.CmbActive, "Please select active status...");
@@ -458,6 +516,7 @@ namespace VegetableBox
                 DGView.Columns[ProductTable.ColumnName.PCodeString].Visible = false;
                 DGView.Columns[ProductTable.ColumnName.SNo].Visible = false;
                 DGView.Columns[ProductTable.ColumnName.AllowRateChangeCode].Visible = false;
+                DGView.Columns[ProductTable.ColumnName.MaintainStockCode].Visible = false;
 
                 DGView.Columns[ProductTable.ColumnName.SNo].HeaderText = "SNo";
                 DGView.Columns[ProductTable.ColumnName.Name].HeaderText = "Name";
@@ -468,6 +527,9 @@ namespace VegetableBox
                 DGView.Columns[ProductTable.ColumnName.CalcBORM].HeaderText = "Calc BORM";
                 DGView.Columns[ProductTable.ColumnName.ActiveStatus].HeaderText = "Active";
                 DGView.Columns[ProductTable.ColumnName.AllowRateChange].HeaderText = "Allow Rate Change";
+                DGView.Columns[ProductTable.ColumnName.MaintainStock].HeaderText = "Maintain Stock";
+                DGView.Columns[ProductTable.ColumnName.MinStock].HeaderText = "Min Stock";
+                DGView.Columns[ProductTable.ColumnName.MaxStock].HeaderText = "Max Stock";
 
                 foreach (DataGridViewColumn DGVColumn in DGView.Columns)
                 {
@@ -525,6 +587,9 @@ namespace VegetableBox
                         this.TxtBarcode3.Text = _DataRow[ProductTable.ColumnName.BarCode3].ToString();
                         this.TxtBarcode4.Text = _DataRow[ProductTable.ColumnName.BarCode4].ToString();
                         this.CmbActive.SelectedValue = _DataRow[ProductTable.ColumnName.ActiveStatusCode].ToString();
+                        this.CmbMaintainStock.SelectedValue = _DataRow[ProductTable.ColumnName.MaintainStockCode].ToString();
+                        this.TxtMinimumStock.Text = _DataRow[ProductTable.ColumnName.MinStock].ToString();
+                        this.TxtMaximumStock.Text = _DataRow[ProductTable.ColumnName.MaxStock].ToString();
 
                         BtnSave.Text = "&Update";
                         TxtProductName.Focus();
@@ -592,6 +657,77 @@ namespace VegetableBox
             //this.TxtProductAlternateName.Text = this.TxtProductName.Text;
             //this.TxtProductTamilName.Text = this.TxtProductName.Text;
         }
+
+        private void EnableDisable_MaintainStock()
+        {
+            try
+            {
+                bool IsEnable = false;
+
+                if ((this.CmbCategoryType.SelectedValue != null && this.CmbCategoryType.SelectedIndex > 2) && //Vegetable, Fruit and Banana
+                    this.CmbQtyType.SelectedValue != null && this.CmbQtyType.SelectedIndex == 1)  //Pieces
+                {
+                    IsEnable = true;
+                }
+                else
+                {
+                    this.CmbMaintainStock.SelectedIndex = -1;
+                }
+
+                this.LblMaintainStock.Enabled = IsEnable;
+                this.CmbMaintainStock.Enabled = IsEnable;
+
+                this.LblMinimumStock.Enabled = IsEnable;
+                this.TxtMinimumStock.Enabled = IsEnable;
+
+                this.LblMaximumStock.Enabled = IsEnable;
+                this.TxtMaximumStock.Enabled = IsEnable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void CmbCategoryType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.EnableDisable_MaintainStock();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void CmbQtyType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.EnableDisable_MaintainStock();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void CmbFilterMaintainStock_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clsFrmProduct.ProductMaster.Rows.Count > 0)
+                {
+                    this.FilterGridData();
+                    this.SetGridStyle();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
     }
 
     #region "Struct"
@@ -624,6 +760,10 @@ namespace VegetableBox
             internal static string BarCode2 = "BarCode2";
             internal static string BarCode3 = "BarCode3";
             internal static string BarCode4 = "BarCode4";
+            internal static string MaintainStockCode = "MaintainStockCode";
+            internal static string MaintainStock = "MaintainStock";
+            internal static string MinStock = "MinStock";
+            internal static string MaxStock = "MaxStock";
         }
     }
 
