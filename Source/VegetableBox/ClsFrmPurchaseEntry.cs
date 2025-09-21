@@ -87,13 +87,16 @@ namespace VegetableBox
                 PurchaseTableData.Columns.Add("TotPurAmount", typeof(decimal));
                 PurchaseTableData.Columns.Add("PurRatePerQty", typeof(decimal));
                 PurchaseTableData.Columns.Add("SellRatePerQty", typeof(decimal));
-
                 PurchaseTableData.Columns.Add("MRP", typeof(decimal));
                 PurchaseTableData.Columns.Add("SellingMarginPer", typeof(decimal));
                 PurchaseTableData.Columns.Add("DiscPer", typeof(decimal));
                 PurchaseTableData.Columns.Add("DiscRate", typeof(decimal));
-
                 PurchaseTableData.Columns.Add("BilledBy", typeof(int));
+
+                PurchaseTableData.Columns.Add("MaintainStock", typeof(string));
+                PurchaseTableData.Columns.Add("MinimumStock", typeof(int));
+                PurchaseTableData.Columns.Add("MaximumStock", typeof(int));
+                PurchaseTableData.Columns.Add("StockInHand", typeof(int));
 
                 foreach (DataRow rowCartData in purchaseCartData.Rows)
                 {
@@ -125,6 +128,13 @@ namespace VegetableBox
                             "0.00" : rowCartData[PurchaseCartDataStruct.ColumnName.DiscRate].ToString();
 
                         rowSales["BilledBy"] = Global.currentUserId;
+
+                        //TEMP001 START
+                        rowSales["MaintainStock"] = rowCartData[PurchaseCartDataStruct.ColumnName.MaintainStock].ToString();
+                        rowSales["MinimumStock"] = rowCartData[PurchaseCartDataStruct.ColumnName.MinimumStock];
+                        rowSales["MaximumStock"] = rowCartData[PurchaseCartDataStruct.ColumnName.MaximumStock];
+                        rowSales["StockInHand"] = rowCartData[PurchaseCartDataStruct.ColumnName.StockInHand];
+                        //TEMP001 END
 
                         PurchaseTableData.Rows.Add(rowSales);
                     }
@@ -201,7 +211,8 @@ namespace VegetableBox
                 string SqlQuery = "SELECT CAST(ROW_NUMBER() OVER (ORDER BY P.[SNo] ASC) AS INT) AS SNo, P.[ProductCode] AS ProCode,";
                 SqlQuery += Environment.NewLine + "PR.[Name] AS ProductName, PR.[TamilName] AS ProductTamilName, [TotPurQty], [Unit],";
                 SqlQuery += Environment.NewLine + "[PurRatePerQty], [MRP], [SellRatePerQty], [SellingMarginPer],";
-                SqlQuery += Environment.NewLine + "[DiscPer], [DiscRate], [TotPurAmount], [EnteredBy] AS BilledBy, 'Y' AS IsSaved, TranNo";
+                SqlQuery += Environment.NewLine + "[DiscPer], [DiscRate], [TotPurAmount], [EnteredBy] AS BilledBy, 'Y' AS IsSaved, TranNo,";
+                SqlQuery += Environment.NewLine + "'' AS MaintainStock, CAST(0 AS INT) AS MinimumStock, CAST(0 AS INT) AS MaximumStock, CAST(0 AS INT) AS StockInHand";
                 SqlQuery += Environment.NewLine + "FROM [Purchase] AS P";
                 SqlQuery += Environment.NewLine + "INNER JOIN [Product] AS PR ON PR.[Code] = P.[ProductCode]";
                 SqlQuery += Environment.NewLine + "WHERE ISNULL(VendorBillRefNo, 0) = " + vendorBillRefNo;
@@ -251,7 +262,6 @@ namespace VegetableBox
             internal static string TotalPurchaseAmount = "TotPurAmount";
             internal static string PurchaseRatePerQty = "PurRatePerQty";
             internal static string SellRatePerQty = "SellRatePerQty";
-
             internal static string MRP = "MRP";
             internal static string SellingMarginPer = "SellingMarginPer";
             internal static string DiscPer = "DiscPer";
@@ -259,6 +269,11 @@ namespace VegetableBox
             internal static string BilledBy = "BilledBy";
             internal static string IsSaved = "IsSaved";
             internal static string TranNo = "TranNo";
+
+            internal static string MaintainStock = "MaintainStock";
+            internal static string MinimumStock = "MinimumStock";
+            internal static string MaximumStock = "MaximumStock";
+            internal static string StockInHand = "StockInHand";
         }
     }
 

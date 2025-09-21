@@ -63,6 +63,7 @@ namespace VegetableBox
                     this.CmbProductCategory.SelectedIndex = 0;
 
                 this.TxtLastMRP.Text = string.Empty;
+                this.TxtStockQty.Text = string.Empty;
             }
             catch
             {
@@ -196,11 +197,10 @@ namespace VegetableBox
                 this.CmbVendorName.Focus();
                 this.ErrorProvider.Clear();
 
-                if(Global.currentUserId == 1)
+                if (Global.currentUserId == 1)
                     this.BtnBillCompleted.Enabled = true;
                 else
                     this.BtnBillCompleted.Enabled = false;
-
             }
             catch (Exception ex)
             {
@@ -274,16 +274,16 @@ namespace VegetableBox
                                 .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                                 || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                                 || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
-                                
+
                                 || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
                                 && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))
-                                
+
                                 || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode2))
                                 && x.Field<string>(ProductRateData.ColumnName.BarCode2).Contains(FilterProduct))
-                                
+
                                 || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode3))
                                 && x.Field<string>(ProductRateData.ColumnName.BarCode3).Contains(FilterProduct))
-                                
+
                                 || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode4))
                                 && x.Field<string>(ProductRateData.ColumnName.BarCode4).Contains(FilterProduct)))
                                 .OrderBy(x => x.Field<Int32>(ProductRateData.ColumnName.CatCode))
@@ -527,6 +527,11 @@ namespace VegetableBox
         private string? CurrentPCode { get; set; }
         private decimal? CurrentMRP { get; set; }
         private string? CurrentProductQtyType { get; set; }
+
+        private string? CurrentMaintainStock { get; set; }
+        private int CurrentCatTypeCode { get; set; }
+        private int CurrentQtyTypeCode { get; set; }
+
         private void LoadCurrentProduct()
         {
             try
@@ -573,7 +578,14 @@ namespace VegetableBox
                                 this.TxtLastMRP.Text = (dataRow[ProductRateData.ColumnName.MRP] != null ?
                                                                     Convert.ToString(dataRow[ProductRateData.ColumnName.MRP]) : string.Empty);
 
+                                this.TxtStockQty.Text = (dataRow[ProductRateData.ColumnName.StockQty] != null ?
+                                                                    Convert.ToString(dataRow[ProductRateData.ColumnName.StockQty]) : string.Empty);
+
                                 this.TxtProductSearch.Text = string.Empty;
+
+                                this.CurrentMaintainStock = (string)dataRow[ProductRateData.ColumnName.MaintainStock];
+                                this.CurrentCatTypeCode = (Int32)dataRow[ProductRateData.ColumnName.CatCode];
+                                this.CurrentQtyTypeCode = (Int32)dataRow[ProductRateData.ColumnName.QtyTypeCode];
                             }
                         }
                     }
@@ -600,6 +612,11 @@ namespace VegetableBox
                 DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.BilledBy].Visible = false;
                 DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.IsSaved].Visible = false;
                 DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.TranNo].Visible = false;
+
+                DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.MaintainStock].Visible = false;
+                DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.MinimumStock].Visible = false;
+                DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.MaximumStock].Visible = false;
+                DGVPurchaseCart.Columns[PurchaseCartDataStruct.ColumnName.StockInHand].Visible = false;
 
                 foreach (DataGridViewColumn DGVColumn in DGVPurchaseCart.Columns)
                 {
@@ -667,12 +684,29 @@ namespace VegetableBox
             }
         }
 
+        private bool IsEligibleForStockUpdate()
+        {
+            return this.CurrentMaintainStock == "N" && !Global.defectiveCategories.Contains(this.CurrentCatTypeCode) && this.CurrentQtyTypeCode == 2;
+        }
+
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             try
             {
                 if (this.ValidateAddCart())
                 {
+                    FrmProductStockUpdate frmProductStockUpdate = new FrmProductStockUpdate();
+                    if (this.IsEligibleForStockUpdate())
+                    {   
+                        frmProductStockUpdate.WindowState = FormWindowState.Normal;
+                        DialogResult result = frmProductStockUpdate.ShowDialog();
+
+                        if (result == DialogResult.Cancel)
+                        {
+                            return;
+                        }
+                    }
+
                     if (clsFrmPurchaseEnty.PurchaseCartData != null
                         && clsFrmPurchaseEnty.PurchaseCartData.AsEnumerable()
                         .Any(x => x.Field<int>(PurchaseCartDataStruct.ColumnName.ProCode) == Convert.ToInt32(this.CurrentPCode.Trim())
@@ -680,7 +714,7 @@ namespace VegetableBox
                     {
                         foreach (DataRow dr in clsFrmPurchaseEnty.PurchaseCartData.Rows)
                         {
-                            if (Convert.ToString(dr[PurchaseCartDataStruct.ColumnName.IsSaved]) == "N" 
+                            if (Convert.ToString(dr[PurchaseCartDataStruct.ColumnName.IsSaved]) == "N"
                                 && dr[PurchaseCartDataStruct.ColumnName.ProCode].ToString() == this.CurrentPCode.Trim())
                             {
                                 dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseAmount]
@@ -688,6 +722,16 @@ namespace VegetableBox
 
                                 dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseQty]
                                     = Convert.ToDecimal(dr[PurchaseCartDataStruct.ColumnName.TotalPurchaseQty]) + Convert.ToDecimal(this.TxtTotPurchaseQty.Text.Trim());
+
+                                //TEMP001 START
+                                if (this.IsEligibleForStockUpdate())
+                                {
+                                    dr[PurchaseCartDataStruct.ColumnName.MaintainStock] = frmProductStockUpdate.maintainStock;
+                                    dr[PurchaseCartDataStruct.ColumnName.MinimumStock] = frmProductStockUpdate.minimumStock;
+                                    dr[PurchaseCartDataStruct.ColumnName.MaximumStock] = frmProductStockUpdate.maximumStock;
+                                    dr[PurchaseCartDataStruct.ColumnName.StockInHand] = frmProductStockUpdate.stockInHand;
+                                }
+                                //TEMP001 END
 
                                 clsFrmPurchaseEnty.PurchaseCartData.AcceptChanges();
                             }
@@ -711,6 +755,16 @@ namespace VegetableBox
                         dr[PurchaseCartDataStruct.ColumnName.DiscPer] = this.TxtDiscPerFromMRP.Text.Trim();
                         dr[PurchaseCartDataStruct.ColumnName.DiscRate] = this.TxtDiscRateFromMRP.Text.Trim();
                         dr[PurchaseCartDataStruct.ColumnName.IsSaved] = "N";
+
+                        //TEMP001 START
+                        if (this.IsEligibleForStockUpdate())
+                        {
+                            dr[PurchaseCartDataStruct.ColumnName.MaintainStock] = frmProductStockUpdate.maintainStock;
+                            dr[PurchaseCartDataStruct.ColumnName.MinimumStock] = frmProductStockUpdate.minimumStock;
+                            dr[PurchaseCartDataStruct.ColumnName.MaximumStock] = frmProductStockUpdate.maximumStock;
+                            dr[PurchaseCartDataStruct.ColumnName.StockInHand] = frmProductStockUpdate.stockInHand;
+                        }
+                        //TEMP001 END
 
                         this.clsFrmPurchaseEnty.PurchaseCartData.Rows.Add(dr);
                     }
@@ -935,6 +989,7 @@ namespace VegetableBox
                 MessageBox.Show("Saved Sucessfully..." + Environment.NewLine + "Bill No : " + BillNo.ToString(), "Vegetable Box");
 
                 this.ReLoad();
+                this.clsFrmPurchaseEnty.GetProductDetails();
             }
             catch (Exception ex)
             {
@@ -1105,12 +1160,7 @@ namespace VegetableBox
                 if (e.KeyCode == Keys.Enter)
                 {
                     this.ErrorProvider.Clear();
-
-                    if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) <= 2)
-                        this.TxtSellingRate.Focus();
-                    else
-                        this.TxtMrp.Focus();
-
+                    this.BtnAdd.Focus();
                     e.Handled = true;
                 }
             }
@@ -1138,6 +1188,22 @@ namespace VegetableBox
         }
 
         private void TxtDiscFromMRP_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    this.ErrorProvider.Clear();
+                    this.BtnAdd.Focus();
+                    e.Handled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+        private void TxtStockQty_KeyDown(object sender, KeyEventArgs e)
         {
             try
             {
@@ -1273,12 +1339,24 @@ namespace VegetableBox
                 if (e.KeyCode == Keys.Enter)
                 {
                     this.ErrorProvider.Clear();
+                    this.BtnAdd.Focus();
+                    e.Handled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
 
-                    if (Convert.ToInt32(this.CmbProductCategory.SelectedValue) <= 2)
-                        this.TxtSellingRate.Focus();
-                    else
-                        this.TxtMrp.Focus();
-
+        private void TxtLastMRP_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    this.ErrorProvider.Clear();
+                    this.BtnAdd.Focus();
                     e.Handled = true;
                 }
             }
@@ -1467,7 +1545,7 @@ namespace VegetableBox
                 else
                 {
                     this.BtnBillCompleted.Enabled = false; // or handle invalid input
-                }                
+                }
             }
             catch
             {
@@ -1549,6 +1627,7 @@ namespace VegetableBox
             try
             {
                 this.ReLoad();
+                this.clsFrmPurchaseEnty.GetProductDetails();
             }
             catch (Exception ex)
             {

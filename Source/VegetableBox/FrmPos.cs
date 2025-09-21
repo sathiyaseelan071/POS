@@ -14,8 +14,7 @@ using TextBox = System.Windows.Forms.TextBox;
 namespace VegetableBox
 {
     public partial class FrmPos : Form
-    {
-        int[] defectiveCategories = { 1, 2, 3 }; // Vegetables, Fruits, Banana
+    {        
         ClsFrmPos clsFrmPos = new ClsFrmPos();
         public FrmPos()
         {
@@ -265,6 +264,7 @@ namespace VegetableBox
         private decimal? CurrentProfitAmount { get; set; }
         private bool? CurrentAllowRateChange { get; set; }
         private bool? CurrentSellingRateZero { get; set; }
+        private string? CurrentMaintainStock { get; set; }
 
         private void LoadCurrentProduct()
         {
@@ -371,8 +371,13 @@ namespace VegetableBox
 
                                 int _Val = (dataRow[ProductRateData.ColumnName.CatCode] != null ?
                                                    (int)dataRow[ProductRateData.ColumnName.CatCode] : 0);
-                                this.chkIsDefective.Visible = defectiveCategories.Contains(_Val);
+                                this.chkIsDefective.Visible = Global.defectiveCategories.Contains(_Val);
                                 this.chkIsDefective.Tag = _Val;
+
+                                this.TxtStockQty.Text = dataRow[ProductRateData.ColumnName.StockQty] != DBNull.Value ? 
+                                                        dataRow[ProductRateData.ColumnName.StockQty].ToString() : string.Empty;
+
+                                this.CurrentMaintainStock = dataRow[ProductRateData.ColumnName.MaintainStock].ToString();
 
                                 this.TxtProductSearch.Text = string.Empty;
                                 this.TxtQty.Focus();
@@ -497,6 +502,7 @@ namespace VegetableBox
                 this.chkIsDefective.Checked = false;
                 this.chkIsDefective.Visible = false;
                 this.chkIsDefective.Tag = 0;
+                this.TxtStockQty.Text = string.Empty;
             }
             catch
             {
@@ -1605,7 +1611,7 @@ namespace VegetableBox
 
                         int _Val = (dr[CartDataStruct.ColumnName.CatCode] != null ?
                             (int)dr[CartDataStruct.ColumnName.CatCode] : 0);
-                        this.chkIsDefective.Visible = defectiveCategories.Contains(_Val);
+                        this.chkIsDefective.Visible = Global.defectiveCategories.Contains(_Val);
 
                         this.BillStatus = Convert.ToString(dr[CartDataStruct.ColumnName.BillStatus]);
 
@@ -2537,6 +2543,8 @@ namespace VegetableBox
             internal static string BarCode2 = "BarCode2";
             internal static string BarCode3 = "BarCode3";
             internal static string BarCode4 = "BarCode4";
+            internal static string StockQty = "StockQty";
+            internal static string MaintainStock = "MaintainStock";
         }
     }
 

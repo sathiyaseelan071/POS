@@ -14,6 +14,7 @@ namespace VegetableBox
         internal static string applicationName = "Vegetable Box";
         internal static int currentUserId = 1;
         internal static string currentUserName = "Admin";
+        internal static int[] defectiveCategories = { 1, 2, 3 }; // Vegetables, Fruits, Banana
 
         internal static string sqlConnectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
         internal static string sqlMasterConnectionString = ConfigurationManager.ConnectionStrings["SqlMasterConnection"].ConnectionString;
