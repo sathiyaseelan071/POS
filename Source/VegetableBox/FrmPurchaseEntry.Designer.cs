@@ -890,7 +890,7 @@
             CmbProductCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbProductCategory.Enabled = false;
             CmbProductCategory.FormattingEnabled = true;
-            CmbProductCategory.Location = new Point(146, 361);
+            CmbProductCategory.Location = new Point(146, 359);
             CmbProductCategory.Margin = new Padding(0, 0, 3, 0);
             CmbProductCategory.Name = "CmbProductCategory";
             CmbProductCategory.Size = new Size(97, 26);
@@ -914,7 +914,7 @@
             CmbVendorName.AutoCompleteSource = AutoCompleteSource.ListItems;
             tableLayoutPanel2.SetColumnSpan(CmbVendorName, 2);
             CmbVendorName.FormattingEnabled = true;
-            CmbVendorName.Location = new Point(146, 7);
+            CmbVendorName.Location = new Point(146, 5);
             CmbVendorName.Margin = new Padding(0, 0, 3, 0);
             CmbVendorName.Name = "CmbVendorName";
             CmbVendorName.Size = new Size(290, 26);
