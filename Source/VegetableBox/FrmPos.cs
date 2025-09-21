@@ -2076,8 +2076,14 @@ namespace VegetableBox
             {
                 if (clsFrmPos.CartData != null && clsFrmPos.CartData.Rows.Count > 0)
                 {
-                    decimal netAmt = Convert.ToDecimal(this.LblFinalNetAmt.Text);
-                    decimal tenderedAmt = Convert.ToDecimal(this.TxtCashTendered.Text);
+                    if (string.IsNullOrWhiteSpace(this.TxtCashTendered.Text))
+                        this.TxtCashTendered.Text = "0.00";
+
+                    if (!decimal.TryParse(LblFinalNetAmt.Text, out decimal netAmt))
+                        netAmt = 0;
+
+                    if (!decimal.TryParse(TxtCashTendered.Text, out decimal tenderedAmt))
+                        tenderedAmt = 0;
 
                     // Always format tendered text
                     this.TxtCashTendered.Text = ToConvertAmtFormat(tenderedAmt.ToString());

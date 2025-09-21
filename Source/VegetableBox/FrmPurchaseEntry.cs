@@ -949,7 +949,7 @@ namespace VegetableBox
                 if (this.DGVPurchaseCart.Rows.Count <= 0)
                     return;
 
-                if (this.DGVPurchaseCart.Rows.Count != Convert.ToInt32(this.TxtBillItemsCount.Text))
+                if (Global.currentUserId != 1 && this.DGVPurchaseCart.Rows.Count != Convert.ToInt32(this.TxtBillItemsCount.Text))
                 {
                     this.ErrorProvider.SetError(
                         this.TxtBillItemsCount,
@@ -958,7 +958,7 @@ namespace VegetableBox
                     return;
                 }
 
-                if (Convert.ToDecimal(this.LblTotalAmt.Text) != Convert.ToDecimal(this.TxtBillAmount.Text))
+                if (Global.currentUserId != 1 && Convert.ToDecimal(this.LblTotalAmt.Text) != Convert.ToDecimal(this.TxtBillAmount.Text))
                 {
                     this.ErrorProvider.SetError(
                         this.TxtBillItemsCount,
@@ -1460,14 +1460,18 @@ namespace VegetableBox
                 this.ToCalcTotalAmount();
                 this.FreezeControlsForVendorBill();
 
-                if (int.TryParse(TxtBillItemsCount.Text, out int billItemCount))
+                if (Global.currentUserId == 1)
+                {
+                    this.BtnBillCompleted.Enabled = true;
+                }
+                else if (int.TryParse(TxtBillItemsCount.Text, out int billItemCount))
                 {
                     this.BtnBillCompleted.Enabled = (DGVPurchaseCart.Rows.Count == billItemCount);
                 }
                 else
                 {
                     this.BtnBillCompleted.Enabled = false; // or handle invalid input
-                }                
+                }
             }
             catch
             {
