@@ -114,7 +114,7 @@ CREATE TYPE [dbo].[UDT_Purchase] AS TABLE(
 ---------------
 GO
 ---------------
-
+--DROP PROC [SpSavePurchase]
 CREATE PROC [dbo].[SpSavePurchase] (@UDT_Purchase UDT_Purchase READONLY, @TotPurAmount AS NUMERIC(12,2), @VendorBillRefNo INT,   
 @VendorCode INT, @OldTranNo INT, @TranNo INT OUTPUT)    
 AS    
@@ -166,7 +166,7 @@ BEGIN TRY
   INSERT INTO [Stock](ProductCode, LastPurQty, PurRate, MRP, SellRate, SellingMarginPer, DiscPer, DiscRate,  
   LastUpdatedBy, LastUpdatedDate, LastUpdatedDateTime, [StockQty])
   SELECT [ProductCode], [TotPurQty], [PurRatePerQty], [MRP], [SellRatePerQty], [SellingMarginPer], [DiscPer], [DiscRate],     
-  [BilledBy], GETDATE(), GETDATE(), (CASE WHEN PR.MaintainStock = 'Y' THEN P.[TotPurQty] + P.[StockInHand] ELSE 0 END)
+  [BilledBy], GETDATE(), GETDATE(), (CASE WHEN PR.MaintainStock = 'Y' THEN ISNULL(P.[TotPurQty], 0) + ISNULL(P.[StockInHand], 0) ELSE 0 END)
   FROM @UDT_Purchase AS P    
   INNER JOIN [Product] AS PR ON P.[ProductCode] = PR.CODE    
   WHERE 1=1   
@@ -280,6 +280,293 @@ BEGIN
  ORDER BY P.[NAME]      
     
 END
+
+---------------
+GO
+---------------
+
+ALTER PROC [dbo].[SpSaveSale] (@UDT_Sales UDT_Sales READONLY, @UDT_Transaction UDT_Transaction READONLY,   
+     @UDT_PaymentDetails UDT_PaymentDetails READONLY, @BILLNO INT OUTPUT)      
+AS      
+BEGIN TRAN   
+  
+SET NOCOUNT ON;  
+  
+BEGIN TRY      
+      
+  DECLARE @CNT AS INT      
+      
+  SET @CNT = (SELECT COUNT(*) AS CNT FROM [BillNoDetails] WHERE BilledDate = CAST(GETDATE() AS DATE))      
+      
+  IF @CNT <= 0      
+   INSERT INTO [BillNoDetails]([BillNo], [BilledDate]) VALUES (101, CAST(GETDATE() AS DATE))      
+  ELSE      
+   UPDATE [BillNoDetails] SET [BillNo] = [BillNo] + 1 WHERE BilledDate = CAST(GETDATE() AS DATE)      
+      
+  SET @BILLNO = (SELECT BillNo FROM [BillNoDetails] WHERE BilledDate = CAST(GETDATE() AS DATE))      
+      
+  INSERT INTO [Sales]([BillNo],[BilledDate],[ProductCode],[Qty],[Unit],[SellRate],[Amount],      
+  [DiscPercent],[DiscAmount],[TotAmount],[MRP],[TotDiscAmtFROMMRP],[BilledBy],[BilledDateTime],  
+  [PurAmount],[ProfitAmount],[DiscCustCode],[DiscEmpCode],[IsDefective])      
+  SELECT @BILLNO,CAST(GETDATE() AS DATE),[ProductCode],[Qty],[Unit],[SellRate],[Amount],      
+  [DiscPercent],[DiscAmount],[TotAmount],[MRP],[TotDiscAmtFROMMRP],[BilledBy],GETDATE(),  
+  [PurAmount],[ProfitAmount],[DiscCustCode],[DiscEmpCode],[IsDefective]  
+  FROM @UDT_Sales      
+
+  UPDATE S SET S.[StockQty] = ISNULL(S.[StockQty], 0) - ISNULL(U.[Qty], 0) 
+  FROM [Stock] AS S
+  INNER JOIN @UDT_Sales AS U ON S.[ProductCode] = U.[ProductCode] AND S.[MRP] = U.[MRP]
+  INNER JOIN [Product] AS P ON P.[Code] = S.[ProductCode]
+  WHERE ISNULL(P.MaintainStock, '') = 'Y'
+
+  INSERT INTO [SalesTransaction]([BillNo],[BilledDate],[TotAmount],[DiscPercent],[DiscAmount],[GrossAmount],[RoundOffAmount],[NetAmount],      
+  [BilledBy],[BilledDateTime], [PrintTotMRP], [PrintTotDiscMRP], [TotProfitAmount])      
+  SELECT @BILLNO, CAST(GETDATE() AS DATE), [TotAmount],[DiscPercent],[DiscAmount],[GrossAmount],[RoundOffAmount],[NetAmount],      
+  [BilledBy], GETDATE(), [PrintTotMRP], [PrintTotDiscMRP], [TotProfitAmount] FROM @UDT_Transaction      
+    
+  INSERT INTO [PaymentDetails]([BillNo],[BilledDate],[PaymentType],[Amount],[BilledBy],[BilledDateTime])      
+  SELECT @BILLNO, CAST(GETDATE() AS DATE), [PaymentType], [Amount], [BilledBy], GETDATE() FROM @UDT_PaymentDetails      
+     
+  DECLARE @TranNo INT;    
+  -- Generate new TranNo    
+  SET @TranNo = (SELECT ISNULL(MAX([TranNo]), 0) + 1 FROM [CustomerCreditDebitNote]);    
+      
+  -- Insert record    
+  INSERT INTO [CustomerCreditDebitNote] ([TranNo], [TranDate], [CustomerCode], [TransType], [BillNo], [BillDate],     
+  [Amount], [PaymentType], [Remarks], [UpdatedBy], [UpdatedDate])    
+  SELECT @TranNo, GETDATE(), [CustomerCode], 'D' AS TransType, @BillNo, CAST(GETDATE() AS Date) AS BillDate,     
+  [Amount], [PaymentType], 'RECORD FROM POS' AS Remarks, [BilledBy], GETDATE() FROM @UDT_PaymentDetails WHERE [PaymentType] = 'T'     
+      
+ COMMIT TRAN      
+      
+END TRY      
+BEGIN CATCH      
+    
+ IF @@TRANCOUNT > 0  
+  ROLLBACK TRAN;  -- Rollback only if an open transaction exists  
+  
+ -- Rethrow the original error  
+ THROW;  
+  
+END CATCH    
+
+---------------
+GO
+---------------
+
+ALTER PROC [dbo].[SpUpdateSale] (@UDT_Sales UDT_Sales READONLY, @UDT_Transaction UDT_Transaction READONLY,   
+ @UDT_PaymentDetails UDT_PaymentDetails READONLY, @BILLNO INT)  
+AS      
+BEGIN TRAN      
+      
+BEGIN TRY      
+  
+ --LOG START  
+  
+ INSERT INTO [dbo].[Sales_Log]([BillNo], [BilledDate], [ProductCode], [Qty], [Unit], [SellRate], [Amount],  
+ [DiscPercent], [DiscAmount], [TotAmount], [BilledBy], [BilledDateTime], [BillStatus], [UpdatedBy],  
+ [UpdatedDateTime], [MRP], [TotDiscAmtFromMRP], [PurAmount], [ProfitAmount], [DiscCustCode],[DiscEmpCode], [IsDefective])  
+ SELECT [BillNo], [BilledDate], S.[ProductCode], S.[Qty], S.[Unit], S.[SellRate], S.[Amount],  
+ S.[DiscPercent], S.[DiscAmount], S.[TotAmount], S.[BilledBy], S.[BilledDateTime], S.[BillStatus], S.[UpdatedBy],  
+ S.[UpdatedDateTime], S.[MRP], S.[TotDiscAmtFromMRP], S.[PurAmount], S.[ProfitAmount], S.[DiscCustCode], S.[DiscEmpCode], S.[IsDefective]  
+ FROM [Sales] AS S  
+ INNER JOIN @UDT_Sales U ON S.[BillNo] = @BillNo AND S.[BilledDate] = CAST(GETDATE() AS DATE)   
+ AND S.[ProductCode] = U.[ProductCode] AND S.[MRP] = U.[MRP]  
+ WHERE ISNULL(U.BillStatus, '') != 'F'  
+  
+ INSERT INTO [dbo].[SalesTransaction_Log]([BillNo], [BilledDate], [TotAmount], [DiscPercent], [DiscAmount], [GrossAmount],   
+ [RoundOffAmount], [NetAmount],  [BilledBy], [BilledDateTime], [BillStatus], [UpdatedBy], [UpdatedDateTime],   
+ [PrintTotMRP], [PrintTotDiscMRP], [TotProfitAmount])  
+ SELECT S.[BillNo], S.[BilledDate], S.[TotAmount], S.[DiscPercent], S.[DiscAmount], S.[GrossAmount],   
+ S.[RoundOffAmount], S.[NetAmount], S.[BilledBy], S.[BilledDateTime], S.[BillStatus], S.[UpdatedBy], S.[UpdatedDateTime],   
+ S.[PrintTotMRP], S.[PrintTotDiscMRP], S.[TotProfitAmount]  
+ FROM [SalesTransaction] S  
+ INNER JOIN @UDT_Transaction U ON S.[BillNo] = @BillNo AND S.[BilledDate] = CAST(GETDATE() AS DATE)  
+  
+ INSERT INTO [dbo].[PaymentDetails_Log]([BillNo], [BilledDate], [PaymentType], [Amount], [BilledBy], [BilledDateTime],   
+ [BillStatus], [UpdatedBy], [UpdatedDateTime])  
+ SELECT P.[BillNo], P.[BilledDate], P.[PaymentType], P.[Amount], P.[BilledBy], P.[BilledDateTime],   
+ P.[BillStatus], P.[UpdatedBy], P.[UpdatedDateTime]  
+ FROM [PaymentDetails] P  
+ INNER JOIN @UDT_PaymentDetails U ON P.[BillNo] = @BillNo  
+ AND P.[BilledDate]  = CAST(GETDATE() AS DATE)  
+  
+ --LOG END  
+  
+ DECLARE @UpdatedBy INT  
+ SET @UpdatedBy = (SELECT TOP 1 [BilledBy] FROM @UDT_Sales)  
+  
+ INSERT INTO [Sales]([BillNo], [BilledDate], [ProductCode], [Qty], [Unit], [SellRate], [Amount],      
+ [DiscPercent], [DiscAmount], [TotAmount], [MRP], [TotDiscAmtFROMMRP], [BilledBy], [BilledDateTime],  
+ [PurAmount], [ProfitAmount], [DiscCustCode], [DiscEmpCode], [IsDefective])  
+ SELECT @BILLNO, CAST(GETDATE() AS DATE), [ProductCode], [Qty], [Unit], [SellRate], [Amount],      
+ [DiscPercent], [DiscAmount], [TotAmount], [MRP], [TotDiscAmtFROMMRP], [BilledBy], GETDATE(),  
+ [PurAmount], [ProfitAmount], [DiscCustCode], [DiscEmpCode], [IsDefective]  
+ FROM @UDT_Sales AS U   
+ WHERE ISNULL(U.BillStatus, '') != 'F' AND NOT EXISTS (SELECT 1 FROM [Sales] AS S WHERE [BillNo] = @BILLNO   
+ AND S.[BilledDate] = CAST(GETDATE() AS DATE) AND S.[ProductCode] = U.[ProductCode] AND S.[MRP] = U.[MRP])  
+ 
+ --- STOCK HANDEL START ---
+
+ UPDATE S SET S.[StockQty] = ISNULL(S.[StockQty], 0) - ISNULL(U.[Qty], 0) 
+ FROM [Stock] AS S
+ INNER JOIN @UDT_Sales AS U ON S.[ProductCode] = U.[ProductCode] AND S.[MRP] = U.[MRP]
+ INNER JOIN [Product] AS P ON P.[Code] = S.[ProductCode]
+ WHERE ISNULL(U.BillStatus, '') = 'F' 
+ AND ISNULL(P.MaintainStock, '') = 'Y'
+ AND NOT EXISTS (SELECT 1 FROM [Sales] AS S WHERE [BillNo] = @BILLNO   
+ AND S.[BilledDate] = CAST(GETDATE() AS DATE) AND S.[ProductCode] = U.[ProductCode] AND S.[MRP] = U.[MRP])  
+
+  --- STOCK HANDEL END ---
+
+ UPDATE S SET S.[StockQty] = ISNULL(S.[StockQty], 0) + ISNULL(Old.Qty, 0) - ISNULL(U.[Qty], 0)
+ FROM [Stock] AS S
+ INNER JOIN @UDT_Sales AS U ON S.[ProductCode] = U.[ProductCode] AND S.[MRP] = U.[MRP]
+ INNER JOIN [Product] AS P ON P.[Code] = S.[ProductCode]
+ LEFT JOIN [Sales] AS Old ON Old.[BillNo] = @BillNo
+ AND Old.[BilledDate] = CAST(GETDATE() AS DATE)
+ AND Old.[ProductCode] = U.[ProductCode]
+ AND Old.[MRP] = U.[MRP]
+ WHERE ISNULL(U.BillStatus, '') != 'F'
+ AND ISNULL(P.MaintainStock, '') = 'Y'
+ 
+ UPDATE S SET S.[Qty] = U.[Qty], S.[Unit] = U.[Unit], S.[SellRate] = U.[SellRate], S.[Amount] = U.[Amount], S.[DiscPercent] = U.[DiscPercent],  
+ S.[DiscAmount] = U.[DiscAmount], S.[TotAmount] = U.[TotAmount], S.[MRP] = U.[MRP], S.[TotDiscAmtFROMMRP] = U.[TotDiscAmtFROMMRP],  
+ S.[PurAmount] = U.[PurAmount], S.[ProfitAmount] = U.[ProfitAmount],  
+ S.[DiscCustCode] = U.[DiscCustCode], S.[DiscEmpCode] = U.[DiscEmpCode], S.[IsDefective] = U.[IsDefective],   
+ S.[BillStatus] = U.[BillStatus], S.[UpdatedBy] = U.[BilledBy], S.[UpdatedDateTime] = GETDATE()   
+ FROM [Sales] S  
+ INNER JOIN @UDT_Sales U ON S.[BillNo] = @BillNo AND S.[BilledDate] = CAST(GETDATE() AS DATE)   
+ AND S.[ProductCode] = U.[ProductCode] AND S.[MRP] = U.[MRP]  
+ WHERE ISNULL(U.BillStatus, '') != 'F'  
+
+ UPDATE S SET S.[BillStatus] = 'D', S.[UpdatedBy] = @UpdatedBy,  S.[UpdatedDateTime] = GETDATE()  
+ FROM [Sales] S  
+ WHERE S.[BillNo] = @BillNo  
+ AND S.[BilledDate] = CAST(GETDATE() AS DATE)  
+ AND NOT EXISTS (SELECT 1 FROM @UDT_Sales U WHERE U.[ProductCode] = S.[ProductCode] AND S.[MRP] = U.[MRP])  
+ 
+ UPDATE S SET S.[StockQty] = ISNULL(S.[StockQty], 0) + ISNULL(SL.[Qty], 0)
+ FROM [Stock] AS S
+ INNER JOIN [Sales] AS SL ON SL.[ProductCode] = S.[ProductCode] AND SL.[MRP] = S.[MRP]
+ INNER JOIN [Product] AS P ON P.[Code] = S.[ProductCode] 
+ WHERE 1=1 AND ISNULL(P.MaintainStock, '') = 'Y' AND SL.[BillNo] = @BillNo AND SL.[BilledDate] = CAST(GETDATE() AS DATE)  
+ AND NOT EXISTS (SELECT 1 FROM @UDT_Sales U WHERE U.[ProductCode] = SL.[ProductCode] AND U.[MRP] = SL.[MRP])
+ 
+ UPDATE S SET S.[TotAmount] = U.[TotAmount], S.[DiscPercent] = U.[DiscPercent], S.[DiscAmount] = U.[DiscAmount], S.[GrossAmount] = U.[GrossAmount],  
+ S.[RoundOffAmount] = U.[RoundOffAmount], S.[NetAmount] = U.[NetAmount],  
+ S.[PrintTotMRP] = U.[PrintTotMRP], S.[PrintTotDiscMRP] = U.[PrintTotDiscMRP], S.[TotProfitAmount] = U.[TotProfitAmount],  
+ S.[UpdatedBy] = U.[BilledBy], S.[UpdatedDateTime] = GETDATE()  
+ FROM [SalesTransaction] S  
+ INNER JOIN @UDT_Transaction U ON S.[BillNo] = @BillNo AND S.[BilledDate] = CAST(GETDATE() AS DATE)  
+   
+ DELETE T FROM [PaymentDetails] T   
+ WHERE T.[BillNo] = @BillNo AND T.[BilledDate] = CAST(GETDATE() AS DATE)   
+ AND NOT EXISTS (SELECT 1 FROM @UDT_PaymentDetails U WHERE U.[PaymentType] = T.[PaymentType])  
+   
+ UPDATE P SET P.[Amount] = U.[Amount], P.[UpdatedBy] = U.[BilledBy], P.[UpdatedDateTime] = GETDATE()   
+ FROM [PaymentDetails] P  
+ INNER JOIN @UDT_PaymentDetails U ON P.[BillNo] = @BillNo  
+ AND P.[BilledDate]  = CAST(GETDATE() AS DATE)  
+ AND P.[PaymentType] = U.[PaymentType]  
+  
+ INSERT INTO [PaymentDetails]([BillNo], [BilledDate], [PaymentType], [Amount], [BilledBy], [BilledDateTime])  
+ SELECT @BillNo, CAST(GETDATE() AS DATE), U.[PaymentType], U.[Amount], U.[BilledBy], GETDATE() FROM @UDT_PaymentDetails U  
+ WHERE NOT EXISTS ( SELECT 1 FROM [PaymentDetails] P WHERE P.[BillNo] = @BillNo AND P.[BilledDate] = CAST(GETDATE() AS DATE)   
+ AND P.[PaymentType] = U.[PaymentType])  
+   
+ -- Check if old Credit record exists for this Bill  
+ DECLARE @OldTranNo INT;  
+ SELECT @OldTranNo = TranNo  
+ FROM [CustomerCreditDebitNote] WHERE [BillNo] = @BillNo AND [BillDate] = CAST(GETDATE() AS DATE)  
+ AND TransType = 'D' AND Remarks = 'RECORD FROM POS'  
+  
+ -- CASE 1: Update existing Credit record if still present in UDT  
+ IF EXISTS (SELECT 1 FROM @UDT_PaymentDetails WHERE [PaymentType] = 'T')  
+ BEGIN  
+  IF @OldTranNo IS NOT NULL  
+  BEGIN  
+	   -- UPDATE and keep old TranNo  
+	   UPDATE [CustomerCreditDebitNote]  
+	   SET [CustomerCode] = U.[CustomerCode], [Amount] = U.[Amount], [PaymentType] = U.[PaymentType],  
+	   [UpdatedBy] = U.[BilledBy], [UpdatedDate] = GETDATE()   
+	   FROM [CustomerCreditDebitNote] C  
+	   INNER JOIN @UDT_PaymentDetails U ON U.[PaymentType] = 'T'  
+	   WHERE C.TranNo = @OldTranNo  
+  END  
+  ELSE  
+  BEGIN  
+		-- INSERT new if not exists  
+		DECLARE @NewTranNo INT = (SELECT ISNULL(MAX([TranNo]),0)+1 FROM [CustomerCreditDebitNote]);  
+  
+		INSERT INTO [CustomerCreditDebitNote]   
+		([TranNo], [TranDate], [CustomerCode], [TransType], [BillNo], [BillDate],   
+		[Amount], [PaymentType], [Remarks], [UpdatedBy], [UpdatedDate])    
+		SELECT @NewTranNo, GETDATE(), [CustomerCode], 'D', @BillNo, CAST(GETDATE() AS DATE),  
+		[Amount], [PaymentType], 'RECORD FROM POS', [BilledBy], GETDATE()  
+		FROM @UDT_PaymentDetails   
+		WHERE [PaymentType] = 'T'  
+  END  
+ END  
+ ELSE  
+ BEGIN  
+		-- CASE 2: Delete old Credit entry if UDT has no T  
+		IF @OldTranNo IS NOT NULL  
+			BEGIN  
+			DELETE FROM [CustomerCreditDebitNote] WHERE TranNo = @OldTranNo;  
+			END  
+		END  
+  
+ COMMIT TRAN      
+      
+END TRY      
+BEGIN CATCH      
+      
+ ROLLBACK TRAN  
+  -- Optional: Return error details  
+ THROW;  
+END CATCH  
+
+---------------
+GO
+---------------
+
+ALTER PROC [dbo].[SpSalesBillCancel] (@BillNo INT, @BilledDate DATE)  
+AS  
+BEGIN  
+    SET NOCOUNT ON;  
+  
+    BEGIN TRY  
+        BEGIN TRAN;  
+  
+		-- Reverse Stock for each product in the canceled bill
+        UPDATE PS 
+		SET PS.[StockQty] = PS.[StockQty] + S.[Qty]
+        FROM [Stock] PS
+        INNER JOIN [Sales] S ON PS.[ProductCode] = S.[ProductCode] AND PS.[MRP] = S.[MRP]
+        WHERE S.[BillNo] = @BillNo AND S.[BilledDate] = @BilledDate AND ISNULL(S.[BillStatus], '') != 'D'
+
+        -- Cancel Sales  
+        UPDATE [Sales] SET [BillStatus] = 'C' WHERE [BillNo] = @BillNo AND [BilledDate] = @BilledDate;  
+  
+        -- Cancel Sales Transaction  
+        UPDATE [SalesTransaction] SET [BillStatus] = 'C' WHERE [BillNo] = @BillNo AND [BilledDate] = @BilledDate;  
+  
+        -- Cancel Payments  
+        UPDATE [PaymentDetails] SET [BillStatus] = 'C' WHERE [BillNo] = @BillNo AND [BilledDate] = @BilledDate;  
+  
+        -- Delete Credit/Debit Notes  
+        DELETE FROM [CustomerCreditDebitNote]  WHERE [BillNo] = @BillNo AND [BillDate] = @BilledDate AND [Remarks] = 'RECORD FROM POS';  
+  
+        COMMIT TRAN;  
+    END TRY  
+    BEGIN CATCH  
+        ROLLBACK TRAN;  
+  
+        -- Re-throw error  
+        THROW;  
+    END CATCH  
+END  
 
 ---------------
 GO
