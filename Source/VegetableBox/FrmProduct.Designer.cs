@@ -563,6 +563,7 @@
             CmbMaintainStock.Name = "CmbMaintainStock";
             CmbMaintainStock.Size = new Size(106, 27);
             CmbMaintainStock.TabIndex = 23;
+            CmbMaintainStock.SelectedIndexChanged += CmbMaintainStock_SelectedIndexChanged;
             CmbMaintainStock.Enter += ComboBox_Enter;
             CmbMaintainStock.Leave += ComboBox_Leave;
             // 

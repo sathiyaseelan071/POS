@@ -395,7 +395,33 @@ namespace VegetableBox
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Vegetable Box");
-            }           
+            }
+        }
+
+        private void ToolStripMenuItem_PriceUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmPriceUpdate frmPriceUpdate = new FrmPriceUpdate();
+                this.ShowForm(frmPriceUpdate);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private void ToolStripMenuItem_StockMrpCleanup_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmStockMRPCleanup frmStockMRPCleanup = new FrmStockMRPCleanup();
+                this.ShowForm(frmStockMRPCleanup);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
         }
     }
 }

@@ -373,13 +373,17 @@ namespace VegetableBox
                 clsFrmProduct.BarCode4 = this.TxtBarcode4.Text.Trim();
                 clsFrmProduct.ActiveStatus = (string)this.CmbActive.SelectedValue;
 
-                if (this.CmbMaintainStock.SelectedIndex == -1)
+                if (this.CmbMaintainStock.SelectedIndex == 2)
+                {
                     clsFrmProduct.MaintainStock = "N";
+                }
                 else
+                {
                     clsFrmProduct.MaintainStock = (string)this.CmbMaintainStock.SelectedValue;
+                    clsFrmProduct.MinStock = Convert.ToInt32(this.TxtMinimumStock.Text.Trim());
+                    clsFrmProduct.MaxStock = Convert.ToInt32(this.TxtMaximumStock.Text.Trim());
 
-                clsFrmProduct.MinStock = Convert.ToInt32(this.TxtMinimumStock.Text.Trim());
-                clsFrmProduct.MaxStock = Convert.ToInt32(this.TxtMaximumStock.Text.Trim());
+                }
 
                 if (clsFrmProduct.GetProductRecordCount() >= 1)
                 {
@@ -453,7 +457,7 @@ namespace VegetableBox
                     IsValid = false;
                 }
 
-                if (this.CmbMaintainStock.Enabled &&  (this.CmbMaintainStock.SelectedValue == null || this.CmbMaintainStock.SelectedValue.ToString() == string.Empty))
+                if (this.CmbMaintainStock.Enabled && (this.CmbMaintainStock.SelectedValue == null || this.CmbMaintainStock.SelectedValue.ToString() == string.Empty))
                 {
                     this.ErrorProvider.SetError(this.CmbMaintainStock, "Please select maintain stock...");
                     IsValid = false;
@@ -472,7 +476,7 @@ namespace VegetableBox
                     {
                         this.ErrorProvider.SetError(this.TxtMaximumStock, "Maximum stock must be greater than 0.");
                         IsValid = false;
-                    }       
+                    }
 
                     // Extra logical check: Min should not be greater than Max
                     if (minStock > 0 && maxStock > 0 && minStock > maxStock)
@@ -665,7 +669,7 @@ namespace VegetableBox
                 bool IsEnable = false;
 
                 if ((this.CmbCategoryType.SelectedValue != null && this.CmbCategoryType.SelectedIndex > 2) && //Vegetable, Fruit and Banana
-                    this.CmbQtyType.SelectedValue != null && this.CmbQtyType.SelectedIndex == 1)  //Pieces
+                    this.CmbQtyType.SelectedValue != null && this.CmbQtyType.SelectedIndex == 1 )  //Pieces
                 {
                     IsEnable = true;
                 }
@@ -727,6 +731,39 @@ namespace VegetableBox
             {
                 MessageBox.Show(ex.Message, "Vegetable Box");
             }
+        }
+
+        private void CmbMaintainStock_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.CmbMaintainStock.SelectedValue != null && this.CmbMaintainStock.SelectedValue.ToString() == "Y")
+                {
+                    this.LblMinimumStock.Enabled = true;
+                    this.TxtMinimumStock.Enabled = true;
+
+                    this.LblMaximumStock.Enabled = true;
+                    this.TxtMaximumStock.Enabled = true;
+
+                    this.TxtMinimumStock.Enabled = true;
+                    this.TxtMaximumStock.Enabled = true;
+                }
+                else
+                {
+                    this.TxtMinimumStock.Text = string.Empty;
+                    this.TxtMaximumStock.Text = string.Empty;
+                    this.TxtMinimumStock.Enabled = false;
+                    this.TxtMaximumStock.Enabled = false;
+                    this.LblMinimumStock.Enabled = false;
+                    this.LblMaximumStock.Enabled = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+
         }
     }
 

@@ -163,7 +163,7 @@
             CmbReportType.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbReportType.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbReportType.FormattingEnabled = true;
-            CmbReportType.Location = new Point(97, 6);
+            CmbReportType.Location = new Point(97, 8);
             CmbReportType.Name = "CmbReportType";
             CmbReportType.Size = new Size(396, 27);
             CmbReportType.TabIndex = 1;
@@ -219,7 +219,7 @@
             // 
             CmbProductFilter.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbProductFilter.FormattingEnabled = true;
-            CmbProductFilter.Location = new Point(96, 9);
+            CmbProductFilter.Location = new Point(96, 7);
             CmbProductFilter.Name = "CmbProductFilter";
             CmbProductFilter.Size = new Size(394, 27);
             CmbProductFilter.TabIndex = 1;
@@ -294,7 +294,7 @@
             CmbQuantity.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbQuantity.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbQuantity.FormattingEnabled = true;
-            CmbQuantity.Location = new Point(820, 8);
+            CmbQuantity.Location = new Point(820, 6);
             CmbQuantity.Name = "CmbQuantity";
             CmbQuantity.Size = new Size(128, 27);
             CmbQuantity.TabIndex = 7;
@@ -315,7 +315,7 @@
             CmbCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             CmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbCategory.FormattingEnabled = true;
-            CmbCategory.Location = new Point(579, 8);
+            CmbCategory.Location = new Point(579, 6);
             CmbCategory.Name = "CmbCategory";
             CmbCategory.Size = new Size(128, 27);
             CmbCategory.TabIndex = 5;

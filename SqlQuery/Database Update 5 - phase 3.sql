@@ -31,7 +31,7 @@ BEGIN
     
  DECLARE @Code INT    
  SET @Code = (SELECT ISNULL(MAX([Code]), 0) + 1 FROM [PRODUCT])    
-    
+         
  INSERT INTO PRODUCT([Code], [Name], [TamilName], [AlternativeName], [CatCode], [QtyTypeCode], [CalcBasedRateMast],    
  [Active], [CreatedBy], [CreatedDateTime], [LastUpdatedBy], [LastUpdatedDateTime], [BarCode], [AllowRateChange], 
  [BarCode2], [BarCode3], [BarCode4], [MaintainStock], [MinStock], [MaxStock])
@@ -218,7 +218,7 @@ BEGIN
     SET NOCOUNT ON;  
       
  SELECT CAST(P.[Code] AS VARCHAR) AS ProductCode, P.[Name] AS ProductName, P.[TamilName] AS ProductTName, P.[AlternativeName] AS ProductAltrName, P.[CatCode], P.[QtyTypeCode], P.[CalcBasedRateMast],        
- Q.ShortName AS Qty, CAST(P.[Code] AS VARCHAR) + ' - ' + P.[Name] + ' - ' + P.[TamilName] AS SearchName,       
+ Q.ShortName AS Qty,  CAST(P.[Code] AS VARCHAR) + ' - ' + P.[Name] + ' - ' + P.[TamilName]  + ' - SRATE: ' + CAST(R.[SellRate] AS VARCHAR) AS SearchName,
  (CASE WHEN ISNULL(P.BarCode, '') = '' THEN 'B' + REPLICATE('0', 5 - LEN(RTRIM(CAST(P.[Code] AS VARCHAR)))) +  RTRIM(CAST(P.[Code] AS VARCHAR)) ELSE P.BarCode END ) AS BarCode,    
    
  R.[BuyRate] AS PurRate, R.[MRP], R.[SellRate], '0.00' SellingMarginPer, '0.00' DiscPer, '0.00' DiscRate,   
