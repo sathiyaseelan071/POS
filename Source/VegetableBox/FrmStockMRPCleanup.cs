@@ -4,17 +4,16 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VegetableBox
 {
-    public partial class FrmTagPrint : Form
+    public partial class FrmStockMRPCleanup : Form
     {
-        ClsFrmTagPrint clsFrmTagPrint;
-        public FrmTagPrint()
+        ClsFrmStockMRPCleanup clsFrmStockMRPCleanup;
+        public FrmStockMRPCleanup()
         {
             InitializeComponent();
         }
@@ -27,12 +26,9 @@ namespace VegetableBox
                 this.DgvProductSearch.DataSource = null;
                 this.TxtProductName.Text = string.Empty;
                 this.TxtProductTamilName.Text = string.Empty;
-                this.TxtSellingRate.Text = string.Empty;
                 this.TxtMrp.Text = string.Empty;
-                this.TxtBarcode.Text = string.Empty;
-                this.TxtPrintCount.Text = string.Empty;
-                if (this.CmbLabelType.Items.Count > 0)
-                    this.CmbLabelType.SelectedIndex = 0;
+                this.TxtSellingRate.Text = string.Empty;
+                this.TxtStockQty.Text = string.Empty;
             }
             catch
             {
@@ -44,7 +40,7 @@ namespace VegetableBox
         {
             try
             {
-
+                this.clsFrmStockMRPCleanup = new ClsFrmStockMRPCleanup();                
             }
             catch
             {
@@ -104,15 +100,22 @@ namespace VegetableBox
             }
         }
 
-        private void Number_KeyPress(object sender, KeyPressEventArgs e)
+        private void Decimal_KeyPress(object sender, KeyPressEventArgs e)
         {
             try
             {
                 // allows 0-9, backspace, and decimal
-                if ((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8)
+                if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
                 {
                     e.Handled = true;
                     return;
+                }
+
+                // checks to make sure only 1 decimal is allowed
+                if (e.KeyChar == 46)
+                {
+                    if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                        e.Handled = true;
                 }
             }
             catch (Exception ex)
@@ -121,27 +124,14 @@ namespace VegetableBox
             }
         }
 
-        private void FrmTagPrint_Load(object sender, EventArgs e)
+        private void FrmStockMRPCleanup_Load(object sender, EventArgs e)
         {
             try
             {
                 this.TxtProductSearch.Focus();
-                this.clsFrmTagPrint = new ClsFrmTagPrint();
+                this.clsFrmStockMRPCleanup = new ClsFrmStockMRPCleanup();
                 this.ClearProductDetails();
                 this.LoadControls();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Vegetable Box");
-            }
-        }
-
-        private void BtnClear_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.ClearProductDetails();
-                this.TxtProductSearch.Focus();
             }
             catch (Exception ex)
             {
@@ -171,7 +161,7 @@ namespace VegetableBox
                 DataTable _DtSearch = new DataTable();
                 if (FilterProduct != string.Empty)
                 {
-                    if (clsFrmTagPrint.ProductData != null && clsFrmTagPrint.ProductData.Rows.Count > 0)
+                    if (clsFrmStockMRPCleanup.ProductRateData != null && clsFrmStockMRPCleanup.ProductRateData.Rows.Count > 0)
                     {
                         _DtSearch.Columns.Add(ProductRateData.ColumnName.SearchName, typeof(string));
                         _DtSearch.Columns.Add(ProductRateData.ColumnName.ProductCode, typeof(string));
@@ -179,21 +169,43 @@ namespace VegetableBox
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 
-                        if (clsFrmTagPrint.ProductData.AsEnumerable()
+                        if (clsFrmStockMRPCleanup.ProductRateData.AsEnumerable()
                             .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                             || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                             || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
-                            || (FilterProduct.Length >= 3 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
-                            && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))).Count() > 0)
-                        {
 
-                            _DtSearch = clsFrmTagPrint.ProductData.AsEnumerable()
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))
+
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode2))
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode2).Contains(FilterProduct))
+
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode3))
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode3).Contains(FilterProduct))
+
+                            || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode4))
+                            && x.Field<string>(ProductRateData.ColumnName.BarCode4).Contains(FilterProduct))
+
+                            ).Count() > 0)
+                        {
+                            _DtSearch = clsFrmStockMRPCleanup.ProductRateData.AsEnumerable()
                                 .Where(x => (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductName).ToLower().Contains(FilterProduct.ToLower()))
                                 || (FilterProduct.Length >= 3 && x.Field<string>(ProductRateData.ColumnName.ProductAltrName).ToLower().Contains(FilterProduct.ToLower()))
                                 || x.Field<string>(ProductRateData.ColumnName.ProductCode) == FilterProduct
-                                || (FilterProduct.Length >= 3 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
-                                && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct)))
+
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode).Contains(FilterProduct))
+
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode2))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode2).Contains(FilterProduct))
+
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode3))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode3).Contains(FilterProduct))
+
+                                || (FilterProduct.Length >= 5 && !string.IsNullOrEmpty(x.Field<string>(ProductRateData.ColumnName.BarCode4))
+                                && x.Field<string>(ProductRateData.ColumnName.BarCode4).Contains(FilterProduct)))
                                 .OrderBy(x => x.Field<Int32>(ProductRateData.ColumnName.CatCode))
+                                .ThenBy(x => x.Field<string>(ProductRateData.ColumnName.ProductName))
                                 .Select(g =>
                                 {
                                     var row = _DtSearch.NewRow();
@@ -201,7 +213,8 @@ namespace VegetableBox
                                     row[ProductRateData.ColumnName.ProductCode] = g.Field<string>(ProductRateData.ColumnName.ProductCode);
                                     row[ProductRateData.ColumnName.MRP] = g.Field<decimal>(ProductRateData.ColumnName.MRP);
                                     return row;
-                                }).CopyToDataTable();
+                                }
+                                ).CopyToDataTable();
                         }
 
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
@@ -213,6 +226,7 @@ namespace VegetableBox
 
                         if (DgvProductSearch.Columns.Contains(ProductRateData.ColumnName.MRP))
                             DgvProductSearch.Columns[ProductRateData.ColumnName.MRP].Visible = false;
+
                     }
                 }
                 else
@@ -227,13 +241,33 @@ namespace VegetableBox
             }
         }
 
-        private void FrmTagPrint_KeyDown(object sender, KeyEventArgs e)
+        private void FrmStockMRPCleanup_KeyDown(object sender, KeyEventArgs e)
         {
             try
             {
-                if (e.KeyCode == Keys.F5)
+                if (e.KeyCode == Keys.Escape)
                 {
-                    this.clsFrmTagPrint.GetProductDetails();
+                    BtnExit.Focus();
+                }
+
+                if (e.KeyCode == Keys.Enter)
+                {
+                    SendKeys.Send("{Tab}");
+                }
+
+                // Handle single key shortcuts
+                switch (e.KeyCode)
+                {
+                    case Keys.F1:
+                        this.TxtProductSearch.Focus();
+                        break;
+
+                    case Keys.F5:
+                        this.TxtProductSearch.Focus();
+                        this.clsFrmStockMRPCleanup = new ClsFrmStockMRPCleanup();
+                        this.ClearProductDetails();
+                        this.LoadControls();
+                        break;
                 }
             }
             catch (Exception ex)
@@ -272,7 +306,7 @@ namespace VegetableBox
                 {
                     this.ErrorProvider.Clear();
                     this.LoadCurrentProduct();
-                    this.TxtPrintCount.Focus();
+                    this.TxtStockQty.Focus();
                     e.Handled = true;
                 }
             }
@@ -282,9 +316,21 @@ namespace VegetableBox
             }
         }
 
-        private string? CurrentPCode { get; set; }
-        private decimal? CurrentMrp { get; set; }
+        private string ToConvertDecimalFormatString(string value)
+        {
+            try
+            {
+                return (value.Trim() == string.Empty ? "0.00" : Math.Round(Convert.ToDecimal(value.Trim()), 2).ToString("0.00"));
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
+        private string? CurrentPCode { get; set; }
+        private decimal? CurrentMRP { get; set; }
+        private bool IsRateMasterProduct { get; set; }
         private void LoadCurrentProduct()
         {
             try
@@ -292,18 +338,18 @@ namespace VegetableBox
                 if (DgvProductSearch.Rows.Count > 0)
                 {
                     this.CurrentPCode = (string)DgvProductSearch.CurrentRow.Cells[ProductRateData.ColumnName.ProductCode].Value;
-                    this.CurrentMrp = (decimal)DgvProductSearch.CurrentRow.Cells[ProductRateData.ColumnName.MRP].Value;
+                    this.CurrentMRP = (decimal)DgvProductSearch.CurrentRow.Cells[ProductRateData.ColumnName.MRP].Value;
 
-                    if (clsFrmTagPrint.ProductData != null && clsFrmTagPrint.ProductData.Rows.Count > 0)
+                    if (clsFrmStockMRPCleanup.ProductRateData != null && clsFrmStockMRPCleanup.ProductRateData.Rows.Count > 0)
                     {
-                        if (clsFrmTagPrint.ProductData.AsEnumerable()
+                        if (clsFrmStockMRPCleanup.ProductRateData.AsEnumerable()
                             .Where(x => x.Field<string>(ProductRateData.ColumnName.ProductCode) == this.CurrentPCode
-                            & x.Field<decimal>(ProductRateData.ColumnName.MRP) == this.CurrentMrp).Count() > 0)
+                            && x.Field<decimal>(ProductRateData.ColumnName.MRP) == this.CurrentMRP).Count() > 0)
                         {
 
-                            DataRow dataRow = clsFrmTagPrint.ProductData
+                            DataRow dataRow = clsFrmStockMRPCleanup.ProductRateData
                                 .AsEnumerable().Where(x => x.Field<string>(ProductRateData.ColumnName.ProductCode) == this.CurrentPCode
-                                & x.Field<decimal>(ProductRateData.ColumnName.MRP) == this.CurrentMrp).FirstOrDefault();
+                                && x.Field<decimal>(ProductRateData.ColumnName.MRP) == this.CurrentMRP).FirstOrDefault();
 
                             if (dataRow != null)
                             {
@@ -313,16 +359,17 @@ namespace VegetableBox
                                 this.TxtProductTamilName.Text = (dataRow[ProductRateData.ColumnName.ProductTName] != null ?
                                                                 (string)dataRow[ProductRateData.ColumnName.ProductTName] : string.Empty);
 
-                                this.TxtMrp.Text = Convert.ToString((dataRow[ProductRateData.ColumnName.MRP] != null ?
-                                                                (decimal)dataRow[ProductRateData.ColumnName.MRP] : 0.00));
+                                this.IsRateMasterProduct = (dataRow[ProductRateData.ColumnName.CalcBasedRateMast] != null 
+                                                            && (string)dataRow[ProductRateData.ColumnName.CalcBasedRateMast] == "Y");
 
-                                this.TxtSellingRate.Text = Convert.ToString((dataRow[ProductRateData.ColumnName.SellRate] != null ?
-                                                                (decimal)dataRow[ProductRateData.ColumnName.SellRate] : 0.00));
+                                this.TxtMrp.Text = (dataRow[ProductRateData.ColumnName.MRP] != null ?
+                                                                    Convert.ToString(dataRow[ProductRateData.ColumnName.MRP]) : string.Empty);
 
-                                this.TxtBarcode.Text = (dataRow[ProductRateData.ColumnName.BarCode] != null ?
-                                                                (string)dataRow[ProductRateData.ColumnName.BarCode] : string.Empty);
+                                this.TxtSellingRate.Text = (dataRow[ProductRateData.ColumnName.SellRate] != null ?
+                                                                    Convert.ToString(dataRow[ProductRateData.ColumnName.SellRate]) : string.Empty);
 
-                                this.CmbLabelType.SelectedIndex = 0;
+                                this.TxtStockQty.Text = (dataRow[ProductRateData.ColumnName.StockQty] != null ?
+                                                                    Convert.ToString(dataRow[ProductRateData.ColumnName.StockQty]) : string.Empty);
 
                                 this.TxtProductSearch.Text = string.Empty;
                             }
@@ -336,44 +383,42 @@ namespace VegetableBox
             }
         }
 
-        private void FrmTagPrint_Activated(object sender, EventArgs e)
-        {
-            this.TxtProductSearch.Focus();
-        }
-
-        private void TxtPrintCount_KeyDown(object sender, KeyEventArgs e)
+        private bool Validate()
         {
             try
             {
-                if (e.KeyCode == Keys.Enter)
+                bool IsValid = true;
+                this.ErrorProvider.Clear();
+
+                if (Convert.ToDecimal(this.TxtStockQty.Text.Trim()) > 0)
                 {
-                    this.ErrorProvider.Clear();
-                    this.BtnPrint.Focus();
-                    e.Handled = true;
+                    this.ErrorProvider.SetError(this.TxtStockQty, "Stock is available for this MRP, so it cannot be deleted.");
+                    IsValid = false;
                 }
+                
+                return IsValid;
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message, "Vegetable Box");
+                throw;
             }
         }
 
-        private void BtnPrint_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                this.Validation();
+                if (!this.Validate())
+                    return;
 
-                string productName = this.TxtProductName.Text;
-                string mrp = this.TxtMrp.Text;
-                string barcode = this.TxtBarcode.Text;
-                string sellingRate = this.TxtSellingRate.Text;
-                int printCount = Convert.ToInt32(this.TxtPrintCount.Text);
+                if (MessageBox.Show("Are you sure want to delete this product MRP ?", "Vegetable Box", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                    return;
 
-                this.clsFrmTagPrint.print(productName, mrp, sellingRate, barcode, printCount);
-                
-                MessageBox.Show("Pint Successfully...");
+                this.clsFrmStockMRPCleanup.Delete(Convert.ToInt32(this.CurrentPCode), this.CurrentMRP.Value);
 
+                MessageBox.Show("Deleted Sucessfully...", "Vegetable Box");
+
+                this.clsFrmStockMRPCleanup = new ClsFrmStockMRPCleanup();
                 this.ClearProductDetails();
                 this.TxtProductSearch.Focus();
             }
@@ -383,132 +428,18 @@ namespace VegetableBox
             }
         }
 
-        private void Validation()
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             try
             {
-                bool IsValid = true;
-                this.ErrorProvider.Clear();
-
-                if (string.IsNullOrEmpty(this.TxtMrp.Text.Trim()))
-                {
-                    this.ErrorProvider.SetError(this.TxtProductName, "Please enter the mrp...");
-                    IsValid = false;
-                }
-
-                if (string.IsNullOrEmpty(this.TxtSellingRate.Text.Trim()))
-                {
-                    this.ErrorProvider.SetError(this.TxtSellingRate, "Please enter the selling rate...");
-                    IsValid = false;
-                }
-
-                if (string.IsNullOrEmpty(this.TxtProductName.Text.Trim()))
-                {
-                    this.ErrorProvider.SetError(this.TxtProductName, "Please enter the product name...");
-                    IsValid = false;
-                }
-
-                if (string.IsNullOrEmpty(this.TxtBarcode.Text.Trim()))
-                {
-                    this.ErrorProvider.SetError(this.TxtBarcode, "Please enter the barcode...");
-                    IsValid = false;
-                }
-
-                if (string.IsNullOrEmpty(this.TxtPrintCount.Text.Trim()))
-                {
-                    this.ErrorProvider.SetError(this.TxtPrintCount, "Please enter the print count...");
-                    IsValid = false;
-                }
-
-                //if (this.CmbLabelType.SelectedValue == null || this.CmbLabelType.SelectedValue.ToString() == string.Empty)
-                //{
-                //    this.ErrorProvider.SetError(this.CmbLabelType, "Please select the label type...");
-                //    IsValid = false;
-                //}
-
-                if (IsValid == false)
-                {
-                    throw new Exception("Please enter the valid input...");
-                }
+                this.TxtProductSearch.Focus();
+                this.ClearProductDetails();
+                this.LoadControls();
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message, "Vegetable Box");
             }
         }
-
-
-        [DllImport("winspool.Drv", EntryPoint = "OpenPrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool OpenPrinter(string szPrinter, out IntPtr hPrinter, PRINTER_DEFAULTS pd);
-
-        [DllImport("winspool.Drv", EntryPoint = "ClosePrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool ClosePrinter(IntPtr hPrinter);
-
-        [DllImport("winspool.Drv", EntryPoint = "StartDocPrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool StartDocPrinter(IntPtr hPrinter, int level, [In, MarshalAs(UnmanagedType.LPStruct)] DOCINFO di);
-
-        [DllImport("winspool.Drv", EntryPoint = "EndDocPrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool EndDocPrinter(IntPtr hPrinter);
-
-        [DllImport("winspool.Drv", EntryPoint = "StartPagePrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool StartPagePrinter(IntPtr hPrinter);
-
-        [DllImport("winspool.Drv", EntryPoint = "EndPagePrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool EndPagePrinter(IntPtr hPrinter);
-
-        [DllImport("winspool.Drv", EntryPoint = "WritePrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, int dwCount, out int dwWritten);
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-        public class DOCINFO
-        {
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string pDocName;
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string pOutputFile;
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string pDataType;
-        }
-
-        public class PRINTER_DEFAULTS
-        {
-            public int pDatatype;
-            public int pDevMode;
-            public int DesiredAccess;
-        }
-
-        private const int PRINTER_ACCESS_USE = 0x00000008;
-
-        public bool SendFileToPrinter(string printerName, string filePath)
-        {
-            IntPtr printerHandle;
-            PRINTER_DEFAULTS printerDefaults = new PRINTER_DEFAULTS();
-            printerDefaults.DesiredAccess = PRINTER_ACCESS_USE;
-
-            if (OpenPrinter(printerName, out printerHandle, printerDefaults))
-            {
-                IntPtr fileHandle = new IntPtr(0);
-                DOCINFO docInfo = new DOCINFO();
-                docInfo.pDocName = "Print Document";
-                docInfo.pDataType = "RAW";
-
-                if (StartDocPrinter(printerHandle, 1, docInfo))
-                {
-                    if (StartPagePrinter(printerHandle))
-                    {
-                        int bytesWritten;
-                        IntPtr p = Marshal.StringToCoTaskMemAnsi(filePath);
-                        WritePrinter(printerHandle, p, (int)filePath.Length, out bytesWritten);
-                        Marshal.FreeCoTaskMem(p);
-                        EndPagePrinter(printerHandle);
-                    }
-                    EndDocPrinter(printerHandle);
-                }
-                ClosePrinter(printerHandle);
-            }
-
-            return true;
-        }
-
     }
 }

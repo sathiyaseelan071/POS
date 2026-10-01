@@ -65,6 +65,10 @@ namespace VegetableBox
         private string _BarCode4 = string.Empty;
         private string _ActiveStatus = string.Empty;
 
+        private string _MaintainStock = string.Empty;
+        private int _MinStock = 0;
+        private int _MaxStock = 0;
+
         internal int ProductCode
         {
             get { return _ProductCode; }
@@ -142,6 +146,24 @@ namespace VegetableBox
             set { _ActiveStatus = value; }
         }
 
+        internal string MaintainStock
+        {
+            get { return _MaintainStock; }
+            set { _MaintainStock = value; }
+        }
+
+        internal int MinStock
+        {
+            get { return _MinStock; }
+            set { _MinStock = value; }
+        }
+
+        internal int MaxStock
+        {
+            get { return _MaxStock; }
+            set { _MaxStock = value; }
+        }
+
         internal void Save()
         {
             try
@@ -165,6 +187,10 @@ namespace VegetableBox
                 _ListSqlParameter.Add(new SqlParameter("@Active", this.ActiveStatus));
                 _ListSqlParameter.Add(new SqlParameter("@CreatedBy", Global.currentUserId));
                 _ListSqlParameter.Add(new SqlParameter("@LastUpdatedBy", Global.currentUserId));
+
+                _ListSqlParameter.Add(new SqlParameter("@MaintainStock", this.MaintainStock));
+                _ListSqlParameter.Add(new SqlParameter("@MinStock", this.MinStock));
+                _ListSqlParameter.Add(new SqlParameter("@MaxStock", this.MaxStock));
 
                 int Result = _SqlIntract.ExecuteNonQuery(SqlQuery, CommandType.StoredProcedure, _ListSqlParameter);
             }
@@ -197,6 +223,10 @@ namespace VegetableBox
                 _ListSqlParameter.Add(new SqlParameter("@BarCode4", this.BarCode4));
                 _ListSqlParameter.Add(new SqlParameter("@Active", this.ActiveStatus));
                 _ListSqlParameter.Add(new SqlParameter("@LastUpdatedBy", Global.currentUserId));
+
+                _ListSqlParameter.Add(new SqlParameter("@MaintainStock", this.MaintainStock));
+                _ListSqlParameter.Add(new SqlParameter("@MinStock", this.MinStock));
+                _ListSqlParameter.Add(new SqlParameter("@MaxStock", this.MaxStock));
 
                 int Result = _SqlIntract.ExecuteNonQuery(SqlQuery, CommandType.StoredProcedure, _ListSqlParameter);
             }

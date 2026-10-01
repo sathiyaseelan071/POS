@@ -14,8 +14,7 @@ using TextBox = System.Windows.Forms.TextBox;
 namespace VegetableBox
 {
     public partial class FrmPos : Form
-    {
-        int[] defectiveCategories = { 1, 2, 3 }; // Vegetables, Fruits, Banana
+    {        
         ClsFrmPos clsFrmPos = new ClsFrmPos();
         public FrmPos()
         {
@@ -265,6 +264,7 @@ namespace VegetableBox
         private decimal? CurrentProfitAmount { get; set; }
         private bool? CurrentAllowRateChange { get; set; }
         private bool? CurrentSellingRateZero { get; set; }
+        private string? CurrentMaintainStock { get; set; }
 
         private void LoadCurrentProduct()
         {
@@ -371,8 +371,13 @@ namespace VegetableBox
 
                                 int _Val = (dataRow[ProductRateData.ColumnName.CatCode] != null ?
                                                    (int)dataRow[ProductRateData.ColumnName.CatCode] : 0);
-                                this.chkIsDefective.Visible = defectiveCategories.Contains(_Val);
+                                this.chkIsDefective.Visible = Global.defectiveCategories.Contains(_Val);
                                 this.chkIsDefective.Tag = _Val;
+
+                                this.TxtStockQty.Text = dataRow[ProductRateData.ColumnName.StockQty] != DBNull.Value ? 
+                                                        dataRow[ProductRateData.ColumnName.StockQty].ToString() : string.Empty;
+
+                                this.CurrentMaintainStock = dataRow[ProductRateData.ColumnName.MaintainStock].ToString();
 
                                 this.TxtProductSearch.Text = string.Empty;
                                 this.TxtQty.Focus();
@@ -497,6 +502,7 @@ namespace VegetableBox
                 this.chkIsDefective.Checked = false;
                 this.chkIsDefective.Visible = false;
                 this.chkIsDefective.Tag = 0;
+                this.TxtStockQty.Text = string.Empty;
             }
             catch
             {
@@ -1502,6 +1508,7 @@ namespace VegetableBox
                     this.LoadTodayBillsWithPaymentsData();
                     this.DispPosNetAmount();
                     this.CallPos("POS1", "POS 1", false);
+                    this.clsFrmPos.GetProductRateDetails();
                     this.TxtProductSearch.Focus();
                 }
                 else
@@ -1605,10 +1612,12 @@ namespace VegetableBox
 
                         int _Val = (dr[CartDataStruct.ColumnName.CatCode] != null ?
                             (int)dr[CartDataStruct.ColumnName.CatCode] : 0);
-                        this.chkIsDefective.Visible = defectiveCategories.Contains(_Val);
+                        this.chkIsDefective.Visible = Global.defectiveCategories.Contains(_Val);
 
                         this.BillStatus = Convert.ToString(dr[CartDataStruct.ColumnName.BillStatus]);
 
+                        this.TxtStockQty.Text = this.GetStockQty(this.TxtProCode.Text, this.ToConvertTextToDecimal(this.TxtMrp.Text));
+                        
                         this.DeleteCartSelectedItem();
                     }
                 }
@@ -1616,6 +1625,80 @@ namespace VegetableBox
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
+
+        private string GetStockQty(string proCode, decimal mrp)
+        {
+            try
+            {
+                var productRateData = clsFrmPos.ProductRateData;
+                if (productRateData is { Rows.Count: > 0 })
+                {
+                    var dataRow = productRateData
+                        .AsEnumerable()
+                        .FirstOrDefault(x =>
+                            x.Field<string>(ProductRateData.ColumnName.ProductCode) == proCode &&
+                            x.Field<decimal>(ProductRateData.ColumnName.MRP) == mrp);
+
+                    if (dataRow != null)
+                    {
+                        this.CurrentMaintainStock = dataRow.Field<string>(ProductRateData.ColumnName.MaintainStock);
+                        decimal stockQty = dataRow.Field<decimal>(ProductRateData.ColumnName.StockQty);
+
+                        if (this.LblCurrentPosName.Text == "Edit Mode" && this.BillStatus == "F")
+                        {
+                            decimal oldSaleQty = 0;
+                            var oldRow = clsFrmPos.CartData?.AsEnumerable()
+                                .FirstOrDefault(r =>
+                                    r.Field<int>(CartDataStruct.ColumnName.ProCode).ToString() == proCode &&
+                                    r.Field<decimal>(CartDataStruct.ColumnName.MRP) == mrp);
+
+                            if (oldRow != null)
+                            {
+                                decimal.TryParse(oldRow[CartDataStruct.ColumnName.Qty]?.ToString(), out oldSaleQty);
+                                stockQty += oldSaleQty;
+                                // Update the StockQty in productRateData
+                                dataRow[ProductRateData.ColumnName.StockQty] = stockQty;
+                            }
+                        }
+
+                        return stockQty.ToString("0.00");
+                    }
+                }
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error getting stock quantity: " + ex.Message, "Vegetable Box");
+                return string.Empty;
+            }
+        }
+
+        private decimal CartStockQty(int productCode, decimal mrp)
+        {
+            try
+            {
+                if (clsFrmPos.CartData != null && clsFrmPos.CartData.Rows.Count > 0)
+                {
+                    // Sum the Qty for all rows with the given ProductCode and MRP
+                    var totalQty = clsFrmPos.CartData.AsEnumerable()
+                        .Where(row => row.Field<int>(CartDataStruct.ColumnName.ProCode) == productCode
+                                   && row.Field<decimal>(CartDataStruct.ColumnName.MRP) == mrp)
+                        .Sum(row =>
+                        {
+                            decimal qty = 0;
+                            decimal.TryParse(row[CartDataStruct.ColumnName.Qty]?.ToString(), out qty);
+                            return qty;
+                        });
+
+                    return totalQty;
+                }
+                return 0;
+            }
+            catch
+            {
+                throw;
             }
         }
 
@@ -1779,6 +1862,40 @@ namespace VegetableBox
                 {
                     this.ErrorProvider.SetError(this.cmbName, "Please select a name.");
                     IsValid = false;
+                }
+
+                if (this.CurrentMaintainStock == "Y")
+                {
+                    if (decimal.TryParse(this.TxtQty.Text, out decimal enteredQty) &&
+                        decimal.TryParse(this.TxtStockQty.Text, out decimal stockQty))
+                    {
+                        if (enteredQty > stockQty)
+                        {
+                            this.ErrorProvider.SetError(this.TxtQty, "Entered quantity must be less than or equal to stock quantity.");
+                            IsValid = false;
+                        }
+                        else
+                        {
+                            // Check against cart quantity
+                            int productCode = 0;
+                            decimal mrp = 0;
+                            if (int.TryParse(this.TxtProCode.Text, out productCode) && productCode > 0
+                                && decimal.TryParse(this.TxtMrp.Text, out mrp) && mrp > 0)
+                            {
+                                decimal cartQty = this.CartStockQty(productCode, mrp);
+                                if ((enteredQty + cartQty) > stockQty)
+                                {
+                                    this.ErrorProvider.SetError(this.TxtQty, "Total quantity in cart exceeds available stock.");
+                                    IsValid = false;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this.ErrorProvider.SetError(this.TxtQty, "Invalid quantity entered.");
+                        IsValid = false;
+                    }
                 }
 
                 return IsValid;
@@ -2268,6 +2385,7 @@ namespace VegetableBox
                     this.LoadTodayBillsWithPaymentsData();
                     this.DGVBillDetails.ClearSelection();
 
+                    this.clsFrmPos.GetProductRateDetails();
                     this.TxtProductSearch.Focus();
                 }
                 else
@@ -2543,6 +2661,8 @@ namespace VegetableBox
             internal static string BarCode2 = "BarCode2";
             internal static string BarCode3 = "BarCode3";
             internal static string BarCode4 = "BarCode4";
+            internal static string StockQty = "StockQty";
+            internal static string MaintainStock = "MaintainStock";
         }
     }
 
