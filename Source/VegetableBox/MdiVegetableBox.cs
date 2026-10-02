@@ -423,5 +423,18 @@ namespace VegetableBox
                 MessageBox.Show(ex.Message, "Vegetable Box");
             }
         }
+
+        private void ToolStripMenuItem_StockAdjustment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmStockAdjustment frmStockAdjustment = new FrmStockAdjustment();
+                this.ShowForm(frmStockAdjustment);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
     }
 }

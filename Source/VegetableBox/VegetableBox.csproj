@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="RepositoryUnUsed\**" />
+    <EmbeddedResource Remove="RepositoryUnUsed\**" />
+    <None Remove="RepositoryUnUsed\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Accounts\ClsFrmUndiyalCreditDebitt.cs" />
   </ItemGroup>
 
@@ -36,7 +42,6 @@
   <ItemGroup>
     <Folder Include="ByUseNewFileCreation\" />
     <Folder Include="Font\" />
-    <Folder Include="RepositoryUnUsed\" />
   </ItemGroup>
 
   <ItemGroup>

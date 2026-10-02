@@ -117,15 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label19.Text" xml:space="preserve">
-    <value>Help Key Press =&gt; "Ctrl + G" to focus Cart &amp;&amp;  "Ctrl + E" to edit &amp;&amp; delete Cart Selected Item &amp;&amp; "DEL" or "Delete"  to delete Cart Selected Item  &amp;&amp;  "Esc" to Save &amp;&amp; "F12" to Enable/Disable Rate Based Weight
-
-</value>
-  </data>
   <metadata name="ErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>55</value>
+    <value>75</value>
   </metadata>
 </root>

@@ -872,6 +872,7 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(496, 39);
             panel2.TabIndex = 8;
+            panel2.Visible = false;
             // 
             // tableLayoutPanel9
             // 
