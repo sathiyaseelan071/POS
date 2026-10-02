@@ -49,9 +49,9 @@
             purchaseEntryToolStripMenuItem = new ToolStripMenuItem();
             tagPrintToolStripMenuItem = new ToolStripMenuItem();
             ToolStripMenuItem_Stock = new ToolStripMenuItem();
-            ToolStripMenuItem_AddStock = new ToolStripMenuItem();
-            ToolStripMenuItem_ReduceStock = new ToolStripMenuItem();
             ToolStripMenuItem_PriceUpdate = new ToolStripMenuItem();
+            ToolStripMenuItem_StockMrpCleanup = new ToolStripMenuItem();
+            ToolStripMenuItem_StockAdjustment = new ToolStripMenuItem();
             ToolStripMenuItem_Accounts = new ToolStripMenuItem();
             ToolStripMenuItem_ExpenseEntry_Click = new ToolStripMenuItem();
             ToolStripMenuItem_CustomerCreditDebit = new ToolStripMenuItem();
@@ -73,7 +73,6 @@
             LblDate = new Label();
             LblTime = new Label();
             PicBoxCompanyLogo = new PictureBox();
-            ToolStripMenuItem_StockMrpCleanup = new ToolStripMenuItem();
             TlpMdiVegitableBox.SuspendLayout();
             TlpMain.SuspendLayout();
             TlpHeader.SuspendLayout();
@@ -283,28 +282,12 @@
             // 
             // ToolStripMenuItem_Stock
             // 
-            ToolStripMenuItem_Stock.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_AddStock, ToolStripMenuItem_ReduceStock, ToolStripMenuItem_PriceUpdate, ToolStripMenuItem_StockMrpCleanup });
+            ToolStripMenuItem_Stock.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItem_PriceUpdate, ToolStripMenuItem_StockMrpCleanup, ToolStripMenuItem_StockAdjustment });
             ToolStripMenuItem_Stock.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             ToolStripMenuItem_Stock.ForeColor = Color.FromArgb(163, 0, 34);
             ToolStripMenuItem_Stock.Name = "ToolStripMenuItem_Stock";
             ToolStripMenuItem_Stock.Size = new Size(65, 40);
             ToolStripMenuItem_Stock.Text = "S&tock";
-            // 
-            // ToolStripMenuItem_AddStock
-            // 
-            ToolStripMenuItem_AddStock.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ToolStripMenuItem_AddStock.ForeColor = Color.DarkGreen;
-            ToolStripMenuItem_AddStock.Name = "ToolStripMenuItem_AddStock";
-            ToolStripMenuItem_AddStock.Size = new Size(212, 24);
-            ToolStripMenuItem_AddStock.Text = "&Add Stock";
-            // 
-            // ToolStripMenuItem_ReduceStock
-            // 
-            ToolStripMenuItem_ReduceStock.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ToolStripMenuItem_ReduceStock.ForeColor = Color.DarkGreen;
-            ToolStripMenuItem_ReduceStock.Name = "ToolStripMenuItem_ReduceStock";
-            ToolStripMenuItem_ReduceStock.Size = new Size(212, 24);
-            ToolStripMenuItem_ReduceStock.Text = "&Reduce Stock";
             // 
             // ToolStripMenuItem_PriceUpdate
             // 
@@ -314,6 +297,24 @@
             ToolStripMenuItem_PriceUpdate.Size = new Size(212, 24);
             ToolStripMenuItem_PriceUpdate.Text = "&Price Update";
             ToolStripMenuItem_PriceUpdate.Click += ToolStripMenuItem_PriceUpdate_Click;
+            // 
+            // ToolStripMenuItem_StockMrpCleanup
+            // 
+            ToolStripMenuItem_StockMrpCleanup.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_StockMrpCleanup.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_StockMrpCleanup.Name = "ToolStripMenuItem_StockMrpCleanup";
+            ToolStripMenuItem_StockMrpCleanup.Size = new Size(212, 24);
+            ToolStripMenuItem_StockMrpCleanup.Text = "Stock MRP &Cleanup";
+            ToolStripMenuItem_StockMrpCleanup.Click += ToolStripMenuItem_StockMrpCleanup_Click;
+            // 
+            // ToolStripMenuItem_StockAdjustment
+            // 
+            ToolStripMenuItem_StockAdjustment.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ToolStripMenuItem_StockAdjustment.ForeColor = Color.DarkGreen;
+            ToolStripMenuItem_StockAdjustment.Name = "ToolStripMenuItem_StockAdjustment";
+            ToolStripMenuItem_StockAdjustment.Size = new Size(212, 24);
+            ToolStripMenuItem_StockAdjustment.Text = "Stock Adjustmen&t";
+            ToolStripMenuItem_StockAdjustment.Click += ToolStripMenuItem_StockAdjustment_Click;
             // 
             // ToolStripMenuItem_Accounts
             // 
@@ -561,15 +562,6 @@
             PicBoxCompanyLogo.TabIndex = 2;
             PicBoxCompanyLogo.TabStop = false;
             // 
-            // ToolStripMenuItem_StockMrpCleanup
-            // 
-            ToolStripMenuItem_StockMrpCleanup.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ToolStripMenuItem_StockMrpCleanup.ForeColor = Color.DarkGreen;
-            ToolStripMenuItem_StockMrpCleanup.Name = "ToolStripMenuItem_StockMrpCleanup";
-            ToolStripMenuItem_StockMrpCleanup.Size = new Size(212, 24);
-            ToolStripMenuItem_StockMrpCleanup.Text = "Stock MRP &Cleanup";
-            ToolStripMenuItem_StockMrpCleanup.Click += ToolStripMenuItem_StockMrpCleanup_Click;
-            // 
             // MdiVegetableBox
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -646,9 +638,8 @@
         private ToolStripMenuItem ToolStripMenuItem_Settings;
         private ToolStripMenuItem ToolStripMenuItem_Backup;
         private ToolStripMenuItem ToolStripMenuItem_Stock;
-        private ToolStripMenuItem ToolStripMenuItem_AddStock;
-        private ToolStripMenuItem ToolStripMenuItem_ReduceStock;
         private ToolStripMenuItem ToolStripMenuItem_PriceUpdate;
         private ToolStripMenuItem ToolStripMenuItem_StockMrpCleanup;
+        private ToolStripMenuItem ToolStripMenuItem_StockAdjustment;
     }
 }

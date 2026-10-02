@@ -67,7 +67,7 @@ namespace VegetableBox
             }
         }
 
-        public bool UpdateRateMaster(decimal buyRate, decimal mrp, decimal sellMarginPercentage, decimal sellRate, int productCode)
+        public bool UpdateRateMaster(decimal buyRate, decimal mrp, decimal sellRate, decimal sellMarginPercentage, int productCode)
         {
             try
             {

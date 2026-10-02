@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Compile Update="FrmStockMRPCleanup.cs">
+    <Compile Update="FrmStockAdjustment.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmPriceUpdate.cs">
@@ -53,6 +53,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmRateMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmStockMRPCleanup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmTagPrint.cs">

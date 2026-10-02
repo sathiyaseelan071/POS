@@ -288,6 +288,57 @@ namespace VegetableBox
 
                             if (dataRow != null)
                             {
+                                this.CurrentMaintainStock = dataRow[ProductRateData.ColumnName.MaintainStock].ToString();
+
+                                this.TxtStockQty.Text = dataRow[ProductRateData.ColumnName.StockQty] != DBNull.Value ?
+                                                        dataRow[ProductRateData.ColumnName.StockQty].ToString() : string.Empty;
+                                
+                                if(this.CurrentMaintainStock == "Y" && !string.IsNullOrWhiteSpace(this.TxtStockQty.Text))
+                                {
+                                    if (decimal.TryParse(this.TxtStockQty.Text, out decimal stockQty) && stockQty <= 0)
+                                    {
+                                        MessageBox.Show("Stock quantity is zero. Cannot sell this product.\n\n" +
+                                            "Please make a purchase entry or increase the stock before selling.\n\n" +
+                                            "இருப்பு அளவு பூஜ்ஜியமாக உள்ளது. இந்த பொருளை விற்பனை செய்ய முடியாது.\n\n" +
+                                            "விற்பனை செய்வதற்கு முன் கொள்முதல் பதிவு செய்யவும் அல்லது இருப்பை அதிகரிக்கவும்.",
+                                            "Vegetable Box",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Warning);
+
+                                        this.ClearProductDetails();
+                                        this.TxtProductSearch.Focus();
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        if (decimal.TryParse("1", out decimal enteredQty) &&
+                                                                    decimal.TryParse(this.TxtStockQty.Text, out decimal availableStock))
+                                        {
+                                            // Check against cart quantity
+                                            int productCode = 0;
+                                            if (int.TryParse(this.CurrentPCode, out productCode) && productCode > 0
+                                                && this.CurrentMRP > 0)
+                                            {
+                                                decimal cartQty = this.CartStockQty(productCode, Convert.ToDecimal(this.CurrentMRP));
+                                                if ((enteredQty + cartQty) > availableStock)
+                                                {
+                                                    MessageBox.Show("Total quantity in cart exceeds available stock.\n\n" +
+                                                        "Please make a purchase entry or increase the stock before selling.\n\n" +
+                                                        "கார்ட்டில் உள்ள மொத்த அளவு கிடைக்கும் இருப்பை விட அதிகமாக உள்ளது.\n\n" +
+                                                        "விற்பனை செய்வதற்கு முன் கொள்முதல் பதிவு செய்யவும் அல்லது இருப்பை அதிகரிக்கவும்.",
+                                                        "Vegetable Box",
+                                                        MessageBoxButtons.OK,
+                                                        MessageBoxIcon.Warning);
+
+                                                    this.ClearProductDetails();
+                                                    this.TxtProductSearch.Focus();
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
                                 this.CurrentPName = (dataRow[ProductRateData.ColumnName.ProductName] != null ?
                                                     (string)dataRow[ProductRateData.ColumnName.ProductName] : string.Empty);
 
@@ -374,13 +425,18 @@ namespace VegetableBox
                                 this.chkIsDefective.Visible = Global.defectiveCategories.Contains(_Val);
                                 this.chkIsDefective.Tag = _Val;
 
-                                this.TxtStockQty.Text = dataRow[ProductRateData.ColumnName.StockQty] != DBNull.Value ? 
-                                                        dataRow[ProductRateData.ColumnName.StockQty].ToString() : string.Empty;
-
-                                this.CurrentMaintainStock = dataRow[ProductRateData.ColumnName.MaintainStock].ToString();
-
                                 this.TxtProductSearch.Text = string.Empty;
-                                this.TxtQty.Focus();
+
+                                if (this.CurrentMaintainStock == "Y" && this.CurrentPQtyShortName.ToUpper() == "PCS")
+                                {
+                                    this.TxtQty.Text = "1.00";
+                                    this.ToCalcProductAmount();
+                                    this.BtnAddCart.PerformClick();
+                                }
+                                else
+                                {
+                                    this.TxtQty.Focus();
+                                }
                             }
                         }
                     }
@@ -583,6 +639,11 @@ namespace VegetableBox
                     this.LblProfitAmt.Visible = !this.LblProfitAmt.Visible;
                     this.LblTotalProfitAmt.Visible = !this.LblTotalProfitAmt.Visible;
                     this.LblPurchaseAmt.Visible = this.LblTotalProfitAmt.Visible;
+                    return;
+                }
+                else if (e.Alt && e.KeyCode == Keys.Q)
+                {
+                    this.chkIsDefective.Checked = !this.chkIsDefective.Checked;
                     return;
                 }
 
