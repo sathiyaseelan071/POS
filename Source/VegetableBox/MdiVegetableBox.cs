@@ -436,5 +436,18 @@ namespace VegetableBox
                 MessageBox.Show(ex.Message, "Vegetable Box");
             }
         }
+
+        private void ToolStripMenuItem_Attendance_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmAttendance frmAttendance = new FrmAttendance();
+                this.ShowForm(frmAttendance);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Vegetable Box");
+            }
+        }
     }
 }
